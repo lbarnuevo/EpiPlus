@@ -1,7 +1,9 @@
 package epiplus.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Episodes implements Serializable{
@@ -21,9 +23,19 @@ public class Episodes implements Serializable{
 	private Boolean injuries;
 	
 	private Patient patient; // Many to one relationship 
+	private List<Symptoms> symptoms; //Many to many relationship 
 
 	public Episodes() {
 		super();
+		symptoms = new ArrayList<Symptoms>(); 
+	}
+
+	public List<Symptoms> getSymptoms() {
+		return symptoms;
+	}
+
+	public void setSymptoms(List<Symptoms> symptoms) {
+		this.symptoms = symptoms;
 	}
 
 	public Integer getId() {
@@ -119,7 +131,7 @@ public class Episodes implements Serializable{
 	public String toString() {
 		return "Episodes [id=" + id + ", doe=" + doe + ", lenght=" + lenght + ", activity=" + activity + ", mood="
 				+ mood + ", place=" + place + ", previous_meal=" + previous_meal + ", injuries=" + injuries
-				+ ", patient=" + patient + "]";
+				+ ", patient=" + patient + ", symptoms=" + symptoms + "]";
 	}
 	
 }
