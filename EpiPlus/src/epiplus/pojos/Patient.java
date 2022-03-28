@@ -17,12 +17,12 @@ public class Patient implements Serializable{
 	private Integer age;
 	private Float height;
 	private Float weight;
-	private String lifestyle; //Could we do a class that emulates the create datatype?
-	private String diet; //Same question 
+	private String lifestyle; //He explained to me how to do it, but it's a task for the future
+	private String diet; 
 	private Integer ex_per_week;
 	private Doctor doctor; //Many to one relationship 
-	// How do we add photo?
-	private Integer emergency_contact; //SHOULD CHANGE THIS IN THE SQL VERSION (DB BROWSER) 
+	// How do we add photo? Answer in Doctor
+	private Integer emergency_contact; 
 	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
 	

@@ -15,7 +15,7 @@ public class Episode implements Serializable{
 	
 	private Integer id;
 	private Date doe; //doe = date of episode 
-	private Float lenght; //SHOULD CHANGE THIS IN THE SQL VERSION (DB BROWSER)
+	private Float length; 
 	private String activity;
 	private String mood;
 	private String place;
@@ -55,11 +55,11 @@ public class Episode implements Serializable{
 	}
 
 	public Float getLenght() {
-		return lenght;
+		return length;
 	}
 
 	public void setLenght(Float lenght) {
-		this.lenght = lenght;
+		this.length = lenght;
 	}
 
 	public String getActivity() {
@@ -129,7 +129,7 @@ public class Episode implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Episodes [id=" + id + ", doe=" + doe + ", lenght=" + lenght + ", activity=" + activity + ", mood="
+		return "Episodes [id=" + id + ", doe=" + doe + ", lenght=" + length + ", activity=" + activity + ", mood="
 				+ mood + ", place=" + place + ", previous_meal=" + previous_meal + ", injuries=" + injuries
 				+ ", patient=" + patient + ", symptoms=" + symptoms + "]";
 	}
