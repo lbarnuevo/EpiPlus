@@ -23,20 +23,20 @@ public class Patient implements Serializable{
 	private Doctor doctor; //Many to one relationship 
 	// How do we add photo?
 	private Integer emergency_contact; //SHOULD CHANGE THIS IN THE SQL VERSION (DB BROWSER) 
-	private List<Episodes> episodes; //Many to one relationship 
+	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
 	
 	public Patient() {
 		super();
-		episodes = new ArrayList<Episodes>();
+		episodes = new ArrayList<Episode>();
 		medication = new ArrayList<Medication>();
 	}
 
-	public List<Episodes> getEpisodes() {
+	public List<Episode> getEpisodes() {
 		return episodes;
 	}
 
-	public void setEpisodes(List<Episodes> episodes) {
+	public void setEpisodes(List<Episode> episodes) {
 		this.episodes = episodes;
 	}
 

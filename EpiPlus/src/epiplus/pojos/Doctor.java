@@ -18,7 +18,7 @@ public class Doctor implements Serializable {
 	private String name;
 	private String email;
 	private String hospitalName;
-	//How do we add photo?
+	//How do we add photo? byte array 
 	private List<Patient> patients; //One to many relationship 
 	
 	public Doctor() {

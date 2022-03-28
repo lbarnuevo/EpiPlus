@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Symptoms implements Serializable{
+public class Symptom implements Serializable{
 	
 	/**
 	 * 
@@ -14,18 +14,18 @@ public class Symptoms implements Serializable{
 	
 	private Integer id;
 	private String name;
-	private List<Episodes> episodes; //Many to many relationship 
+	private List<Episode> episodes; //Many to many relationship 
 	
-	public Symptoms() {
+	public Symptom() {
 		super();
-		episodes = new ArrayList<Episodes>();
+		episodes = new ArrayList<Episode>();
 	}
 
-	public List<Episodes> getEpisodes() {
+	public List<Episode> getEpisodes() {
 		return episodes;
 	}
 
-	public void setEpisodes(List<Episodes> episodes) {
+	public void setEpisodes(List<Episode> episodes) {
 		this.episodes = episodes;
 	}
 
@@ -58,7 +58,7 @@ public class Symptoms implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Symptoms other = (Symptoms) obj;
+		Symptom other = (Symptom) obj;
 		return Objects.equals(id, other.id);
 	}
 

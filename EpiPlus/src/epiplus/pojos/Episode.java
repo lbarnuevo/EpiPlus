@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Episodes implements Serializable{
+public class Episode implements Serializable{
 	
 	/**
 	 * 
@@ -23,18 +23,18 @@ public class Episodes implements Serializable{
 	private Boolean injuries;
 	
 	private Patient patient; // Many to one relationship 
-	private List<Symptoms> symptoms; //Many to many relationship 
+	private List<Symptom> symptoms; //Many to many relationship 
 
-	public Episodes() {
+	public Episode() {
 		super();
-		symptoms = new ArrayList<Symptoms>(); 
+		symptoms = new ArrayList<Symptom>(); 
 	}
 
-	public List<Symptoms> getSymptoms() {
+	public List<Symptom> getSymptoms() {
 		return symptoms;
 	}
 
-	public void setSymptoms(List<Symptoms> symptoms) {
+	public void setSymptoms(List<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
 
@@ -123,7 +123,7 @@ public class Episodes implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Episodes other = (Episodes) obj;
+		Episode other = (Episode) obj;
 		return Objects.equals(id, other.id);
 	}
 
