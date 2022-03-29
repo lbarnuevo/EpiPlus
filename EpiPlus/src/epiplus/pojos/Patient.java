@@ -2,6 +2,7 @@ package epiplus.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Patient implements Serializable{
 	private String diet; 
 	private Integer ex_per_week;
 	private Doctor doctor; //Many to one relationship 
-	// How do we add photo? Answer in Doctor
+	private byte[] photo;
 	private Integer emergency_contact; 
 	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
@@ -34,6 +35,14 @@ public class Patient implements Serializable{
 
 	public List<Episode> getEpisodes() {
 		return episodes;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public void setEpisodes(List<Episode> episodes) {
@@ -149,8 +158,8 @@ public class Patient implements Serializable{
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", age=" + age + ", height=" + height + ", weight=" + weight
 				+ ", lifestyle=" + lifestyle + ", diet=" + diet + ", ex_per_week=" + ex_per_week + ", doctor=" + doctor
-				+ ", emergency_contact=" + emergency_contact + ", episodes=" + episodes + ", medication=" + medication
-				+ "]";
+				+ ", photo=" + Arrays.toString(photo) + ", emergency_contact=" + emergency_contact + ", episodes="
+				+ episodes + ", medication=" + medication + "]";
 	}
 
 }

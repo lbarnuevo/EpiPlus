@@ -2,6 +2,7 @@ package epiplus.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,12 +19,20 @@ public class Doctor implements Serializable {
 	private String name;
 	private String email;
 	private String hospitalName;
-	//How do we add photo? byte array 
+	private byte[] photo; 
 	private List<Patient> patients; //One to many relationship 
 	
 	public Doctor() {
 		super();
 		patients = new ArrayList<Patient>();
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public List<Patient> getPatients() {
@@ -86,7 +95,7 @@ public class Doctor implements Serializable {
 	@Override
 	public String toString() {
 		return "Doctor [id=" + id + ", name=" + name + ", email=" + email + ", hospitalName=" + hospitalName
-				+ ", patients=" + patients + "]";
+				+ ", photo=" + Arrays.toString(photo) + ", patients=" + patients + "]";
 	}
 
 }
