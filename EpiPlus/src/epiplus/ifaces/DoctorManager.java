@@ -13,5 +13,5 @@ public interface DoctorManager {
 	public List<Patient> getPatientsOfDoctors(Integer DocId);
 	public void UpdateDoctor(String name, byte[] photo, String email, String hospital);
 	public void deleteDoctor(Doctor d);
-	public void listsAllDoctors();
+	public List<Doctor> listsAllDoctors();
 }
