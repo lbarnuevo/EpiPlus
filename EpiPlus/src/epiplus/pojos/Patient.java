@@ -23,7 +23,7 @@ public class Patient implements Serializable{
 	private Integer ex_per_week;
 	private Doctor doctor; //Many to one relationship 
 	private byte[] photo;
-	private Integer emergency_contact; 
+	private List<Integer> emergency_contacts; 
 	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
 	
@@ -129,19 +129,18 @@ public class Patient implements Serializable{
 		this.doctor = doctor;
 	}
 
-	public Integer getEmergency_contact() {
-		return emergency_contact;
-	}
-
-	public void setEmergency_contact(Integer emergency_contact) {
-		this.emergency_contact = emergency_contact;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
+	public List<Integer> getEmergency_contacts() {
+		return emergency_contacs;
+	}
+
+	public void setEmergency_contacs(List<Integer> emergency_contacts) {
+		this.emergency_contacs = emergency_contacs;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -158,7 +157,7 @@ public class Patient implements Serializable{
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", age=" + age + ", height=" + height + ", weight=" + weight
 				+ ", lifestyle=" + lifestyle + ", diet=" + diet + ", ex_per_week=" + ex_per_week + ", doctor=" + doctor
-				+ ", photo=" + Arrays.toString(photo) + ", emergency_contact=" + emergency_contact + ", episodes="
+				+ ", photo=" + Arrays.toString(photo) + ", emergency_contacts=" + emergency_contacs + ", episodes="
 				+ episodes + ", medication=" + medication + "]";
 	}
 
