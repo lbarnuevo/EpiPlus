@@ -135,11 +135,11 @@ public class Patient implements Serializable{
 	}
 
 	public List<Integer> getEmergency_contacts() {
-		return emergency_contacs;
+		return emergency_contacts;
 	}
 
 	public void setEmergency_contacs(List<Integer> emergency_contacts) {
-		this.emergency_contacs = emergency_contacs;
+		this.emergency_contacts = emergency_contacts;
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -157,7 +157,7 @@ public class Patient implements Serializable{
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", age=" + age + ", height=" + height + ", weight=" + weight
 				+ ", lifestyle=" + lifestyle + ", diet=" + diet + ", ex_per_week=" + ex_per_week + ", doctor=" + doctor
-				+ ", photo=" + Arrays.toString(photo) + ", emergency_contacts=" + emergency_contacs + ", episodes="
+				+ ", photo=" + Arrays.toString(photo) + ", emergency_contacts=" + emergency_contacts + ", episodes="
 				+ episodes + ", medication=" + medication + "]";
 	}
 
