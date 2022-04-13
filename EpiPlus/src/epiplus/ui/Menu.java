@@ -1,4 +1,4 @@
-package epiplus.menu;
+package epiplus.ui;
 
 public class Menu {
 
