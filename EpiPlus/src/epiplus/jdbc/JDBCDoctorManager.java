@@ -33,9 +33,9 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public List<Doctor> searchDoctorByEmail(String email) {
-		
-		List<Doctor> doctorsList= new ArrayList<Doctor>();
-		
+
+		List<Doctor> doctorsList = new ArrayList<Doctor>();
+
 		try {
 			String sql = "SELECT * FROM doctors WHERE email LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
@@ -48,8 +48,8 @@ public class JDBCDoctorManager implements DoctorManager {
 				String e = rs.getString("email");
 				String hospitalName = rs.getString("hospitalName");
 				byte[] photo = rs.getBytes("photo");
-				Doctor doctor= new Doctor (id,name,e,hospitalName,photo);
-			doctorsList.add(doctor);
+				Doctor doctor = new Doctor(id, name, e, hospitalName, photo);
+				doctorsList.add(doctor);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,20 +59,59 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public List<Doctor> searchDoctorByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Doctor> doctorsList = new ArrayList<Doctor>();
+
+		try {
+			String sql = "SELECT * FROM doctors WHERE name LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setString(1, name);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				String email = rs.getString("email");
+				String hospitalName = rs.getString("hospitalName");
+				byte[] photo = rs.getBytes("photo");
+				Doctor doctor = new Doctor(id, n, email, hospitalName, photo);
+				doctorsList.add(doctor);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return doctorsList;
 	}
 
 	@Override
 	public List<Doctor> searchDoctorByHospital(String hospital) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Doctor> doctorsList = new ArrayList<Doctor>();
+
+		try {
+			String sql = "SELECT * FROM doctors WHERE hospital LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setString(1, hospital);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String name = rs.getString("name");
+				String email = rs.getString("email");
+				String h = rs.getString("hospitalName");
+				byte[] photo = rs.getBytes("photo");
+				Doctor doctor = new Doctor(id, name, email, h, photo);
+				doctorsList.add(doctor);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return doctorsList;
 	}
+
 
 	@Override
 	public Doctor getDoctorById(Integer DocId) {
-		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
