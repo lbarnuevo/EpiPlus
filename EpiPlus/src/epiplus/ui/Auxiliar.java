@@ -34,4 +34,35 @@ public class Auxiliar {
         }
         return leido;
     }
+    
+	//Function to ask for an Double to the user --> We use Doubles??
+    public static Double getDouble(String txt){
+        System.out.print(txt);
+        Double N=0.0;
+        try{
+            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
+            String leido = consol.readLine();
+            N = Double.parseDouble(leido);
+        }
+        catch(IOException ex){
+            System.out.println(ex);
+        }
+        return N;
+    }
+    
+	//Function to ask for an Float to the user
+    public static Float getFloat(String txt){
+        System.out.print(txt);
+        Float N=0F;
+        try{
+            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
+            String leido = consol.readLine();
+            N = Float.parseFloat(leido);
+        }
+        catch(IOException ex){
+            System.out.println(ex);
+        }
+        return N;
+    }
+    
 }
