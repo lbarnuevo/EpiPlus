@@ -1,9 +1,22 @@
 package epiplus.ui;
 
+import static epiplus.ui.Auxiliar.getInteger;
+
 public class Menu {
 
-	private static void menu() {
-		System.out.println();
+	private static void startmenu() {
+		System.out.println("\n\tSTART MENU"
+			+ "\n0_Exit program"
+			+ "\n1_Log in as Doctor"
+			+ "\n2_Log in as Patient"
+			+ "\n3_Register");
+	}
+	
+	private static void registermenu() {
+		System.out.println("\n\tREGISTER MENU"
+			+ "\n0_Go back"
+			+ "\n1_Register as doctor"
+			+ "\n2_Register as patient");
 	}
 	
 	public static void main(String[] args) {
@@ -15,8 +28,181 @@ public class Menu {
 		 * show evolution patient
 		 */
 		
-		
-		
+		while(true) {
+			startmenu();
+			Integer optionsm = getInteger("\nSelect an option: ");
+			switch(optionsm) {
+				case 1:{
+				}
+				case 2:{
+				}
+				case 3:{
+					Integer optionregist = 0;
+					while((optionregist > 2) || (optionregist < 0)) {
+						registermenu();
+						optionregist = getInteger("\nSelect an option: ");
+						switch(optionregist) {
+							case 1{
+								//...
+								return;
+							}
+							case 2:{
+								//...
+								return;
+							}
+							case 0:{
+								return;
+							}
+							default:{
+								System.out.println("\nPlease enter a correct number: ");
+							}
+						}
+					}
+				}
+				case 0:{
+					System.exit(0);
+				}
+				default:{
+					System.out.println("\nPlease enter a correct number: ");
+				}
+			}
+		}
 	}
 
 }
+//{
+/*package hospital.ui;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import hospital.ifaces.DogManager;
+import hospital.ifaces.OwnerManager;
+import hospital.ifaces.VetManager;
+import hospital.jdbc.JDBCDogManager;
+import hospital.jdbc.JDBCManager;
+import hospital.jdbc.JDBCOwnerManager;
+import hospital.jdbc.JDBCVetManager;
+import hospital.pojos.Owner;
+import hospital.pojos.Vet;*/
+
+/*public class Menu {
+
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	private static DogManager dogManager;
+	private static OwnerManager ownerManager;
+	private static VetManager vetManager;
+
+	public static void main(String[] args) {
+		System.out.println("Welcome to the Dog Hospital");
+		// Initialize database
+		JDBCManager jdbcManager = new JDBCManager();
+		dogManager = new JDBCDogManager(jdbcManager);
+		ownerManager = new JDBCOwnerManager(jdbcManager);
+		vetManager = new JDBCVetManager(jdbcManager);
+		// Menu loop
+		try {
+			do {
+				System.out.println("Please choose an option:");
+				System.out.println("1. Choose an owner");
+				System.out.println("2. Create a new owner");
+				System.out.println("3. Choose a vet");
+				System.out.println("4. Create a new vet");
+				System.out.println("0. Exit");
+				int choice = Integer.parseInt(reader.readLine());
+				switch (choice) {
+				case 1:
+					chooseOwner();
+					break;
+				case 2:
+					createOwner();
+					break;
+				case 3:
+					chooseVet();
+					break;
+				case 4:
+					createVet();
+					break;
+				case 0:
+					// Close the connection with the database
+					jdbcManager.disconnect();
+					System.exit(0);
+				default:
+					break;
+				}
+
+			} while (true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void chooseOwner() throws Exception {
+		System.out.println("Please choose an owner, type its ID:");
+		System.out.println(ownerManager.listAllOwners());
+		Integer ownerId = Integer.parseInt(reader.readLine());
+		ownerMenu(ownerId);
+	}
+
+	public static void createOwner() throws Exception {
+		// Ask for user data
+		System.out.println("Please type your data:");
+		System.out.println("Name:");
+		String name = reader.readLine();
+		System.out.println("Phone:");
+		Integer phone = Integer.parseInt(reader.readLine());
+		System.out.println("Email:");
+		String email = reader.readLine();
+		System.out.println("Card Number:");
+		Integer cardNumber = Integer.parseInt(reader.readLine());
+		Owner o = new Owner(name, phone, email, cardNumber);
+		// Call ownerManager.createOwner(Owner o)
+		ownerManager.createOwner(o);
+		// Go back
+	}
+
+	public static void chooseVet() throws Exception {
+		System.out.println("Please choose a vet, type its ID:");
+		System.out.println(vetManager.listAllVets());
+		Integer vetId = Integer.parseInt(reader.readLine());
+		vetMenu(vetId);
+	}
+
+	public static void createVet() throws Exception {
+		// Ask for vet data
+		System.out.println("Please type your data:");
+		System.out.println("Name:");
+		String name = reader.readLine();
+		System.out.println("Speciality:");
+		String speciality = reader.readLine();
+		Vet v = new Vet(name, speciality);
+		// Call vetManager.createVet(Vet v)
+		vetManager.createVet(v);
+		// Go back
+	}
+
+	public static void ownerMenu(Integer oID) throws Exception {
+		// TODO List options for:
+		// 1. Leave at the hospital (create) a new dog
+		// 2. List my dogs
+//	    1. Select one dog and, if cured, ask if I want to retrieve (remove) them
+		// 3. Change my data
+		// 0. Go Back
+	}
+
+	public static void vetMenu(Integer vID) throws Exception {
+		// TODO List options for:
+		// 1. List all dogs (show which vets treat them)
+//	    1. Select one dog and treat them
+//	    0. Go back
+		// 2. List all dogs without any vets treating them
+//	    1. Select one dog and treat them
+//	    0. Go back
+		// 3. Check on dogs I treat
+//	    1. Cure dog
+//	    2. Stop treating dog
+//	    0. Go back
+		// 0. Go Back
+	}*/
+
+//}
