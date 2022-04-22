@@ -3,39 +3,78 @@ package epiplus.jdbc;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+import epiplus.ifaces.DoctorManager;
 import epiplus.pojos.Doctor;
 import epiplus.pojos.Patient;
 
-public class JDBCDoctorManager {
+public class JDBCDoctorManager implements DoctorManager {
+	
+	private JDBCManager manager;
+	
+	public JDBCDoctorManager(JDBCManager m) {
+		this.manager = m;
+	}
 
 	public void addDoctor(Doctor d) {
 		try {
-			String sql = "INSERT INTO doctors (name, email, hospitalName, photo) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO doctors (name, email, hospitalName, photo) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, d.getName());
-			prep.setString(2, d.getBreed());
-			prep.setString(3, d.getCoat());
-			prep.setDate(4, d.getDob());
-			prep.setBoolean(5, d.getCured());
+			prep.setString(2, d.getEmail());
+			prep.setString(3, d.getHospitalName());
+			prep.setBytes(4, d.getPhoto());
 			prep.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Doctor> searchDoctorByEmail(String email);
+	@Override
+	public List<Doctor> searchDoctorByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public List<Doctor> searchDoctorByName(String name);
+	@Override
+	public List<Doctor> searchDoctorByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public List<Doctor> searchDoctorByHospital(String hospital);
+	@Override
+	public List<Doctor> searchDoctorByHospital(String hospital) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public Doctor getDoctorById(Integer DocId);
+	@Override
+	public Doctor getDoctorById(Integer DocId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public List<Patient> getPatientsOfDoctors(Integer DocId);
+	@Override
+	public List<Patient> getPatientsOfDoctors(Integer DocId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public void UpdateDoctor(String name, byte[] photo, String email, String hospital);
+	@Override
+	public void UpdateDoctor(String name, byte[] photo, String email, String hospital) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	public void deleteDoctor(Doctor d);
+	@Override
+	public void deleteDoctor(Doctor d) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	public List<Doctor> listsAllDoctors();
+	@Override
+	public List<Doctor> listsAllDoctors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
