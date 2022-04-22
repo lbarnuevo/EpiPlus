@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import sample.db.pojos.Employee;
+
 
 public class Doctor implements Serializable {
 
@@ -25,6 +27,15 @@ public class Doctor implements Serializable {
 	public Doctor() {
 		super();
 		patients = new ArrayList<Patient>();
+	}
+	
+	public Doctor (Integer id, String name, String email, String hospitalName, byte[] photo) {
+		super();
+		this.id= id;
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= photo;
 	}
 
 	public byte[] getPhoto() {
