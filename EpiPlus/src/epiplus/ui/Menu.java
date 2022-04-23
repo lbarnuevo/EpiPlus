@@ -1,6 +1,10 @@
 package epiplus.ui;
 
 import static epiplus.ui.Auxiliar.getInteger;
+import static epiplus.ui.Auxiliar.getString;
+import static epiplus.ui.Auxiliar.askdocinfo;
+
+import epiplus.pojos.*;
 
 public class Menu {
 
@@ -28,6 +32,10 @@ public class Menu {
 		 * show evolution patient
 		 */
 		
+		/*
+		 * Following his menu of dog hospital(see below):
+		 * We do not have the database initialized and the managers declared
+		 */
 		while(true) {
 			startmenu();
 			Integer optionsm = getInteger("\nSelect an option: ");
@@ -42,12 +50,22 @@ public class Menu {
 						registermenu();
 						optionregist = getInteger("\nSelect an option: ");
 						switch(optionregist) {
-							case 1{
-								//...
-								return;
+							case 1:{
+								//Ask for doctor info
+								System.out.println("\n\tREGISTER AS DOCTOR"
+									+ "\nDo you want to continue the process?"
+									+ "\nPress B if you want to go to the register menu, other key if you want to continue");
+								String register = getString("");
+								if(register.equalsIgnoreCase("B")) {
+									return;
+								}
+								else {
+									System.out.print("\nInput Doctor information:");
+									Doctor doc = askdocinfo();//not complete
+								}
 							}
 							case 2:{
-								//...
+								//Ask for patient info
 								return;
 							}
 							case 0:{
