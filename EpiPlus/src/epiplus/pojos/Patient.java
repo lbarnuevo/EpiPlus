@@ -48,6 +48,32 @@ public class Patient implements Serializable{
 		this.photo= photo;
 	}
 	
+	public Patient (String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise, byte[] photo) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= photo;
+	}
+	
+	public Patient (String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= null;
+	}
+	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}

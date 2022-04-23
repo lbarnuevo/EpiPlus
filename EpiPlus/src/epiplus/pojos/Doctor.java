@@ -35,7 +35,23 @@ public class Doctor implements Serializable {
 		this.hospitalName = hospitalName;
 		this.photo= photo;
 	}
+	
+	public Doctor (String name, String email, String hospitalName, byte[] photo) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= photo;
+	}
 
+	public Doctor (String name, String email, String hospitalName) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= null;
+	}
+	
 	public byte[] getPhoto() {
 		return photo;
 	}
