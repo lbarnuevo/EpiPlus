@@ -34,6 +34,20 @@ public class Patient implements Serializable{
 		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
+	public Patient (Integer id, String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise, byte[] photo) {
+		super();
+		this.id= id;
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= photo;
+	}
+	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
