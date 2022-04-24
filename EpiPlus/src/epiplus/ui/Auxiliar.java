@@ -66,10 +66,10 @@ public class Auxiliar {
         }
         return N;
     }
-	//Function to ask for a Byte to the user
-    public static Byte getByte(String txt) {
+	//Function to ask for a Byte to the user --> not correct
+    public static Byte[] getByte(String txt) {
     	System.out.print(txt);
-    	Byte info = 0;
+    	Byte[] info;// = 0;
         try{
             BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
             String leido = consol.readLine();
@@ -81,9 +81,27 @@ public class Auxiliar {
     	return info;
     }
     
-    public static Doctor askdocinfo() {
+    //Ask for confirmation on something
+    public static Boolean askconfirmation(){
+        boolean confir = false;
+    	String confirmation = getString("(Yes --> Y / No --> N)");
+        while (true) {
+            if ("Y".equalsIgnoreCase(confirmation)) {
+                confir = true;
+                break;
+            } else if ("N".equalsIgnoreCase(confirmation)) {
+                confir = false;
+                break;
+            } else {
+                confirmation = getString("Por favor introduzca S/N: ");
+            }
+        }
+        return confir;
+    }
+    
+    public static Doctor askalldocinfo() {//Doctor info + photo
     	//TO DO 
-    	//the photo is always necessary? or it can be optional?
+    	//the photo it can be optional
     	//because in the constructors of doctor and in the function to addoctor of the jbdc of doctor is always necessary
     	//so we would need to create that
     	//in the meantime im gonna do as required
@@ -91,12 +109,21 @@ public class Auxiliar {
     	String name = getString("\nName: ");
     	String hospital = getString("Hospital name: ");
     	String email = getString("Email: ");
-    	byte photo = getByte("Photo: ");
+    	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
     	
     	doc = new Doctor();
-    	doc = new 
-    	
+    	doc = new Doctor(name, email, hospital, photo);
+    	return doc;
     }
     
-    
+    public static Doctor askdocinfo() {//Doctor info - photo
+    	Doctor doc;
+    	String name = getString("\nName: ");
+    	String hospital = getString("Hospital name: ");
+    	String email = getString("Email: ");
+    	
+    	doc = new Doctor();
+    	doc = new Doctor(name, email, hospital);
+    	return doc;
+	}
 }

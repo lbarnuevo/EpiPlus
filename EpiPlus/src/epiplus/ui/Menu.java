@@ -2,12 +2,21 @@ package epiplus.ui;
 
 import static epiplus.ui.Auxiliar.getInteger;
 import static epiplus.ui.Auxiliar.getString;
+import static epiplus.ui.Auxiliar.askalldocinfo;
 import static epiplus.ui.Auxiliar.askdocinfo;
+import static epiplus.ui.Auxiliar.askconfirmation;
+
+import epiplus.jdbc.JDBCManager;
+import epiplus.jdbc.JDBCDoctorManager;
+
+import epiplus.ifaces.DoctorManager;
 
 import epiplus.pojos.*;
 
 public class Menu {
 
+	private static DoctorManager docManager;
+	
 	private static void startmenu() {
 		System.out.println("\n\tSTART MENU"
 			+ "\n0_Exit program"
@@ -24,6 +33,10 @@ public class Menu {
 	}
 	
 	public static void main(String[] args) {
+		
+		JDBCManager jdbcManager = new JDBCManager();
+		docManager = new JDBCDoctorManager(jdbcManager);
+		
 		/* wrong menus!!
 		 * add doctor/patient --> ask to user
 		 * delete doctor/patient --> ask to user
@@ -36,6 +49,7 @@ public class Menu {
 		 * Following his menu of dog hospital(see below):
 		 * We do not have the database initialized and the managers declared
 		 */
+		
 		while(true) {
 			startmenu();
 			Integer optionsm = getInteger("\nSelect an option: ");
@@ -52,6 +66,7 @@ public class Menu {
 						switch(optionregist) {
 							case 1:{
 								//Ask for doctor info
+								Doctor doc;
 								System.out.println("\n\tREGISTER AS DOCTOR"
 									+ "\nDo you want to continue the process?"
 									+ "\nPress B if you want to go to the register menu, other key if you want to continue");
@@ -61,8 +76,19 @@ public class Menu {
 								}
 								else {
 									System.out.print("\nInput Doctor information:");
-									Doctor doc = askdocinfo();//not complete
+									//Doctor doc = askdocinfo();//not complete
+									System.out.println("\nDo you want to have a photo?? ");
+									Boolean confirmation = askconfirmation();
+									if(confirmation == true) {//with photo
+										doc = askalldocinfo();
+										docManager.addDoctor(doc);
+									}
+									else {//without photo
+										doc = askdocinfo();
+										docManager.addDoctor(doc);
+									}
 								}
+								return;
 							}
 							case 2:{
 								//Ask for patient info
