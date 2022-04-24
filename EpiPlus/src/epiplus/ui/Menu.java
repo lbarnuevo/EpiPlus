@@ -4,18 +4,23 @@ import static epiplus.ui.Auxiliar.getInteger;
 import static epiplus.ui.Auxiliar.getString;
 import static epiplus.ui.Auxiliar.askalldocinfo;
 import static epiplus.ui.Auxiliar.askdocinfo;
+import static epiplus.ui.Auxiliar.askallpatientinfo;
+import static epiplus.ui.Auxiliar.askpatientinfo;
 import static epiplus.ui.Auxiliar.askconfirmation;
 
 import epiplus.jdbc.JDBCManager;
 import epiplus.jdbc.JDBCDoctorManager;
+import epiplus.jdbc.JDBCPatientManager;
 
 import epiplus.ifaces.DoctorManager;
+import epiplus.ifaces.PatientManager;
 
 import epiplus.pojos.*;
 
 public class Menu {
 
 	private static DoctorManager docManager;
+	private static PatientManager patientManager;
 	
 	private static void startmenu() {
 		System.out.println("\n\tSTART MENU"
@@ -36,6 +41,7 @@ public class Menu {
 		
 		JDBCManager jdbcManager = new JDBCManager();
 		docManager = new JDBCDoctorManager(jdbcManager);
+		patientManager = new JDBCPatientManager(jdbcManager);
 		
 		/* wrong menus!!
 		 * add doctor/patient --> ask to user
@@ -58,40 +64,60 @@ public class Menu {
 				}
 				case 2:{
 				}
-				case 3:{
+				case 3:{//REGISTER DOCTOR/PATIENT
 					Integer optionregist = 0;
 					while((optionregist > 2) || (optionregist < 0)) {
 						registermenu();
 						optionregist = getInteger("\nSelect an option: ");
 						switch(optionregist) {
-							case 1:{
-								//Ask for doctor info
+							case 1:{//REGISTER DOCTOR
 								Doctor doc;
 								System.out.println("\n\tREGISTER AS DOCTOR"
 									+ "\nDo you want to continue the process?"
-									+ "\nPress B if you want to go to the register menu, other key if you want to continue");
+									+ "\nPress B if you want to go back to the register menu, other key if you want to continue");
 								String register = getString("");
 								if(register.equalsIgnoreCase("B")) {
 									return;
 								}
 								else {
 									System.out.print("\nInput Doctor information:");
-									//Doctor doc = askdocinfo();//not complete
 									System.out.println("\nDo you want to have a photo?? ");
 									Boolean confirmation = askconfirmation();
 									if(confirmation == true) {//with photo
-										doc = askalldocinfo();
+										doc = askalldocinfo();//not complete, problem with photo
 										docManager.addDoctor(doc);
 									}
 									else {//without photo
 										doc = askdocinfo();
 										docManager.addDoctor(doc);
 									}
+									System.out.println("\nYou have been successfully registered");
 								}
 								return;
 							}
-							case 2:{
-								//Ask for patient info
+							case 2:{//REGISTER PATIENT
+								Patient patient;
+								System.out.println("\n\tREGISTER AS PATIENT"
+									+ "\nDo you want to continue the process?"
+									+ "\nPress B if you want to go back to the register menu, other key if you want to continue");
+								String register = getString("");
+								if(register.equalsIgnoreCase("B")) {
+									return;
+								}
+								else{
+									System.out.print("\nInput Patient information:");
+									System.out.println("\nDo you want to have a photo?? ");
+									Boolean confirmation = askconfirmation();
+									if(confirmation == true) {//with photo
+										patient = askallpatientinfo();//not complete, problem with photo
+										patientManager.addPatient(patient);
+									}
+									else {//without photo
+										patient = askpatientinfo();
+										patientManager.addPatient(patient);
+									}
+									System.out.println("\nYou have been successfully registered");
+								}
 								return;
 							}
 							case 0:{

@@ -5,6 +5,7 @@ package epiplus.ui;
 import java.io.*;
 
 import epiplus.pojos.Doctor;
+import epiplus.pojos.Patient;
 
 public class Auxiliar {
 
@@ -100,11 +101,6 @@ public class Auxiliar {
     }
     
     public static Doctor askalldocinfo() {//Doctor info + photo
-    	//TO DO 
-    	//the photo it can be optional
-    	//because in the constructors of doctor and in the function to addoctor of the jbdc of doctor is always necessary
-    	//so we would need to create that
-    	//in the meantime im gonna do as required
     	Doctor doc;
     	String name = getString("\nName: ");
     	String hospital = getString("Hospital name: ");
@@ -126,4 +122,37 @@ public class Auxiliar {
     	doc = new Doctor(name, email, hospital);
     	return doc;
 	}
+    
+    public static Patient askallpatientinfo() {//Patient info + photo
+    	Patient patient;
+    	String name = getString("\nName: ");
+    	Integer age = getInteger("\nAge: ");
+		Float height = getFloat("\nHeight: ");
+		Float weight = getFloat("\nWeight: ");
+		String lifestyle = getString("\nLifestyle: ");
+		String diet = getString("\nDiet: ");
+		Integer exercise = getInteger("\nHow many times a week do you exercise? ");
+    	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
+
+		
+		patient = new Patient();
+		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
+		return patient;
+    }
+    
+    public static Patient askpatientinfo() {//Patient info - photo
+    	Patient patient;
+    	String name = getString("\nName: ");
+    	Integer age = getInteger("\nAge: ");
+		Float height = getFloat("\nHeight: ");
+		Float weight = getFloat("\nWeight: ");
+		String lifestyle = getString("\nLifestyle: ");
+		String diet = getString("\nDiet: ");
+		Integer exercise = getInteger("\nHow many times a week do you exercise? ");
+		
+		patient = new Patient();
+		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);
+		return patient;
+    }
+    
 }
