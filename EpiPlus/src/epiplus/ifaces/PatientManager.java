@@ -11,8 +11,8 @@ public interface PatientManager {
 	public void updatePatient(String name, byte[] photo, Integer age, Float height, Float weight, 
 			String lifestyle, Integer exerciseweek, String diet);
 	public void deletePatient(Patient p);
-	public void assignPatient(Doctor dId, Patient pId);
-	public void unassignPatient(Doctor dId, Patient pId);
+	//public void assignPatient(Doctor dId, Patient pId);
+	//public void unassignPatient(Doctor dId, Patient pId);
 	public void showEvolution(Patient p); //It is void or is other data type?
 	public List<Patient> listsAllPatients();
 }
