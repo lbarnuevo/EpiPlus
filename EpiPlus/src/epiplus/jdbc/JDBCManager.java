@@ -75,7 +75,10 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			sql = "CREATE TABLE patientmedication( " + "patientId INTEGER NOT NULL," + "medicationId INTEGER NOT NULL, "
-					+ "frequency INTEGER NOT NULL" // times per day
+					+ "frequency INTEGER NOT NULL," // times per day
+					+ "amount REAL NOT NULL,"
+					+ " FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE RESTRICT,"
+					+ " FOREIGN KEY (medicationId) REFERENCES medications(id) ON DELETE RESTRICT"
 					+ ");";
 			stmt.executeUpdate(sql);
 

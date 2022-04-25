@@ -8,7 +8,6 @@ import java.util.List;
 
 import epiplus.ifaces.EmergencyContactManager;
 import epiplus.pojos.EmergencyContact;
-import epiplus.pojos.Symptom;
 
 public class JDBCEmergencyContactManager implements EmergencyContactManager{
 
