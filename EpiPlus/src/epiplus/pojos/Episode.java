@@ -30,6 +30,32 @@ public class Episode implements Serializable{
 		symptoms = new ArrayList<Symptom>(); 
 	}
 
+	public Episode(Integer id, Date doe, Float length, String activity, String mood, String place, String meals,
+			Boolean injuries) {
+		super();
+		this.id=id;
+		this.doe= doe;
+		this.length= length;
+		this.activity= activity;
+		this.mood= mood;
+		this.place= place;
+		this.previous_meal=meals;
+		this.injuries=injuries;
+	}
+	
+	public Episode(Date doe, Float length, String activity, String mood, String place, String meals,
+			Boolean injuries) {
+		super();
+		this.doe= doe;
+		this.length= length;
+		this.activity= activity;
+		this.mood= mood;
+		this.place= place;
+		this.previous_meal=meals;
+		this.injuries=injuries;
+	}
+
+
 	public List<Symptom> getSymptoms() {
 		return symptoms;
 	}
@@ -54,11 +80,11 @@ public class Episode implements Serializable{
 		this.doe = doe;
 	}
 
-	public Float getLenght() {
+	public Float getLength() {
 		return length;
 	}
 
-	public void setLenght(Float lenght) {
+	public void setLength(Float lenght) {
 		this.length = lenght;
 	}
 

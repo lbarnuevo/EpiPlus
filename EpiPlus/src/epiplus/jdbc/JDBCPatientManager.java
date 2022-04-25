@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.PatientManager;
-import epiplus.pojos.Doctor;
 import epiplus.pojos.Patient;
 
 public class JDBCPatientManager implements PatientManager {
@@ -144,8 +143,8 @@ public class JDBCPatientManager implements PatientManager {
 
 	@Override
 	public void showEvolution(Patient p) {
-		// TODO Auto-generated method stub
-
+		//Hay que pensar en cómo hacer esto
+		//Implementar funciones para representar gráficas sobre los datos de episodes de un paciente
 	}
 
 	@Override

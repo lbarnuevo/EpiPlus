@@ -1,0 +1,11 @@
+package epiplus.ifaces;
+
+import java.util.List;
+
+import epiplus.pojos.Episode;
+
+public interface EpisodeManager {
+	public void addEpisode(Episode e);
+	public void deleteEpisode(Episode e);
+	public List<Episode> listsAllEpisodes();
+}
