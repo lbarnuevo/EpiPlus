@@ -10,17 +10,26 @@ import epiplus.pojos.Patient;
 public class Auxiliar {
 
 	//Function to ask for an Integer to the user
-    public static int getInteger(String txt){
+    public static int getIntegerBiggerThanCero(String txt){
         System.out.print(txt);
-        int N=0;
-        try{
-            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-            String leido = consol.readLine();
-            N = Integer.parseInt(leido);
-        }
-        catch(IOException ex){
-            System.out.println(ex);
-        }
+        boolean read = false;
+        int N = -1;
+        
+        do {
+        	try {
+        		BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
+                N = Integer.parseInt(consol.readLine());
+                if(N>0) {
+                	read = true;
+                } else {
+                	System.out.println("Error. Introduce a number bigger than cero:");
+                }
+        	} catch(IOException ex) {        		
+                System.out.println("Reading error");
+            } catch (NumberFormatException ex) { 
+            	System.out.println("Error. Introduce a number:");
+            }
+        } while(read == false);
         return N;
     }
 
@@ -41,32 +50,45 @@ public class Auxiliar {
 	//Function to ask for an Double to the user --> We use Doubles??
     public static Double getDouble(String txt){
         System.out.print(txt);
+        boolean read = false;
         Double N=0.0;
-        try{
-            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-            String leido = consol.readLine();
-            N = Double.parseDouble(leido);
-        }
-        catch(IOException ex){
-            System.out.println(ex);
-        }
+        do {
+        	try{
+                BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
+                N = Double.parseDouble(consol.readLine());
+                if(N>0.0) { //this is done to make sure that N has the correct format
+                	read = true;
+                }
+            } catch(IOException ex){
+                System.out.println("Reading error");
+            } catch (NumberFormatException ex) { 
+            	System.out.println("Error. Introduce a number:");
+            }
+        } while(read == false);
         return N;
     }
     
 	//Function to ask for a Float to the user
     public static Float getFloat(String txt){
         System.out.print(txt);
-        Float N=0F;
-        try{
-            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-            String leido = consol.readLine();
-            N = Float.parseFloat(leido);
-        }
-        catch(IOException ex){
-            System.out.println(ex);
-        }
+        boolean read = false;
+        Float N = -1.0f;
+        do {
+        	try{
+                BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
+                N = Float.parseFloat(consol.readLine());
+                if(N>0.0) { //this is done to make sure that N has the correct format
+                	read = true;
+                }
+            } catch(IOException ex){
+                System.out.println("Reading error");
+            } catch (NumberFormatException ex) { 
+            	System.out.println("Error. Introduce a number:");
+            }
+        } while(read == false);
         return N;
     }
+    
 	//Function to ask for a Byte to the user --> not correct
     public static Byte[] getByte(String txt) {
     	System.out.print(txt);
@@ -94,7 +116,7 @@ public class Auxiliar {
                 confir = false;
                 break;
             } else {
-                confirmation = getString("Por favor introduzca S/N: ");
+                confirmation = getString("Please introduce Y/N: ");
             }
         }
         return confir;
@@ -126,12 +148,12 @@ public class Auxiliar {
     public static Patient askallpatientinfo() {//Patient info + photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getInteger("\nAge: ");
+    	Integer age = getIntegerBiggerThanCero("\nAge: ");
 		Float height = getFloat("\nHeight: ");
 		Float weight = getFloat("\nWeight: ");
 		String lifestyle = getString("\nLifestyle: ");
 		String diet = getString("\nDiet: ");
-		Integer exercise = getInteger("\nHow many times a week do you exercise? ");
+		Integer exercise = getIntegerBiggerThanCero("\nHow many times a week do you exercise? ");
     	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
 
 		
@@ -143,12 +165,12 @@ public class Auxiliar {
     public static Patient askpatientinfo() {//Patient info - photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getInteger("\nAge: ");
+    	Integer age = getIntegerBiggerThanCero("\nAge: ");
 		Float height = getFloat("\nHeight: ");
 		Float weight = getFloat("\nWeight: ");
 		String lifestyle = getString("\nLifestyle: ");
 		String diet = getString("\nDiet: ");
-		Integer exercise = getInteger("\nHow many times a week do you exercise? ");
+		Integer exercise = getIntegerBiggerThanCero("\nHow many times a week do you exercise? ");
 		
 		patient = new Patient();
 		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);

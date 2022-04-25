@@ -1,6 +1,6 @@
 package epiplus.ui;
 
-import static epiplus.ui.Auxiliar.getInteger;
+import static epiplus.ui.Auxiliar.getIntegerBiggerThanCero;
 import static epiplus.ui.Auxiliar.getString;
 import static epiplus.ui.Auxiliar.askalldocinfo;
 import static epiplus.ui.Auxiliar.askdocinfo;
@@ -22,7 +22,7 @@ public class Menu {
 	private static DoctorManager docManager;
 	private static PatientManager patientManager;
 	
-	private static void startmenu() {
+	private static void startMenu() {
 		System.out.println("\n\tSTART MENU"
 			+ "\n0_Exit program"
 			+ "\n1_Log in as Doctor"
@@ -30,7 +30,7 @@ public class Menu {
 			+ "\n3_Register");
 	}
 	
-	private static void registermenu() {
+	private static void registerMenu() {
 		System.out.println("\n\tREGISTER MENU"
 			+ "\n0_Go back"
 			+ "\n1_Register as doctor"
@@ -57,8 +57,9 @@ public class Menu {
 		 */
 		
 		while(true) {
-			startmenu();
-			Integer optionsm = getInteger("\nSelect an option: ");
+			startMenu();
+			Integer optionsm = getIntegerBiggerThanCero("\nSelect an option: ");
+			
 			switch(optionsm) {
 				case 1:{
 				}
@@ -67,8 +68,8 @@ public class Menu {
 				case 3:{//REGISTER DOCTOR/PATIENT
 					Integer optionregist = 0;
 					while((optionregist > 2) || (optionregist < 0)) {
-						registermenu();
-						optionregist = getInteger("\nSelect an option: ");
+						registerMenu();
+						optionregist = getIntegerBiggerThanCero("\nSelect an option: ");
 						switch(optionregist) {
 							case 1:{//REGISTER DOCTOR
 								Doctor doc;
