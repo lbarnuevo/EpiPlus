@@ -23,6 +23,7 @@ public class Symptom implements Serializable{
 
 	public Symptom(Integer id, String name) {
 		super();
+		this.id=id;
 		this.name= name;
 	}
 

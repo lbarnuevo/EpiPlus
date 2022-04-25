@@ -5,7 +5,7 @@ import epiplus.pojos.Medication;
 
 public interface MedicationManager {
 	public void addMedication(Medication m);
-	public Medication searchMedicationByType(String name);
+	//public Medication searchMedicationByType(String name); ¿Para qué?
 	public void deleteMedication(Medication m);
 	public List<Medication> listsAllMedication();
 }
