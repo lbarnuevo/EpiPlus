@@ -13,6 +13,13 @@ public class EmergencyContact {
 		super();
 	}
 
+	public EmergencyContact(Integer id, String name, Float number) {
+		super();
+		this.id= id;
+		this.name=name;
+		this.number=number;
+	}
+
 	public Patient getPatient() {
 		return patient;
 	}
