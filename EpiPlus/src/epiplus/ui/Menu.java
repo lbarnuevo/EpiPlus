@@ -65,7 +65,7 @@ public class Menu {
 				case 2:{
 				}
 				case 3:{//REGISTER DOCTOR/PATIENT
-					Integer optionregist = 0;
+					Integer optionregist = 3;
 					while((optionregist > 2) || (optionregist < 0)) {
 						registermenu();
 						optionregist = getInteger("\nSelect an option: ");
