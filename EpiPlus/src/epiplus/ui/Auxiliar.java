@@ -9,6 +9,8 @@ import epiplus.pojos.Patient;
 
 public class Auxiliar {
 
+	//TODO @lucia do the list of diet....
+	
 	//Function to ask for an Integer to the user
     public static int getIntegerBiggerThanCero(String txt){
         System.out.print(txt);
@@ -19,7 +21,7 @@ public class Auxiliar {
         	try {
         		BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
                 N = Integer.parseInt(consol.readLine());
-                if(N>0) {
+                if(N>=0) {
                 	read = true;
                 } else {
                 	System.out.println("Error. Introduce a number bigger than cero:");
@@ -77,7 +79,7 @@ public class Auxiliar {
         	try{
                 BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
                 N = Float.parseFloat(consol.readLine());
-                if(N>0.0) { //this is done to make sure that N has the correct format
+                if(N>=0.0) { //this is done to make sure that N has the correct format
                 	read = true;
                 }
             } catch(IOException ex){
