@@ -57,8 +57,12 @@ public class JDBCManager {
 					+ "	injuries BOOLEAN NOT NULL,"
 					+ "FOREIGN KEY(symptomID) REFERENCES symptoms(id) ON DELETE RESTRICT" + ");";
 			stmt.executeUpdate(sql);
+			
+			// ----------SYMPTOMS
+			sql= "CREATE TABLE symptoms (" + "id	    INTEGER PRIMARY KEY AUTOINCREMENT," + " name	TEXT NOT NULL," + ");";
+			stmt.executeUpdate(sql);		
 
-			// ---------EPISODE-SYMPTOM
+			// ---------EPISODE-SYMPTOMS
 			sql = "CREATE TABLE episodesymptoms(" + "	episodeId INTEGER NOT NULL,"
 					+ "	symptomId	INTEGER NOT NULL," + "	severity	INTEGER NOT NULL,"
 					+ " FOREIGN KEY (episodeId) REFERENCES episodes(id) ON DELETE RESTRICT,"
