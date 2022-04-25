@@ -10,7 +10,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 
 	private JDBCManager manager;
 
-	public void JDBCPatientManager(JDBCManager m) {
+	public JDBCPatientMedicationManager(JDBCManager m) {
 		this.manager = m;
 	}
 	
