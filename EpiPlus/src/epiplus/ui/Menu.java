@@ -29,6 +29,8 @@ public class Menu {
 	private static SymptomManager sympManager;
 	private static EpisodeManager epManager;
 	
+	private static JDBCManager jdbcManager = new JDBCManager();
+	
 	private static final Integer reiterative = -1;//variable to make a infinite loop 
 	
 	private static void startMenu() {
@@ -61,6 +63,9 @@ public class Menu {
 	}
 	
 	private static void patientchoice(/*Integer pId*/) {
+		epManager = new JDBCEpisodeManager(jdbcManager);
+		sympManager = new JDBCSymptomManager(jdbcManager);
+		
 		Integer pchoice = reiterative;
 		while((pchoice > 9) || (pchoice < 0)) {
 			PMenu();
@@ -85,6 +90,7 @@ public class Menu {
 					}
 					break;
 				}
+				
 				case 0:{//GO BACK TO START MENU
 					break;
 				}
@@ -97,11 +103,12 @@ public class Menu {
 	
 	public static void main(String[] args) {
 		
-		JDBCManager jdbcManager = new JDBCManager();
+		//JDBCManager jdbcManager = new JDBCManager(); --> as atribute of the class because in patientchoice it is used
 		docManager = new JDBCDoctorManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-		epManager = new JDBCEpisodeManager(jdbcManager);
+		/*epManager = new JDBCEpisodeManager(jdbcManager);
 		sympManager = new JDBCSymptomManager(jdbcManager);
+		change to the function patientchoice*/
 		
 		
 		/* wrong menus!!
