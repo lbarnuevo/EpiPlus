@@ -7,6 +7,7 @@ import static epiplus.ui.Auxiliar.askdocinfo;
 import static epiplus.ui.Auxiliar.askallpatientinfo;
 import static epiplus.ui.Auxiliar.askpatientinfo;
 import static epiplus.ui.Auxiliar.askconfirmation;
+import static epiplus.ui.Auxiliar.askepinfo;
 
 import epiplus.jdbc.JDBCManager;
 import epiplus.jdbc.JDBCDoctorManager;
@@ -39,6 +40,50 @@ public class Menu {
 			+ "\n2_Register as patient");
 	}
 	
+	private static void PMenu() {
+		System.out.println("\n\tPATIENT MENU"
+			+ "\n0_Go back"
+			+ "\n1_Register episodes"
+			+ "\n2_Input new data on medication"
+			+ "\n3_See user info"
+			+ "\n4_Update user info"
+			+ "\n5_Call emergency contacts"
+			+ "\n6_See list of medication"
+			+ "\n7_Grahps on my evolution (Coming soon)"
+			+ "\n8_Search doctor"
+			+ "\n9_Recipes");
+	}
+	
+	private static void patientchoice(/*Integer pId*/) {
+		Integer pchoice = reiterative;
+		while((pchoice > 9) || (pchoice < 0)) {
+			PMenu();
+			pchoice = getIntegerBiggerThanCero("\nSelect an option: ");
+			switch(pchoice) {
+				case 1:{//REGISTER EPISODES
+					//repisodes();
+					System.out.println("\n\tREGISTER EPISODES"
+							+ "\nDo you want to continue the process?");
+					String register = getString("Press B if you want to go back to the patient menu, other key if you want to continue: ");
+					if(register.equalsIgnoreCase("B")) {
+						pchoice = reiterative;
+					}
+					else {
+						System.out.println("\nInput Episodes information: ");
+						Episode ep = askepinfo();
+					}
+					break;
+				}
+				case 0:{//GO BACK TO START MENU
+					break;
+				}
+				default:{
+					System.out.println("\nPlease enter a correct number: ");
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		JDBCManager jdbcManager = new JDBCManager();
@@ -65,10 +110,31 @@ public class Menu {
 			Integer optionsm = getIntegerBiggerThanCero("\nSelect an option: ");
 			
 			switch(optionsm) {
-				case 1:{
+				case 1:{//LOG IN AS PATIENT
+					
+					/*
+					 TODO we have to create login methods
+					 Integer pId = loginpatient().....
+					*/
+					
+					
+					patientchoice(/*pId*/);
+					
+					/* PAss to patientchoice() for more legible code
+					
+					Integer optionregist = reiterative;
+					while((optionregist > 9) || (optionregist < 0)) {
+						PMenu();
+						optionregist = getIntegerBiggerThanCero("\nSelect an option: ");
+					}*/
+					
 					break;
 				}
-				case 2:{
+				case 2:{//LOG IN AS DOCTOR
+					
+					//TODO we have to create login methods
+
+					
 					break;
 				}
 				case 3:{//REGISTER DOCTOR/PATIENT

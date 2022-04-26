@@ -3,13 +3,15 @@
 package epiplus.ui;
 
 import java.io.*;
+import java.util.Date;
 
 import epiplus.pojos.Doctor;
+import epiplus.pojos.Episode;
 import epiplus.pojos.Patient;
 
 public class Auxiliar {
 
-	//TODO @lucia do the list of diet....
+	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...)
 	//TODO @someone ask for a photo in patient and doctor
 	
 	//Function to ask for an Integer to the user
@@ -151,12 +153,12 @@ public class Auxiliar {
     public static Patient askallpatientinfo() {//Patient info + photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getIntegerBiggerThanCero("\nAge: ");
-		Float height = getFloat("\nHeight: ");
-		Float weight = getFloat("\nWeight: ");
-		String lifestyle = getString("\nLifestyle: ");
-		String diet = getString("\nDiet: ");
-		Integer exercise = getIntegerBiggerThanCero("\nHow many times a week do you exercise? ");
+    	Integer age = getIntegerBiggerThanCero("Age: ");
+		Float height = getFloat("Height: ");
+		Float weight = getFloat("Weight: ");
+		String lifestyle = getString("Lifestyle: ");
+		String diet = getString("Diet: ");
+		Integer exercise = getIntegerBiggerThanCero("How many times a week do you exercise? ");
     	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
 
 		
@@ -168,16 +170,45 @@ public class Auxiliar {
     public static Patient askpatientinfo() {//Patient info - photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getIntegerBiggerThanCero("\nAge: ");
-		Float height = getFloat("\nHeight: ");
-		Float weight = getFloat("\nWeight: ");
-		String lifestyle = getString("\nLifestyle: ");
-		String diet = getString("\nDiet: ");
-		Integer exercise = getIntegerBiggerThanCero("\nHow many times a week do you exercise? ");
+    	Integer age = getIntegerBiggerThanCero("Age: ");
+		Float height = getFloat("Height: ");
+		Float weight = getFloat("Weight: ");
+		String lifestyle = getString("Lifestyle: ");
+		String diet = getString("Diet: ");
+		Integer exercise = getIntegerBiggerThanCero("How many times a week do you exercise? ");
 		
 		patient = new Patient();
 		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);
 		return patient;
     }
+    
+    //episode info
+    public static Episode askepinfo() {
+    	Episode ep;
+		Date doe;
+		Float length = getFloat("\nLength: "); 
+		String activity = getString("Activity: ");//TODO add types of activity
+		String mood = getString("Mood: ");
+		String place = getString("Place: ");
+		String previous_meal = getString("Previous meal: ");
+		System.out.println("Did you had any injury?");
+		Boolean injuries = askconfirmation();
+		System.out.println("When did it occur?");
+		Integer day = getIntegerBiggerThanCero("\nDay: ");
+		Integer month = getIntegerBiggerThanCero("\nMonth: ");
+		Integer year = getIntegerBiggerThanCero("\nYear: ");
+		doe = new Date(year, month, day);
+		
+		ep = new Episode();
+		ep = new Episode(doe, length, activity, mood, place, previous_meal, injuries);
+		
+		return ep;
+    }
+    
+    
+    
+    
+    
+    
     
 }
