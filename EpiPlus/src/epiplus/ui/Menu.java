@@ -8,13 +8,17 @@ import static epiplus.ui.Auxiliar.askallpatientinfo;
 import static epiplus.ui.Auxiliar.askpatientinfo;
 import static epiplus.ui.Auxiliar.askconfirmation;
 import static epiplus.ui.Auxiliar.askepinfo;
+import static epiplus.ui.Auxiliar.asksympinfo;
 
 import epiplus.jdbc.JDBCManager;
 import epiplus.jdbc.JDBCDoctorManager;
+import epiplus.jdbc.JDBCEpisodeManager;
 import epiplus.jdbc.JDBCPatientManager;
-
+import epiplus.jdbc.JDBCSymptomManager;
 import epiplus.ifaces.DoctorManager;
 import epiplus.ifaces.PatientManager;
+import epiplus.ifaces.SymptomManager;
+import epiplus.ifaces.EpisodeManager;
 
 import epiplus.pojos.*;
 
@@ -22,6 +26,8 @@ public class Menu {
 
 	private static DoctorManager docManager;
 	private static PatientManager patientManager;
+	private static SymptomManager sympManager;
+	private static EpisodeManager epManager;
 	
 	private static final Integer reiterative = -1;//variable to make a infinite loop 
 	
@@ -61,7 +67,6 @@ public class Menu {
 			pchoice = getIntegerBiggerThanCero("\nSelect an option: ");
 			switch(pchoice) {
 				case 1:{//REGISTER EPISODES
-					//repisodes();
 					System.out.println("\n\tREGISTER EPISODES"
 							+ "\nDo you want to continue the process?");
 					String register = getString("Press B if you want to go back to the patient menu, other key if you want to continue: ");
@@ -71,6 +76,12 @@ public class Menu {
 					else {
 						System.out.println("\nInput Episodes information: ");
 						Episode ep = askepinfo();
+						System.out.println("\nInput the symptom information: ");
+						Symptom symptom = asksympinfo();
+						
+						epManager.addEpisode(ep);
+						sympManager.addSymptom(symptom);
+						
 					}
 					break;
 				}
@@ -89,6 +100,9 @@ public class Menu {
 		JDBCManager jdbcManager = new JDBCManager();
 		docManager = new JDBCDoctorManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
+		epManager = new JDBCEpisodeManager(jdbcManager);
+		sympManager = new JDBCSymptomManager(jdbcManager);
+		
 		
 		/* wrong menus!!
 		 * add doctor/patient --> ask to user
@@ -117,24 +131,13 @@ public class Menu {
 					 Integer pId = loginpatient().....
 					*/
 					
-					
 					patientchoice(/*pId*/);
-					
-					/* PAss to patientchoice() for more legible code
-					
-					Integer optionregist = reiterative;
-					while((optionregist > 9) || (optionregist < 0)) {
-						PMenu();
-						optionregist = getIntegerBiggerThanCero("\nSelect an option: ");
-					}*/
-					
 					break;
 				}
 				case 2:{//LOG IN AS DOCTOR
 					
 					//TODO we have to create login methods
 
-					
 					break;
 				}
 				case 3:{//REGISTER DOCTOR/PATIENT
