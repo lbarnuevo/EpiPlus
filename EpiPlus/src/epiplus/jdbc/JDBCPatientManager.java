@@ -133,14 +133,6 @@ public class JDBCPatientManager implements PatientManager {
 		}
 	}
 
-	// @Override
-	// public void assignPatient(Doctor dId, Patient pId) {
-	// }
-
-	// @Override
-	// public void unassignPatient(Doctor dId, Patient pId) {
-	// }
-
 	@Override
 	public void showEvolution(Patient p) {
 		//Hay que pensar en cómo hacer esto
