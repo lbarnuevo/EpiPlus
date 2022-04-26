@@ -22,6 +22,8 @@ public class Menu {
 	private static DoctorManager docManager;
 	private static PatientManager patientManager;
 	
+	private static final Integer reiterative = -1;//variable to make a infinite loop 
+	
 	private static void startMenu() {
 		System.out.println("\n\tSTART MENU"
 			+ "\n0_Exit program"
@@ -56,17 +58,21 @@ public class Menu {
 		 * We do not have the database initialized and the managers declared
 		 */
 		
+		System.out.println("\nWELCOME TO EPIPLUS!");
+		
 		while(true) {
 			startMenu();
 			Integer optionsm = getIntegerBiggerThanCero("\nSelect an option: ");
 			
 			switch(optionsm) {
 				case 1:{
+					break;
 				}
 				case 2:{
+					break;
 				}
 				case 3:{//REGISTER DOCTOR/PATIENT
-					Integer optionregist = 3;
+					Integer optionregist = reiterative;
 					while((optionregist > 2) || (optionregist < 0)) {
 						registerMenu();
 						optionregist = getIntegerBiggerThanCero("\nSelect an option: ");
@@ -74,11 +80,11 @@ public class Menu {
 							case 1:{//REGISTER DOCTOR
 								Doctor doc;
 								System.out.println("\n\tREGISTER AS DOCTOR"
-									+ "\nDo you want to continue the process?"
-									+ "\nPress B if you want to go back to the register menu, other key if you want to continue");
-								String register = getString("");
+									+ "\nDo you want to continue the process?");
+								String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
 								if(register.equalsIgnoreCase("B")) {
-									return;
+									optionregist = reiterative;
+									//break;
 								}
 								else {
 									System.out.print("\nInput Doctor information:");
@@ -94,16 +100,16 @@ public class Menu {
 									}
 									System.out.println("\nYou have been successfully registered");
 								}
-								return;
+								break;
 							}
 							case 2:{//REGISTER PATIENT
 								Patient patient;
 								System.out.println("\n\tREGISTER AS PATIENT"
-									+ "\nDo you want to continue the process?"
-									+ "\nPress B if you want to go back to the register menu, other key if you want to continue");
-								String register = getString("");
+									+ "\nDo you want to continue the process?");
+								String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
 								if(register.equalsIgnoreCase("B")) {
-									return;
+									optionregist = reiterative;
+									//break;
 								}
 								else{
 									System.out.print("\nInput Patient information:");
@@ -119,18 +125,20 @@ public class Menu {
 									}
 									System.out.println("\nYou have been successfully registered");
 								}
-								return;
+								break;
 							}
 							case 0:{
-								return;
+								break;
 							}
 							default:{
 								System.out.println("\nPlease enter a correct number: ");
 							}
 						}
 					}
+					break;
 				}
 				case 0:{
+					System.out.println("\nYou have exited the app");
 					System.exit(0);
 				}
 				default:{

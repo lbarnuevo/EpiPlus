@@ -10,6 +10,7 @@ import epiplus.pojos.Patient;
 public class Auxiliar {
 
 	//TODO @lucia do the list of diet....
+	//TODO @someone ask for a photo in patient and doctor
 	
 	//Function to ask for an Integer to the user
     public static int getIntegerBiggerThanCero(String txt){
