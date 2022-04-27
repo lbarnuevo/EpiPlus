@@ -73,7 +73,7 @@ public class Menu {
 			switch(pchoice) {
 				case 1:{//REGISTER EPISODES
 					System.out.println("\n\tREGISTER EPISODES"
-							+ "\nDo you want to continue the process?");
+						+ "\nDo you want to continue the process?");
 					String register = getString("Press B if you want to go back to the patient menu, other key if you want to continue: ");
 					if(register.equalsIgnoreCase("B")) {
 						pchoice = reiterative;
