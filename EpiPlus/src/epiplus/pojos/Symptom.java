@@ -25,11 +25,13 @@ public class Symptom implements Serializable{
 		super();
 		this.id=id;
 		this.name= name;
+		episodes = new ArrayList<Episode>();
 	}
 	
 	public Symptom(String name) {
 		super();
 		this.name= name;
+		episodes = new ArrayList<Episode>();
 	}
 
 	public List<Episode> getEpisodes() {

@@ -9,13 +9,16 @@ import static epiplus.ui.Auxiliar.askpatientinfo;
 import static epiplus.ui.Auxiliar.askconfirmation;
 import static epiplus.ui.Auxiliar.askepinfo;
 import static epiplus.ui.Auxiliar.asksympinfo;
+import static epiplus.ui.Auxiliar.askepsympinfo;
+
 
 import epiplus.jdbc.JDBCManager;
 import epiplus.jdbc.JDBCDoctorManager;
 import epiplus.jdbc.JDBCEpisodeManager;
-import epiplus.jdbc.JDBCEpisodeSymptom;
+import epiplus.jdbc.JDBCEpisodeSymptomManager;
 import epiplus.jdbc.JDBCPatientManager;
 import epiplus.jdbc.JDBCSymptomManager;
+
 import epiplus.ifaces.DoctorManager;
 import epiplus.ifaces.PatientManager;
 import epiplus.ifaces.SymptomManager;
@@ -67,7 +70,7 @@ public class Menu {
 	private static void patientchoice(/*Integer pId*/) {
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		sympManager = new JDBCSymptomManager(jdbcManager);
-		//epsympManager= new JDBCEpisodeSymptomManager(jdbcManager);
+		epsympManager= new JDBCEpisodeSymptomManager(jdbcManager);
 		
 		Integer pchoice = reiterative;
 		while((pchoice > 9) || (pchoice < 0)) {
@@ -86,11 +89,10 @@ public class Menu {
 						Episode ep = askepinfo();
 						System.out.println("\nInput the symptom information: ");
 						Symptom symptom = asksympinfo();
-						System.out.println("\nInput the severity of the symptom in a scale from 0 to 10: ");
-						//EpisodeSymptom epsymp= askepsympinfo(ep,symptom);
+						EpisodeSymptom epsymp= askepsympinfo(ep,symptom);
 						epManager.addEpisode(ep);
 						sympManager.addSymptom(symptom);
-						//epsympManager.assignEpisodeSymptom(epsymp);
+						epsympManager.assignEpisodeSymptom(epsymp);
 						
 						
 					}

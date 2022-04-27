@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import epiplus.ifaces.EpisodeSymptomManager;
 import epiplus.pojos.EpisodeSymptom;
 
-public class JDBCEpisodeSymptom implements EpisodeSymptomManager{
+public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager{
 
 	private JDBCManager manager;
 
-	public void JDBCEpisodeSymptomManager(JDBCManager m) {
+	public JDBCEpisodeSymptomManager(JDBCManager m) {
 		this.manager = m;
 	}
 	

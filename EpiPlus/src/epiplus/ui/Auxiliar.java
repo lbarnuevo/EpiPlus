@@ -7,6 +7,7 @@ import java.util.Date;
 
 import epiplus.pojos.Doctor;
 import epiplus.pojos.Episode;
+import epiplus.pojos.EpisodeSymptom;
 import epiplus.pojos.Patient;
 import epiplus.pojos.Symptom;
 
@@ -209,16 +210,17 @@ public class Auxiliar {
     //ask symptoms information
     public static Symptom asksympinfo() {
     	Symptom symp;
-    	//TODO severity??
     	String name = getString("\nName: ");
-    	
-    	//symp = new Symptom();
     	symp = new Symptom(name);
-    	
     	return symp;
     }
     
-    
+    public static EpisodeSymptom askepsympinfo( Episode ep, Symptom symp) {
+    	EpisodeSymptom epsymp;
+    	Integer sev = getIntegerBiggerThanCero("\\nInput the severity of the symptom in a scale from 0 to 10: ");
+    	epsymp= new EpisodeSymptom(ep,symp,sev);
+    	return epsymp;
+    }
     
     
     
