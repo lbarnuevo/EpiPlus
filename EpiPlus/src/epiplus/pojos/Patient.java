@@ -27,6 +27,7 @@ public class Patient implements Serializable{
 	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
 	
+	//TODO borrar contructor y pasar el de los arrayslist a los otros. En todas las clases. Sorry about the spanish
 	public Patient() {
 		super();
 		episodes = new ArrayList<Episode>();

@@ -212,7 +212,7 @@ public class Auxiliar {
     	//TODO severity??
     	String name = getString("\nName: ");
     	
-    	symp = new Symptom();
+    	//symp = new Symptom();
     	symp = new Symptom(name);
     	
     	return symp;

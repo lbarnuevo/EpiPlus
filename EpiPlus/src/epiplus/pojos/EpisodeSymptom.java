@@ -17,6 +17,14 @@ public class EpisodeSymptom implements Serializable{
 	public EpisodeSymptom() {
 		super();
 	}
+	
+	public EpisodeSymptom(Episode episode, Symptom symptom,Integer severity) {
+		super();
+		this.episode=episode;
+		this.symptom=symptom;
+		this.severity= severity;
+	}
+
 
 	public Integer getSeverity() {
 		return severity;
