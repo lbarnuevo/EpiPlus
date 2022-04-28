@@ -22,15 +22,16 @@ public class JDBCEpisodeManager implements EpisodeManager {
 	@Override
 	public void addEpisode(Episode e) {
 		try {
-			String sql = "INSERT INTO episodes (doe,length,activity,mood,place,previous_meal,injuries) VALUES (?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO episodes (doe,length,activity,mood,place,previous_meal,injuries, patientID) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setDate(1,e.getDoe()); //¿necesita un casting?
+			prep.setDate(1,(java.sql.Date) e.getDoe()); //¿necesita un casting?
 			prep.setFloat(2, e.getLength());
 			prep.setString(3, e.getActivity());
 			prep.setString(4, e.getMood());
 			prep.setString(5, e.getMood());
-			prep.setString(4, e.getPlace());
-			prep.setBoolean(4, e.getInjuries());
+			prep.setString(6, e.getPlace());
+			prep.setBoolean(7, e.getInjuries());
+			prep.setInt(8, e.getPatient().getId());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception ex) {

@@ -145,7 +145,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public List<Patient> getPatientsOfDoctors(Integer DocId) {
+	public List<Patient> getPatientsOfDoctor(Integer DocId) {
 
 		List<Patient> patientsList = new ArrayList<Patient>();
 

@@ -55,7 +55,7 @@ public class JDBCManager {
 					+ "	activity	TEXT," // before attack
 					+ "	mood	    TEXT," + "	place	TEXT," + "	previous_meal TEXT,"
 					+ "	injuries BOOLEAN NOT NULL,"
-					+ "FOREIGN KEY(symptomID) REFERENCES symptoms(id) ON DELETE RESTRICT" + ");";
+					+ "FOREIGN KEY(patientID) REFERENCES patients(id) ON DELETE RESTRICT" + ");";
 			stmt.executeUpdate(sql);
 			
 			// ----------SYMPTOMS

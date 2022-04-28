@@ -188,6 +188,7 @@ public class Auxiliar {
     public static Episode askepinfo() {
     	Episode ep;
 		Date doe;
+		System.out.println("\nInput the episode's information: ");
 		Float length = getFloat("\nLength: "); 
 		String activity = getString("Activity: ");//TODO add types of activity
 		String mood = getString("Mood: ");
@@ -210,6 +211,7 @@ public class Auxiliar {
     //ask symptoms information
     public static Symptom asksympinfo() {
     	Symptom symp;
+    	System.out.println("\nInput the symptom's information: ");
     	String name = getString("\nName: ");
     	symp = new Symptom(name);
     	return symp;
