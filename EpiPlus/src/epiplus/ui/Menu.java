@@ -89,6 +89,17 @@ public class Menu {
 				}
 				break;
 			}
+			case 2:{//INPUT NEW DATA ON MEDICATION
+				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				}
+				else {
+					
+				}
+			}
 
 			case 0: {// GO BACK TO START MENU
 				break;
@@ -174,14 +185,14 @@ public class Menu {
 				 * TODO we have to create login methods Integer pId = loginpatient().....
 				 */
 
-				patientchoice(/* pId */);
+				patientChoice(/* pId */);
 				break;
 			}
 			case 2: {// LOG IN AS DOCTOR
 
 				// TODO we have to create login methods
 				// Integer dId = logindoctor().....
-				doctorchoice(/* dId */);
+				doctorChoice(/* dId */);
 				break;
 			}
 			case 3: {// REGISTER DOCTOR/PATIENT

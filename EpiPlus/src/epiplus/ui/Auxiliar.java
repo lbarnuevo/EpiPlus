@@ -136,7 +136,7 @@ public class Auxiliar {
     	String email = getString("Email: ");
     	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
     	
-    	doc = new Doctor();
+    	//doc = new Doctor();
     	doc = new Doctor(name, email, hospital, photo);
     	return doc;
     }
@@ -147,7 +147,7 @@ public class Auxiliar {
     	String hospital = getString("Hospital name: ");
     	String email = getString("Email: ");
     	
-    	doc = new Doctor();
+    	//doc = new Doctor();
     	doc = new Doctor(name, email, hospital);
     	return doc;
 	}
@@ -164,7 +164,7 @@ public class Auxiliar {
     	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
 
 		
-		patient = new Patient();
+		//patient = new Patient();
 		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
 		return patient;
     }
@@ -179,7 +179,7 @@ public class Auxiliar {
 		String diet = getString("Diet: ");
 		Integer exercise = getIntegerBiggerThanCero("How many times a week do you exercise? ");
 		
-		patient = new Patient();
+		//patient = new Patient();
 		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);
 		return patient;
     }
@@ -202,7 +202,7 @@ public class Auxiliar {
 		Integer year = getIntegerBiggerThanCero("\nYear: ");
 		doe = new Date(year, month, day);
 		
-		ep = new Episode();
+		//ep = new Episode();
 		ep = new Episode(doe, length, activity, mood, place, previous_meal, injuries);
 		
 		return ep;
@@ -219,7 +219,7 @@ public class Auxiliar {
     
     public static EpisodeSymptom askepsympinfo( Episode ep, Symptom symp) {
     	EpisodeSymptom epsymp;
-    	Integer sev = getIntegerBiggerThanCero("\\nInput the severity of the symptom in a scale from 0 to 10: ");
+    	Integer sev = getIntegerBiggerThanCero("\nInput the severity of the symptom in a scale from 0 to 10: ");
     	epsymp= new EpisodeSymptom(ep,symp,sev);
     	return epsymp;
     }
