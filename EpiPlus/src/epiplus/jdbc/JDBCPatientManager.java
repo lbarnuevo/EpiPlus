@@ -97,7 +97,8 @@ public class JDBCPatientManager implements PatientManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
+		return patient;
 	}
 
 	@Override

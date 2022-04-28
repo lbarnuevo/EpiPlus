@@ -16,6 +16,7 @@ import static epiplus.ui.Auxiliar.asksympinfo;
 import static epiplus.ui.Auxiliar.askepsympinfo;
 
 import epiplus.jdbc.JDBCManager;
+import epiplus.jdbc.JDBCMedicationManager;
 import epiplus.jdbc.JDBCDoctorManager;
 import epiplus.jdbc.JDBCEpisodeManager;
 import epiplus.jdbc.JDBCEpisodeSymptomManager;
@@ -38,6 +39,7 @@ public class Menu {
 	private static JDBCEpisodeManager epManager;
 	private static JDBCEpisodeSymptomManager epsympManager;
 	private static JDBCPatientMedicationManager pmedManager;
+	private static JDBCMedicationManager medManager;
 	
 	private static JDBCManager jdbcManager;
 
@@ -70,6 +72,10 @@ public class Menu {
 		sympManager = new JDBCSymptomManager(jdbcManager);
 		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
 		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
+		medManager = new JDBCMedicationManager(jdbcManager);
+		patientManager = new JDBCPatientManager(jdbcManager);
+
+		Patient patient = patientManager.getPatientById(/* pId */);
 
 		Integer pchoice = reiterative;
 		while ((pchoice > 9) || (pchoice < 0)) {
@@ -93,7 +99,7 @@ public class Menu {
 				}
 				break;
 			}
-			case 2:{//INPUT NEW DATA ON MEDICATION
+			case 2:{//TODO INPUT NEW DATA ON MEDICATION --> not done yet
 				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
 				String register = getString(
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
@@ -102,9 +108,14 @@ public class Menu {
 				}
 				else {
 					//show list medication
+					medManager.listsAllMedication();
 					
 					pmedManager.assignPatientMedication(/* pId */);
 				}
+			}
+			case 3:{//SHOW PATIENT INFO
+				//use the same function for patient and doctor
+				System.out.println("\n"+patient);
 			}
 
 			case 0: {// GO BACK TO START MENU
