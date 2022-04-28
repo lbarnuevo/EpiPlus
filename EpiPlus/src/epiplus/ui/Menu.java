@@ -20,6 +20,7 @@ import epiplus.jdbc.JDBCDoctorManager;
 import epiplus.jdbc.JDBCEpisodeManager;
 import epiplus.jdbc.JDBCEpisodeSymptomManager;
 import epiplus.jdbc.JDBCPatientManager;
+import epiplus.jdbc.JDBCPatientMedicationManager;
 import epiplus.jdbc.JDBCSymptomManager;
 
 import epiplus.ifaces.DoctorManager;
@@ -36,7 +37,8 @@ public class Menu {
 	private static JDBCSymptomManager sympManager;
 	private static JDBCEpisodeManager epManager;
 	private static JDBCEpisodeSymptomManager epsympManager;
-
+	private static JDBCPatientMedicationManager pmedManager;
+	
 	private static JDBCManager jdbcManager;
 
 	private static final Integer reiterative = -1;// variable to make a infinite loop
@@ -67,6 +69,7 @@ public class Menu {
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		sympManager = new JDBCSymptomManager(jdbcManager);
 		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
+		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
 
 		Integer pchoice = reiterative;
 		while ((pchoice > 9) || (pchoice < 0)) {
@@ -82,10 +85,11 @@ public class Menu {
 				} else {
 					Episode ep = askepinfo();
 					Symptom symptom = asksympinfo();
-					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
 					epManager.addEpisode(ep);
 					sympManager.addSymptom(symptom);
-					epsympManager.assignEpisodeSymptom(epsymp);
+					
+					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
+					epsympManager.assignEpisodeSymptom(epsymp);					
 				}
 				break;
 			}
@@ -97,7 +101,9 @@ public class Menu {
 					pchoice = reiterative;
 				}
 				else {
+					//show list medication
 					
+					pmedManager.assignPatientMedication(/* pId */);
 				}
 			}
 
