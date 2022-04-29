@@ -13,12 +13,13 @@ public class ImprovedMenu {
 	private static Connection c;
 	private static JDBCManager jdbcManager;
 	
-	private static DoctorManager doctorManager;
+	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
+	private static PatientManager patientManager = new JDBCPatientManager(jdbcManager);
+	
 	//private static EmergencyContactManager ecManager;
 	//private static EpisodeManager episodeManager;
 	//private static EpisodeSymptomManager esManager;
 	//private static MedicationManager medicationManager;
-	private static PatientManager patientManager;
 	//private static PatientMedicationManager pmManager;
 	//private static SymptomManager symptomManager;
 	
@@ -41,22 +42,17 @@ public class ImprovedMenu {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("WELCOME TO EPI+");
+		System.out.println("WELCOME TO EPI+ !!");
 		connect();
 		
 		jdbcManager = new JDBCManager();
-		doctorManager = new JDBCDoctorManager(jdbcManager);
-		patientManager = new JDBCPatientManager(jdbcManager);
 		
 		int choice;
-		String register = null;
-		Doctor doc = null;
-		Patient p = null;
 		
 		try {
 			do {
-				System.out.println("Please choose an option: ");
 				showMenu();
+				System.out.println("Please choose an option: ");
 				
 				choice = getPositiveInteger("");
 				switch(choice) {
@@ -70,7 +66,8 @@ public class ImprovedMenu {
 						
 					case 3: 
 						registerMenu();
-						break; 
+						break;
+						
 					case 0: 
 						c.close();
 						jdbcManager.disconnect();
@@ -141,7 +138,7 @@ public class ImprovedMenu {
 		System.out.println("\nYou have been successfully registered");
 	}
 	
-	private static void patientMenu() throws Exception{
+	private static void patientMenu() throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		do {
 			System.out.println("                  PATIENT MENU                        ");
 		    System.out.println("---------------------------------------------------------------");
@@ -196,7 +193,7 @@ public class ImprovedMenu {
 		while(true);
 	}
 	
-	private static void doctorMenu() throws Exception{
+	private static void doctorMenu() throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		do {
 			System.out.println("                  DOCTOR MENU                         ");
 		    System.out.println("---------------------------------------------------------------");
