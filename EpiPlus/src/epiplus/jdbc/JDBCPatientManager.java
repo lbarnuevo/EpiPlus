@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.PatientManager;
+import epiplus.pojos.EmergencyContact;
 import epiplus.pojos.Patient;
 
 public class JDBCPatientManager implements PatientManager {
@@ -97,9 +98,41 @@ public class JDBCPatientManager implements PatientManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
 		return patient;
 	}
+	
+	@Override
+	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId) {
+
+		List<EmergencyContact> contactsList= new ArrayList<EmergencyContact>();
+
+		try {
+			String sql = "SELECT * FROM emergencycontact WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, pacId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				Integer age = rs.getInt("age");
+				Float height = rs.getFloat("height");
+				Float weight = rs.getFloat("weight");
+				String lifestyle = rs.getString("lifestyle");
+				String diet = rs.getString("diet");
+				Integer exercise = rs.getInt("ex_per_week");
+				byte[] photo = rs.getBytes("photo");
+				patient = new Patient(id, n, age, height, weight, lifestyle, diet, exercise, photo);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
+		return ;
+	}
+	
 
 	@Override
 	public void updatePatient(String name, byte[] photo, Integer age, Float height, Float weight, String lifestyle,

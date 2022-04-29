@@ -93,7 +93,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			sql = "CREATE TABLE emergencycontact (" + "id	 INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,"
-					+ "name	TEXT NOT NULL," + "number	INTEGER NOT NULL);";
+					+ "name	TEXT NOT NULL," + "number	INTEGER NOT NULL," + "FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE SET NULL);";
 
 			stmt.executeUpdate(sql);
 			

@@ -3,6 +3,7 @@ package epiplus.ifaces;
 import java.util.*;
 import epiplus.pojos.Patient;
 import epiplus.pojos.Doctor;
+import epiplus.pojos.EmergencyContact;
 
 public interface PatientManager {
 	public void addPatient (Patient p);
@@ -15,4 +16,5 @@ public interface PatientManager {
 	//public void unassignPatient(Doctor dId, Patient pId);
 	public void showEvolution(Patient p); //It is void or is other data type?
 	public List<Patient> listsAllPatients();
+	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId);
 }

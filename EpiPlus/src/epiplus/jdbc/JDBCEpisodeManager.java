@@ -80,5 +80,4 @@ public class JDBCEpisodeManager implements EpisodeManager {
 		}
 		return null;
 	}
-
 }
