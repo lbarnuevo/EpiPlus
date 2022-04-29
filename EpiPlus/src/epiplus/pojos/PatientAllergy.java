@@ -6,7 +6,7 @@ import java.util.Objects;
 	
 	
 
-	public class PatientAllergies implements Serializable{
+	public class PatientAllergy implements Serializable{
 		
 		
 		
@@ -14,7 +14,7 @@ import java.util.Objects;
 		private static final long serialVersionUID = 3645664353573792203L;
 
 
-		public PatientAllergies(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
+		public PatientAllergy(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
 			super();
 			this.patientId = patientId;
 			this.allergyId = allergyId;
@@ -87,7 +87,7 @@ import java.util.Objects;
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			PatientAllergies other = (PatientAllergies) obj;
+			PatientAllergy other = (PatientAllergy) obj;
 			return Objects.equals(allergyId, other.allergyId) && Objects.equals(patientId, other.patientId);
 		}
 
