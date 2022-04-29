@@ -13,7 +13,7 @@ public class JDBCManager {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:./db/Epiplus.db");
+			c = DriverManager.getConnection("jdbc:sqlite:./db/EpiPlus (3).db");
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened.");
 			// Create tables
@@ -88,7 +88,7 @@ public class JDBCManager {
 					+ "lifestyle TEXT CHECK('lifestyle' IN ('sedentary','little activity','moderate ativity','high activity')) NOT NULL,"
 					+ "diet TEXT CHECK ('diet' IN ('mediterranean', 'high protein', 'gluten free', 'lactose free', 'dairy free', 'ketogenic','highly caloric', 'vegan','vegetarian','intermitten fasting')) NOT NULL,"
 					+ "ex_per_week INTEGER NOT NULL," + "doctorId INTEGER NOT NULL," + "photo BLOB,"
-					+ "emergency_contact NUMERIC," + "FOREIGN KEY (doctorId) REFERENCES doctors(id) ON DELETE SET NULL"
+					+ "FOREIGN KEY (doctorId) REFERENCES doctors(id) ON DELETE SET NULL"
 					+ ");";
 			stmt.executeUpdate(sql);
 

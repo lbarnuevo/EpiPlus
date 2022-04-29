@@ -107,22 +107,17 @@ public class JDBCPatientManager implements PatientManager {
 		List<EmergencyContact> contactsList= new ArrayList<EmergencyContact>();
 
 		try {
-			String sql = "SELECT * FROM emergencycontact WHERE id LIKE ?";
+			String sql = "SELECT * FROM emergencycontact WHERE patientId LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, pacId);
 			ResultSet rs = prep.executeQuery();
 
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
-				String n = rs.getString("name");
-				Integer age = rs.getInt("age");
-				Float height = rs.getFloat("height");
-				Float weight = rs.getFloat("weight");
-				String lifestyle = rs.getString("lifestyle");
-				String diet = rs.getString("diet");
-				Integer exercise = rs.getInt("ex_per_week");
-				byte[] photo = rs.getBytes("photo");
-				patient = new Patient(id, n, age, height, weight, lifestyle, diet, exercise, photo);
+				String name = rs.getString("name");
+				Integer number = rs.getInt("number");
+				EmergencyContact emergencyContact= new EmergencyContact(id, name, number);
+				contactsList.add(emergencyContact);
 			}
 			rs.close();
 			prep.close();
@@ -130,7 +125,7 @@ public class JDBCPatientManager implements PatientManager {
 			e.printStackTrace();
 		}
 		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
-		return ;
+		return contactsList;
 	}
 	
 

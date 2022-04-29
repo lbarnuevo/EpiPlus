@@ -20,6 +20,10 @@ public class EmergencyContact {
 		this.number=number;
 	}
 
+	public EmergencyContact(Integer id2, String name2, Integer number2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Patient getPatient() {
 		return patient;
 	}
