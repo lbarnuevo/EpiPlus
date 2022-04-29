@@ -101,8 +101,8 @@ public static void main(String[] args) {
 						case 1: {// REGISTER DOCTOR
 							Doctor doc;
 							System.out.println("\n\tREGISTER AS DOCTOR" + "\nDo you want to continue the process?");
-							String register = getString(
-									"Press B if you want to go back to the register menu, other key if you want to continue: ");
+							String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
+							
 							if (register.equalsIgnoreCase("B")) {
 								optionregist = reiterative;
 								// break;
@@ -118,8 +118,8 @@ public static void main(String[] args) {
 						case 2: {// REGISTER PATIENT
 							Patient patient;
 							System.out.println("\n\tREGISTER AS PATIENT" + "\nDo you want to continue the process?");
-							String register = getString(
-									"Press B if you want to go back to the register menu, other key if you want to continue: ");
+							String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
+							
 							if (register.equalsIgnoreCase("B")) {
 								optionregist = reiterative;
 								// break;
