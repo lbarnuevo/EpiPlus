@@ -223,12 +223,12 @@ public class Auxiliar {
 		Integer month = getPositiveInteger("");
 		System.out.println("Year (yyyy): ");
 		Integer year = getPositiveInteger("");
-		Date doe = new Date(year, month, day); //ask rodrigo 
+		Date doe = new Date(year, month, day);  
 		
 		System.out.println("Episode length: ");
 		Float length = getPositiveFloat(""); 
 		
-		System.out.println("Add previous activity: "); //I would consider deleting them 
+		System.out.println("Add previous activity: ");
 		String activity = getString("");//TODO add types of activity
 		
 		System.out.println("Mood: ");
