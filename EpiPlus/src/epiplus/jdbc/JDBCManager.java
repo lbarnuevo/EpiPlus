@@ -96,6 +96,18 @@ public class JDBCManager {
 					+ "name	TEXT NOT NULL," + "number	INTEGER NOT NULL);";
 
 			stmt.executeUpdate(sql);
+			
+			sql = "CREATE TABLE allergies (" + "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "	name	TEXT NOT NULL);";
+
+			stmt.executeUpdate(sql);
+
+			sql = "CREATE TABLE patientallergies (" + "	FOREING KEY(PatientId) REFERENCES ON patients(id),"
+					+ "	FOREIGN KEY (allergId) REFERENCES ON allergies(id));";
+					
+			stmt.executeUpdate(sql);
+
+
 
 		} catch (SQLException e) {
 			// Do not complain if tables already exist
