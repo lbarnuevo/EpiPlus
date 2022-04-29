@@ -113,8 +113,17 @@ public class Auxiliar {
     	return lifestyle; 
     }
     
-    public static String getDiet() { //TODO @luciabarnuevo getDiet 
-    	String diet = null;
+    public static String getDiet() {
+    	ListDiets();
+    	String diet = null; 
+    	boolean read = false; 
+    	System.out.println("What life style would you say you follow? ");
+    	do {
+    		diet = getString("");
+    		//TODO add diets 
+    		
+    	} while(read = false);
+ 
     	return diet; 
     }
     
@@ -260,7 +269,7 @@ public class Auxiliar {
     	//TODO add diets
     }
     
-    public static void ListLifestyle() { //maybe this could be automatically calculated instead of putting it? 
+    public static void ListLifestyle() {  
     	System.out.println("                  	DEFINITION OF LIFESTYLES                        ");
         System.out.println("---------------------------------------------------------------");
     	System.out.println("Sedentary: do not play any sports");

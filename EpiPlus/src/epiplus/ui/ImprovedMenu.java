@@ -68,47 +68,9 @@ public class ImprovedMenu {
 						//TODO loginDoctor();
 						break;
 						
-					case 3: //maybe we should create a method for registration? 
-						/*
+					case 3: 
 						registerMenu();
-						System.out.println("Please choose an option: ");
-						int option = getPositiveInteger("");
-						
-						switch(option) {
-							case 1:
-								System.out.println("\n\tREGISTER AS DOCTOR" + "\nDo you want to continue the process?");
-								register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
-								
-								if (register.equalsIgnoreCase("B")) {
-									break;
-								} else {
-									doc = createDoctor();
-									doctorManager.addDoctor(doc);							
-									System.out.println("\nYou have been successfully registered");
-								}
-								break;
-							
-							case 2:
-								System.out.println("\n\tREGISTER AS PATIENT" + "\nDo you want to continue the process?");
-								register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
-								
-								if (register.equalsIgnoreCase("B")) {
-									break;
-								} else {							
-									p = createPatient();
-									patientManager.addPatient(p);							
-									System.out.println("\nYou have been successfully registered");
-								}
-								
-								break;
-							case 0: 
-								break;
-							default:
-								System.out.println("Please introduce a valid option. ");
-						}
-						
-						break;
-						*/
+						break; 
 					case 0: 
 						c.close();
 						jdbcManager.disconnect();
@@ -128,9 +90,11 @@ public class ImprovedMenu {
 		//when login in with the user, we show the menu for the type os user, so maybe we could add an attribute that consisted of role of user 
 	}
 	
-	private static void registerUser() {
-		//TODO registerUser method for both users
-	}
+	/* private static void registerUser() {
+		//TODO register method 
+	} */
+	
+	
 	private static void showMenu() {
 		System.out.println("---------------------------------------------------------------");
 	    System.out.println(" 1.Log in as a patient                                       ");
@@ -140,13 +104,41 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
-	private static void registerMenu() {
+	private static void registerMenu() throws NumberFormatException, IOException {
 		System.out.println("                  REGISTER MENU                         ");
 	    System.out.println("---------------------------------------------------------------");
 	    System.out.println(" 1.Register as a doctor                           ");
 	    System.out.println(" 2.Register as a patient                                     ");
 	    System.out.println(" 0.GO BACK TO MAIN MENU                              ");
 	    System.out.println("---------------------------------------------------------------");
+	    
+	    do {
+	    	int choice = Integer.parseInt(reader.readLine());
+			switch (choice) {
+				case 1:
+					registerDoctor();
+					break;
+				case 2:
+					registerPatient();
+					break;
+				case 0:
+					return;
+				default:
+					System.out.println("Please enter a valid option. ");
+				}
+	    } while(true); 
+	}
+	
+	private static void registerDoctor() {
+		Doctor doctor = createDoctor();
+		doctorManager.addDoctor(doctor);							
+		System.out.println("\nYou have been successfully registered");
+	}
+	
+	private static void registerPatient() {
+		Patient patient = createPatient();
+		patientManager.addPatient(patient);
+		System.out.println("\nYou have been successfully registered");
 	}
 	
 	private static void patientMenu() throws Exception{
