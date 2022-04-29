@@ -257,33 +257,34 @@ public class Menu {
 	
 	//private static 
 	
-	private static void doctorChoice(/* Integer pId */) {
-	
+	private static void doctorChoice(/* Integer dId */) {
+		
 		List<Patient> pList = new ArrayList<Patient>();
 	
 		Integer pchoice = reiterative;
 		
 		while ((pchoice > 3) || (pchoice < 0)) {
 			PMenu();
-			pList = JDBCDoctorManager.getPatientsofDoctor(/*pId*/);
-			pchoice = getPositiveInteger("\nSelect an option: ");
 			
+			pchoice = getPositiveInteger("\nSelect an option: ");
 			switch (pchoice) {
 				case 1: {// SEE DATA ON PATIENT
+					
 					System.out.println("\n\tSEE DATA ON PATIENT" + "\nDo you want to continue the process?");
 					String register = getString(
 							"Press B if you want to go back to the patient menu, other key if you want to continue: ");
 					if (register.equalsIgnoreCase("B")) {
 						pchoice = reiterative;
 					} else {
+						pList = JDBCDoctorManager.getPatientsofDoctor(/*dId*/);
+						
 						System.out.println("\nChoose a patient to show their data:");
-			
 						for (Patient p:pList) {
-							System.out.println(p.getId()+ " " + p.getName());
+							System.out.println(p.getId()+ "\n" + p.getName());
 						}
 						Integer pIdChosen= getPositiveInteger("\nWrite the number above their name: ");
-						
-		
+						Patient p= patientManager.getPatientById(pIdChosen);	
+						p.toString();
 					}
 					break;
 				}
@@ -299,6 +300,7 @@ public class Menu {
 		}
 	}
 }
+
 //{
 /*
  * package hospital.ui;
