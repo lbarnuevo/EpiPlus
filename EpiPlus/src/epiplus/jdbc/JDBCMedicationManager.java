@@ -29,13 +29,6 @@ public class JDBCMedicationManager implements MedicationManager{
 		}
 	}
 
-	//¿Para qué?
-	//@Override
-	//public Medication searchMedicationByType(String name) {
-		// TODO Auto-generated method stub
-		//return null;
-	//}
-
 	@Override
 	public void deleteMedication(Medication m) {
 		try {

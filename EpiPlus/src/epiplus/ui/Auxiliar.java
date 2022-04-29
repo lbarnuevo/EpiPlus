@@ -113,8 +113,17 @@ public class Auxiliar {
     	return lifestyle; 
     }
     
-    public static String getDiet() { //TODO @luciabarnuevo getDiet 
-    	String diet = null;
+    public static String getDiet() {
+    	ListDiets();
+    	String diet = null; 
+    	boolean read = false; 
+    	System.out.println("What life style would you say you follow? ");
+    	do {
+    		diet = getString("");
+    		//TODO add diets 
+    		
+    	} while(read = false);
+ 
     	return diet; 
     }
     
@@ -214,12 +223,12 @@ public class Auxiliar {
 		Integer month = getPositiveInteger("");
 		System.out.println("Year (yyyy): ");
 		Integer year = getPositiveInteger("");
-		Date doe = new Date(year, month, day); //ask rodrigo 
+		Date doe = new Date(year, month, day);  
 		
 		System.out.println("Episode length: ");
 		Float length = getPositiveFloat(""); 
 		
-		System.out.println("Add previous activity: "); //I would consider deleting them 
+		System.out.println("Add previous activity: ");
 		String activity = getString("");//TODO add types of activity
 		
 		System.out.println("Mood: ");
@@ -260,7 +269,7 @@ public class Auxiliar {
     	//TODO add diets
     }
     
-    public static void ListLifestyle() { //maybe this could be automatically calculated instead of putting it? 
+    public static void ListLifestyle() {  
     	System.out.println("                  	DEFINITION OF LIFESTYLES                        ");
         System.out.println("---------------------------------------------------------------");
     	System.out.println("Sedentary: do not play any sports");
