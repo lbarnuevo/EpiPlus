@@ -39,7 +39,7 @@ public class JDBCManager {
 	}
 
 //------CREATE TABLES-------------
-	private void createTables() {
+	public void createTables() {
 		// Create Tables
 		try {
 			Statement stmt = c.createStatement();
