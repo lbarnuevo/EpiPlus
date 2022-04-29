@@ -7,16 +7,19 @@ import java.util.Objects;
 	
 	public class Allergy implements Serializable{
 		
-		//private static final long serialVersionUID = -5004715535383971325L;
 		
+	
+		private static final long serialVersionUID = -935621693802822621L;
+
+
+
+
 		public Allergy(Integer id, String name) {
 			super();
 			this.id = id;
 			this.name = name;
 		}
 
-		
-		private static final long serialVersionUID = 1L;
 		
 		
 		
