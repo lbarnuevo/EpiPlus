@@ -15,9 +15,10 @@ public class Auxiliar {
 
 	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...)
 	//TODO @someone ask for a photo in patient and doctor
+	//TODO @luciabarnuevo change in methods to parse the buffer (when marta finishes menu) 
 	
 	//Function to ask for an Integer to the user
-    public static int getIntegerBiggerThanCero(String txt){
+    public static int getPositiveInteger(String txt){
         System.out.print(txt);
         boolean read = false;
         int N = -1;
@@ -43,7 +44,7 @@ public class Auxiliar {
 	//Function to ask for a String to the user
     public static String getString(String txt){
         System.out.print(txt);
-        String leido = "";
+        String leido = null;
         try{
             BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
             leido = consol.readLine();
@@ -59,6 +60,7 @@ public class Auxiliar {
         System.out.print(txt);
         boolean read = false;
         Double N=0.0;
+        
         do {
         	try{
                 BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
@@ -72,11 +74,12 @@ public class Auxiliar {
             	System.out.println("Error. Introduce a number:");
             }
         } while(read == false);
+        
         return N;
     }
     
-	//Function to ask for a Float to the user
-    public static Float getFloat(String txt){
+	//Function to ask for a positive Float to the user
+    public static Float getPositiveFloat(String txt){
         System.out.print(txt);
         boolean read = false;
         Float N = -1.0f;
@@ -96,19 +99,22 @@ public class Auxiliar {
         return N;
     }
     
-	//Function to ask for a Byte to the user --> not correct
-    public static Byte[] getByte(String txt) {
+	//Function to ask for a Byte to the user
+    public static byte[] getByte(String txt) {
     	System.out.print(txt);
-    	Byte[] info;// = 0;
+    	String fileName = null;
+    	byte[] bytesBlob = null;
         try{
-            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-            String leido = consol.readLine();
-            info = Byte.parseByte(leido);
+            File photo = new File("./photos/" + fileName);
+			InputStream streamBlob = new FileInputStream(photo);
+			bytesBlob = new byte[streamBlob.available()];
+			streamBlob.read(bytesBlob);
+			streamBlob.close();
         }
         catch(IOException ex){
             System.out.println(ex);
         }
-    	return info;
+    	return bytesBlob;
     }
     
     //Ask for confirmation on something
@@ -155,12 +161,12 @@ public class Auxiliar {
     public static Patient askallpatientinfo() {//Patient info + photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getIntegerBiggerThanCero("Age: ");
-		Float height = getFloat("Height: ");
-		Float weight = getFloat("Weight: ");
+    	Integer age = getPositiveInteger("Age: ");
+		Float height = getPositiveFloat("Height: ");
+		Float weight = getPositiveFloat("Weight: ");
 		String lifestyle = getString("Lifestyle: ");
 		String diet = getString("Diet: ");
-		Integer exercise = getIntegerBiggerThanCero("How many times a week do you exercise? ");
+		Integer exercise = getPositiveInteger("How many times a week do you exercise? ");
     	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
 
 		
@@ -172,12 +178,12 @@ public class Auxiliar {
     public static Patient askpatientinfo() {//Patient info - photo
     	Patient patient;
     	String name = getString("\nName: ");
-    	Integer age = getIntegerBiggerThanCero("Age: ");
-		Float height = getFloat("Height: ");
-		Float weight = getFloat("Weight: ");
+    	Integer age = getPositiveInteger("Age: ");
+		Float height = getPositiveFloat("Height: ");
+		Float weight = getPositiveFloat("Weight: ");
 		String lifestyle = getString("Lifestyle: ");
 		String diet = getString("Diet: ");
-		Integer exercise = getIntegerBiggerThanCero("How many times a week do you exercise? ");
+		Integer exercise = getPositiveInteger("How many times a week do you exercise? ");
 		
 		//patient = new Patient();
 		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);
@@ -189,7 +195,7 @@ public class Auxiliar {
     	Episode ep;
 		Date doe;
 		System.out.println("\nInput the episode's information: ");
-		Float length = getFloat("\nLength: "); 
+		Float length = getPositiveFloat("\nLength: "); 
 		String activity = getString("Activity: ");//TODO add types of activity
 		String mood = getString("Mood: ");
 		String place = getString("Place: ");
@@ -197,9 +203,9 @@ public class Auxiliar {
 		System.out.println("Did you had any injury?");
 		Boolean injuries = askconfirmation();
 		System.out.println("When did it occur?");
-		Integer day = getIntegerBiggerThanCero("\nDay: ");
-		Integer month = getIntegerBiggerThanCero("\nMonth: ");
-		Integer year = getIntegerBiggerThanCero("\nYear: ");
+		Integer day = getPositiveInteger("\nDay: ");
+		Integer month = getPositiveInteger("\nMonth: ");
+		Integer year = getPositiveInteger("\nYear: ");
 		doe = new Date(year, month, day);
 		
 		//ep = new Episode();
@@ -219,7 +225,7 @@ public class Auxiliar {
     
     public static EpisodeSymptom askepsympinfo( Episode ep, Symptom symp) {
     	EpisodeSymptom epsymp;
-    	Integer sev = getIntegerBiggerThanCero("\nInput the severity of the symptom in a scale from 0 to 10: ");
+    	Integer sev = getPositiveInteger("\nInput the severity of the symptom in a scale from 0 to 10: ");
     	epsymp= new EpisodeSymptom(ep,symp,sev);
     	return epsymp;
     }
