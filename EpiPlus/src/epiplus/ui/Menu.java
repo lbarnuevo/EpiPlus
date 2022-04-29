@@ -23,6 +23,7 @@ public class Menu {
 	private static JDBCEpisodeSymptomManager epsympManager;
 	private static JDBCPatientMedicationManager pmedManager;
 	private static JDBCMedicationManager medManager;
+	private static JDBCEmergencyContactManager emergencyManager;
 	
 	private static JDBCManager jdbcManager = new JDBCManager();
 ;
@@ -259,13 +260,18 @@ public class Menu {
 	
 	private static void doctorChoice(/* Integer dId */) {
 		
+		epManager = new JDBCEpisodeManager(jdbcManager);
+		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
+		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
+		medManager = new JDBCMedicationManager(jdbcManager);
+		patientManager = new JDBCPatientManager(jdbcManager);
+		emergencyManager= new JDBCEmergencyContactManager(jdbcManager);
 		List<Patient> pList = new ArrayList<Patient>();
 	
 		Integer pchoice = reiterative;
 		
 		while ((pchoice > 3) || (pchoice < 0)) {
 			PMenu();
-			
 			pchoice = getPositiveInteger("\nSelect an option: ");
 			switch (pchoice) {
 				case 1: {// SEE DATA ON PATIENT
@@ -285,6 +291,18 @@ public class Menu {
 						Integer pIdChosen= getPositiveInteger("\nWrite the number above their name: ");
 						Patient p= patientManager.getPatientById(pIdChosen);	
 						p.toString();
+						for (EmergencyContact c: emergencyManager.getEmergencyContactsOfPatient(pIdChosen)) {
+							c.toString();
+						}
+						for (Episode e: epManager.getEpisodesOfPatient(pIdChosen)) {
+							e.toString();
+							for (Symptom s: epsympManager.getSymptomsOfEpisode(e.getId())) {
+								s.toString();
+							}
+						}
+						for (Medication m: pmedManager.getMedicationsOfPatient(pIdChosen)) {
+							m.toString();
+						}
 					}
 					break;
 				}

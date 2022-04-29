@@ -45,7 +45,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}
 	}
 	
-	public List<Medication> getMedicationsOfPacient(Integer pacId) {
+	public List<Medication> getMedicationsOfPatient(Integer pacId) {
 
 		List<Medication> medicationsList = new ArrayList<Medication>();
 
