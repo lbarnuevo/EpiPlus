@@ -250,7 +250,12 @@ public class Auxiliar {
     }
     
     public static void ListLifestyle() {
-    	//TODO add lifestyle
+    	System.out.println("                  	DEFINITION OF LIFESTYLES                        ");
+        System.out.println("---------------------------------------------------------------");
+    	System.out.println("Sedentary: do not play any sports");
+    	System.out.println("Low activity: practice no impact sports (yoga, pilates...)");
+    	System.out.println("Medium activity: practice low impact sports (walking, swimmming...)");
+    	System.out.println("High activity: practice high impact sports ");
     }
     
     
