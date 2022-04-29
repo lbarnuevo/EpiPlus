@@ -40,7 +40,7 @@ public class Menu {
 	private static JDBCEpisodeSymptomManager epsympManager;
 	private static JDBCPatientMedicationManager pmedManager;
 	private static JDBCMedicationManager medManager;
-	
+
 	private static JDBCManager jdbcManager;
 
 	private static final Integer reiterative = -1;// variable to make a infinite loop
@@ -93,29 +93,28 @@ public class Menu {
 					Symptom symptom = asksympinfo();
 					epManager.addEpisode(ep);
 					sympManager.addSymptom(symptom);
-					
+
 					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
-					epsympManager.assignEpisodeSymptom(epsymp);					
+					epsympManager.assignEpisodeSymptom(epsymp);
 				}
 				break;
 			}
-			case 2:{//TODO INPUT NEW DATA ON MEDICATION --> not done yet
+			case 2: {// TODO INPUT NEW DATA ON MEDICATION --> not done yet
 				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
 				String register = getString(
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
-				}
-				else {
-					//show list medication
+				} else {
+					// show list medication
 					medManager.listsAllMedication();
-					
+
 					pmedManager.assignPatientMedication(/* pId */);
 				}
 			}
-			case 3:{//SHOW PATIENT INFO
-				//use the same function for patient and doctor
-				System.out.println("\n"+patient);
+			case 3: {// SHOW PATIENT INFO
+				// use the same function for patient and doctor
+				System.out.println("\n" + patient);
 			}
 
 			case 0: {// GO BACK TO START MENU
@@ -135,7 +134,9 @@ public class Menu {
 		Integer pchoice = reiterative;
 		while ((pchoice > 3) || (pchoice < 0)) {
 			PMenu();
+			pList = JDBCDoctorManager.getPatientsofDoctor(/*pId*/);
 			pchoice = getIntegerBiggerThanCero("\nSelect an option: ");
+			
 			switch (pchoice) {
 			case 1: {// SEE DATA ON PATIENT
 				System.out.println("\n\tSEE DATA ON PATIENT" + "\nDo you want to continue the process?");
@@ -145,7 +146,11 @@ public class Menu {
 					pchoice = reiterative;
 				} else {
 					System.out.println("\nChoose a patient to show their data: ");
-					pList = JDBCDoctorManager.getPatientsofDoctor(/*pId*/);
+		
+					for (Patient p:pList) {
+						System.out.println(p.getName());
+						//from the name?
+					}
 					System.out.println("\nInput the symptom information: ");
 					Symptom symptom = asksympinfo();
 					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
