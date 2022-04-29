@@ -40,6 +40,34 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager{
 			ex.printStackTrace();
 		}
 	}
+	
+	@Override
+	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId) {
+
+		List<EmergencyContact> contactsList= new ArrayList<EmergencyContact>();
+
+		try {
+			String sql = "SELECT * FROM emergencycontact WHERE patientId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, pacId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String name = rs.getString("name");
+				Integer number = rs.getInt("number");
+				EmergencyContact emergencyContact= new EmergencyContact(id, name, number);
+				contactsList.add(emergencyContact);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
+		return contactsList;
+	}
+	
 
 	@Override
 	public List<EmergencyContact> listsAllEmergencyContacts() {

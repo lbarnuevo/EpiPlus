@@ -198,11 +198,12 @@ public class Patient implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Patient [id=" + id + ", name=" + name + ", age=" + age + ", height=" + height + ", weight=" + weight
-				+ ", lifestyle=" + lifestyle + ", diet=" + diet + ", ex_per_week=" + ex_per_week + ", doctor=" + doctor
-				+ ", photo=" + Arrays.toString(photo) + ", emergency_contacts=" + emergency_contacts + ", episodes="
-				+ episodes + ", medication=" + medication + "]";
-	}
+	//TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
+		@Override
+		public String toString() {
+			return "PATIENT [ID=" + this.id + ", NAME=" + this.name +"]" + "\nAge=" + this.age + "\nHeight=" + this.height + "\nWeight=" + this.weight
+					+ "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet + "\nExercise per week" + this.ex_per_week 
+					+ "\nPhoto=" + Arrays.toString(this.photo) + "\n" + this.doctor.toString();
+		}
+		//CUANDO SE PREGUNTE LA INFORMACIÓN HABRÁ QUE SOUT EMERGENCY CONTACTS, EPISODES, MEDICATION
 }

@@ -4,10 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import epiplus.ifaces.PatientManager;
 import epiplus.pojos.EmergencyContact;
+import epiplus.pojos.Episode;
 import epiplus.pojos.Patient;
 
 public class JDBCPatientManager implements PatientManager {
@@ -99,33 +101,6 @@ public class JDBCPatientManager implements PatientManager {
 			e.printStackTrace();
 		}
 		return patient;
-	}
-	
-	@Override
-	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId) {
-
-		List<EmergencyContact> contactsList= new ArrayList<EmergencyContact>();
-
-		try {
-			String sql = "SELECT * FROM emergencycontact WHERE patientId LIKE ?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, pacId);
-			ResultSet rs = prep.executeQuery();
-
-			while (rs.next()) {
-				Integer id = rs.getInt("id");
-				String name = rs.getString("name");
-				Integer number = rs.getInt("number");
-				EmergencyContact emergencyContact= new EmergencyContact(id, name, number);
-				contactsList.add(emergencyContact);
-			}
-			rs.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//return null;//this function should return a patirnt so why is it returning a null? --> I'm(Marta) going to change it
-		return contactsList;
 	}
 	
 

@@ -70,7 +70,7 @@ public class Medication implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Medication [id=" + id + ", name=" + name + ", patient=" + patient + "]";
+		return "MEDICATION [ID=" + id + ", NAME=" + name + "]";
 	}
 	
 }

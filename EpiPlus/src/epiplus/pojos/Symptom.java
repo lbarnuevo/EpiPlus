@@ -79,5 +79,4 @@ public class Symptom implements Serializable{
 	public String toString() {
 		return "SYMPTOM [ID=" + id + ", NAME=" + name + "]";
 	}
-
 }

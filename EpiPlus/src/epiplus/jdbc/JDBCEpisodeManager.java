@@ -52,6 +52,37 @@ public class JDBCEpisodeManager implements EpisodeManager {
 	}
 
 	@Override
+	public List<Episode> getEpisodesOfPatient(Integer pacId) {
+
+		List<Episode> episodesList= new ArrayList<Episode>();
+
+		try {
+			String sql = "SELECT * FROM episodes WHERE patientId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, pacId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				Date doe = rs.getDate("date");
+				Float length = rs.getFloat("length");
+				String  activity= rs.getString("activity");
+				String mood = rs.getString("mood");
+				String place = rs.getString("place");
+				String meals = rs.getString("previous_meal");
+				Boolean injuries = rs.getBoolean("injuries");
+				Episode episode = new Episode(id,doe,length,activity,mood,place,meals,injuries);
+				episodesList.add(episode);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return episodesList;
+	}
+	
+	@Override
 	public List<Episode> listsAllEpisodes() {
 		
 		List<Episode> episodesList = new ArrayList<Episode>();

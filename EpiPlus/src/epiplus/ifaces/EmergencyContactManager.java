@@ -8,5 +8,6 @@ public interface EmergencyContactManager {
 
 	public void addEmergencyContact(EmergencyContact c);
 	public void deleteEmergencyContact(EmergencyContact c);
+	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId);
 	public List<EmergencyContact> listsAllEmergencyContacts();
 }

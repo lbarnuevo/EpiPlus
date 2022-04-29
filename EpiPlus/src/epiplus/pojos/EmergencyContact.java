@@ -75,6 +75,6 @@ public class EmergencyContact {
 
 	@Override
 	public String toString() {
-		return "EmergencyContact [id=" + id + ", name=" + name + ", number=" + number + ", patient=" + patient + "]";
+		return "EMERGENCY CONTACT[ID=" + id + ", NAME=" + name + "]" + "\nNumber=" + number;
 	}
 }

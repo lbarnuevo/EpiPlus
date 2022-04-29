@@ -1,10 +1,15 @@
 package epiplus.jdbc;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import epiplus.ifaces.PatientMedicationManager;
+import epiplus.pojos.Medication;
 import epiplus.pojos.PatientMedication;
+import epiplus.pojos.Symptom;
 
 public class JDBCPatientMedicationManager implements PatientMedicationManager{
 
@@ -38,5 +43,29 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Medication> getMedicationsOfPacient(Integer pacId) {
+
+		List<Medication> medicationsList = new ArrayList<Medication>();
+
+		try {
+			String sql = "SELECT * FROM medications AS m JOIN patientmedication AS pm ON m.id=pm.medicationId WHERE pm.patientId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, pacId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String  name= rs.getString("name");
+				Medication medication = new Medication (id,name);
+				medicationsList.add(medication);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return medicationsList;
 	}
 }
