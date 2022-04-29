@@ -23,16 +23,60 @@ public class Patient implements Serializable{
 	private Integer ex_per_week;
 	private Doctor doctor; //Many to one relationship 
 	private byte[] photo;
-	private List<Integer> emergency_contacts; 
+	private List<EmergencyContact> emergency_contacts; //Changed Integer to EC class 
 	private List<Episode> episodes; //Many to one relationship 
 	private List<Medication> medication; //Many to many relationship  
 	
-	public Patient() {
+
+	public Patient (Integer id, String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise, byte[] photo) {
 		super();
+		this.id= id;
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= photo;
 		episodes = new ArrayList<Episode>();
 		medication = new ArrayList<Medication>();
+		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
-
+	
+	public Patient (String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise, byte[] photo) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= photo;
+		episodes = new ArrayList<Episode>();
+		medication = new ArrayList<Medication>();
+		emergency_contacts = new ArrayList<EmergencyContact>();
+	}
+	
+	public Patient (String name, Integer age, Float height, Float weight, 
+			String lifestyle, String diet, Integer exercise) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight= weight;
+		this.lifestyle= lifestyle;
+		this.diet= diet;
+		this.ex_per_week= exercise;
+		this.photo= null;
+		episodes = new ArrayList<Episode>();
+		medication = new ArrayList<Medication>();
+		emergency_contacts = new ArrayList<EmergencyContact>();
+	}
+	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -134,13 +178,14 @@ public class Patient implements Serializable{
 		return Objects.hash(id);
 	}
 
-	public List<Integer> getEmergency_contacts() {
+	public List<EmergencyContact> getEmergency_contacts() {
 		return emergency_contacts;
 	}
 
-	public void setEmergency_contacs(List<Integer> emergency_contacts) {
+	public void setEmergency_contacs(List<EmergencyContact> emergency_contacts) {
 		this.emergency_contacts = emergency_contacts;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -160,5 +205,4 @@ public class Patient implements Serializable{
 				+ ", photo=" + Arrays.toString(photo) + ", emergency_contacts=" + emergency_contacts + ", episodes="
 				+ episodes + ", medication=" + medication + "]";
 	}
-
 }

@@ -1,37 +1,30 @@
 package epiplus.pojos;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class Medication implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7574063760306956061L;
-	
+public class EmergencyContact {
+
 	private Integer id;
 	private String name;
-	private List<Patient> patient;//Many to many relationship 
+	private Float number;
+	private Patient patient;
 	
-	public Medication() {
+	public EmergencyContact() {
 		super();
-		patient = new ArrayList<Patient>();
 	}
 
-	public Medication(Integer id, String name) {
+	public EmergencyContact(Integer id, String name, Float number) {
 		super();
 		this.id= id;
-		this.name= name;
+		this.name=name;
+		this.number=number;
 	}
 
-	public List<Patient> getPatient() {
+	public Patient getPatient() {
 		return patient;
 	}
 
-	public void setPatient(List<Patient> patient) {
+	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 
@@ -51,6 +44,14 @@ public class Medication implements Serializable{
 		this.name = name;
 	}
 
+	public Float getNumber() {
+		return number;
+	}
+
+	public void setNumber(Float number) {
+		this.number = number;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -64,13 +65,12 @@ public class Medication implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Medication other = (Medication) obj;
+		EmergencyContact other = (EmergencyContact) obj;
 		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Medication [id=" + id + ", name=" + name + ", patient=" + patient + "]";
+		return "EmergencyContact [id=" + id + ", name=" + name + ", number=" + number + ", patient=" + patient + "]";
 	}
-	
 }

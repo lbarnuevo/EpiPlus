@@ -21,6 +21,19 @@ public class Symptom implements Serializable{
 		episodes = new ArrayList<Episode>();
 	}
 
+	public Symptom(Integer id, String name) {
+		super();
+		this.id=id;
+		this.name= name;
+		episodes = new ArrayList<Episode>();
+	}
+	
+	public Symptom(String name) {
+		super();
+		this.name= name;
+		episodes = new ArrayList<Episode>();
+	}
+
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}

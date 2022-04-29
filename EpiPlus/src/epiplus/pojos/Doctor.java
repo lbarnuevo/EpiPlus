@@ -22,11 +22,40 @@ public class Doctor implements Serializable {
 	private byte[] photo; 
 	private List<Patient> patients; //One to many relationship 
 	
-	public Doctor() {
+	/*Same as patient
+	 * public Doctor() {
 		super();
+		patients = new ArrayList<Patient>();
+	}*/
+	
+	public Doctor (Integer id, String name, String email, String hospitalName, byte[] photo) {
+		super();
+		this.id= id;
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= photo;
+		patients = new ArrayList<Patient>();
+	}
+	
+	public Doctor (String name, String email, String hospitalName, byte[] photo) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= photo;
 		patients = new ArrayList<Patient>();
 	}
 
+	public Doctor (String name, String email, String hospitalName) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.photo= null;
+		patients = new ArrayList<Patient>();
+	}
+	
 	public byte[] getPhoto() {
 		return photo;
 	}
