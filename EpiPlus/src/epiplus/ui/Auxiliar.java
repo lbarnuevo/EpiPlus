@@ -96,9 +96,25 @@ public class Auxiliar {
     	return bytesBlob;
     }
     
-    public static String getLifeStyle() { //TODO @luciabarnuevo getLifeStyle
-    	String lifestyle = null;
-    	
+    public static String getLifeStyle() { 
+    	ListLifestyle();
+    	String lifestyle = null; 
+    	boolean read = false; 
+    	System.out.println("What life style would you say you follow? ");
+    	do {
+    		lifestyle = getString("");
+    		if(lifestyle.equalsIgnoreCase("sedentary")) {
+    			read = true;
+    		} else if(lifestyle.equalsIgnoreCase("low")) {
+    			read = true;
+    		} else if(lifestyle.equalsIgnoreCase("medium")) {
+    			read = true;
+    		} else if(lifestyle.equalsIgnoreCase("high")) {
+    			read = true;
+    		}
+    		
+    	} while(read = false);
+ 
     	return lifestyle; 
     }
     
@@ -249,13 +265,13 @@ public class Auxiliar {
     	//TODO add diets
     }
     
-    public static void ListLifestyle() {
+    public static void ListLifestyle() { //maybe this could be automatically calculated instead of putting it? 
     	System.out.println("                  	DEFINITION OF LIFESTYLES                        ");
         System.out.println("---------------------------------------------------------------");
     	System.out.println("Sedentary: do not play any sports");
-    	System.out.println("Low activity: practice no impact sports (yoga, pilates...)");
-    	System.out.println("Medium activity: practice low impact sports (walking, swimmming...)");
-    	System.out.println("High activity: practice high impact sports ");
+    	System.out.println("Low: practice no impact sports (yoga, pilates...)");
+    	System.out.println("Medium: practice low impact sports (walking, swimmming...)");
+    	System.out.println("High: practice high impact sports ");
     }
     
     
