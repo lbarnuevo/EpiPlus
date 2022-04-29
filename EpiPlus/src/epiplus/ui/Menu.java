@@ -3,6 +3,9 @@ package epiplus.ui;
 import static epiplus.ui.Auxiliar.getPositiveInteger;
 import static epiplus.ui.Auxiliar.getString;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 import static epiplus.ui.Auxiliar.*;
 import epiplus.jdbc.*;
@@ -11,6 +14,8 @@ import epiplus.pojos.*;
 
 public class Menu {
 
+	private static Connection c;
+	
 	private static JDBCDoctorManager docManager;
 	private static JDBCPatientManager patientManager;
 	private static JDBCSymptomManager sympManager;
@@ -19,58 +24,36 @@ public class Menu {
 	private static JDBCPatientMedicationManager pmedManager;
 	private static JDBCMedicationManager medManager;
 	
-	private static JDBCManager jdbcManager;
+	private static JDBCManager jdbcManager = new JDBCManager();
+;
 	
 	private static final Integer reiterative = -1;// variable to make a infinite loop
-	
-	//MARTA TE HE PUESTO LOS METODOS DEBAJO DEL MAIN PARA QUE SEA MAS FACIL ACCEDER A EL 
-		
+			
 	public static void main(String[] args) {
 	
-		// JDBCManager jdbcManager = new JDBCManager(); --> as atribute of the class
-		// because in patientchoice it is used
 		docManager = new JDBCDoctorManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-		/*
-		 * epManager = new JDBCEpisodeManager(jdbcManager); sympManager = new
-		 * JDBCSymptomManager(jdbcManager); change to the function patientchoice
-		 */
-	
-		/*
-		 * wrong menus!! add doctor/patient --> ask to user delete doctor/patient -->
-		 * ask to user view doctor/patient --> ask to user who wants see list of
-		 * patients/doctors show evolution patient
-		 */
-	
-		/*
-		 * Following his menu of dog hospital(see below): We do not have the database
-		 * initialized and the managers declared
-		 */
 	
 		while (true) {
 			startMenu();
 			Integer optionsm = getPositiveInteger("\nSelect an option: ");
 	
 			switch (optionsm) {
-				case 1: {// LOG IN AS PATIENT
-	
-					/*
-					 * TODO we have to create login methods Integer pId = loginpatient().....
-					 */
-	
-					patientChoice(/* pId */);
+				/*//BETTER TO CREATE A METHOD COMMON TO LOG IN AND USING THE ROLES CHOOSE WICH ONE ARE
+				 case 1: {// LOG IN AS PATIENT
+					//TODO we have to create login methods Integer pId = loginpatient().....
+					patientChoice(/* pId );
 					break;
 				}
-				
 				case 2: {// LOG IN AS DOCTOR
-	
 					// TODO we have to create login methods
 					// Integer dId = logindoctor().....
-					doctorChoice(/* dId */);
+					doctorChoice(/* dId );
 					break;
-				}
+				}*/
 				
 				case 3: {// REGISTER DOCTOR/PATIENT
+					//TODO CREATE A METHOD TO REGISTER
 					Integer optionregist = reiterative;
 					
 					while ((optionregist > 2) || (optionregist < 0)) {
@@ -138,6 +121,23 @@ public class Menu {
 		}
 	}
 	
+	public static void connect(){
+		try {
+			// Open database connection
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:./db/epiplus.db");
+			c.createStatement().execute("PRAGMA foreign_keys=ON");
+			System.out.println("Database connection opened.");
+			jdbcManager.createTables();
+			
+		} catch (SQLException E) {
+			System.out.println("There was a database exception.");
+			E.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("There was a general exception.");
+			e.printStackTrace();
+		}
+	}
 	
 	private static void startMenu() {
 		System.out.println("                  	WELCOME TO EPI+!                        ");
