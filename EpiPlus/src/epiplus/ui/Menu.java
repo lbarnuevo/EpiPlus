@@ -1,19 +1,19 @@
 package epiplus.ui;
 
-import static epiplus.ui.Auxiliar.getIntegerBiggerThanCero;
+import static epiplus.ui.Auxiliar.getPositiveInteger;
 import static epiplus.ui.Auxiliar.getString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static epiplus.ui.Auxiliar.askalldocinfo;
+import static epiplus.ui.Auxiliar.createDoctor;
 import static epiplus.ui.Auxiliar.askdocinfo;
-import static epiplus.ui.Auxiliar.askallpatientinfo;
+import static epiplus.ui.Auxiliar.createPatient;
 import static epiplus.ui.Auxiliar.askpatientinfo;
-import static epiplus.ui.Auxiliar.askconfirmation;
-import static epiplus.ui.Auxiliar.askepinfo;
-import static epiplus.ui.Auxiliar.asksympinfo;
-import static epiplus.ui.Auxiliar.askepsympinfo;
+import static epiplus.ui.Auxiliar.askConfirmation;
+import static epiplus.ui.Auxiliar.createEpisode;
+import static epiplus.ui.Auxiliar.createSymptom;
+import static epiplus.ui.Auxiliar.createSeverity;
 
 import epiplus.jdbc.JDBCManager;
 import epiplus.jdbc.JDBCMedicationManager;
@@ -80,7 +80,7 @@ public class Menu {
 		Integer pchoice = reiterative;
 		while ((pchoice > 9) || (pchoice < 0)) {
 			PMenu();
-			pchoice = getIntegerBiggerThanCero("\nSelect an option: ");
+			pchoice = getPositiveInteger("\nSelect an option: ");
 			switch (pchoice) {
 			case 1: {// REGISTER EPISODES
 				System.out.println("\n\tREGISTER EPISODES" + "\nDo you want to continue the process?");
@@ -89,12 +89,12 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					Episode ep = askepinfo();
-					Symptom symptom = asksympinfo();
+					Episode ep = createEpisode();
+					Symptom symptom = createSymptom();
 					epManager.addEpisode(ep);
 					sympManager.addSymptom(symptom);
 
-					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
+					EpisodeSymptom epsymp = createSeverity(ep, symptom);
 					epsympManager.assignEpisodeSymptom(epsymp);
 				}
 				break;
@@ -135,7 +135,7 @@ public class Menu {
 		while ((pchoice > 3) || (pchoice < 0)) {
 			PMenu();
 			pList = JDBCDoctorManager.getPatientsofDoctor(/*pId*/);
-			pchoice = getIntegerBiggerThanCero("\nSelect an option: ");
+			pchoice = getPositiveInteger("\nSelect an option: ");
 			
 			switch (pchoice) {
 			case 1: {// SEE DATA ON PATIENT
@@ -152,8 +152,8 @@ public class Menu {
 						//from the name?
 					}
 					System.out.println("\nInput the symptom information: ");
-					Symptom symptom = asksympinfo();
-					EpisodeSymptom epsymp = askepsympinfo(ep, symptom);
+					Symptom symptom = createSymptom();
+					EpisodeSymptom epsymp = createSeverity(ep, symptom);
 					epManager.addEpisode(ep);
 					sympManager.addSymptom(symptom);
 					epsympManager.assignEpisodeSymptom(epsymp);
@@ -198,7 +198,7 @@ public class Menu {
 
 		while (true) {
 			startMenu();
-			Integer optionsm = getIntegerBiggerThanCero("\nSelect an option: ");
+			Integer optionsm = getPositiveInteger("\nSelect an option: ");
 
 			switch (optionsm) {
 			case 1: {// LOG IN AS PATIENT
@@ -221,7 +221,7 @@ public class Menu {
 				Integer optionregist = reiterative;
 				while ((optionregist > 2) || (optionregist < 0)) {
 					registerMenu();
-					optionregist = getIntegerBiggerThanCero("\nSelect an option: ");
+					optionregist = getPositiveInteger("\nSelect an option: ");
 					switch (optionregist) {
 					case 1: {// REGISTER DOCTOR
 						Doctor doc;
@@ -234,9 +234,9 @@ public class Menu {
 						} else {
 							System.out.print("\nInput Doctor information:");
 							System.out.println("\nDo you want to have a photo?? ");
-							Boolean confirmation = askconfirmation();
+							Boolean confirmation = askConfirmation();
 							if (confirmation == true) {// with photo
-								doc = askalldocinfo();// not complete, problem with photo
+								doc = createDoctor();// not complete, problem with photo
 								docManager.addDoctor(doc);
 							} else {// without photo
 								doc = askdocinfo();
@@ -257,9 +257,9 @@ public class Menu {
 						} else {
 							System.out.print("\nInput Patient information:");
 							System.out.println("\nDo you want to have a photo?? ");
-							Boolean confirmation = askconfirmation();
+							Boolean confirmation = askConfirmation();
 							if (confirmation == true) {// with photo
-								patient = askallpatientinfo();// not complete, problem with photo
+								patient = createPatient();// not complete, problem with photo
 								patientManager.addPatient(patient);
 							} else {// without photo
 								patient = askpatientinfo();

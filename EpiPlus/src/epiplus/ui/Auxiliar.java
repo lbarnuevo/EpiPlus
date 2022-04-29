@@ -14,7 +14,6 @@ import epiplus.pojos.Symptom;
 public class Auxiliar {
 
 	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...)
-	//TODO @someone ask for a photo in patient and doctor
 	//TODO @luciabarnuevo change in methods to parse the buffer (when marta finishes menu) 
 	
 	//Function to ask for an Integer to the user
@@ -42,7 +41,7 @@ public class Auxiliar {
     }
 
 	//Function to ask for a String to the user
-    public static String getString(String txt){
+    public static String getString(String txt){ //TODO discuss deleting this method 
         System.out.print(txt);
         String leido = null;
         try{
@@ -53,29 +52,6 @@ public class Auxiliar {
             System.out.println(ex);
         }
         return leido;
-    }
-    
-	//Function to ask for an Double to the user --> We use Doubles??
-    public static Double getDouble(String txt){
-        System.out.print(txt);
-        boolean read = false;
-        Double N=0.0;
-        
-        do {
-        	try{
-                BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-                N = Double.parseDouble(consol.readLine());
-                if(N>0.0) { //this is done to make sure that N has the correct format
-                	read = true;
-                }
-            } catch(IOException ex){
-                System.out.println("Reading error");
-            } catch (NumberFormatException ex) { 
-            	System.out.println("Error. Introduce a number:");
-            }
-        } while(read == false);
-        
-        return N;
     }
     
 	//Function to ask for a positive Float to the user
@@ -102,9 +78,12 @@ public class Auxiliar {
 	//Function to ask for a Byte to the user
     public static byte[] getByte(String txt) {
     	System.out.print(txt);
-    	String fileName = null;
     	byte[] bytesBlob = null;
+    	
         try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        	System.out.print("Type the file name as it appears in folder /photos, including extension: ");
+    		String fileName = br.readLine();
             File photo = new File("./photos/" + fileName);
 			InputStream streamBlob = new FileInputStream(photo);
 			bytesBlob = new byte[streamBlob.available()];
@@ -117,8 +96,19 @@ public class Auxiliar {
     	return bytesBlob;
     }
     
+    public static String getLifeStyle() { //TODO @luciabarnuevo getLifeStyle
+    	String lifestyle = null;
+    	
+    	return lifestyle; 
+    }
+    
+    public static String getDiet() { //TODO @luciabarnuevo getDiet 
+    	String diet = null;
+    	return diet; 
+    }
+    
     //Ask for confirmation on something
-    public static Boolean askconfirmation(){
+    public static Boolean askConfirmation(){
         boolean confir = false;
     	String confirmation = getString("(Yes --> Y / No --> N)");
         while (true) {
@@ -135,102 +125,133 @@ public class Auxiliar {
         return confir;
     }
     
-    public static Doctor askalldocinfo() {//Doctor info + photo
-    	Doctor doc;
-    	String name = getString("\nName: ");
-    	String hospital = getString("Hospital name: ");
-    	String email = getString("Email: ");
-    	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
+    public static Doctor createDoctor(){
+    	System.out.println("Input doctor information");
+    	System.out.println("");
     	
-    	//doc = new Doctor();
-    	doc = new Doctor(name, email, hospital, photo);
-    	return doc;
+    	System.out.println("Name: ");
+    	String name = getString("");
+    	
+    	System.out.println("Hospital name: ");
+    	String hospital = getString("");
+    	
+    	System.out.println("Email: ");
+    	String email = getString("");
+    	
+    	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
+    	boolean confirmation = askConfirmation();
+    	
+    	if( confirmation == true) {
+    		byte[] photo = getByte("Photo: ");//Need to change method to input bufferedreader 
+    		Doctor doc = new Doctor(name, email, hospital, photo);
+    		return doc; 
+    		
+    	} else {
+    		Doctor doc = new Doctor(name, email, hospital);
+        	return doc;
+    	}
     }
     
-    public static Doctor askdocinfo() {//Doctor info - photo
-    	Doctor doc;
-    	String name = getString("\nName: ");
-    	String hospital = getString("Hospital name: ");
-    	String email = getString("Email: ");
+    public static Patient createPatient(){
+    	System.out.println("Input patient information");
+    	System.out.println("");
     	
-    	//doc = new Doctor();
-    	doc = new Doctor(name, email, hospital);
-    	return doc;
-	}
-    
-    public static Patient askallpatientinfo() {//Patient info + photo
-    	Patient patient;
-    	String name = getString("\nName: ");
-    	Integer age = getPositiveInteger("Age: ");
-		Float height = getPositiveFloat("Height: ");
-		Float weight = getPositiveFloat("Weight: ");
-		String lifestyle = getString("Lifestyle: ");
-		String diet = getString("Diet: ");
-		Integer exercise = getPositiveInteger("How many times a week do you exercise? ");
-    	byte[] photo = getByte("Photo: ");//Im not sure how to ask for the photo
-
-		
-		//patient = new Patient();
-		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
-		return patient;
-    }
-    
-    public static Patient askpatientinfo() {//Patient info - photo
-    	Patient patient;
-    	String name = getString("\nName: ");
-    	Integer age = getPositiveInteger("Age: ");
-		Float height = getPositiveFloat("Height: ");
-		Float weight = getPositiveFloat("Weight: ");
-		String lifestyle = getString("Lifestyle: ");
-		String diet = getString("Diet: ");
-		Integer exercise = getPositiveInteger("How many times a week do you exercise? ");
-		
-		//patient = new Patient();
-		patient = new Patient(name, age, height, weight, lifestyle, diet, exercise);
-		return patient;
+    	System.out.println("Name: ");
+    	String name = getString("");
+    	
+    	System.out.println("Age: ");
+    	Integer age = getPositiveInteger("Age: "); //need to change method 
+    	
+    	System.out.println("Height: ");
+    	Float height = getPositiveFloat("");
+    	
+    	System.out.println("Weight: ");
+    	Float weight = getPositiveFloat("");
+    	
+    	System.out.println("Lifestyle: ");
+    	String lifestyle = getLifeStyle();
+    	
+    	System.out.println("Diet: ");
+    	String diet = getDiet();
+    	
+    	System.out.println("Exercise per week (how many hours): ");
+    	Integer exercise = getPositiveInteger("");
+    	
+    	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
+    	boolean confirmation = askConfirmation();
+    	
+    	if( confirmation == true) {
+    		byte[] photo = getByte("Photo: ");//Need to change method to input bufferedreader 
+    		Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
+    		return p;
+    		
+    	} else {
+    		Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise);
+    		return p; 
+    	}
     }
     
     //episode info
-    public static Episode askepinfo() {
-    	Episode ep;
-		Date doe;
-		System.out.println("\nInput the episode's information: ");
-		Float length = getPositiveFloat("\nLength: "); 
-		String activity = getString("Activity: ");//TODO add types of activity
-		String mood = getString("Mood: ");
-		String place = getString("Place: ");
-		String previous_meal = getString("Previous meal: ");
-		System.out.println("Did you had any injury?");
-		Boolean injuries = askconfirmation();
-		System.out.println("When did it occur?");
-		Integer day = getPositiveInteger("\nDay: ");
-		Integer month = getPositiveInteger("\nMonth: ");
-		Integer year = getPositiveInteger("\nYear: ");
-		doe = new Date(year, month, day);
+    public static Episode createEpisode(){
+		System.out.println("Input the episode's information: ");
+		System.out.println("");
 		
-		//ep = new Episode();
-		ep = new Episode(doe, length, activity, mood, place, previous_meal, injuries);
+		System.out.println("Date of the episode: ");
+		System.out.println("Day(d): ");
+		Integer day = getPositiveInteger("");
+		System.out.println("Month (m): ");
+		Integer month = getPositiveInteger("");
+		System.out.println("Year (yyyy): ");
+		Integer year = getPositiveInteger("");
+		Date doe = new Date(year, month, day); //ask rodrigo 
 		
+		System.out.println("Episode length: ");
+		Float length = getPositiveFloat(""); 
+		
+		System.out.println("Add previous activity: "); //I would consider deleting them 
+		String activity = getString("");//TODO add types of activity
+		
+		System.out.println("Mood: ");
+		String mood = getString("");
+		
+		System.out.println("Place: ");
+		String place = getString("");
+		
+		System.out.println("Previous meal: ");
+		String previous_meal = getString("");
+		
+		System.out.println("Did you had any injury?(Yes --> Y / No --> N): ");
+		Boolean injuries = askConfirmation();
+		
+		Episode ep = new Episode(doe, length, activity, mood, place, previous_meal, injuries);
 		return ep;
     }
     
     //ask symptoms information
-    public static Symptom asksympinfo() {
-    	Symptom symp;
-    	System.out.println("\nInput the symptom's information: ");
-    	String name = getString("\nName: ");
-    	symp = new Symptom(name);
+    public static Symptom createSymptom() { 
+    	System.out.println("Symptoms name: ");
+    	String name = getString("");
+    	
+    	Symptom symp = new Symptom(name);
     	return symp;
     }
     
-    public static EpisodeSymptom askepsympinfo( Episode ep, Symptom symp) {
-    	EpisodeSymptom epsymp;
-    	Integer sev = getPositiveInteger("\nInput the severity of the symptom in a scale from 0 to 10: ");
-    	epsymp= new EpisodeSymptom(ep,symp,sev);
+    public static EpisodeSymptom createSeverity( Episode ep, Symptom symp) {    	
+    	System.out.println("Input the severity of the symptom in a scale from 0 to 10: ");
+    	Integer sev = getPositiveInteger("");
+    	
+    	EpisodeSymptom epsymp= new EpisodeSymptom(ep,symp,sev);
     	return epsymp;
     }
     
     
+    public static void ListDiets() {
+    	//TODO add diets
+    }
+    
+    public static void ListLifestyle() {
+    	//TODO add lifestyle
+    }
     
     
     
