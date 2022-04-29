@@ -4,12 +4,7 @@ package epiplus.ui;
 
 import java.io.*;
 import java.util.Date;
-
-import epiplus.pojos.Doctor;
-import epiplus.pojos.Episode;
-import epiplus.pojos.EpisodeSymptom;
-import epiplus.pojos.Patient;
-import epiplus.pojos.Symptom;
+import epiplus.pojos.*;
 
 public class Auxiliar {
 
