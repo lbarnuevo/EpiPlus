@@ -193,7 +193,9 @@ public class Menu {
 		patientManager = new JDBCPatientManager(jdbcManager);
 	
 		Patient patient = patientManager.getPatientById(/* pId */);
-	
+		
+		List<Medication> listMed;
+		
 		Integer pchoice = reiterative;
 		
 		while ((pchoice > 9) || (pchoice < 0)) {
@@ -227,15 +229,19 @@ public class Menu {
 						pchoice = reiterative;
 					} else {
 						// show list medication
-						medManager.listsAllMedication();
+						listMed = medManager.listsAllMedication();
+						for(Medication m:listMed) {
+							System.out.println("\n"+m);
+						}
 		
-						pmedManager.assignPatientMedication(/* pId */);
+						//pmedManager.assignPatientMedication(/* pId */);
 					}
 				}
 				
 				case 3: {// SHOW PATIENT INFO
 					// use the same function for patient and doctor
 					System.out.println("\n" + patient);
+					
 				}
 	
 				case 0: {// GO BACK TO START MENU
@@ -248,6 +254,8 @@ public class Menu {
 			}
 		}
 	}
+	
+	//private static 
 	
 	private static void doctorChoice(/* Integer pId */) {
 	
