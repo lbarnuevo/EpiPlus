@@ -268,18 +268,13 @@ public class Menu {
 					if (register.equalsIgnoreCase("B")) {
 						pchoice = reiterative;
 					} else {
-						System.out.println("\nChoose a patient to show their data: ");
+						System.out.println("\nChoose a patient to show their data:");
 			
 						for (Patient p:pList) {
-							System.out.println(p.getName());
-							//from the name?
+							System.out.println(p.getId()+ " " + p.getName());
 						}
-						System.out.println("\nInput the symptom information: ");
-						Symptom symptom = createSymptom();
-						EpisodeSymptom epsymp = createSeverity(ep, symptom);
-						epManager.addEpisode(ep);
-						sympManager.addSymptom(symptom);
-						epsympManager.assignEpisodeSymptom(epsymp);
+						Integer pIdChosen= getPositiveInteger("\nWrite the number above their name: ");
+						
 		
 					}
 					break;
