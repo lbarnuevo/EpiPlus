@@ -2,6 +2,8 @@ package epiplus.ui;
 
 import java.io.*;
 import java.sql.*;
+import java.util.*;
+
 import static epiplus.ui.Auxiliar.*;
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
@@ -15,6 +17,10 @@ public class ImprovedMenu {
 	
 	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
 	private static PatientManager patientManager = new JDBCPatientManager(jdbcManager);
+	
+	//THESE VARIABLES ARE TEMPORARY
+	private static List<Patient> userPatients = new LinkedList<Patient>();
+	private static List<Doctor> userDoctors = new LinkedList<Doctor>();
 	
 	//private static EmergencyContactManager ecManager;
 	//private static EpisodeManager episodeManager;
@@ -58,10 +64,18 @@ public class ImprovedMenu {
 				switch(choice) {
 					case 1: 
 						//TODO loginPatient();
+						System.out.println("Enter patient name: ");
+						String p_name = reader.readLine();
+						Patient p = searchPatient(p_name);
+						patientMenu(p);
 						break;
 						
 					case 2:
 						//TODO loginDoctor();
+						System.out.println("Enter doctor name: ");
+						String d_name = reader.readLine();
+						Doctor d = searchDoctor(d_name);
+						doctorMenu(d);
 						break;
 						
 					case 3: 
@@ -128,17 +142,54 @@ public class ImprovedMenu {
 	
 	private static void registerDoctor() {
 		Doctor doctor = createDoctor();
-		doctorManager.addDoctor(doctor);							
+		doctorManager.addDoctor(doctor);
+		userDoctors.add(doctor);
 		System.out.println("\nYou have been successfully registered");
 	}
 	
 	private static void registerPatient() {
 		Patient patient = createPatient();
 		patientManager.addPatient(patient);
+		userPatients.add(patient);
 		System.out.println("\nYou have been successfully registered");
 	}
 	
-	private static void patientMenu() throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
+	
+	
+	public static Patient searchPatient(String name) throws Exception {
+    	Patient p = null;
+    	ListIterator<Patient> iterador= userPatients.listIterator();
+        while(iterador.hasNext()){
+            Patient p2= iterador.next();
+            if(p2.getName().equalsIgnoreCase(name)){
+                p=p2;
+            }
+        }
+        if(p == null){
+            throw new Exception("No existe esa poblacion.");
+        } else{
+            return p;
+        } 
+    }
+	
+	public static Doctor searchDoctor(String name) throws Exception {
+    	Doctor d = null;
+    	ListIterator<Doctor> iterador= userDoctors.listIterator();
+        while(iterador.hasNext()){
+            Doctor d2= iterador.next();
+            if(d2.getName().equalsIgnoreCase(name)){
+                d = d2;
+            }
+        }
+        if(d == null){
+            throw new Exception("No existe esa poblacion.");
+        } else{
+            return d;
+        }
+    }
+
+	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
+		//TODO implement methods before login subsystem
 		do {
 			System.out.println("                  PATIENT MENU                        ");
 		    System.out.println("---------------------------------------------------------------");
@@ -193,7 +244,9 @@ public class ImprovedMenu {
 		while(true);
 	}
 	
-	private static void doctorMenu() throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
+	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
+		//TODO implement methods before login subsystem
+		
 		do {
 			System.out.println("                  DOCTOR MENU                         ");
 		    System.out.println("---------------------------------------------------------------");

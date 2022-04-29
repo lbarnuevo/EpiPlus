@@ -276,8 +276,5 @@ public class Auxiliar {
     	System.out.println("Low: practice no impact sports (yoga, pilates...)");
     	System.out.println("Medium: practice low impact sports (walking, swimmming...)");
     	System.out.println("High: practice high impact sports ");
-    }
-    
-    
-    
+    }   
 }
