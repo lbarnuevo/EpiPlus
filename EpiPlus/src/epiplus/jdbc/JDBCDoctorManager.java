@@ -91,7 +91,7 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public List<Doctor> searchDoctorByHospital(String hospital) {
-		
+
 		List<Doctor> doctorsList = new ArrayList<Doctor>();
 
 		try {
@@ -220,9 +220,9 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	@Override
 	public List<Doctor> listsAllDoctors() {
-		
+
 		List<Doctor> doctorsList = new ArrayList<Doctor>();
-		
+
 		try {
 			String sql = "SELECT * FROM doctors";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);

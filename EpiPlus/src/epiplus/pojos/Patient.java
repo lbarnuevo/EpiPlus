@@ -6,77 +6,76 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Patient implements Serializable{
-	
+public class Patient implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2234593157068704294L;
-	
+
 	private Integer id;
 	private String name;
 	private Integer age;
 	private Float height;
 	private Float weight;
-	private String lifestyle; //He explained to me how to do it, but it's a task for the future
-	private String diet; 
+	private String lifestyle; // He explained to me how to do it, but it's a task for the future
+	private String diet;
 	private Integer ex_per_week;
-	private Doctor doctor; //Many to one relationship 
+	private Doctor doctor; // Many to one relationship
 	private byte[] photo;
-	private List<EmergencyContact> emergency_contacts; //Changed Integer to EC class 
-	private List<Episode> episodes; //Many to one relationship 
-	private List<Medication> medication; //Many to many relationship  
-	
+	private List<EmergencyContact> emergency_contacts; // Changed Integer to EC class
+	private List<Episode> episodes; // Many to one relationship
+	private List<Medication> medication; // Many to many relationship
 
-	public Patient (Integer id, String name, Integer age, Float height, Float weight, 
-			String lifestyle, String diet, Integer exercise, byte[] photo) {
+	public Patient(Integer id, String name, Integer age, Float height, Float weight, String lifestyle, String diet,
+			Integer exercise, byte[] photo) {
 		super();
-		this.id= id;
+		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.height = height;
-		this.weight= weight;
-		this.lifestyle= lifestyle;
-		this.diet= diet;
-		this.ex_per_week= exercise;
-		this.photo= photo;
+		this.weight = weight;
+		this.lifestyle = lifestyle;
+		this.diet = diet;
+		this.ex_per_week = exercise;
+		this.photo = photo;
 		episodes = new ArrayList<Episode>();
 		medication = new ArrayList<Medication>();
 		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
-	
-	public Patient (String name, Integer age, Float height, Float weight, 
-			String lifestyle, String diet, Integer exercise, byte[] photo) {
+
+	public Patient(String name, Integer age, Float height, Float weight, String lifestyle, String diet,
+			Integer exercise, byte[] photo) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.height = height;
-		this.weight= weight;
-		this.lifestyle= lifestyle;
-		this.diet= diet;
-		this.ex_per_week= exercise;
-		this.photo= photo;
+		this.weight = weight;
+		this.lifestyle = lifestyle;
+		this.diet = diet;
+		this.ex_per_week = exercise;
+		this.photo = photo;
 		episodes = new ArrayList<Episode>();
 		medication = new ArrayList<Medication>();
 		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
-	
-	public Patient (String name, Integer age, Float height, Float weight, 
-			String lifestyle, String diet, Integer exercise) {
+
+	public Patient(String name, Integer age, Float height, Float weight, String lifestyle, String diet,
+			Integer exercise) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.height = height;
-		this.weight= weight;
-		this.lifestyle= lifestyle;
-		this.diet= diet;
-		this.ex_per_week= exercise;
-		this.photo= null;
+		this.weight = weight;
+		this.lifestyle = lifestyle;
+		this.diet = diet;
+		this.ex_per_week = exercise;
+		this.photo = null;
 		episodes = new ArrayList<Episode>();
 		medication = new ArrayList<Medication>();
 		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
-	
+
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -185,7 +184,7 @@ public class Patient implements Serializable{
 	public void setEmergency_contacs(List<EmergencyContact> emergency_contacts) {
 		this.emergency_contacts = emergency_contacts;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -198,12 +197,19 @@ public class Patient implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	//TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
-		@Override
-		public String toString() {
-			return "PATIENT [ID=" + this.id + ", NAME=" + this.name +"]" + "\nAge=" + this.age + "\nHeight=" + this.height + "\nWeight=" + this.weight
-					+ "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet + "\nExercise per week" + this.ex_per_week 
-					+ "\nPhoto=" + Arrays.toString(this.photo) + "\n" + this.doctor.toString();
-		}
-		//CUANDO SE PREGUNTE LA INFORMACIÓN HABRÁ QUE SOUT EMERGENCY CONTACTS, EPISODES, MEDICATION
+	// TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
+	@Override
+	public String toString() {
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nAge=" + this.age + "\nHeight=" + this.height
+				+ "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
+				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo) + "\n"
+				+ this.doctor.toString();
+	}
+	// CUANDO SE PREGUNTE LA INFORMACIÓN HABRÁ QUE SOUT EMERGENCY CONTACTS,
+	// EPISODES, MEDICATION
+	
+	public String toStringForDoctors() {
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]";
+	}
 }
+

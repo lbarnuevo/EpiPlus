@@ -123,8 +123,13 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Doctor [id=" + id + ", name=" + name + ", email=" + email + ", hospitalName=" + hospitalName
-				+ ", photo=" + Arrays.toString(photo) + ", patients=" + patients + "]";
+		return "DOCTOR [ID=" + id + ", NAME=" + name + "]" + "\nEmail=" + email + "\nHospitalName=" + hospitalName
+				+ "\nPhoto=" + Arrays.toString(photo);
 	}
+	//WE HAVE TO CHANGE HOW THE PHOTO IS SHOWN
+	//LLAMA A PACIENTES
 
+	public String toStringForPatients() {
+		return "DOCTOR [ID=" + id + ", NAME=" + name + "]" + "\nEmail=" + email + "\nHospitalName=" + hospitalName;
+	}
 }

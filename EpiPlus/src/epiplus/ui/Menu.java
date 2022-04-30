@@ -15,7 +15,7 @@ import epiplus.pojos.*;
 public class Menu {
 
 	private static Connection c;
-	
+
 	private static JDBCDoctorManager docManager;
 	private static JDBCPatientManager patientManager;
 	private static JDBCSymptomManager sympManager;
@@ -24,105 +24,101 @@ public class Menu {
 	private static JDBCPatientMedicationManager pmedManager;
 	private static JDBCMedicationManager medManager;
 	private static JDBCEmergencyContactManager emergencyManager;
-	
-	private static JDBCManager jdbcManager = new JDBCManager();
-;
-	
+
+	private static JDBCManager jdbcManager = new JDBCManager();;
+
 	private static final Integer reiterative = -1;// variable to make a infinite loop
-			
+
 	public static void main(String[] args) {
-	
+
 		docManager = new JDBCDoctorManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-	
+
 		while (true) {
 			startMenu();
 			Integer optionsm = getPositiveInteger("\nSelect an option: ");
-	
+
 			switch (optionsm) {
-				/*//BETTER TO CREATE A METHOD COMMON TO LOG IN AND USING THE ROLES CHOOSE WICH ONE ARE
-				 case 1: {// LOG IN AS PATIENT
-					//TODO we have to create login methods Integer pId = loginpatient().....
-					patientChoice(/* pId );
-					break;
-				}
-				case 2: {// LOG IN AS DOCTOR
-					// TODO we have to create login methods
-					// Integer dId = logindoctor().....
-					doctorChoice(/* dId );
-					break;
-				}*/
-				
-				case 3: {// REGISTER DOCTOR/PATIENT
-					//TODO CREATE A METHOD TO REGISTER
-					Integer optionregist = reiterative;
-					
-					while ((optionregist > 2) || (optionregist < 0)) {
-						registerMenu();
-						optionregist = getPositiveInteger("\nSelect an option: ");
-						
-						switch (optionregist) {
-							case 1: {// REGISTER DOCTOR
-								Doctor doc;
-								System.out.println("\n\tREGISTER AS DOCTOR" + "\nDo you want to continue the process?");
-								String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
-								
-								if (register.equalsIgnoreCase("B")) {
-									optionregist = reiterative;
-									// break;
-								} else {
-									doc = createDoctor();
-									docManager.addDoctor(doc);							
-									System.out.println("\nYou have been successfully registered");
-								}
-								
-								break;
-							}
-							
-							case 2: {// REGISTER PATIENT
-								Patient patient;
-								System.out.println("\n\tREGISTER AS PATIENT" + "\nDo you want to continue the process?");
-								String register = getString("Press B if you want to go back to the register menu, other key if you want to continue: ");
-								
-								if (register.equalsIgnoreCase("B")) {
-									optionregist = reiterative;
-									// break;
-								} else {							
-									patient = createPatient();
-									patientManager.addPatient(patient);							
-									System.out.println("\nYou have been successfully registered");
-								}
-								
-								break;
-							}
-							
-							case 0: {
-								
-								break;
-							}
-							
-							default: {
-								System.out.println("\nPlease enter a correct number: ");
-							}
+			/*
+			 * //BETTER TO CREATE A METHOD COMMON TO LOG IN AND USING THE ROLES CHOOSE WICH
+			 * ONE ARE case 1: {// LOG IN AS PATIENT //TODO we have to create login methods
+			 * Integer pId = loginpatient()..... patientChoice(/* pId ); break; } case 2:
+			 * {// LOG IN AS DOCTOR // TODO we have to create login methods // Integer dId =
+			 * logindoctor()..... doctorChoice(/* dId ); break; }
+			 */
+
+			case 3: {// REGISTER DOCTOR/PATIENT
+				// TODO CREATE A METHOD TO REGISTER
+				Integer optionregist = reiterative;
+
+				while ((optionregist > 2) || (optionregist < 0)) {
+					registerMenu();
+					optionregist = getPositiveInteger("\nSelect an option: ");
+
+					switch (optionregist) {
+					case 1: {// REGISTER DOCTOR
+						Doctor doc;
+						System.out.println("\n\tREGISTER AS DOCTOR" + "\nDo you want to continue the process?");
+						String register = getString(
+								"Press B if you want to go back to the register menu, other key if you want to continue: ");
+
+						if (register.equalsIgnoreCase("B")) {
+							optionregist = reiterative;
+							// break;
+						} else {
+							doc = createDoctor();
+							docManager.addDoctor(doc);
+							System.out.println("\nYou have been successfully registered");
 						}
+
+						break;
 					}
-					
-					break;
+
+					case 2: {// REGISTER PATIENT
+						Patient patient;
+						System.out.println("\n\tREGISTER AS PATIENT" + "\nDo you want to continue the process?");
+						String register = getString(
+								"Press B if you want to go back to the register menu, other key if you want to continue: ");
+
+						if (register.equalsIgnoreCase("B")) {
+							optionregist = reiterative;
+							// break;
+						} else {
+							patient = createPatient();
+							patientManager.addPatient(patient);
+							System.out.println("\nYou have been successfully registered");
+						}
+
+						break;
+					}
+
+					case 0: {
+
+						break;
+					}
+
+					default: {
+						System.out.println("\nPlease enter a correct number: ");
+					}
+					}
 				}
-			
-				case 0: {
-					System.out.println("\nYou have exited the app");
-					System.exit(0);
-				}
-			
-				default: {
-					System.out.println("\nPlease enter a correct number: ");
-				}
+
+				break;
+			}
+
+			case 0: {
+				System.out.println("\nYou have exited the app");
+				System.exit(0);
+			}
+
+			default: {
+				System.out.println("\nPlease enter a correct number: ");
+			}
 			}
 		}
 	}
-	
-	public static void connect(){
+
+	public static void connect() {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
@@ -130,7 +126,7 @@ public class Menu {
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened.");
 			jdbcManager.createTables();
-			
+
 		} catch (SQLException E) {
 			System.out.println("There was a database exception.");
 			E.printStackTrace();
@@ -139,52 +135,53 @@ public class Menu {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void startMenu() {
 		System.out.println("                  	WELCOME TO EPI+!                        ");
-	    System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.Log in as a patient                                       ");
-	    System.out.println(" 2.Log in as a doctor                                        ");
-	    System.out.println(" 3.Register as patient/doctor                                ");
-	    System.out.println(" 0. EXIT THE PROGRMAM                                        ");
-	    System.out.println("---------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println(" 1. Log in as a patient                                       ");
+		System.out.println(" 2. Log in as a doctor                                        ");
+		System.out.println(" 3. Register as patient/doctor                                ");
+		System.out.println(" 0. EXIT THE PROGRMAM                                        ");
+		System.out.println("---------------------------------------------------------------");
 	}
-	
+
 	private static void registerMenu() {
 		System.out.println("                  REGISTER MENU                         ");
-	    System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.Register as a doctor                           ");
-	    System.out.println(" 2.Register as a patient                                     ");
-	    System.out.println(" 0.GO BACK TO MAIN MENU                              ");
-	    System.out.println("---------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println(" 1. Register as a doctor                           ");
+		System.out.println(" 2. Register as a patient                                     ");
+		System.out.println(" 0. GO BACK TO MAIN MENU                              ");
+		System.out.println("---------------------------------------------------------------");
 	}
-	
+
 	private static void PMenu() {
 		System.out.println("                  PATIENT MENU                        ");
-	    System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.Register episode                                          ");
-	    System.out.println(" 2.Input new data on medication                              ");
-	    System.out.println(" 3.See user information                                      ");
-	    System.out.println(" 4.Update user information                                   ");
-	    System.out.println(" 5.Call emergency contacts                                   ");
-	    System.out.println(" 6.See list of medications                                   ");
-	    System.out.println(" 7.Show graphs on my evolution                               ");
-	    System.out.println(" 8.Search doctor                                             ");
-	    System.out.println(" 9.Show recipe                                               ");
-	    System.out.println(" 0. GO BACK TO MAIN ME                                       ");
-	    System.out.println("---------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println(" 1. Register an episode                                          ");
+		System.out.println(" 2. Input new data on medication                              ");
+		System.out.println(" 3. See user's information                                      ");
+		System.out.println(" 4. Update user's information                                   ");
+		System.out.println(" 5. Call my emergency contacts                                   ");
+		System.out.println(" 6. See list of my medications                                   ");
+		System.out.println(" 7. Show graphs on my evolution                               ");
+		System.out.println(" 8. Search doctor                                             ");
+		System.out.println(" 9. Show recipes                                               ");
+		System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
+		System.out.println("---------------------------------------------------------------");
 	}
-	
+
 	private static void DMenu() {
 		System.out.println("                  DOCTOR MENU                         ");
-	    System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.See data on patient                                       ");
-	    System.out.println(" 2.See user information                                      ");
-	    System.out.println(" 3.Update user information                                   ");
-	    System.out.println(" 0. GO BACK TO MAIN MENU              ");
-	    System.out.println("---------------------------------------------------------------");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println(" 1. See data on patient                                       ");
+		System.out.println(" 2. See user's information                                      ");
+		System.out.println(" 3. Update user's information 									");
+		// CAN A DOCTOR DELETE A PATIENT? NO, RIGHT?
+		System.out.println(" 0. GO BACK TO MAIN MENU              ");
+		System.out.println("---------------------------------------------------------------");
 	}
-	
+
 	private static void patientChoice(/* Integer pId */) {
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		sympManager = new JDBCSymptomManager(jdbcManager);
@@ -192,132 +189,192 @@ public class Menu {
 		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
 		medManager = new JDBCMedicationManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-	
+
 		Patient patient = patientManager.getPatientById(/* pId */);
-		
+
 		List<Medication> listMed;
-		
+
 		Integer pchoice = reiterative;
-		
+
 		while ((pchoice > 9) || (pchoice < 0)) {
 			PMenu();
 			pchoice = getPositiveInteger("\nSelect an option: ");
-			
+
 			switch (pchoice) {
-				case 1: {// REGISTER EPISODES
-					System.out.println("\n\tREGISTER EPISODES" + "\nDo you want to continue the process?");
-					String register = getString(
-							"Press B if you want to go back to the patient menu, other key if you want to continue: ");
-					if (register.equalsIgnoreCase("B")) {
-						pchoice = reiterative;
-					} else {
-						Episode ep = createEpisode();
-						Symptom symptom = createSymptom();
-						epManager.addEpisode(ep);
-						sympManager.addSymptom(symptom);
-		
-						EpisodeSymptom epsymp = createSeverity(ep, symptom);
-						epsympManager.assignEpisodeSymptom(epsymp);
+			case 1: {// REGISTER EPISODES
+				System.out.println("\n\tREGISTER EPISODES" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					Episode ep = createEpisode();
+					Symptom symptom = createSymptom();
+					epManager.addEpisode(ep);
+					sympManager.addSymptom(symptom);
+
+					EpisodeSymptom epsymp = createSeverity(ep, symptom);
+					epsympManager.assignEpisodeSymptom(epsymp);
+				}
+				break;
+			}
+
+			case 2: {// TODO INPUT NEW DATA ON MEDICATION --> not done yet
+				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					// show list medication
+					listMed = medManager.listsAllMedication();
+					for (Medication m : listMed) {
+						System.out.println("\n" + m);
 					}
-					break;
+
+					// pmedManager.assignPatientMedication(/* pId */);
 				}
-				
-				case 2: {// TODO INPUT NEW DATA ON MEDICATION --> not done yet
-					System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
-					String register = getString(
-							"Press B if you want to go back to the patient menu, other key if you want to continue: ");
-					if (register.equalsIgnoreCase("B")) {
-						pchoice = reiterative;
-					} else {
-						// show list medication
-						listMed = medManager.listsAllMedication();
-						for(Medication m:listMed) {
-							System.out.println("\n"+m);
-						}
-		
-						//pmedManager.assignPatientMedication(/* pId */);
-					}
-				}
-				
-				case 3: {// SHOW PATIENT INFO
-					// use the same function for patient and doctor
-					System.out.println("\n" + patient);
-					
-				}
-	
-				case 0: {// GO BACK TO START MENU
-					break;
-				}
-				
-				default: {
-					System.out.println("\nPlease enter a correct number: ");
-				}
+			}
+
+			case 3: {// SHOW PATIENT INFO
+				// use the same function for patient and doctor
+				System.out.println("\n" + patient);
+				// USE toStringForPatients() TO SHOW DATA OF DOCTOR (no photo...)
+
+			}
+
+			case 0: {// GO BACK TO START MENU
+				break;
+			}
+
+			default: {
+				System.out.println("\nPlease enter a correct number: ");
+			}
 			}
 		}
 	}
-	
-	//private static 
-	
+
+	// private static
+
 	private static void doctorChoice(/* Integer dId */) {
-		
+
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
 		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
-		medManager = new JDBCMedicationManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-		emergencyManager= new JDBCEmergencyContactManager(jdbcManager);
+		emergencyManager = new JDBCEmergencyContactManager(jdbcManager);
 		List<Patient> pList = new ArrayList<Patient>();
-	
+
 		Integer pchoice = reiterative;
-		
+
 		while ((pchoice > 3) || (pchoice < 0)) {
-			PMenu();
+			DMenu();
+			
 			pchoice = getPositiveInteger("\nSelect an option: ");
 			switch (pchoice) {
-				case 1: {// SEE DATA ON PATIENT
+			case 1: {// SEE DATA ON PATIENT
+				System.out.println("\n\tSEE DATA ON PATIENT" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					pList = JDBCDoctorManager.getPatientsofDoctor(/* dId */);
 					
-					System.out.println("\n\tSEE DATA ON PATIENT" + "\nDo you want to continue the process?");
-					String register = getString(
-							"Press B if you want to go back to the patient menu, other key if you want to continue: ");
-					if (register.equalsIgnoreCase("B")) {
-						pchoice = reiterative;
-					} else {
-						pList = JDBCDoctorManager.getPatientsofDoctor(/*dId*/);
-						
-						System.out.println("\nChoose a patient to show their data:");
-						for (Patient p:pList) {
-							System.out.println(p.getId()+ "\n" + p.getName());
-						}
-						Integer pIdChosen= getPositiveInteger("\nWrite the number above their name: ");
-						Patient p= patientManager.getPatientById(pIdChosen);	
-						p.toString();
-						for (EmergencyContact c: emergencyManager.getEmergencyContactsOfPatient(pIdChosen)) {
-							c.toString();
-						}
-						for (Episode e: epManager.getEpisodesOfPatient(pIdChosen)) {
-							e.toString();
-							for (Symptom s: epsympManager.getSymptomsOfEpisode(e.getId())) {
-								s.toString();
-							}
-						}
-						for (Medication m: pmedManager.getMedicationsOfPatient(pIdChosen)) {
-							m.toString();
+					
+					System.out.println("\nChoose a patient to show their data:");
+					for (Patient p : pList) {
+						p.toStringForDoctors();
+					}
+					
+					Integer pIdChosen = getPositiveInteger("\nWrite the number above their name: ");
+					Patient p = patientManager.getPatientById(pIdChosen);
+					p.toString();
+					for (EmergencyContact c : emergencyManager.getEmergencyContactsOfPatient(pIdChosen)) {
+						c.toString();
+					}
+					for (Episode e : epManager.getEpisodesOfPatient(pIdChosen)) {
+						e.toString();
+						for (Symptom s : epsympManager.getSymptomsOfEpisode(e.getId())) {
+							s.toString();
 						}
 					}
-					break;
+					for (Medication m : pmedManager.getMedicationsOfPatient(pIdChosen)) {
+						m.toString();
+					}
+					// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
+					// EL ESCOGIDO NO INTERESABA
 				}
-	
-				case 0: {// GO BACK TO START MENU
-					break;
 				}
-				
-				default: {
-					System.out.println("\nPlease enter a correct number: ");
+				break;
+			}
+			case 2: {// SEE USER'S INFO
+				System.out.println("\n\tSEE USER'S INFO" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					Doctor doctor = docManager.getDoctorById(/* dId */);
+					System.out.println("\nShowing user's information... \n");
+					doctor.toString();
+					pList = docManager.getPatientsOfDoctor(/* dId */);
+					for (Patient p : pList) {
+						p.toStringForDoctors();
+					}
+				}
+				break;
+			}
+			case 3:{// UPDATE USER'S INFO
+				System.out.println("\n\tUPDATE USER'S INFO" + "\nDo you want to continue the process?");
+				String register = getString(
+						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					Doctor doctor = docManager.getDoctorById(/* dId */);
+					while(true) {
+					System.out.println("\nShowing user's information... \n");
+					doctor.toString();
+					String toChange= getString("\nWhich information (name, email...) would you like to change?: ");
+					if (toChange.equalsIgnoreCase("name")) {
+						String toChangeName= getString("\nInput new NAME: ");
+						doctor.setName(toChangeName);
+						docManager.updateDoctor(doctor);
+					} else if (toChange.equalsIgnoreCase("email")) {
+						String toChangeEmail= getString("\nInput new EMAIL: ");
+						doctor.setEmail(toChangeEmail);
+						docManager.updateDoctor(doctor);
+					} else if (toChange.equalsIgnoreCase("hospitalName")) {
+						String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
+						doctor.setHospitalName(toChangeHospitalName);
+						docManager.updateDoctor(doctor);
+					} else if (toChange.equalsIgnoreCase("photo")) {
+						// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
+						String toChangePhoto= getString("\nInput new PHOTO: ");
+						doctor.setPhoto(null);;
+						docManager.updateDoctor(doctor);
+				}
+					String toContinue=getString("\nWould you like to make any more changes? (Y/N): ");
+				if (!toContinue.equalsIgnoreCase("Y")) {
+					break;
 				}
 			}
+			break;
+			}
+			}
+			
+			case 0: {// GO BACK TO START MENU
+				break;
+			}
+
+			default: {
+				System.out.println("\nPlease enter a correct number: ");
+			}
+			}
 		}
-	}
 }
+
 
 //{
 /*
