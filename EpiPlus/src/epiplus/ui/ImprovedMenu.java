@@ -215,7 +215,7 @@ public class ImprovedMenu {
 					//TODO input new data on medication
 					break;
 				case 3:
-					//TODO see user information
+					p.toString();
 					break;
 				case 4: 
 					//TODO update user information
