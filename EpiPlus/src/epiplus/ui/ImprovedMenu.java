@@ -13,7 +13,7 @@ public class ImprovedMenu {
 	
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static Connection c;
-	private static JDBCManager jdbcManager;
+	private static JDBCManager jdbcManager = new JDBCManager();
 	
 	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
 	private static PatientManager patientManager = new JDBCPatientManager(jdbcManager);
@@ -50,8 +50,6 @@ public class ImprovedMenu {
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
 		connect();
-		
-		jdbcManager = new JDBCManager();
 		
 		int choice;
 		
@@ -96,12 +94,12 @@ public class ImprovedMenu {
 		}
 	}
 	
-	private static void loginUser() {
+	/*private static void loginUser() {
 		//TODO loginUser method --> method for both users 
 		//when login in with the user, we show the menu for the type os user, so maybe we could add an attribute that consisted of role of user 
 	}
 	
-	/* private static void registerUser() {
+	private static void registerUser() {
 		//TODO register method 
 	} */
 	
@@ -159,7 +157,8 @@ public class ImprovedMenu {
 	public static Patient searchPatient(String name) throws Exception {
     	Patient p = null;
     	ListIterator<Patient> iterador= userPatients.listIterator();
-        while(iterador.hasNext()){
+        
+    	while(iterador.hasNext()){
             Patient p2= iterador.next();
             if(p2.getName().equalsIgnoreCase(name)){
                 p=p2;
@@ -175,7 +174,8 @@ public class ImprovedMenu {
 	public static Doctor searchDoctor(String name) throws Exception {
     	Doctor d = null;
     	ListIterator<Doctor> iterador= userDoctors.listIterator();
-        while(iterador.hasNext()){
+        
+    	while(iterador.hasNext()){
             Doctor d2= iterador.next();
             if(d2.getName().equalsIgnoreCase(name)){
                 d = d2;
@@ -260,7 +260,8 @@ public class ImprovedMenu {
 			
 			switch (choice) {
 				case 1:
-					//TODO see data on patient
+					Patient p = selectPatient(d.getPatients());
+					p.toString();
 					break;
 				case 2:
 					//TODO see user information
@@ -277,4 +278,40 @@ public class ImprovedMenu {
 		while(true);
 	}
 
+	
+	private static Patient selectPatient(List<Patient> p) throws IOException{
+		listPatients(p);
+		System.out.println("Introduce the patients id: ");
+		int id = getPositiveInteger("");
+		
+		Patient patient = searchPatient(p, id);
+		return patient;
+	}
+	
+	private static Patient searchPatient(List<Patient> patients, int id) {
+		Patient p = null;
+		ListIterator<Patient> iterator= patients.listIterator();
+		
+		while(iterator.hasNext()) {
+			Patient p2 = iterator.next();
+			if(p2.getId() == id) {
+				p = p2;
+				break;
+			}
+		}
+		
+		return p;
+	}
+	
+	private static void listPatients(List<Patient> p) {
+		Iterator<Patient> it = p.iterator();
+		int counter = 0;
+		while (it.hasNext()) {
+			 Patient patient = it.next();
+			 System.out.println("Id " + counter + ": " + patient.getName());
+			 counter++;
+		}
+	}
+	
+	
 }

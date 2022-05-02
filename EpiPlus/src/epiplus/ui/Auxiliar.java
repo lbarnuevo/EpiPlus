@@ -95,8 +95,9 @@ public class Auxiliar {
     	ListLifestyle();
     	String lifestyle = null; 
     	boolean read = false; 
-    	System.out.println("What life style would you say you follow? ");
+    	
     	do {
+    		System.out.println("What life style would you say you follow? \nIntroduce one of the previous options. ");
     		lifestyle = getString("");
     		if(lifestyle.equalsIgnoreCase("sedentary")) {
     			read = true;
@@ -108,7 +109,7 @@ public class Auxiliar {
     			read = true;
     		}
     		
-    	} while(read = false);
+    	} while(read == false);
  
     	return lifestyle; 
     }
@@ -117,12 +118,13 @@ public class Auxiliar {
     	ListDiets();
     	String diet = null; 
     	boolean read = false; 
-    	System.out.println("What life style would you say you follow? ");
+    	System.out.println("What diet would you say you follow? (FOR THE MOMENT IS NULL ");
     	do {
     		diet = getString("");
+    		read = true;
     		//TODO add diets 
     		
-    	} while(read = false);
+    	} while(read == false);
  
     	return diet; 
     }
