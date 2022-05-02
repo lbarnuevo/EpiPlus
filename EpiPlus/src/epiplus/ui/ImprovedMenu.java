@@ -264,7 +264,7 @@ public class ImprovedMenu {
 					p.toString();
 					break;
 				case 2:
-					//TODO see user information
+					d.toString();
 					break;
 				case 3:
 					//TODO update user information 
