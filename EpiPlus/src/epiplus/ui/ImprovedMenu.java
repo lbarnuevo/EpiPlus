@@ -294,7 +294,7 @@ public class ImprovedMenu {
 		while(true);
 	}
 
-	private void seePatient(Doctor d) throws Exception {
+	private static void seePatient(Doctor d) throws Exception {
 		List<Patient> pList = new ArrayList<Patient>();
 		
 		if (continueProccess() == false) {
