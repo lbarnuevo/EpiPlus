@@ -132,6 +132,7 @@ public class Auxiliar {
     //Ask for confirmation on something
     public static Boolean askConfirmation(){
         boolean confir = false;
+        System.out.println("Would you like to continue?");
     	String confirmation = getString("(Yes --> Y / No --> N)");
         while (true) {
             if ("Y".equalsIgnoreCase(confirmation)) {

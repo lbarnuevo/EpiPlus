@@ -22,12 +22,12 @@ public class ImprovedMenu {
 	private static List<Patient> userPatients = new LinkedList<Patient>();
 	private static List<Doctor> userDoctors = new LinkedList<Doctor>();
 	
-	private static EmergencyContactManager ecManager;
-	private static EpisodeManager episodeManager;
-	private static EpisodeSymptomManager esManager;
-	private static MedicationManager medicationManager;
-	private static PatientMedicationManager pmManager;
-	private static SymptomManager symptomManager;
+	private static EmergencyContactManager ecManager = new JDBCEmergencyContactManager(jdbcManager);
+	private static EpisodeManager episodeManager = new JDBCEpisodeManager(jdbcManager);
+	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
+	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
+	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
+	private static SymptomManager ssymptomManager = new JDBCSymptomManager(jdbcManager);
 	
 	public static void connect(){
 		try {
@@ -139,6 +139,17 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
+	private static boolean continueProccess() {
+		System.out.println("\n\tSEE USER'S INFO" + "\nDo you want to continue the process?");
+		String register = getString(
+				"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+		if (register.equalsIgnoreCase("B")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	private static void registerMenu() throws NumberFormatException, IOException {
 		System.out.println("                  REGISTER MENU                         ");
 	    System.out.println("---------------------------------------------------------------");
@@ -180,13 +191,13 @@ public class ImprovedMenu {
 	
 	
 	
-	public static Patient searchPatient(Integer id) throws Exception {
+	public static Patient searchPatient(String name) throws Exception {
     	Patient p = null;
     	ListIterator<Patient> iterador= userPatients.listIterator();
         
     	while(iterador.hasNext()){
             Patient p2= iterador.next();
-            if(p2.getId() == id){
+            if(p2.getName().equalsIgnoreCase(name)){
                 p=p2;
             }
         }
@@ -216,10 +227,6 @@ public class ImprovedMenu {
 
 	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		//TODO implement methods before login subsystem
-		
-		pmManager = new JDBCPatientMedicationManager(jdbcManager);
-		medicationManager = new JDBCMedicationManager(jdbcManager);
-		ecManager = new JDBCEmergencyContactManager(jdbcManager);
 		
 		do {
 			showPatientMenu();
@@ -264,21 +271,19 @@ public class ImprovedMenu {
 	
 	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		//TODO implement methods before login subsystem
-		
 		do {			
 			showDoctorMenu();
 			int choice = Integer.parseInt(reader.readLine());
 			
 			switch (choice) {
 				case 1:
-					Patient p = selectPatient(d.getPatients());
-					p.toString();
+					seePatient(d);
 					break;
 				case 2:
-					d.toString();
+					seeUserDoctor(d);
 					break;
 				case 3:
-					//TODO update user information 
+					updateUserDoctor(d); 
 					break;
 				case 0:
 					return;
@@ -289,17 +294,86 @@ public class ImprovedMenu {
 		while(true);
 	}
 
+	private void seePatient(Doctor d) {
+		List<Patient> pList = new ArrayList<Patient>();
+		
+		if (continueProccess() == false) {
+			return;
+		} else {
+			pList = doctorManager.getPatientsOfDoctor(d.getId());
+
+			Patient p = selectPatient(pList);
+			p.toString();
+			for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
+				c.toString();
+			}
+			for (Episode e : episodeManager.getEpisodesOfPatient(p.getId())) {
+				e.toString();
+				for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+					s.toString();
+				}
+			}
+			for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
+				m.toString();
+			}
+			// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
+			// EL ESCOGIDO NO INTERESABA
+		}
+	}
+	
+	private static void seeUserDoctor(Doctor d) {
+		List<Patient> pList = new ArrayList<Patient>();
+		
+		if (continueProccess() == false) {
+			return;
+		} else {
+			d.toString();
+			System.out.println("\nShowing user's information... \n");
+			pList = doctorManager.getPatientsOfDoctor(d.getId());
+			for (Patient patient : pList) {
+				patient.toStringForDoctors();
+			}
+		}
+	}
+	
+	private static void updateUserDoctor(Doctor d) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			while(true) {
+				System.out.println("\nShowing user's information... \n");
+				d.toString();
+				String toChange= getString("\nWhich information (name, email...) would you like to change?: ");
+				
+				if (toChange.equalsIgnoreCase("name")) {
+					String toChangeName= getString("\nInput new NAME: ");
+					d.setName(toChangeName);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("email")) {
+					String toChangeEmail= getString("\nInput new EMAIL: ");
+					d.setEmail(toChangeEmail);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("hospitalName")) {
+					String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
+					d.setHospitalName(toChangeHospitalName);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("photo")) {
+					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
+					String toChangePhoto= getString("\nInput new PHOTO: ");
+					d.setPhoto(null);;
+					doctorManager.updateDoctor(d);
+				}
+				
+				if (askConfirmation() == false) {
+					break;
+				}
+			}
+		}
+	}
 	
 	private static void registerEpisode() {
-		episodeManager = new JDBCEpisodeManager(jdbcManager);
-		symptomManager = new JDBCSymptomManager(jdbcManager);
-		esManager = new JDBCEpisodeSymptomManager(jdbcManager);
 		
-		System.out.println("\n\tREGISTER EPISODES" + "\nDo you want to continue the process?");
-		String register = getString(
-				"Press B if you want to go back to the patient menu, other key if you want to continue: ");
-		
-		if (register.equalsIgnoreCase("B")) {
+		if (continueProccess() == false) {
 			return;
 		} else {
 			Episode ep = createEpisode();
@@ -317,12 +391,10 @@ public class ImprovedMenu {
 		System.out.println("Introduce the patients id: ");
 		Integer id = getPositiveInteger("");
 		
-		Patient patient = searchPatient(id);
+		Patient patient = patientManager.getPatientById(id);
 		return patient;
 	}
-	
-	
-	
+
 	private static void listPatients(List<Patient> p) {
 		Iterator<Patient> it = p.iterator();
 		int counter = 0;
