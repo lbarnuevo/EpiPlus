@@ -22,12 +22,12 @@ public class ImprovedMenu {
 	private static List<Patient> userPatients = new LinkedList<Patient>();
 	private static List<Doctor> userDoctors = new LinkedList<Doctor>();
 	
-	//private static EmergencyContactManager ecManager;
-	//private static EpisodeManager episodeManager;
-	//private static EpisodeSymptomManager esManager;
-	//private static MedicationManager medicationManager;
-	//private static PatientMedicationManager pmManager;
-	//private static SymptomManager symptomManager;
+	private static EmergencyContactManager ecManager;
+	private static EpisodeManager episodeManager;
+	private static EpisodeSymptomManager esManager;
+	private static MedicationManager medicationManager;
+	private static PatientMedicationManager pmManager;
+	private static SymptomManager symptomManager;
 	
 	public static void connect(){
 		try {
@@ -113,6 +113,32 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
+	private static void showPatientMenu() {
+		System.out.println("                  PATIENT MENU                        ");
+	    System.out.println("---------------------------------------------------------------");
+	    System.out.println(" 1.Register episode                                          ");
+	    System.out.println(" 2.Input new data on medication                              ");
+	    System.out.println(" 3.See user information                                      ");
+	    System.out.println(" 4.Update user information                                   ");
+	    System.out.println(" 5.Call emergency contacts                                   ");
+	    System.out.println(" 6.See list of medications                                   ");
+	    System.out.println(" 7.Show graphs on my evolution                               ");
+	    System.out.println(" 8.Search doctor                                             ");
+	    System.out.println(" 9.Show recipe                                               ");
+	    System.out.println(" 0. GO BACK TO MAIN ME                                       ");
+	    System.out.println("---------------------------------------------------------------");
+	}
+	
+	private static void showDoctorMenu() {
+		System.out.println("                  DOCTOR MENU                         ");
+	    System.out.println("---------------------------------------------------------------");
+	    System.out.println(" 1.See data on patient                                       ");
+	    System.out.println(" 2.See user information                                      ");
+	    System.out.println(" 3.Update user information                                   ");
+	    System.out.println(" 0. GO BACK TO MAIN MENU              ");
+	    System.out.println("---------------------------------------------------------------");
+	}
+	
 	private static void registerMenu() throws NumberFormatException, IOException {
 		System.out.println("                  REGISTER MENU                         ");
 	    System.out.println("---------------------------------------------------------------");
@@ -154,18 +180,18 @@ public class ImprovedMenu {
 	
 	
 	
-	public static Patient searchPatient(String name) throws Exception {
+	public static Patient searchPatient(Integer id) throws Exception {
     	Patient p = null;
     	ListIterator<Patient> iterador= userPatients.listIterator();
         
     	while(iterador.hasNext()){
             Patient p2= iterador.next();
-            if(p2.getName().equalsIgnoreCase(name)){
+            if(p2.getId() == id){
                 p=p2;
             }
         }
         if(p == null){
-            throw new Exception("No existe esa poblacion.");
+            throw new Exception("There is not a patient with that id.");
         } else{
             return p;
         } 
@@ -182,7 +208,7 @@ public class ImprovedMenu {
             }
         }
         if(d == null){
-            throw new Exception("No existe esa poblacion.");
+            throw new Exception("There is not a doctor under that name registered.");
         } else{
             return d;
         }
@@ -190,26 +216,18 @@ public class ImprovedMenu {
 
 	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		//TODO implement methods before login subsystem
+		
+		pmManager = new JDBCPatientMedicationManager(jdbcManager);
+		medicationManager = new JDBCMedicationManager(jdbcManager);
+		ecManager = new JDBCEmergencyContactManager(jdbcManager);
+		
 		do {
-			System.out.println("                  PATIENT MENU                        ");
-		    System.out.println("---------------------------------------------------------------");
-		    System.out.println(" 1.Register episode                                          ");
-		    System.out.println(" 2.Input new data on medication                              ");
-		    System.out.println(" 3.See user information                                      ");
-		    System.out.println(" 4.Update user information                                   ");
-		    System.out.println(" 5.Call emergency contacts                                   ");
-		    System.out.println(" 6.See list of medications                                   ");
-		    System.out.println(" 7.Show graphs on my evolution                               ");
-		    System.out.println(" 8.Search doctor                                             ");
-		    System.out.println(" 9.Show recipe                                               ");
-		    System.out.println(" 0. GO BACK TO MAIN ME                                       ");
-		    System.out.println("---------------------------------------------------------------");
-		    
+			showPatientMenu();
 			int choice = Integer.parseInt(reader.readLine());
 			
 			switch (choice) {
 				case 1:
-					//TODO register episode
+					registerEpisode();
 					break;
 				case 2:
 					//TODO input new data on medication
@@ -247,15 +265,8 @@ public class ImprovedMenu {
 	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
 		//TODO implement methods before login subsystem
 		
-		do {
-			System.out.println("                  DOCTOR MENU                         ");
-		    System.out.println("---------------------------------------------------------------");
-		    System.out.println(" 1.See data on patient                                       ");
-		    System.out.println(" 2.See user information                                      ");
-		    System.out.println(" 3.Update user information                                   ");
-		    System.out.println(" 0. GO BACK TO MAIN MENU              ");
-		    System.out.println("---------------------------------------------------------------");
-		    
+		do {			
+			showDoctorMenu();
 			int choice = Integer.parseInt(reader.readLine());
 			
 			switch (choice) {
@@ -279,29 +290,38 @@ public class ImprovedMenu {
 	}
 
 	
-	private static Patient selectPatient(List<Patient> p) throws IOException{
+	private static void registerEpisode() {
+		episodeManager = new JDBCEpisodeManager(jdbcManager);
+		symptomManager = new JDBCSymptomManager(jdbcManager);
+		esManager = new JDBCEpisodeSymptomManager(jdbcManager);
+		
+		System.out.println("\n\tREGISTER EPISODES" + "\nDo you want to continue the process?");
+		String register = getString(
+				"Press B if you want to go back to the patient menu, other key if you want to continue: ");
+		
+		if (register.equalsIgnoreCase("B")) {
+			return;
+		} else {
+			Episode ep = createEpisode();
+			Symptom symptom = createSymptom();
+			EpisodeSymptom epsymp = createSeverity(ep, symptom);
+			
+			episodeManager.addEpisode(ep);
+			symptomManager.addSymptom(symptom);
+			esManager.assignEpisodeSymptom(epsymp);
+		}
+	}
+		
+	private static Patient selectPatient(List<Patient> p) throws Exception{
 		listPatients(p);
 		System.out.println("Introduce the patients id: ");
-		int id = getPositiveInteger("");
+		Integer id = getPositiveInteger("");
 		
-		Patient patient = searchPatient(p, id);
+		Patient patient = searchPatient(id);
 		return patient;
 	}
 	
-	private static Patient searchPatient(List<Patient> patients, int id) {
-		Patient p = null;
-		ListIterator<Patient> iterator= patients.listIterator();
-		
-		while(iterator.hasNext()) {
-			Patient p2 = iterator.next();
-			if(p2.getId() == id) {
-				p = p2;
-				break;
-			}
-		}
-		
-		return p;
-	}
+	
 	
 	private static void listPatients(List<Patient> p) {
 		Iterator<Patient> it = p.iterator();
