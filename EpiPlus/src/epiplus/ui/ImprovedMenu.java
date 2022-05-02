@@ -27,7 +27,7 @@ public class ImprovedMenu {
 	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
 	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
 	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
-	private static SymptomManager ssymptomManager = new JDBCSymptomManager(jdbcManager);
+	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	
 	public static void connect(){
 		try {
@@ -294,7 +294,7 @@ public class ImprovedMenu {
 		while(true);
 	}
 
-	private void seePatient(Doctor d) {
+	private void seePatient(Doctor d) throws Exception {
 		List<Patient> pList = new ArrayList<Patient>();
 		
 		if (continueProccess() == false) {
@@ -313,9 +313,9 @@ public class ImprovedMenu {
 					s.toString();
 				}
 			}
-			for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
-				m.toString();
-			}
+			//for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
+			//	m.toString();
+			//}
 			// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
 			// EL ESCOGIDO NO INTERESABA
 		}
@@ -357,12 +357,12 @@ public class ImprovedMenu {
 					String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
 					d.setHospitalName(toChangeHospitalName);
 					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("photo")) {
+				} //else if (toChange.equalsIgnoreCase("photo")) {
 					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
-					String toChangePhoto= getString("\nInput new PHOTO: ");
-					d.setPhoto(null);;
-					doctorManager.updateDoctor(d);
-				}
+					//String toChangePhoto= getString("\nInput new PHOTO: ");
+					//d.setPhoto(null);;
+					//doctorManager.updateDoctor(d);
+				//}
 				
 				if (askConfirmation() == false) {
 					break;
