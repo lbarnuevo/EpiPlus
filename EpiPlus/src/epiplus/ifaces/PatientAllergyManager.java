@@ -1,4 +1,4 @@
-package epiplus.jdbc;
+package epiplus.ifaces;
 
 import epiplus.pojos.PatientAllergy;
 
