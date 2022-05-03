@@ -332,7 +332,7 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					Doctor doctor = docManager.getDoctorById(/* dId */);
+					Doctor doctor = docManager.getDoctorById(dId);
 					while(true) {
 					System.out.println("\nShowing user's information... \n");
 					doctor.toString();
@@ -373,6 +373,7 @@ public class Menu {
 			}
 			}
 		}
+	}
 }
 
 
