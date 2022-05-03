@@ -270,7 +270,7 @@ public class ImprovedMenu {
 	}
 	
 	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
-		//TODO implement methods before login subsystem
+		//BEFORE LOGIN SUBSYSTEM CREATED
 		do {			
 			showDoctorMenu();
 			int choice = Integer.parseInt(reader.readLine());
@@ -292,6 +292,10 @@ public class ImprovedMenu {
 				}
 		}
 		while(true);
+	}
+
+	private static void inputNewDataMed() {
+		
 	}
 
 	private static void seePatient(Doctor d) throws Exception {
