@@ -25,8 +25,8 @@ public class ImprovedMenu {
 	private static EmergencyContactManager ecManager = new JDBCEmergencyContactManager(jdbcManager);
 	private static EpisodeManager episodeManager = new JDBCEpisodeManager(jdbcManager);
 	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
-	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
-	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
+	//private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
+	//private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	
 	public static void connect(){
@@ -370,8 +370,10 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			d.toString();
 			System.out.println("\nShowing user's information... \n");
+			d.toString();
+			
+			System.out.println("--- MY PATIENTS ---");
 			pList = doctorManager.getPatientsOfDoctor(d.getId());
 			for (Patient patient : pList) {
 				patient.toStringForDoctors();

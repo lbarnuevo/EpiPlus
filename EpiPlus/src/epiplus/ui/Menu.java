@@ -182,7 +182,7 @@ public class Menu {
 		System.out.println("---------------------------------------------------------------");
 	}
 
-	private static void patientChoice(/* Integer pId */) {
+	private static void patientChoice(Integer pId) {
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		sympManager = new JDBCSymptomManager(jdbcManager);
 		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
@@ -190,7 +190,7 @@ public class Menu {
 		medManager = new JDBCMedicationManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
 
-		Patient patient = patientManager.getPatientById(/* pId */);
+		Patient patient = patientManager.getPatientById(pId);
 
 		List<Medication> listMed;
 
@@ -256,7 +256,7 @@ public class Menu {
 
 	// private static
 
-	private static void doctorChoice(/* Integer dId */) {
+	private static void doctorChoice(Integer dId) {
 
 		epManager = new JDBCEpisodeManager(jdbcManager);
 		epsympManager = new JDBCEpisodeSymptomManager(jdbcManager);
@@ -279,7 +279,7 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					pList = JDBCDoctorManager.getPatientsofDoctor(/* dId */);
+					pList = docManager.getPatientsOfDoctor(dId);
 					
 					
 					System.out.println("\nChoose a patient to show their data:");
@@ -305,9 +305,9 @@ public class Menu {
 					// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
 					// EL ESCOGIDO NO INTERESABA
 				}
-				}
 				break;
 			}
+			
 			case 2: {// SEE USER'S INFO
 				System.out.println("\n\tSEE USER'S INFO" + "\nDo you want to continue the process?");
 				String register = getString(
@@ -315,10 +315,10 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					Doctor doctor = docManager.getDoctorById(/* dId */);
+					Doctor doctor = docManager.getDoctorById(dId);
 					System.out.println("\nShowing user's information... \n");
 					doctor.toString();
-					pList = docManager.getPatientsOfDoctor(/* dId */);
+					pList = docManager.getPatientsOfDoctor( dId );
 					for (Patient p : pList) {
 						p.toStringForDoctors();
 					}
