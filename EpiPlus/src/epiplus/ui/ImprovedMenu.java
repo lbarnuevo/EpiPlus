@@ -190,7 +190,7 @@ public class ImprovedMenu {
 	}
 	
 	
-	
+	//TEMPORARY METHODS 
 	public static Patient searchPatient(String name) throws Exception {
     	Patient p = null;
     	ListIterator<Patient> iterador= userPatients.listIterator();
@@ -240,13 +240,13 @@ public class ImprovedMenu {
 					//TODO input new data on medication
 					break;
 				case 3:
-					p.toString();
+					seeUserPatient(p);
 					break;
 				case 4: 
 					//TODO update user information
 					break;
 				case 5:
-					//TODO Call emergency contacts
+					//TODO Call emergency contacts //How can we call through the database?? I don´t think that is possible 
 					break;
 				case 6: 
 					//TODO see list of medication
@@ -294,10 +294,7 @@ public class ImprovedMenu {
 		while(true);
 	}
 
-	private static void inputNewDataMed() {
-		
-	}
-
+	
 	private static void seePatient(Doctor d) throws Exception {
 		List<Patient> pList = new ArrayList<Patient>();
 		
@@ -307,23 +304,65 @@ public class ImprovedMenu {
 			pList = doctorManager.getPatientsOfDoctor(d.getId());
 
 			Patient p = selectPatient(pList);
-			p.toString();
-			for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
-				c.toString();
-			}
-			for (Episode e : episodeManager.getEpisodesOfPatient(p.getId())) {
-				e.toString();
-				for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-					s.toString();
-				}
-			}
-			//for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
-			//	m.toString();
-			//}
-			// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
-			// EL ESCOGIDO NO INTERESABA
+			seeUserPatient(p);
 		}
 	}
+	
+	private static void seeUserPatient(Patient p) {
+		p.toString();
+		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
+			c.toString();
+		}
+		for (Episode e : episodeManager.getEpisodesOfPatient(p.getId())) {
+			e.toString();
+			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+				s.toString();
+			}
+		}
+		//for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
+		//	m.toString();
+		//}
+		// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
+		// EL ESCOGIDO NO INTERESABA
+	}
+	
+	/* private static void updateUserPatient(Patient p) {
+		if (continueProccess() == false) {
+			return; 
+		} else {
+			while(true) {
+				
+				name, age, height, weight, lifestyle, diet, exercise, photo
+				
+				System.out.println("\nShowing user's information... \n");
+				d.toString();
+				String toChange= getString("\nWhich information (name, email...) would you like to change?: ");
+				
+				if (toChange.equalsIgnoreCase("name")) {
+					String toChangeName= getString("\nInput new NAME: ");
+					p.setName(toChangeName);
+					patientManager.updatePatient(p); 
+				} else if (toChange.equalsIgnoreCase("email")) {
+					String toChangeEmail= getString("\nInput new EMAIL: ");
+					d.setEmail(toChangeEmail);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("hospitalName")) {
+					String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
+					d.setHospitalName(toChangeHospitalName);
+					doctorManager.updateDoctor(d);
+				} //else if (toChange.equalsIgnoreCase("photo")) {
+					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
+					//String toChangePhoto= getString("\nInput new PHOTO: ");
+					//d.setPhoto(null);;
+					//doctorManager.updateDoctor(d);
+				//}
+				
+				if (askConfirmation() == false) {
+					break;
+				}
+			}
+		}
+	} */
 	
 	private static void seeUserDoctor(Doctor d) {
 		List<Patient> pList = new ArrayList<Patient>();
@@ -376,7 +415,6 @@ public class ImprovedMenu {
 	}
 	
 	private static void registerEpisode() {
-		
 		if (continueProccess() == false) {
 			return;
 		} else {

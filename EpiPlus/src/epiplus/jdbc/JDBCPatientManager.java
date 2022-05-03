@@ -124,6 +124,8 @@ public class JDBCPatientManager implements PatientManager {
 			e.printStackTrace();
 		}
 	}
+	
+	//TODO updatePatient(Patient p) method like in doctor 
 
 	@Override
 	public void deletePatient(Patient p) {
