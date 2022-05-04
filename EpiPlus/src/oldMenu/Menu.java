@@ -170,6 +170,16 @@ public class Menu {
 		System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
 		System.out.println("---------------------------------------------------------------");
 	}
+	
+	private static void MMenu() {
+		System.out.println("                  MEDICATION MENU                         ");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println(" 1. Change medication                           ");
+		System.out.println(" 2. Add medication                                     ");
+		System.out.println(" 3. Delete medication                                     ");//in the mock up we didn't have delete med so i added
+		System.out.println(" 0. GO BACK TO PATIENT MENU                              ");
+		System.out.println("---------------------------------------------------------------");
+	}
 
 	private static void DMenu() {
 		System.out.println("                  DOCTOR MENU                         ");
@@ -189,10 +199,13 @@ public class Menu {
 		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
 		medManager = new JDBCMedicationManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
+		
 
 		Patient patient = patientManager.getPatientById(pId);
 
 		List<Medication> listMed;
+		
+		Medication med = null;
 
 		Integer pchoice = reiterative;
 
@@ -226,12 +239,38 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					// show list medication
-					listMed = medManager.listsAllMedication();
+					// show list medication of a patient --> DONE
+					listMed = pmedManager.getMedicationsOfPatient(pId);
 					for (Medication m : listMed) {
 						System.out.println("\n" + m);
 					}
-
+					
+					//the following TODOs should be in another function to understand the code better
+					//TODO --> change medicine info
+						//relatedtomedication(pId, listMed);
+					MMenu();
+					System.out.println("Please, select the option: ");
+					int option = getPositiveInteger();
+					switch(option) {
+					case 0:{
+						break;
+					}
+					case 1:{//TODO --> MAKE CHANGES
+						
+						break;
+					}
+					case 2:{//TODO --> ADD
+						med = createMedication();
+						
+						break;
+					}
+					case 3:{//TODO --> DELETE
+						break;
+					}
+					}
+					
+					//TODO --> add new medicine
+					
 					// pmedManager.assignPatientMedication(/* pId */);
 				}
 			}

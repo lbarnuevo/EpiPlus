@@ -26,6 +26,11 @@ public class Medication implements Serializable{
 		this.id= id;
 		this.name= name;
 	}
+	
+	public Medication(String name) {
+		super();
+		this.name= name;
+	}
 
 	public List<Patient> getPatient() {
 		return patient;

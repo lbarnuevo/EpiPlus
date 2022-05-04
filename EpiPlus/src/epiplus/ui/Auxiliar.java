@@ -198,6 +198,17 @@ public class Auxiliar {
 		return p;
     }
     
+    public static Medication createMedication() {
+    	System.out.println("Input medication information: ");
+		System.out.println("");
+		
+		System.out.println("Input it's neme: ");
+		String name = getString();
+		
+		Medication med = new Medication(name);
+		return med;
+    }
+    
     public static Episode createEpisode(){
     	System.out.println("Input the episode's information: ");
 		System.out.println("");
