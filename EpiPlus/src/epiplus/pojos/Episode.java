@@ -24,6 +24,11 @@ public class Episode implements Serializable{
 	
 	private Patient patient; // Many to one relationship 
 	private List<Symptom> symptoms; //Many to many relationship 
+	
+	public Episode() {
+		super();
+		this.symptoms = new ArrayList<Symptom>();
+	}
 
 	public Episode(Integer id, Date doe, Float length, String activity, String mood, String place, String meals,
 			Boolean injuries) {
@@ -36,7 +41,6 @@ public class Episode implements Serializable{
 		this.place= place;
 		this.previous_meal=meals;
 		this.injuries=injuries;
-		symptoms = new ArrayList<Symptom>(); 
 	}
 	
 	public Episode(Date doe, Float length, String activity, String mood, String place, String meals,
@@ -48,10 +52,8 @@ public class Episode implements Serializable{
 		this.mood= mood;
 		this.place= place;
 		this.previous_meal=meals;
-		this.injuries=injuries;
-		symptoms = new ArrayList<Symptom>(); 
+		this.injuries=injuries; 
 	}
-
 
 	public List<Symptom> getSymptoms() {
 		return symptoms;
