@@ -18,7 +18,7 @@ public class Patient implements Serializable {
 	private Integer age;
 	private Float height;
 	private Float weight;
-	private String lifestyle; // He explained to me how to do it, but it's a task for the future
+	private String lifestyle;
 	private String diet;
 	private Integer ex_per_week;
 	private Doctor doctor; // Many to one relationship
@@ -26,6 +26,14 @@ public class Patient implements Serializable {
 	private List<EmergencyContact> emergency_contacts; // Changed Integer to EC class
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
+	
+	//MANDATORY CONSTRUCTOR 
+	public Patient() {
+		super();
+		this.episodes = new ArrayList<Episode>();
+		this.medication = new ArrayList<Medication>();
+		this.emergency_contacts = new ArrayList<EmergencyContact>();
+	}
 
 	public Patient(Integer id, String name, Integer age, Float height, Float weight, String lifestyle, String diet,
 			Integer exercise, byte[] photo) {
@@ -39,9 +47,6 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = photo;
-		episodes = new ArrayList<Episode>();
-		medication = new ArrayList<Medication>();
-		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
 	public Patient(String name, Integer age, Float height, Float weight, String lifestyle, String diet,
@@ -55,9 +60,6 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = photo;
-		episodes = new ArrayList<Episode>();
-		medication = new ArrayList<Medication>();
-		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
 	public Patient(String name, Integer age, Float height, Float weight, String lifestyle, String diet,
@@ -71,9 +73,6 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = null;
-		episodes = new ArrayList<Episode>();
-		medication = new ArrayList<Medication>();
-		emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
 	public List<Episode> getEpisodes() {
