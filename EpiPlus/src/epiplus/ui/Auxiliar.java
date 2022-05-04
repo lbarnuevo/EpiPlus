@@ -164,15 +164,13 @@ public class Auxiliar {
     	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
     	boolean confirmation = askConfirmation();
     	
+    	byte[] photo = null;
     	if( confirmation == true) {
-    		byte[] photo = getByte("Photo: ");//Need to change method to input bufferedreader 
-    		Doctor doc = new Doctor(name, email, hospital, photo);
-    		return doc; 
-    		
-    	} else {
-    		Doctor doc = new Doctor(name, email, hospital);
-        	return doc;
+    		photo = getByte("Photo: ");//Need to change method to input bufferedreader  
     	}
+    	
+    	Doctor doc = new Doctor(name, email, hospital, photo);
+		return doc;
     }
     
     public static Patient createPatient(){
@@ -203,15 +201,16 @@ public class Auxiliar {
     	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
     	boolean confirmation = askConfirmation();
     	
+    	byte[] photo = null;
     	if( confirmation == true) {
-    		byte[] photo = getByte("Photo: ");//Need to change method to input bufferedreader 
+    		photo = getByte("Photo: ");//Need to change method to input bufferedreader 
     		Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
     		return p;
     		
-    	} else {
-    		Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise);
-    		return p; 
     	}
+    	
+    	Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
+		return p;
     }
     
     //episode info
