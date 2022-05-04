@@ -25,10 +25,10 @@ public class Episode implements Serializable{
 	private Patient patient; // Many to one relationship 
 	private List<Symptom> symptoms; //Many to many relationship 
 	
-	/*public Episode() {
+	public Episode() {
 		super();
 		this.symptoms = new ArrayList<Symptom>();
-	}*/
+	}
 
 	public Episode(Integer id, Date doe, Float length, String activity, String mood, String place, String meals,
 			Boolean injuries) {
