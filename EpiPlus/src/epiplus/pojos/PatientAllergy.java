@@ -18,9 +18,9 @@ public class PatientAllergy implements Serializable{
 	private List<Patient> patients; //Many to many relationship 
 
 	//MANDATORY CONSTRUCTOR 
-	/*public PatientAllergy() {
+	public PatientAllergy() {
 		super();
-	}*/
+	}
 
 	public PatientAllergy(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
 		super();

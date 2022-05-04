@@ -16,10 +16,10 @@ public class Symptom implements Serializable{
 	private String name;
 	private List<Episode> episodes; //Many to many relationship 
 	
-	/*public Symptom() {
+	public Symptom() {
 		super();
 		episodes = new ArrayList<Episode>();
-	}*/
+	}
 
 	public Symptom(Integer id, String name) {
 		super();

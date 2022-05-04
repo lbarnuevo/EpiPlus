@@ -9,9 +9,9 @@ public class EmergencyContact {
 	private Float number;
 	private Patient patient;
 	
-	/*public EmergencyContact() {
+	public EmergencyContact() {
 		super();
-	}*/
+	}
 
 	public EmergencyContact(Integer id, String name, Float number) {
 		super();

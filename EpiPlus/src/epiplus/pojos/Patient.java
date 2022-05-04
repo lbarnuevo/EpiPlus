@@ -28,12 +28,12 @@ public class Patient implements Serializable {
 	private List<Medication> medication; // Many to many relationship
 	
 	//MANDATORY CONSTRUCTOR 
-	/*public Patient() {
+	public Patient() {
 		super();
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
-	}*/
+	}
 
 	public Patient(Integer id, String name, Integer age, Float height, Float weight, String lifestyle, String diet,
 			Integer exercise, byte[] photo) {

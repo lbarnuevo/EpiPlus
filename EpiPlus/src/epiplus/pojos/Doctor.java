@@ -20,10 +20,10 @@ public class Doctor implements Serializable {
 	private byte[] photo; 
 	private List<Patient> patients; //One to many relationship 
 	
-	/*public Doctor() {
+	public Doctor() {
 		super();
 		this.patients = new ArrayList<Patient>();
-	}*/
+	}
 	
 	public Doctor (Integer id, String name, String email, String hospitalName, byte[] photo) {
 		super();
