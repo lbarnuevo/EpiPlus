@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import epiplus.ifaces.EpisodeSymptomManager;
+import epiplus.ifaces.PatientAllergyManager;
 import epiplus.pojos.EpisodeSymptom;
 import epiplus.pojos.PatientAllergy;
 
