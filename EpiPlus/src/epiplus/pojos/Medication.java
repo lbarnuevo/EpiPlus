@@ -18,7 +18,7 @@ public class Medication implements Serializable{
 	
 	public Medication() {
 		super();
-		patient = new ArrayList<Patient>();
+		this.patient = new ArrayList<Patient>();
 	}
 
 	public Medication(Integer id, String name) {
