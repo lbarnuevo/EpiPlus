@@ -33,7 +33,7 @@ public class ImprovedMenu {
 		try {
 			// Open database connection
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:./db/epiplus.db");
+			c = DriverManager.getConnection("jdbc:sqlite:./db/EpiPlus(3).db");
 			c.createStatement().execute("PRAGMA foreign_keys=ON");
 			System.out.println("Database connection opened.");
 			jdbcManager.createTables();
