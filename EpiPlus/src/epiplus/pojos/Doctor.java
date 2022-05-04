@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Doctor implements Serializable {
-
-	// Random comment 
+public class Doctor implements Serializable { 
 	/**
 	 * 
 	 */
@@ -22,11 +20,10 @@ public class Doctor implements Serializable {
 	private byte[] photo; 
 	private List<Patient> patients; //One to many relationship 
 	
-	/*Same as patient
-	 * public Doctor() {
+	public Doctor() {
 		super();
-		patients = new ArrayList<Patient>();
-	}*/
+		this.patients = new ArrayList<Patient>();
+	}
 	
 	public Doctor (Integer id, String name, String email, String hospitalName, byte[] photo) {
 		super();
@@ -35,7 +32,6 @@ public class Doctor implements Serializable {
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
-		patients = new ArrayList<Patient>();
 	}
 	
 	public Doctor (String name, String email, String hospitalName, byte[] photo) {
@@ -44,7 +40,6 @@ public class Doctor implements Serializable {
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
-		patients = new ArrayList<Patient>();
 	}
 
 	public Doctor (String name, String email, String hospitalName) {
@@ -53,7 +48,6 @@ public class Doctor implements Serializable {
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= null;
-		patients = new ArrayList<Patient>();
 	}
 	
 	public byte[] getPhoto() {
