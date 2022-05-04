@@ -1,6 +1,7 @@
 package epiplus.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 	
@@ -17,9 +18,9 @@ public class PatientAllergy implements Serializable{
 	private List<Patient> patients; //Many to many relationship 
 
 	//MANDATORY CONSTRUCTOR 
-	public PatientAllergy() {
+	/*public PatientAllergy() {
 		super();
-	}
+	}*/
 
 	public PatientAllergy(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
 		super();
@@ -27,6 +28,8 @@ public class PatientAllergy implements Serializable{
 		this.allergyId = allergyId;
 		this.allergies = allergies;
 		this.patients = patients;
+		this.allergies = new ArrayList<Allergy>();
+		this.patients = new ArrayList<Patient>();
 	}
 
 	public Integer getPatientId() {

@@ -14,9 +14,9 @@ public class EpisodeSymptom implements Serializable{
 	private Episode episode;
 	private Symptom symptom;
 	
-	public EpisodeSymptom() {
+	/*public EpisodeSymptom() {
 		super();
-	}
+	}*/
 	
 	public EpisodeSymptom(Episode episode, Symptom symptom,Integer severity) {
 		super();

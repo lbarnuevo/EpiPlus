@@ -16,20 +16,22 @@ public class Medication implements Serializable{
 	private String name;
 	private List<Patient> patient;//Many to many relationship 
 	
-	public Medication() {
+	/*public Medication() {
 		super();
 		this.patient = new ArrayList<Patient>();
-	}
+	}*/
 
 	public Medication(Integer id, String name) {
 		super();
 		this.id= id;
 		this.name= name;
+		this.patient = new ArrayList<Patient>();
 	}
 	
 	public Medication(String name) {
 		super();
 		this.name= name;
+		this.patient = new ArrayList<Patient>();
 	}
 
 	public List<Patient> getPatient() {
