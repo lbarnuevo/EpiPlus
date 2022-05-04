@@ -6,115 +6,80 @@ import java.util.Objects;
 	
 	
 
-	public class PatientAllergy implements Serializable{
-		
-		
-		
+public class PatientAllergy implements Serializable{
 	
-		private static final long serialVersionUID = 3645664353573792203L;
+	private static final long serialVersionUID = 3645664353573792203L;
 
-
-		public PatientAllergy(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
-			super();
-			this.patientId = patientId;
-			this.allergyId = allergyId;
-			this.allergies = allergies;
-			this.patients = patients;
-		}
-
-
-		
-		
-		
-		private Integer patientId;
-		private Integer allergyId;
-		
-		private List<Allergy> allergies; //Many to many relationship 
-		private List<Patient> patients; //Many to many relationship 
-
+	private Integer patientId;
+	private Integer allergyId;
 	
-		public Integer getPatientId() {
-			return patientId;
-		}
+	private List<Allergy> allergies; //Many to many relationship 
+	private List<Patient> patients; //Many to many relationship 
 
+	//MANDATORY CONSTRUCTOR 
+	public PatientAllergy() {
+		super();
+	}
 
-		public void setPatientId(Integer patientId) {
-			this.patientId = patientId;
-		}
+	public PatientAllergy(Integer patientId, Integer allergyId, List<Allergy> allergies, List<Patient> patients) {
+		super();
+		this.patientId = patientId;
+		this.allergyId = allergyId;
+		this.allergies = allergies;
+		this.patients = patients;
+	}
 
+	public Integer getPatientId() {
+		return patientId;
+	}
 
-		public Integer getAllergyId() {
-			return allergyId;
-		}
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
 
+	public Integer getAllergyId() {
+		return allergyId;
+	}
 
-		public void setAllergyId(Integer allergyId) {
-			this.allergyId = allergyId;
-		}
+	public void setAllergyId(Integer allergyId) {
+		this.allergyId = allergyId;
+	}
 
+	public List<Allergy> getAllergies() {
+		return allergies;
+	}
 
-		public List<Allergy> getAllergies() {
-			return allergies;
-		}
+	public void setAllergies(List<Allergy> allergies) {
+		this.allergies = allergies;
+	}
 
+	public List<Patient> getPatients() {
+		return patients;
+	}
 
-		public void setAllergies(List<Allergy> allergies) {
-			this.allergies = allergies;
-		}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(allergyId, patientId);
+	}
 
-		public List<Patient> getPatients() {
-			return patients;
-		}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PatientAllergy other = (PatientAllergy) obj;
+		return Objects.equals(allergyId, other.allergyId) && Objects.equals(patientId, other.patientId);
+	}
 
-
-		public void setPatients(List<Patient> patients) {
-			this.patients = patients;
-		}
-
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(allergyId, patientId);
-		}
-
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			PatientAllergy other = (PatientAllergy) obj;
-			return Objects.equals(allergyId, other.allergyId) && Objects.equals(patientId, other.patientId);
-		}
-
-
-		@Override
-		public String toString() {
-			return "PatientAllergies [allergies=" + allergies + ", patients=" + patients + "]";
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	@Override
+	public String toString() {
+		return "PatientAllergies [allergies=" + allergies + ", patients=" + patients + "]";
+	}
 }
