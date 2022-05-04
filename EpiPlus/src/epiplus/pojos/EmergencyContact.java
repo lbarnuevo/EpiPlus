@@ -22,6 +22,7 @@ public class EmergencyContact {
 
 	public EmergencyContact(Integer id2, String name2, Integer number2) {
 		// TODO Auto-generated constructor stub
+		//What is the difference between these two?
 	}
 
 	public Patient getPatient() {
