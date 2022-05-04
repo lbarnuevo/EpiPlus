@@ -64,6 +64,4 @@ public class JDBCMedicationManager implements MedicationManager{
 		}
 		return medicationsList;
 	}
-	
-	//TODO get medications from patient or change the previous one to be of a patient 
 }
