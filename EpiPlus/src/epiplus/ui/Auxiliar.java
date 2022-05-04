@@ -8,19 +8,15 @@ import epiplus.pojos.*;
 
 public class Auxiliar {
 
-	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...)
-	//TODO @luciabarnuevo change in methods to parse the buffer (when marta finishes menu) 
+	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...) 
 	
-	//Function to ask for an Integer to the user
-    public static int getPositiveInteger(String txt){
-        System.out.print(txt);
+    public static int getPositiveInteger(BufferedReader reader){
         boolean read = false;
         int N = -1;
         
         do {
         	try {
-        		BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-                N = Integer.parseInt(consol.readLine());
+                N = Integer.parseInt(reader.readLine());
                 if(N>=0) {
                 	read = true;
                 } else {
@@ -35,9 +31,7 @@ public class Auxiliar {
         return N;
     }
 
-	//Function to ask for a String to the user
-    public static String getString(String txt){ //TODO discuss deleting this method 
-        System.out.print(txt);
+    public static String getString(){
         String leido = null;
         try{
             BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
@@ -49,16 +43,13 @@ public class Auxiliar {
         return leido;
     }
     
-	//Function to ask for a positive Float to the user
-    public static Float getPositiveFloat(String txt){
-        System.out.print(txt);
+    public static Float getPositiveFloat(BufferedReader reader){
         boolean read = false;
         Float N = -1.0f;
         do {
         	try{
-                BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-                N = Float.parseFloat(consol.readLine());
-                if(N>=0.0) { //this is done to make sure that N has the correct format
+                N = Float.parseFloat(reader.readLine());
+                if(N>=0.0) {
                 	read = true;
                 }
             } catch(IOException ex){
@@ -70,15 +61,11 @@ public class Auxiliar {
         return N;
     }
     
-	//Function to ask for a Byte to the user
-    public static byte[] getByte(String txt) {
-    	System.out.print(txt);
+    public static byte[] getByte() {
     	byte[] bytesBlob = null;
-    	
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         	System.out.print("Type the file name as it appears in folder /photos, including extension: ");
-    		String fileName = br.readLine();
+    		String fileName = getString();
             File photo = new File("./photos/" + fileName);
 			InputStream streamBlob = new FileInputStream(photo);
 			bytesBlob = new byte[streamBlob.available()];
@@ -98,7 +85,7 @@ public class Auxiliar {
     	
     	do {
     		System.out.println("What life style would you say you follow? \nIntroduce one of the previous options. ");
-    		lifestyle = getString("");
+    		lifestyle = getString();
     		if(lifestyle.equalsIgnoreCase("sedentary")) {
     			read = true;
     		} else if(lifestyle.equalsIgnoreCase("low")) {
@@ -120,7 +107,7 @@ public class Auxiliar {
     	boolean read = false; 
     	System.out.println("What diet would you say you follow? (FOR THE MOMENT IS NULL ");
     	do {
-    		diet = getString("");
+    		diet = getString();
     		read = true;
     		//TODO add diets 
     		
@@ -129,11 +116,10 @@ public class Auxiliar {
     	return diet; 
     }
     
-    //Ask for confirmation on something
     public static Boolean askConfirmation(){
         boolean confir = false;
-        System.out.println("Would you like to continue?");
-    	String confirmation = getString("(Yes --> Y / No --> N)");
+    	String confirmation = getString();
+
         while (true) {
             if ("Y".equalsIgnoreCase(confirmation)) {
                 confir = true;
@@ -142,7 +128,8 @@ public class Auxiliar {
                 confir = false;
                 break;
             } else {
-                confirmation = getString("Please introduce Y/N: ");
+            	System.out.println("Please introduce Y/N: ");
+                confirmation = getString();
             }
         }
         return confir;
@@ -153,20 +140,20 @@ public class Auxiliar {
     	System.out.println("");
     	
     	System.out.println("Name: ");
-    	String name = getString("");
+    	String name = getString();
     	
     	System.out.println("Hospital name: ");
-    	String hospital = getString("");
+    	String hospital = getString();
     	
     	System.out.println("Email: ");
-    	String email = getString("");
+    	String email = getString();
     	
     	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
     	boolean confirmation = askConfirmation();
     	
     	byte[] photo = null;
     	if( confirmation == true) {
-    		photo = getByte("Photo: ");//Need to change method to input bufferedreader  
+    		photo = getByte(); 
     	}
     	
     	Doctor doc = new Doctor(name, email, hospital, photo);
@@ -174,20 +161,22 @@ public class Auxiliar {
     }
     
     public static Patient createPatient(){
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    	
     	System.out.println("Input patient information");
     	System.out.println("");
     	
     	System.out.println("Name: ");
-    	String name = getString("");
+    	String name = getString();
     	
     	System.out.println("Age: ");
-    	Integer age = getPositiveInteger("Age: "); //need to change method 
+    	Integer age = getPositiveInteger(reader); 
     	
     	System.out.println("Height: ");
-    	Float height = getPositiveFloat("");
+    	Float height = getPositiveFloat(reader);
     	
     	System.out.println("Weight: ");
-    	Float weight = getPositiveFloat("");
+    	Float weight = getPositiveFloat(reader);
     	
     	System.out.println("Lifestyle: ");
     	String lifestyle = getLifeStyle();
@@ -196,51 +185,49 @@ public class Auxiliar {
     	String diet = getDiet();
     	
     	System.out.println("Exercise per week (how many hours): ");
-    	Integer exercise = getPositiveInteger("");
+    	Integer exercise = getPositiveInteger(reader);
     	
     	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
     	boolean confirmation = askConfirmation();
     	
     	byte[] photo = null;
     	if( confirmation == true) {
-    		photo = getByte("Photo: ");//Need to change method to input bufferedreader 
-    		Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
-    		return p;
-    		
+    		photo = getByte();
     	}
     	
     	Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
 		return p;
     }
     
-    //episode info
     public static Episode createEpisode(){
-		System.out.println("Input the episode's information: ");
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	System.out.println("Input the episode's information: ");
 		System.out.println("");
 		
 		System.out.println("Date of the episode: ");
 		System.out.println("Day(d): ");
-		Integer day = getPositiveInteger("");
+		Integer day = getPositiveInteger(reader);
 		System.out.println("Month (m): ");
-		Integer month = getPositiveInteger("");
+		Integer month = getPositiveInteger(reader);
 		System.out.println("Year (yyyy): ");
-		Integer year = getPositiveInteger("");
+		Integer year = getPositiveInteger(reader);
 		Date doe = new Date(year, month, day);  
 		
 		System.out.println("Episode length: ");
-		Float length = getPositiveFloat(""); 
+		Float length = getPositiveFloat(reader); 
 		
 		System.out.println("Add previous activity: ");
-		String activity = getString("");//TODO add types of activity
+		String activity = getString();//TODO add types of activity
 		
 		System.out.println("Mood: ");
-		String mood = getString("");
+		String mood = getString();
 		
 		System.out.println("Place: ");
-		String place = getString("");
+		String place = getString();
 		
 		System.out.println("Previous meal: ");
-		String previous_meal = getString("");
+		String previous_meal = getString();
 		
 		System.out.println("Did you had any injury?(Yes --> Y / No --> N): ");
 		Boolean injuries = askConfirmation();
@@ -249,18 +236,19 @@ public class Auxiliar {
 		return ep;
     }
     
-    //ask symptoms information
     public static Symptom createSymptom() { 
     	System.out.println("Symptoms name: ");
-    	String name = getString("");
+    	String name = getString();
     	
     	Symptom symp = new Symptom(name);
     	return symp;
     }
     
-    public static EpisodeSymptom createSeverity( Episode ep, Symptom symp) {    	
+    public static EpisodeSymptom createSeverity( Episode ep, Symptom symp) { 
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    	
     	System.out.println("Input the severity of the symptom in a scale from 0 to 10: ");
-    	Integer sev = getPositiveInteger("");
+    	Integer sev = getPositiveInteger(reader);
     	
     	EpisodeSymptom epsymp= new EpisodeSymptom(ep,symp,sev);
     	return epsymp;

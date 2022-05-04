@@ -58,7 +58,7 @@ public class ImprovedMenu {
 				showMenu();
 				System.out.println("Please choose an option: ");
 				
-				choice = getPositiveInteger("");
+				choice = getPositiveInteger(reader);
 				switch(choice) {
 					case 1: 
 						//TODO loginPatient();
@@ -140,14 +140,8 @@ public class ImprovedMenu {
 	}
 	
 	private static boolean continueProccess() {
-		System.out.println("\n\tSEE USER'S INFO" + "\nDo you want to continue the process?");
-		String register = getString(
-				"Press B if you want to go back to the patient menu, other key if you want to continue: ");
-		if (register.equalsIgnoreCase("B")) {
-			return false;
-		} else {
-			return true;
-		}
+		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
+		return askConfirmation();
 	}
 	
 	private static void registerMenu() throws NumberFormatException, IOException {
@@ -159,7 +153,7 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	    
 	    do {
-	    	int choice = Integer.parseInt(reader.readLine());
+	    	int choice = getPositiveInteger(reader);
 			switch (choice) {
 				case 1:
 					registerDoctor();
@@ -230,7 +224,7 @@ public class ImprovedMenu {
 		
 		do {
 			showPatientMenu();
-			int choice = Integer.parseInt(reader.readLine());
+			int choice = getPositiveInteger(reader);
 			
 			switch (choice) {
 				case 1:
@@ -273,7 +267,7 @@ public class ImprovedMenu {
 		//BEFORE LOGIN SUBSYSTEM CREATED
 		do {			
 			showDoctorMenu();
-			int choice = Integer.parseInt(reader.readLine());
+			int choice = getPositiveInteger(reader);
 			
 			switch (choice) {
 				case 1:
@@ -385,34 +379,32 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			while(true) {
-				System.out.println("\nShowing user's information... \n");
-				d.toString();
-				String toChange= getString("\nWhich information (name, email...) would you like to change?: ");
-				
-				if (toChange.equalsIgnoreCase("name")) {
-					String toChangeName= getString("\nInput new NAME: ");
-					d.setName(toChangeName);
-					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("email")) {
-					String toChangeEmail= getString("\nInput new EMAIL: ");
-					d.setEmail(toChangeEmail);
-					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("hospitalName")) {
-					String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
-					d.setHospitalName(toChangeHospitalName);
-					doctorManager.updateDoctor(d);
-				} //else if (toChange.equalsIgnoreCase("photo")) {
-					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
-					//String toChangePhoto= getString("\nInput new PHOTO: ");
-					//d.setPhoto(null);;
-					//doctorManager.updateDoctor(d);
-				//}
-				
-				if (askConfirmation() == false) {
-					break;
-				}
-			}
+			System.out.println("\nShowing user's information... \n");
+			d.toString();
+			System.out.println("Which information (name, email...) would you like to change?: ");
+			String toChange= getString();
+			
+			if (toChange.equalsIgnoreCase("name")) {
+				System.out.println("Input new name: ");
+				String toChangeName= getString();
+				d.setName(toChangeName);
+				doctorManager.updateDoctor(d);
+			} else if (toChange.equalsIgnoreCase("email")) {
+				System.out.println("Input new email: ");
+				String toChangeEmail= getString();
+				d.setEmail(toChangeEmail);
+				doctorManager.updateDoctor(d);
+			} else if (toChange.equalsIgnoreCase("hospitalName")) {
+				System.out.println("Input new hospital name: ");
+				String toChangeHospitalName= getString();
+				d.setHospitalName(toChangeHospitalName);
+				doctorManager.updateDoctor(d);
+			} //else if (toChange.equalsIgnoreCase("photo")) {
+				// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
+				//String toChangePhoto= getString("\nInput new PHOTO: ");
+				//d.setPhoto(null);;
+				//doctorManager.updateDoctor(d);
+			//}
 		}
 	}
 	
@@ -433,7 +425,7 @@ public class ImprovedMenu {
 	private static Patient selectPatient(List<Patient> p) throws Exception{
 		listPatients(p);
 		System.out.println("Introduce the patients id: ");
-		Integer id = getPositiveInteger("");
+		Integer id = getPositiveInteger(reader);
 		
 		Patient patient = patientManager.getPatientById(id);
 		return patient;
