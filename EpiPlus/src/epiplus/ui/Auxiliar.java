@@ -8,9 +8,11 @@ import epiplus.pojos.*;
 
 public class Auxiliar {
 
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	
 	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...) 
 	
-    public static int getPositiveInteger(BufferedReader reader){
+    public static int getPositiveInteger(){
         boolean read = false;
         int N = -1;
         
@@ -34,8 +36,7 @@ public class Auxiliar {
     public static String getString(){
         String leido = null;
         try{
-            BufferedReader consol = new BufferedReader(new InputStreamReader(System.in));
-            leido = consol.readLine();
+            leido = reader.readLine();
         }
         catch(IOException ex){
             System.out.println(ex);
@@ -43,7 +44,7 @@ public class Auxiliar {
         return leido;
     }
     
-    public static Float getPositiveFloat(BufferedReader reader){
+    public static Float getPositiveFloat(){
         boolean read = false;
         Float N = -1.0f;
         do {
@@ -160,9 +161,7 @@ public class Auxiliar {
 		return doc;
     }
     
-    public static Patient createPatient(){
-    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    	
+    public static Patient createPatient(){    	
     	System.out.println("Input patient information");
     	System.out.println("");
     	
@@ -170,13 +169,13 @@ public class Auxiliar {
     	String name = getString();
     	
     	System.out.println("Age: ");
-    	Integer age = getPositiveInteger(reader); 
+    	Integer age = getPositiveInteger(); 
     	
     	System.out.println("Height: ");
-    	Float height = getPositiveFloat(reader);
+    	Float height = getPositiveFloat();
     	
     	System.out.println("Weight: ");
-    	Float weight = getPositiveFloat(reader);
+    	Float weight = getPositiveFloat();
     	
     	System.out.println("Lifestyle: ");
     	String lifestyle = getLifeStyle();
@@ -185,7 +184,7 @@ public class Auxiliar {
     	String diet = getDiet();
     	
     	System.out.println("Exercise per week (how many hours): ");
-    	Integer exercise = getPositiveInteger(reader);
+    	Integer exercise = getPositiveInteger();
     	
     	System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
     	boolean confirmation = askConfirmation();
@@ -200,22 +199,20 @@ public class Auxiliar {
     }
     
     public static Episode createEpisode(){
-    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    	
     	System.out.println("Input the episode's information: ");
 		System.out.println("");
 		
 		System.out.println("Date of the episode: ");
 		System.out.println("Day(d): ");
-		Integer day = getPositiveInteger(reader);
+		Integer day = getPositiveInteger();
 		System.out.println("Month (m): ");
-		Integer month = getPositiveInteger(reader);
+		Integer month = getPositiveInteger();
 		System.out.println("Year (yyyy): ");
-		Integer year = getPositiveInteger(reader);
+		Integer year = getPositiveInteger();
 		Date doe = new Date(year, month, day);  
 		
 		System.out.println("Episode length: ");
-		Float length = getPositiveFloat(reader); 
+		Float length = getPositiveFloat(); 
 		
 		System.out.println("Add previous activity: ");
 		String activity = getString();//TODO add types of activity
@@ -244,11 +241,9 @@ public class Auxiliar {
     	return symp;
     }
     
-    public static EpisodeSymptom createSeverity( Episode ep, Symptom symp) { 
-    	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    	
+    public static EpisodeSymptom createSeverity( Episode ep, Symptom symp) {    	
     	System.out.println("Input the severity of the symptom in a scale from 0 to 10: ");
-    	Integer sev = getPositiveInteger(reader);
+    	Integer sev = getPositiveInteger();
     	
     	EpisodeSymptom epsymp= new EpisodeSymptom(ep,symp,sev);
     	return epsymp;

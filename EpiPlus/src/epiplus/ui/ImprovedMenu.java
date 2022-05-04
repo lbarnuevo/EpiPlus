@@ -10,8 +10,6 @@ import epiplus.jdbc.*;
 import epiplus.pojos.*;
 
 public class ImprovedMenu {
-	
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static Connection c;
 	private static JDBCManager jdbcManager = new JDBCManager();
 	
@@ -58,12 +56,12 @@ public class ImprovedMenu {
 				showMenu();
 				System.out.println("Please choose an option: ");
 				
-				choice = getPositiveInteger(reader);
+				choice = getPositiveInteger();
 				switch(choice) {
 					case 1: 
 						//TODO loginPatient();
 						System.out.println("Enter patient name: ");
-						String p_name = reader.readLine();
+						String p_name = getString();
 						Patient p = searchPatient(p_name);
 						patientMenu(p);
 						break;
@@ -71,7 +69,7 @@ public class ImprovedMenu {
 					case 2:
 						//TODO loginDoctor();
 						System.out.println("Enter doctor name: ");
-						String d_name = reader.readLine();
+						String d_name = getString();
 						Doctor d = searchDoctor(d_name);
 						doctorMenu(d);
 						break;
@@ -153,7 +151,7 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	    
 	    do {
-	    	int choice = getPositiveInteger(reader);
+	    	int choice = getPositiveInteger();
 			switch (choice) {
 				case 1:
 					registerDoctor();
@@ -224,7 +222,7 @@ public class ImprovedMenu {
 		
 		do {
 			showPatientMenu();
-			int choice = getPositiveInteger(reader);
+			int choice = getPositiveInteger();
 			
 			switch (choice) {
 				case 1:
@@ -267,7 +265,7 @@ public class ImprovedMenu {
 		//BEFORE LOGIN SUBSYSTEM CREATED
 		do {			
 			showDoctorMenu();
-			int choice = getPositiveInteger(reader);
+			int choice = getPositiveInteger();
 			
 			switch (choice) {
 				case 1:
@@ -425,7 +423,7 @@ public class ImprovedMenu {
 	private static Patient selectPatient(List<Patient> p) throws Exception{
 		listPatients(p);
 		System.out.println("Introduce the patients id: ");
-		Integer id = getPositiveInteger(reader);
+		Integer id = getPositiveInteger();
 		
 		Patient patient = patientManager.getPatientById(id);
 		return patient;
