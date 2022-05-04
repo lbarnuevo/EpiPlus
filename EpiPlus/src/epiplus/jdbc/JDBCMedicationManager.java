@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.MedicationManager;
+import epiplus.pojos.Doctor;
 import epiplus.pojos.Medication;
 import epiplus.pojos.Symptom;
 
@@ -39,6 +40,31 @@ public class JDBCMedicationManager implements MedicationManager{
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	@Override
+	public List<Medication> searchMedicationByName(String name) {
+
+		List<Medication> medicationList = new ArrayList<Medication>();
+
+		try {
+			String sql = "SELECT * FROM medications WHERE name LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setString(1, name);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				Medication medication = new Medication(id, n);
+				medicationList.add(medication);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return medicationList;
 	}
 
 	@Override
