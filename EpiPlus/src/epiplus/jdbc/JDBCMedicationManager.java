@@ -11,14 +11,14 @@ import epiplus.pojos.Doctor;
 import epiplus.pojos.Medication;
 import epiplus.pojos.Symptom;
 
-public class JDBCMedicationManager implements MedicationManager{
+public class JDBCMedicationManager implements MedicationManager {
 
 	private JDBCManager manager;
 
 	public JDBCMedicationManager(JDBCManager m) {
 		this.manager = m;
 	}
-	
+
 	@Override
 	public void addMedication(Medication m) {
 		try {
@@ -41,11 +41,35 @@ public class JDBCMedicationManager implements MedicationManager{
 			ex.printStackTrace();
 		}
 	}
-	
-	@Override
-	public List<Medication> searchMedicationByName(String name) {
 
-		List<Medication> medicationList = new ArrayList<Medication>();
+	@Override
+	public List<Medication> listsAllMedication() {
+
+		List<Medication> medicationsList = new ArrayList<Medication>();
+
+		try {
+			String sql = "SELECT * FROM medications";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			ResultSet r = prep.executeQuery();
+
+			while (r.next()) {
+				Integer id = r.getInt("id");
+				String name = r.getString("name");
+				Medication medication = new Medication(id, name);
+				medicationsList.add(medication);
+			}
+			r.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return medicationsList;
+	}
+
+	@Override
+	public Medication getMedicationByName(String name) {
+
+		Medication medication = null;
 
 		try {
 			String sql = "SELECT * FROM medications WHERE name LIKE ?";
@@ -56,38 +80,13 @@ public class JDBCMedicationManager implements MedicationManager{
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
-				Medication medication = new Medication(id, n);
-				medicationList.add(medication);
+				medication = new Medication(id, n);
 			}
 			rs.close();
 			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return medicationList;
-	}
-
-	@Override
-	public List<Medication> listsAllMedication() {
-		
-		List<Medication> medicationsList = new ArrayList<Medication>();
-
-		try {
-			String sql = "SELECT * FROM medications";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			ResultSet r = prep.executeQuery();
-
-			while (r.next()) {
-				Integer id = r.getInt("id");
-				String  name= r.getString("name");
-				Medication medication = new Medication (id,name);
-				medicationsList.add(medication);
-			}
-			r.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return medicationsList;
+		return medication;
 	}
 }

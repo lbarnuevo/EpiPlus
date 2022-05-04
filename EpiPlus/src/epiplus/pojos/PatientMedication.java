@@ -19,6 +19,14 @@ public class PatientMedication implements Serializable{
 		super();
 	}
 	
+	public PatientMedication(Patient patient, Medication medication) {
+		super();
+		this.frequency = null;
+		this.amount = null; 
+		this.patient = patient;
+		this.medication = medication;
+	}
+	
 	public PatientMedication(Integer frequency, Float amount, Patient patient, Medication medication) {
 		super();
 		this.frequency = frequency;
