@@ -125,7 +125,26 @@ public class JDBCPatientManager implements PatientManager {
 		}
 	}
 	
-	//TODO updatePatient(Patient p) method like in doctor 
+	//THIS ONE IS BETTER (THE OTHER ONE IS BECAUSE ROGRIGO DID IT)
+	@Override
+	public void updatePatient (Patient p) {
+		try {
+			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " age=?" + " height=?" + " weight=?"
+					+ " lifestyle=?" + " ex_per_week=?" + " diet=?";
+			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+			ps.setString(1, p.getName());
+			ps.setBytes(2, p.getPhoto());
+			ps.setInt(3, p.getAge());
+			ps.setFloat(4, p.getHeight());
+			ps.setFloat(5, p.getWeight());
+			ps.setString(6, p.getLifestyle());
+			ps.setInt(7, p.getEx_per_week());
+			ps.setString(8, p.getDiet());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void deletePatient(Patient p) {
