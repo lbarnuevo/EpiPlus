@@ -221,7 +221,7 @@ public class Menu {
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
-				} else {
+				} else {//TODO --> view if the symptom exist and then assign the symptom to the episode with severity
 					Episode ep = createEpisode();
 					Symptom symptom = createSymptom();
 					epManager.addEpisode(ep);
@@ -260,7 +260,7 @@ public class Menu {
 						
 						break;
 					}
-					case 2:{//TODO --> ADD
+					case 2:{//TODO --> view if the med exist and then assign the med to the patient with amount & frequency
 						med = createMedication();
 						pmed = createPMed(patient, med);
 						medManager.addMedication(med);
@@ -268,6 +268,12 @@ public class Menu {
 						break;
 					}
 					case 3:{//TODO --> DELETE
+						System.out.println("Wich medication do you want to delete?");
+						String namemed = getString();
+						listMed = medManager.searchMedicationByName(namemed);//change this name
+						for (Medication m : listMed) {
+							//I will have to create a new PatientMedication just with p & m and the call unsigned...
+						}
 						break;
 					}
 					}
