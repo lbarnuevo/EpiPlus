@@ -206,6 +206,7 @@ public class Menu {
 		List<Medication> listMed;
 		
 		Medication med = null;
+		PatientMedication pmed = null;
 
 		Integer pchoice = reiterative;
 
@@ -261,7 +262,9 @@ public class Menu {
 					}
 					case 2:{//TODO --> ADD
 						med = createMedication();
-						
+						pmed = createPMed(patient, med);
+						medManager.addMedication(med);
+						pmedManager.assignPatientMedication(pmed);
 						break;
 					}
 					case 3:{//TODO --> DELETE

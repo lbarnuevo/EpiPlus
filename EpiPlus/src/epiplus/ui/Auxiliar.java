@@ -199,15 +199,27 @@ public class Auxiliar {
     }
     
     public static Medication createMedication() {
-    	System.out.println("Input medication information: ");
+    //public static PatientMedication createallMedStaff() {
+    	System.out.println("\nInput medication information: ");
 		System.out.println("");
 		
-		System.out.println("Input it's neme: ");
+		System.out.println("Input it's name: ");
 		String name = getString();
 		
 		Medication med = new Medication(name);
 		return med;
     }
+    
+    public static PatientMedication createPMed(Patient patient, Medication med) {
+    	System.out.println("Input frequency: ");
+    	Integer freq = getPositiveInteger();
+    	System.out.println("Input amount: ");
+    	Float amount = getPositiveFloat();
+	
+    	PatientMedication pmed = new PatientMedication(freq, amount, patient, med);
+    	return pmed;    	
+    }
+    
     
     public static Episode createEpisode(){
     	System.out.println("Input the episode's information: ");
