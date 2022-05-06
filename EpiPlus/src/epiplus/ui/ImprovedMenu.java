@@ -148,6 +148,16 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
+	private static void searchDoctorMenu() {
+		System.out.println("                                          ");
+	    System.out.println("---------------------------------------------------------------");
+	    System.out.println(" 1.Search by name                                       ");
+	    System.out.println(" 2.Search by email                                      ");
+	    System.out.println(" 3.Search by hospital                                   ");
+	    System.out.println(" 0. GO BACK TO PATIENT MENU              ");
+	    System.out.println("---------------------------------------------------------------");
+	}
+	
 	private static boolean continueProccess() {
 		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
 		return askConfirmation();
@@ -252,7 +262,8 @@ public class ImprovedMenu {
 					//TODO Call emergency contacts //How can we call through the database?? I don´t think that is possible 
 					break;
 				case 6: 
-					//TODO see list of medication
+					List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
+					listMedications(pmeds);
 					break;
 				case 7: 
 					//TODO show graphs on my evolution
@@ -285,7 +296,7 @@ public class ImprovedMenu {
 					//TODO updateMedication(p);
 					break;
 				case 3:
-					//TODO deleteMedication(p);
+					deleteMedication(p);
 					break;
 				case 0: 
 					return;
@@ -494,6 +505,22 @@ public class ImprovedMenu {
 			pmManager.assignPatientMedication(pm);
 		}
 	}
+	
+	private static void deleteMedication(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
+			listMedications(pmeds);
+			
+			System.out.println("Introduce the medication name: ");
+			String medname = getString();
+			Medication med = medicationManager.getMedicationByName(medname);
+			
+			pmManager.unassignPatientMedication(null); //TODO fix this method 
+			
+		}
+	}
 		
 	private static Patient selectPatient(List<Patient> p) throws Exception{
 		listPatients(p);
@@ -510,6 +537,16 @@ public class ImprovedMenu {
 		while (it.hasNext()) {
 			 Patient patient = it.next();
 			 System.out.println("Id " + counter + ": " + patient.getName());
+			 counter++;
+		}
+	}
+	
+	private static void listMedications(List<Medication> meds) {
+		Iterator<Medication> it = meds.iterator();
+		int counter = 0;
+		while (it.hasNext()) {
+			 Medication med = it.next();
+			 System.out.println("Id " + counter + ": " + med.getName());
 			 counter++;
 		}
 	}

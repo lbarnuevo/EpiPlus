@@ -34,7 +34,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 	}
 
 	@Override
-	public void unassignPatientMedication(PatientMedication pm) {
+	public void unassignPatientMedication(PatientMedication pm) { //TODO a lo mejor es mejor pasar la medication en lugar de la relacion? no se 
 		try {
 			String sql = "DELETE FROM patientmedication WHERE patientId=? AND medicationId=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
