@@ -381,6 +381,7 @@ public class Menu {
 				break;
 			}
 			case 5:{//CALL EMERGENCY CONTACTS --> TODO --> how?
+				break;
 			}
 			case 6:{//SEE LIST OF MEDS
 				listMed = pmedManager.getMedicationsOfPatient(pId);
@@ -388,6 +389,16 @@ public class Menu {
 					System.out.println("\n" + m);
 				}
 				break;
+			}
+			case 7:{//SEE GRAPHS --> TODO --> but we also said that we should do it at the end of our project
+				patientManager.showEvolution(patient);//not implemented!!
+				break;
+			}
+			case 8:{//SEARCH DOCTOR
+				//1_search a doctor by name email or hospital 2a_add the doctor to the patient and the patient to the doctor  or 2b_see info doctor
+				System.out.println("SEE DOCTORS INFO");
+				
+				break;				
 			}
 
 			case 0: {// GO BACK TO START MENU
