@@ -199,7 +199,7 @@ public class Menu {
 		pmedManager = new JDBCPatientMedicationManager(jdbcManager);
 		medManager = new JDBCMedicationManager(jdbcManager);
 		patientManager = new JDBCPatientManager(jdbcManager);
-		
+		docManager = new JDBCDoctorManager(jdbcManager);		
 
 		Patient patient = patientManager.getPatientById(pId);
 
@@ -394,10 +394,33 @@ public class Menu {
 				patientManager.showEvolution(patient);//not implemented!!
 				break;
 			}
-			case 8:{//SEARCH DOCTOR
+			case 8:{//SEARCH DOCTOR --> TODO
 				//1_search a doctor by name email or hospital 2a_add the doctor to the patient and the patient to the doctor  or 2b_see info doctor
+				Doctor doctor = null;
+				List<Doctor> listDoc;
+
 				System.out.println("SEE DOCTORS INFO");
-				
+				while(true) {
+					System.out.println("\n1_Search by name");
+					System.out.println("\n2_Search by email");
+					System.out.println("\n3_Search by hospital");
+					System.out.println("\n0_Exit");
+					Integer option = getPositiveInteger();
+					switch(option) {
+					case 0:{
+						return;
+					}
+					case 1:{//NAME
+						String name = getString();
+						listDoc = docManager.searchDoctorByName(name);
+						
+						break;
+					}
+					default:{
+						System.out.println("Enter other number: ");
+					}
+					}
+				}
 				break;				
 			}
 
