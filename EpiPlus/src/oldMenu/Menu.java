@@ -299,7 +299,10 @@ public class Menu {
 				// use the same function for patient and doctor
 				System.out.println("\n" + patient);
 				// USE toStringForPatients() TO SHOW DATA OF DOCTOR (no photo...)
-
+			}
+			case 4: {//UPDATE PATIENT INFO
+				System.out.println("\n" + patient);
+				System.out.println("\nWhat data do you want to change?");
 			}
 
 			case 0: {// GO BACK TO START MENU
