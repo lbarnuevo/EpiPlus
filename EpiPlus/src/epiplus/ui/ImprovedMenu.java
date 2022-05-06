@@ -236,7 +236,7 @@ public class ImprovedMenu {
 					seeUserPatient(p);
 					break;
 				case 4: 
-					//TODO update user information
+					updateUserPatient(p);
 					break;
 				case 5:
 					//TODO Call emergency contacts //How can we call through the database?? I don´t think that is possible 
@@ -319,30 +319,52 @@ public class ImprovedMenu {
 		// EL ESCOGIDO NO INTERESABA
 	}
 	
-	/* private static void updateUserPatient(Patient p) {
+	private static void updateUserPatient(Patient p) {
 		if (continueProccess() == false) {
 			return; 
 		} else {
 			while(true) {
+				System.out.println("Showing user's information... ");
+				seeUserPatient(p);
 				
-				name, age, height, weight, lifestyle, diet, exercise, photo
-				
-				System.out.println("\nShowing user's information... \n");
-				d.toString();
-				String toChange= getString("\nWhich information (name, email...) would you like to change?: ");
+				System.out.println("Which information would you like to change? ");
+				String toChange= getString();
 				
 				if (toChange.equalsIgnoreCase("name")) {
-					String toChangeName= getString("\nInput new NAME: ");
+					System.out.println("Input new NAME: ");
+					String toChangeName= getString();
 					p.setName(toChangeName);
 					patientManager.updatePatient(p); 
-				} else if (toChange.equalsIgnoreCase("email")) {
-					String toChangeEmail= getString("\nInput new EMAIL: ");
-					d.setEmail(toChangeEmail);
-					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("hospitalName")) {
-					String toChangeHospitalName= getString("\nInput new HOSPITAL'S NAME: ");
-					d.setHospitalName(toChangeHospitalName);
-					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("age")) {
+					System.out.println("Input new age: ");
+					int new_age = getPositiveInteger();
+					p.setAge(new_age);
+					patientManager.updatePatient(p);
+				} else if (toChange.equalsIgnoreCase("height")) {
+					System.out.println("Input new height: ");
+					float new_height = getPositiveFloat();
+					p.setHeight(new_height);
+					patientManager.updatePatient(p);
+				} else if (toChange.equalsIgnoreCase("weight")) {
+					System.out.println("Input new weight: ");
+					float new_weight = getPositiveFloat();
+					p.setWeight(new_weight);
+					patientManager.updatePatient(p);
+				} else if(toChange.equalsIgnoreCase("lifestyle")) {
+					System.out.println("Input new lifestyle: ");
+			    	String new_lifestyle = getLifeStyle();
+			    	p.setLifestyle(new_lifestyle);
+			    	patientManager.updatePatient(p);
+				} else if(toChange.equalsIgnoreCase("diet")) {
+					System.out.println("Input new diet: ");
+			    	String new_diet = getDiet();
+			    	p.setDiet(new_diet);
+			    	patientManager.updatePatient(p);
+				} else if (toChange.equalsIgnoreCase("exercise")) {
+					System.out.println("Input new exercise per week: ");
+					int new_ex = getPositiveInteger();
+					p.setEx_per_week(new_ex);
+					patientManager.updatePatient(p);
 				} //else if (toChange.equalsIgnoreCase("photo")) {
 					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
 					//String toChangePhoto= getString("\nInput new PHOTO: ");
@@ -350,12 +372,12 @@ public class ImprovedMenu {
 					//doctorManager.updateDoctor(d);
 				//}
 				
-				if (askConfirmation() == false) {
-					break;
+				if (continueProccess() == false) {
+					return;
 				}
 			}
 		}
-	} */
+	} 
 	
 	private static void seeUserDoctor(Doctor d) {
 		List<Patient> pList = new ArrayList<Patient>();
@@ -363,7 +385,7 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			System.out.println("\nShowing user's information... \n");
+			System.out.println("Showing user's information...");
 			d.toString();
 			
 			System.out.println("--- MY PATIENTS ---");
@@ -412,12 +434,19 @@ public class ImprovedMenu {
 			return;
 		} else {
 			Episode ep = createEpisode();
-			Symptom symptom = createSymptom();
-			EpisodeSymptom epsymp = createSeverity(ep, symptom);
-			
 			episodeManager.addEpisode(ep);
-			symptomManager.addSymptom(symptom);
-			esManager.assignEpisodeSymptom(epsymp);
+			
+			Symptom symptom = createSymptom();
+			Symptom s2 = symptomManager.getSymptomByName(symptom.getName());
+			
+			if(s2 == null ) {
+				symptomManager.addSymptom(symptom);
+				EpisodeSymptom epsymp = createSeverity(ep, symptom);
+				esManager.assignEpisodeSymptom(epsymp);
+			} else {
+				EpisodeSymptom epsymp = createSeverity(ep, s2);
+				esManager.assignEpisodeSymptom(epsymp);
+			}
 		}
 	}
 		
