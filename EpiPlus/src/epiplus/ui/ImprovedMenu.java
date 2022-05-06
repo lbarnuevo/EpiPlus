@@ -24,8 +24,8 @@ public class ImprovedMenu {
 	private static EmergencyContactManager ecManager = new JDBCEmergencyContactManager(jdbcManager);
 	private static EpisodeManager episodeManager = new JDBCEpisodeManager(jdbcManager);
 	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
-	//private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
-	//private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
+	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
+	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	
 	public static void connect(){
@@ -138,6 +138,16 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
+	private static void showMedsMenu() {
+		System.out.println("                  MEDICATION                         ");
+	    System.out.println("---------------------------------------------------------------");
+	    System.out.println(" 1.Input new medication                                       ");
+	    System.out.println(" 2.Make changes on my medication                              ");
+	    System.out.println(" 3.Delete medication                                          ");
+	    System.out.println(" 0. GO BACK TO PATIENT MENU              ");
+	    System.out.println("---------------------------------------------------------------");
+	}
+	
 	private static boolean continueProccess() {
 		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
 		return askConfirmation();
@@ -230,7 +240,7 @@ public class ImprovedMenu {
 					registerEpisode();
 					break;
 				case 2:
-					//TODO input new data on medication
+					medicationMenu(p);
 					break;
 				case 3:
 					seeUserPatient(p);
@@ -256,10 +266,33 @@ public class ImprovedMenu {
 				case 0:
 					return;
 				default:
-					break;
+					System.out.println("Please introduce a valid option. ");
 				}
 		}
 		while(true);
+	}
+	
+	private static void medicationMenu(Patient p) {
+		do {
+			showMedsMenu();
+			int choice = getPositiveInteger();
+			
+			switch(choice) {
+				case 1:
+					addMedication(p);
+					break;
+				case 2: 
+					//TODO updateMedication(p);
+					break;
+				case 3:
+					//TODO deleteMedication(p);
+					break;
+				case 0: 
+					return;
+				default:
+					System.out.println("Please introduce a valid option. ");
+			}
+		} while(true);
 	}
 	
 	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
@@ -281,7 +314,7 @@ public class ImprovedMenu {
 				case 0:
 					return;
 				default:
-					break;
+					System.out.println("Please introduce a valid option. ");
 				}
 		}
 		while(true);
@@ -447,6 +480,18 @@ public class ImprovedMenu {
 				EpisodeSymptom epsymp = createSeverity(ep, s2);
 				esManager.assignEpisodeSymptom(epsymp);
 			}
+		}
+	}
+	
+	private static void addMedication(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			Medication med = createMedication();
+			medicationManager.addMedication(med);
+			
+			PatientMedication pm = createPMed(p, med);
+			pmManager.assignPatientMedication(pm);
 		}
 	}
 		
