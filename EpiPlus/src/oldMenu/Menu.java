@@ -252,9 +252,8 @@ public class Menu {
 						System.out.println("\n" + m);
 					}
 					
-					//the following TODOs should be in another function to understand the code better
-					//TODO --> change medicine info
-						//relatedtomedication(pId, listMed);
+					//the following code should be in another function to understand the code better
+
 					MMenu();
 					System.out.println("Please, select the option: ");
 					int option = getPositiveInteger();
@@ -263,7 +262,10 @@ public class Menu {
 						break;
 					}
 					case 1:{//TODO --> MAKE CHANGES
-						
+						System.out.println("Wich medication do you want to change? ");
+						String namemed = getString();
+						med = medManager.getMedicationByName(namemed);
+						//TODO --> how to have the pacmed atributes by a med?? --> create new funcion on JDBCPacientMedManager
 						break;
 					}
 					case 2:{//ADD MED
@@ -290,10 +292,6 @@ public class Menu {
 						break;
 					}
 					}
-					
-					//TODO --> add new medicine
-					
-					// pmedManager.assignPatientMedication(/* pId */);
 				}
 			}
 
