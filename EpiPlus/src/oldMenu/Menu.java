@@ -221,14 +221,21 @@ public class Menu {
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
-				} else {//TODO --> view if the symptom exist and then assign the symptom to the episode with severity
+				} else {
 					Episode ep = createEpisode();
-					Symptom symptom = createSymptom();
 					epManager.addEpisode(ep);
-					sympManager.addSymptom(symptom);
-
-					EpisodeSymptom epsymp = createSeverity(ep, symptom);
-					epsympManager.assignEpisodeSymptom(epsymp);
+					
+					Symptom symptom = createSymptom();
+					Symptom s2 = sympManager.getSymptomByName(symptom.getName()); //It check if the symptom exist on the database
+					
+					if(s2 == null) {
+						sympManager.addSymptom(symptom);
+						EpisodeSymptom epsymp = createSeverity(ep, symptom);
+						epsympManager.assignEpisodeSymptom(epsymp);
+					} else {
+						EpisodeSymptom epsymp = createSeverity(ep, s2);
+						epsympManager.assignEpisodeSymptom(epsymp);
+					}
 				}
 				break;
 			}
@@ -269,7 +276,7 @@ public class Menu {
 							pmed = createPMed(patient, med);
 							medManager.addMedication(med);
 							pmedManager.assignPatientMedication(pmed);
-						} else{//if it already exist create only the related thing to patientmedication
+						} else {//if it already exist create only the related thing to patientmedication
 							pmed = createPMed(patient, med2);
 							pmedManager.assignPatientMedication(pmed);
 						}
