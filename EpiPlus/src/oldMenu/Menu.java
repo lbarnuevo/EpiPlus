@@ -261,11 +261,18 @@ public class Menu {
 					case 0:{
 						break;
 					}
-					case 1:{//TODO --> MAKE CHANGES
+					case 1:{//MAKE CHANGES
 						System.out.println("Wich medication do you want to change? ");
 						String namemed = getString();
 						med = medManager.getMedicationByName(namemed);
-						//TODO --> how to have the pacmed atributes by a med?? --> create new funcion on JDBCPacientMedManager
+						
+						System.out.println("Input new frequency: ");
+						Integer freq = getPositiveInteger();
+						System.out.println("Input new amount: ");
+				    	Float amount = getPositiveFloat();
+						pmed = new PatientMedication(freq, amount, patient, med);
+
+						pmedManager.updatePatientMedication(pmed);
 						break;
 					}
 					case 2:{//ADD MED
