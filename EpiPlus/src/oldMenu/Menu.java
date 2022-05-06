@@ -240,7 +240,7 @@ public class Menu {
 				break;
 			}
 
-			case 2: {// TODO INPUT NEW DATA ON MEDICATION --> not done yet
+			case 2: {//INPUT NEW DATA ON MEDICATION
 				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
 				String register = getString(
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
@@ -309,7 +309,64 @@ public class Menu {
 			}
 			case 4: {//UPDATE PATIENT INFO
 				System.out.println("\n" + patient);
-				System.out.println("\nWhat data do you want to change?");
+				
+				System.out.println("\nWhat data do you want to change?\n"
+						+ "	0_Finish changes\n"
+						+ "	1_name\n"
+						+ "	2_age\n"
+						+ "	3_height\n"
+						+ "	4_weight\n"
+						+ "	5_lifestyle\n"
+						+ "	6_diet\n"
+						+ "	7_ex_per_week\n"
+						+ "	8_photo (comming soon)");//i dont know how to do it
+				Integer option = getPositiveInteger();
+				while(true) {
+					switch(option) {
+					case 0:{
+						patientManager.updatePatient(patient);
+						return;
+					}
+					case 1:{
+						String newname = getString();
+						patient.setName(newname);
+						break;
+					}
+					case 2:{
+						Integer newage = getPositiveInteger();
+						patient.setAge(newage);
+						break;
+					}
+					case 3:{
+						Float newheight = getPositiveFloat();
+						patient.setHeight(newheight);
+						break;
+					}
+					case 4:{
+						Float newweight = getPositiveFloat();
+						patient.setWeight(newweight);
+						break;
+					}
+					case 5:{
+						String newlifestyle = getString();
+						patient.setLifestyle(newlifestyle);
+						break;
+					}
+					case 6:{
+						String newdiet = getString();
+						patient.setDiet(newdiet);
+						break;
+					}
+					case 7:{
+						Integer newexweek = getPositiveInteger();
+						patient.setEx_per_week(newexweek);
+						break;
+					}
+					default:{
+						System.out.println("Input correct option");
+					}
+					}
+				}
 			}
 
 			case 0: {// GO BACK TO START MENU
