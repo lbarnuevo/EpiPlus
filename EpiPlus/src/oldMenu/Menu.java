@@ -247,7 +247,6 @@ public class Menu {
 				if (register.equalsIgnoreCase("B")) {
 					pchoice = reiterative;
 				} else {
-					// show list medication of a patient --> DONE
 					listMed = pmedManager.getMedicationsOfPatient(pId);
 					for (Medication m : listMed) {
 						System.out.println("\n" + m);
@@ -282,13 +281,12 @@ public class Menu {
 						}
 						break;
 					}
-					case 3:{//TODO --> DELETE
+					case 3:{//DELETE
 						System.out.println("Wich medication do you want to delete?");
 						String namemed = getString();
-						listMed = medManager.searchMedicationByName(namemed);//change this name
-						for (Medication m : listMed) {
-							//I will have to create a new PatientMedication just with p & m and the call unsigned...
-						}
+						Medication deletemed = medManager.getMedicationByName(namemed);
+						pmed = new PatientMedication(patient, deletemed); //Im not so sure
+						pmedManager.unassignPatientMedication(pmed);
 						break;
 					}
 					}
