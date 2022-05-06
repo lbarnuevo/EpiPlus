@@ -260,11 +260,19 @@ public class Menu {
 						
 						break;
 					}
-					case 2:{//TODO --> view if the med exist and then assign the med to the patient with amount & frequency
+					case 2:{//ADD MED
 						med = createMedication();
-						pmed = createPMed(patient, med);
-						medManager.addMedication(med);
-						pmedManager.assignPatientMedication(pmed);
+						
+						Medication med2 = medManager.getMedicationByName(med.getName());//It search if there is a medication with that name, if it already exist in the database
+						
+						if(med2 == null) {//if it is null --> add the med previously created and all the patientmedications relations
+							pmed = createPMed(patient, med);
+							medManager.addMedication(med);
+							pmedManager.assignPatientMedication(pmed);
+						} else{//if it already exist create only the related thing to patientmedication
+							pmed = createPMed(patient, med2);
+							pmedManager.assignPatientMedication(pmed);
+						}
 						break;
 					}
 					case 3:{//TODO --> DELETE
