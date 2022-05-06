@@ -240,7 +240,7 @@ public class Menu {
 				break;
 			}
 
-			case 2: {// TODO INPUT NEW DATA ON MEDICATION --> not done yet
+			case 2: {//INPUT NEW DATA ON MEDICATION
 				System.out.println("\n\tCHANGE MEDICATION" + "\nDo you want to continue the process?");
 				String register = getString(
 						"Press B if you want to go back to the patient menu, other key if you want to continue: ");
@@ -261,14 +261,23 @@ public class Menu {
 					case 0:{
 						break;
 					}
-					case 1:{//TODO --> MAKE CHANGES
+					case 1:{//MAKE CHANGES
 						System.out.println("Wich medication do you want to change? ");
 						String namemed = getString();
 						med = medManager.getMedicationByName(namemed);
-						//TODO --> how to have the pacmed atributes by a med?? --> create new funcion on JDBCPacientMedManager
+						
+						System.out.println("Input new frequency: ");
+						Integer freq = getPositiveInteger();
+						System.out.println("Input new amount: ");
+				    	Float amount = getPositiveFloat();
+						pmed = new PatientMedication(freq, amount, patient, med);
+
+						pmedManager.updatePatientMedication(pmed);
 						break;
 					}
 					case 2:{//ADD MED
+						System.out.println("Add new medication: ");
+						
 						med = createMedication();
 						
 						Medication med2 = medManager.getMedicationByName(med.getName());//It search if there is a medication with that name, if it already exist in the database
@@ -293,16 +302,103 @@ public class Menu {
 					}
 					}
 				}
+				break;
 			}
 
 			case 3: {// SHOW PATIENT INFO
 				// use the same function for patient and doctor
 				System.out.println("\n" + patient);
 				// USE toStringForPatients() TO SHOW DATA OF DOCTOR (no photo...)
+				break;
 			}
 			case 4: {//UPDATE PATIENT INFO
-				System.out.println("\n" + patient);
-				System.out.println("\nWhat data do you want to change?");
+				System.out.println("Press B if you want to go back to the patient menu, other key if you want to continue: ");
+				String register = getString();
+				if (register.equalsIgnoreCase("B")) {
+					pchoice = reiterative;
+				} else {
+					System.out.println("UPDATE USER INFO");
+					System.out.println("\n" + patient);
+					
+					System.out.println("\nWhat data do you want to change?\n"
+							+ "	0_Finish changes\n"
+							+ "	1_name\n"
+							+ "	2_age\n"
+							+ "	3_height\n"
+							+ "	4_weight\n"
+							+ "	5_lifestyle\n"
+							+ "	6_diet\n"
+							+ "	7_ex_per_week\n"
+							+ "	8_photo (comming soon)");//TODO --> i dont know how to do it
+					Integer option = getPositiveInteger();
+					while(true) {
+						switch(option) {
+						case 0:{
+							patientManager.updatePatient(patient);
+							return;
+							}
+						case 1:{
+							String newname = getString();
+							patient.setName(newname);
+							break;
+						}
+						case 2:{
+							Integer newage = getPositiveInteger();
+							patient.setAge(newage);
+							break;
+						}
+						case 3:{
+							Float newheight = getPositiveFloat();
+							patient.setHeight(newheight);
+							break;
+						}
+						case 4:{
+							Float newweight = getPositiveFloat();
+							patient.setWeight(newweight);
+							break;
+						}
+						case 5:{
+							String newlifestyle = getString();
+							patient.setLifestyle(newlifestyle);
+							break;
+						}
+						case 6:{
+							String newdiet = getString();
+							patient.setDiet(newdiet);
+							break;
+							}
+						case 7:{
+							Integer newexweek = getPositiveInteger();
+							patient.setEx_per_week(newexweek);
+							break;
+						}
+						default:{
+							System.out.println("Input correct option");
+						}
+						}
+					}
+				}
+				break;
+			}
+			case 5:{//CALL EMERGENCY CONTACTS --> TODO --> how?
+				break;
+			}
+			case 6:{//SEE LIST OF MEDS
+				listMed = pmedManager.getMedicationsOfPatient(pId);
+				for (Medication m : listMed) {
+					System.out.println("\n" + m);
+				}
+				break;
+			}
+			case 7:{//SEE GRAPHS --> TODO --> but we also said that we should do it at the end of our project
+				patientManager.showEvolution(patient);//not implemented!!
+				break;
+			}
+			case 8:{//SEARCH DOCTOR
+				//1_search a doctor by name email or hospital 2a_add the doctor to the patient and the patient to the doctor  or 2b_see info doctor
+				System.out.println("SEE DOCTORS INFO");
+				
+				break;				
 			}
 
 			case 0: {// GO BACK TO START MENU

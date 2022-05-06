@@ -275,6 +275,29 @@ public class Auxiliar {
     
     public static void ListDiets() {
     	//TODO add diets
+    	System.out.println("                  	DEFINITION OF DIETS                        ");
+        System.out.println("---------------------------------------------------------------");
+    	System.out.println("Normal: do not have any specified diet");
+    	System.out.println("Mediterranean: seafood, fish, vegetables, fruits, whole grains");
+    	System.out.println("High protein: high protein foods like meat or eggs");
+    	System.out.println("High protein vegetarian: high protein foods excluding meat");
+    	System.out.println("Mediterranean: seafood, fish, vegetables, fruits, whole grains");
+    	System.out.println("High protein: high protein foods like meat or eggs");
+    	System.out.println("High protein vegetarian: high protein foods excluding meat");
+    	System.out.println("High protein vegan: high protein foods which fulfills vegan diet");
+    	System.out.println("Gluten free: diet which exclude gluten foods");
+    	System.out.println("Lactose free: diet which exclude lactose products");
+    	System.out.println("High protein vegan: high protein foods which fulfills vegan diet");
+    	System.out.println("Gluten free: diet which exclude gluten foods");
+    	System.out.println("Lactose free: diet which exclude lactose foods");
+    	System.out.println("Dairy free: diet which exclude dairy products");
+    	System.out.println("Ketogenic: diet which is rich in fats and allow small amount of carbohydrates");
+    	System.out.println("Ketogenic vegetarian: diet which is rich in fats and allow small amount of carbohydrates and fulfills vegetarian diet");    	
+    	System.out.println("Ketogenic vegan: diet which is rich in fats and allow small amount of carbohydrates and fulfills vegan diet");
+    	System.out.println("Vegan: standard vegan diet");
+    	System.out.println("Vegetarian: standard vegetarian diet");
+    	
+    
     }
     
     public static void ListLifestyle() {  
@@ -286,3 +309,7 @@ public class Auxiliar {
     	System.out.println("High: practice high impact sports ");
     }   
 }
+
+
+
+

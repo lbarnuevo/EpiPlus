@@ -86,10 +86,13 @@ public class JDBCManager {
 					+ "age INTEGER NOT NULL," + "height REAL NOT NULL," // in cm
 					+ "weight REAL NOT NULL, " // in kg
 					+ "lifestyle TEXT CHECK('lifestyle' IN ('sedentary','little activity','moderate ativity','high activity')) NOT NULL,"
-					+ "diet TEXT CHECK ('diet' IN ('mediterranean', 'high protein', 'gluten free', 'lactose free', 'dairy free', 'ketogenic','highly caloric', 'vegan','vegetarian','intermitten fasting')) NOT NULL,"
+					+ "diet TEXT CHECK ('diet' IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')) NOT NULL,"
 					+ "ex_per_week INTEGER NOT NULL," + "doctorId INTEGER NOT NULL," + "photo BLOB,"
 					+ "FOREIGN KEY (doctorId) REFERENCES doctors(id) ON DELETE SET NULL"
 					+ ");";
+			//I deleted intermitten fasting because it makes things harder
+			//I added normal = not specified
+			// high protein wege and wegan
 			stmt.executeUpdate(sql);
 
 			sql = "CREATE TABLE emergencycontact (" + "id	 INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,"
