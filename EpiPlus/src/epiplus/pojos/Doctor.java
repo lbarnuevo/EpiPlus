@@ -91,6 +91,11 @@ public class Doctor implements Serializable {
 	public void setHospitalName(String hospitalName) {
 		this.hospitalName = hospitalName;
 	}
+	
+	public void addPatienttoList(Patient p) {
+		this.patients.add(p);
+	}
+	
 
 	@Override
 	public int hashCode() {

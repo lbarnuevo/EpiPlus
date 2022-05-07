@@ -410,10 +410,37 @@ public class Menu {
 					case 0:{
 						return;
 					}
+					/*TODO
+					In patient we have an atribute that is Doctor but we dont do anythig with it. 
+					We should: 
+						a) added to the contructor as a variable that is originally null and change the data base adding that new variable
+						b) deleted the vairable from patient*/
+					
 					case 1:{//NAME
+						//PRINTS THE DOCTORS BY WITH THE SAME NAME
 						String name = getString();
 						listDoc = docManager.searchDoctorByName(name);
-						
+						for (Doctor d : listDoc) {
+							System.out.println("\n" + d.toStringForPatients());
+						}
+						//ASK IF THE PATIENT WANT TO CHANGE THE DOCTOR
+						System.out.println("\nDo you want to change your actual doctor? (N--> No)");
+						String c = getString();
+						if (c.equalsIgnoreCase("N")) {
+							return;
+						} else {
+							
+							/*PRINT THE DOCTOR ASOCIATED WITH THA PATIENT, ASK FOR THE ID OF THE NEW DOCTOR, ADD THE DOCTOR TO THE PATIENT 
+							  & FINALLY ADD THIS PATIENT TO THE LIST OF DOCTORS OF THE DOCTOR SELECTED*/ 
+							
+							System.out.println("\nActual doctor: "+patient.getDoctor().toStringForPatients()
+									+ "\nWich doctor do you want to add? (You only can have one doctor asociated)(Input the doctor Id)");
+							Integer DId = getPositiveInteger();
+							doctor = docManager.getDoctorById(DId);
+							patient.setDoctor(doctor);
+							doctor.addPatienttoList(patient);
+							
+						}
 						break;
 					}
 					default:{
