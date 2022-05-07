@@ -418,8 +418,65 @@ public class Menu {
 					
 					case 1:{//NAME
 						//PRINTS THE DOCTORS BY WITH THE SAME NAME
+						System.out.println("Enter the name: ");
 						String name = getString();
 						listDoc = docManager.searchDoctorByName(name);
+						for (Doctor d : listDoc) {
+							System.out.println("\n" + d.toStringForPatients());
+						}
+						//ASK IF THE PATIENT WANT TO CHANGE THE DOCTOR
+						System.out.println("\nDo you want to change your actual doctor? (N--> No)");
+						String c = getString();
+						if (c.equalsIgnoreCase("N")) {
+							return;
+						} else {
+							
+							/*PRINT THE DOCTOR ASOCIATED WITH THA PATIENT, ASK FOR THE ID OF THE NEW DOCTOR, ADD THE DOCTOR TO THE PATIENT 
+							  & FINALLY ADD THIS PATIENT TO THE LIST OF DOCTORS OF THE DOCTOR SELECTED*/ 
+							
+							System.out.println("\nActual doctor: "+patient.getDoctor().toStringForPatients()
+									+ "\nWich doctor do you want to add? (You only can have one doctor asociated)(Input the doctor Id)");
+							Integer DId = getPositiveInteger();
+							doctor = docManager.getDoctorById(DId);
+							patient.setDoctor(doctor);
+							doctor.addPatienttoList(patient);
+							
+						}
+						break;
+					}
+					case 2: {//EMAIL --> TODO the email should be unique 
+						//PRINTS THE DOCTORS BY THE EMAIL
+						System.out.println("Enter the email: ");
+						String email = getString();
+						listDoc = docManager.searchDoctorByEmail(email); //TODO --> as the email is or should be unique this method should return only 1 doctor
+						for (Doctor d : listDoc) {
+							System.out.println("\n" + d.toStringForPatients());
+						}
+						//ASK IF THE PATIENT WANT TO CHANGE THE DOCTOR
+						System.out.println("\nDo you want to change your actual doctor? (N--> No)");
+						String c = getString();
+						if (c.equalsIgnoreCase("N")) {
+							return;
+						} else {
+							
+							/*PRINT THE DOCTOR ASOCIATED WITH THA PATIENT, ASK FOR THE ID OF THE NEW DOCTOR, ADD THE DOCTOR TO THE PATIENT 
+							  & FINALLY ADD THIS PATIENT TO THE LIST OF DOCTORS OF THE DOCTOR SELECTED*/ 
+					//TODO in this case as the email is unique we dont have to ask for the id only we have to get it from the doctor returned by the email
+							
+							System.out.println("\nActual doctor: "+patient.getDoctor().toStringForPatients()
+									+ "\nWich doctor do you want to add? (You only can have one doctor asociated)(Input the doctor Id)");
+							Integer DId = getPositiveInteger();
+							doctor = docManager.getDoctorById(DId);
+							patient.setDoctor(doctor);
+							doctor.addPatienttoList(patient);
+						}
+						break;
+					}
+					case 3: {//HOSPITAL
+						//PRINTS THE DOCTORS BY THE HOSPITAL
+						System.out.println("Enter the hospital where the doctor works: ");
+						String hospital = getString();
+						listDoc = docManager.searchDoctorByHospital(hospital);
 						for (Doctor d : listDoc) {
 							System.out.println("\n" + d.toStringForPatients());
 						}
@@ -449,6 +506,9 @@ public class Menu {
 					}
 				}
 				break;				
+			}
+			case 9: {//RECIPES
+				//TODO --> at the end are we going to do this?
 			}
 
 			case 0: {// GO BACK TO START MENU
