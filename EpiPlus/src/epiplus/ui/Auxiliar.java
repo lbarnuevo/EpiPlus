@@ -272,9 +272,7 @@ public class Auxiliar {
     	return epsymp;
     }
     
-    
     public static void ListDiets() {
-    	//TODO add diets
     	System.out.println("                  	DEFINITION OF DIETS                        ");
         System.out.println("---------------------------------------------------------------");
     	System.out.println("Normal: do not have any specified diet");
@@ -296,8 +294,7 @@ public class Auxiliar {
     	System.out.println("Ketogenic vegan: diet which is rich in fats and allow small amount of carbohydrates and fulfills vegan diet");
     	System.out.println("Vegan: standard vegan diet");
     	System.out.println("Vegetarian: standard vegetarian diet");
-    	
-    
+
     }
     
     public static void ListLifestyle() {  
