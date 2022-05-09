@@ -119,11 +119,10 @@ public class ImprovedMenu {
 	    System.out.println(" 2.Input new data on medication                              ");
 	    System.out.println(" 3.See user information                                      ");
 	    System.out.println(" 4.Update user information                                   ");
-	    System.out.println(" 5.Call emergency contacts                                   ");
-	    System.out.println(" 6.See list of medications                                   ");
-	    System.out.println(" 7.Show graphs on my evolution                               ");
-	    System.out.println(" 8.Search doctor                                             ");
-	    System.out.println(" 9.Show recipe                                               ");
+	    System.out.println(" 5.See list of medications                                   ");
+	    System.out.println(" 6.Show graphs on my evolution                               ");
+	    System.out.println(" 7.Search doctor                                             ");
+	    System.out.println(" 8.Show recipe                                               ");
 	    System.out.println(" 0. GO BACK TO MAIN ME                                       ");
 	    System.out.println("---------------------------------------------------------------");
 	}
@@ -258,20 +257,17 @@ public class ImprovedMenu {
 				case 4: 
 					updateUserPatient(p);
 					break;
-				case 5:
-					//TODO Call emergency contacts //How can we call through the database?? I don´t think that is possible 
-					break;
-				case 6: 
+				case 5: 
 					List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
 					listMedications(pmeds);
 					break;
-				case 7: 
+				case 6: 
 					//TODO show graphs on my evolution
 					break;
-				case 8: 
+				case 7: 
 					//TODO search doctor
 					break;
-				case 9: 
+				case 8: 
 					//TODO show recipes
 					break; 
 				case 0:
