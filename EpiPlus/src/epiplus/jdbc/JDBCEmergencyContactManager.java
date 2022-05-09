@@ -56,7 +56,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String name = rs.getString("name");
-				Integer number = rs.getInt("number");
+				Float number = rs.getFloat("number");
 				EmergencyContact emergencyContact = new EmergencyContact(id, name, number);
 				contactsList.add(emergencyContact);
 			}
