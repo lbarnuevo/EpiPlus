@@ -123,7 +123,7 @@ public class ImprovedMenu {
 	    System.out.println(" 6.Show graphs on my evolution                               ");
 	    System.out.println(" 7.Search doctor                                             ");
 	    System.out.println(" 8.Show recipe                                               ");
-	    System.out.println(" 0. GO BACK TO MAIN ME                                       ");
+	    System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
