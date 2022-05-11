@@ -199,11 +199,9 @@ public class Patient implements Serializable {
 				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo) + "\n"
 				+ this.doctor.toString();
 	}
-	// CUANDO SE PREGUNTE LA INFORMACIÓN HABRÁ QUE SOUT EMERGENCY CONTACTS,
-	// EPISODES, MEDICATION
 	
 	public String toStringForDoctors() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]";
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]"; //TODO add date of birth 
 	}
 }
 

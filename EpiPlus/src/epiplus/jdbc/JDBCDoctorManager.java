@@ -34,9 +34,9 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public List<Doctor> searchDoctorByEmail(String email) {
+	public Doctor searchDoctorByEmail(String email) { //TODO change so it returns a doctor 
 
-		List<Doctor> doctorsList = new ArrayList<Doctor>();
+		Doctor d = null;
 
 		try {
 			String sql = "SELECT * FROM doctors WHERE email LIKE ?";
@@ -44,21 +44,19 @@ public class JDBCDoctorManager implements DoctorManager {
 			prep.setString(1, email);
 			ResultSet rs = prep.executeQuery();
 
-			while (rs.next()) {
-				Integer id = rs.getInt("id");
-				String name = rs.getString("name");
-				String e = rs.getString("email");
-				String hospitalName = rs.getString("hospitalName");
-				byte[] photo = rs.getBytes("photo");
-				Doctor doctor = new Doctor(id, name, e, hospitalName, photo);
-				doctorsList.add(doctor);
-			}
+			Integer id = rs.getInt("id");
+			String name = rs.getString("name");
+			String e = rs.getString("email");
+			String hospitalName = rs.getString("hospitalName");
+			byte[] photo = rs.getBytes("photo");
+			d = new Doctor(id, name, e, hospitalName, photo);
+				
 			rs.close();
 			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return doctorsList;
+		return d;
 	}
 
 	@Override

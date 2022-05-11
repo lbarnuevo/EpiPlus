@@ -16,11 +16,6 @@ public class ImprovedMenu {
 	
 	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
 	private static PatientManager patientManager = new JDBCPatientManager(jdbcManager);
-	
-	//THESE VARIABLES ARE TEMPORARY
-	private static List<Patient> userPatients = new LinkedList<Patient>();
-	private static List<Doctor> userDoctors = new LinkedList<Doctor>();
-	
 	private static EmergencyContactManager ecManager = new JDBCEmergencyContactManager(jdbcManager);
 	private static EpisodeManager episodeManager = new JDBCEpisodeManager(jdbcManager);
 	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
@@ -68,10 +63,8 @@ public class ImprovedMenu {
 						break;
 						
 					case 2:
-						//TODO loginDoctor();
-						System.out.println("Enter doctor name: ");
-						String d_name = getString();
-						Doctor d = searchDoctor(d_name);
+						//TODO loginDoctor()
+						Doctor d = searchDoctor(1);
 						doctorMenu(d);
 						break;
 						
@@ -116,12 +109,12 @@ public class ImprovedMenu {
 		System.out.println("                  PATIENT MENU                        ");
 	    System.out.println("---------------------------------------------------------------");
 	    System.out.println(" 1.Register episode                                          ");
-	    System.out.println(" 2.Input new data on medication                              ");
+	    System.out.println(" 2.My medications                                            ");
 	    System.out.println(" 3.See user information                                      ");
 	    System.out.println(" 4.Update user information                                   ");
-	    System.out.println(" 5.Show graphs on my evolution                               ");
+	    System.out.println(" 5.Show graphs on my evolution NOT DONE                              ");
 	    System.out.println(" 6.Search doctor                                             ");
-	    System.out.println(" 7.Show recipe                                               ");
+	    System.out.println(" 7.Show recipe                         NOT DONE                       ");
 	    System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
 	    System.out.println("---------------------------------------------------------------");
 	}
@@ -189,52 +182,67 @@ public class ImprovedMenu {
 	
 	private static void registerDoctor() {
 		Doctor doctor = createDoctor();
-		doctorManager.addDoctor(doctor);
-		userDoctors.add(doctor);
+		doctorManager.addDoctor(doctor); 
 		System.out.println("\nYou have been successfully registered");
 	}
 	
 	private static void registerPatient() {
 		Patient patient = createPatient();
 		patientManager.addPatient(patient);
-		userPatients.add(patient);
 		System.out.println("\nYou have been successfully registered");
 	}
-	
-	
-	//TEMPORARY METHODS 
+	 
 	public static Patient searchPatient(String name) throws Exception {
-    	Patient p = null;
-    	ListIterator<Patient> iterador= userPatients.listIterator();
-        
-    	while(iterador.hasNext()){
-            Patient p2= iterador.next();
-            if(p2.getName().equalsIgnoreCase(name)){
-                p=p2;
-            }
-        }
-        if(p == null){
-            throw new Exception("There is not a patient with that id.");
-        } else{
-            return p;
-        } 
+    	
+    	List<Patient> patients= patientManager.searchPatientByName(name);
+        Patient p = selectPatient(patients);
+    	listPatients(patients);
+  
+    	 return p;  
     }
 	
-	public static Doctor searchDoctor(String name) throws Exception {
-    	Doctor d = null;
-    	ListIterator<Doctor> iterador= userDoctors.listIterator();
-        
-    	while(iterador.hasNext()){
-            Doctor d2= iterador.next();
-            if(d2.getName().equalsIgnoreCase(name)){
-                d = d2;
-            }
-        }
-        if(d == null){
-            throw new Exception("There is not a doctor under that name registered.");
-        } else{
-            return d;
-        }
+	public static Doctor searchDoctor(int choice) throws Exception {
+    	List<Doctor> docs = null;
+    	Doctor d = null; 
+    	
+		switch(choice) {
+			case 1: 
+				System.out.println("Introduce the doctor's name: ");
+				docs = doctorManager.searchDoctorByName(getString());
+				listDoctors(docs); 
+				
+				do {
+					System.out.println("Introduce the doctor´s id: ");
+					d = doctorManager.getDoctorById(getPositiveInteger());
+				} while(d == null);
+				
+				break;
+				
+			case 2: 
+				System.out.println("Introduce the email: ");
+				d = doctorManager.searchDoctorByEmail(getString());
+				if(d == null) {
+					System.out.println("There is not a doctor with that id. ");
+				} else {
+					break; 
+				}
+				
+			case 3: //hospital
+				System.out.println("Introduce the hospital´s name: ");
+				docs = doctorManager.searchDoctorByHospital(getString());
+				listDoctors(docs); 
+				
+				do {
+					System.out.println("Introduce the doctor´s id: ");
+					d = doctorManager.getDoctorById(getPositiveInteger());
+				} while(d == null);
+				
+				break;
+			default: 
+				System.out.println("That option does not exist. ");
+		}
+		
+		return d; 
     }
 
 	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
@@ -260,7 +268,7 @@ public class ImprovedMenu {
 					//TODO show graphs on my evolution
 					break;
 				case 6: 
-					searchingDoctor(p);
+					operationsOnDoctor(p);
 					break;
 				case 7: 
 					//TODO show recipes
@@ -270,8 +278,7 @@ public class ImprovedMenu {
 				default:
 					System.out.println("Please introduce a valid option. ");
 				}
-		}
-		while(true);
+		} while(true);
 	}
 	
 	private static void medicationMenu(Patient p) {
@@ -340,11 +347,57 @@ public class ImprovedMenu {
 		}
 	}
 	
+	private static void operationsOnDoctor(Patient p) throws Exception {
+		do {
+			searchDoctorMenu();
+			Doctor d = searchDoctor(getPositiveInteger());
+			
+		    System.out.println("---------------------------------------------------------------");
+		    System.out.println(" 1.Show doctor's profile                                       ");
+		    System.out.println(" 2.Add as my doctor                                            ");
+		    System.out.println(" 3.Delete as my doctor                                         ");
+		    System.out.println(" 0. GO BACK TO PATIENT MENU                                    ");
+		    System.out.println("---------------------------------------------------------------");
+			
+		    System.out.println("Introduce the option: ");
+		    int choice = getPositiveInteger();
+		    
+			switch (choice) {
+				case 1:
+					d.toString();
+					return;
+				case 2:
+					if(p.getDoctor() == null) {
+						p.setDoctor(d);
+						patientManager.updatePatient(p); //TODO not sure??
+						return;
+					} else {
+						System.out.println("You already have a doctor.");
+						return;
+					}
+				case 3:
+					if(p.getDoctor() == null) {
+						System.out.println("You have not registered him as a doctor.");
+						return;
+					} else {
+						p.setDoctor(null);
+						patientManager.updatePatient(p); //TODO not sure??
+						return;
+					}
+				case 0:
+					return;
+				default:
+					System.out.println("Please introduce a valid option. ");
+				}
+		} while(true);
+	}
+	
 	private static void seeUserPatient(Patient p) {
 		p.toString();
 		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
 			c.toString();
 		}
+		
 		for (Episode e : episodeManager.getEpisodesOfPatient(p.getId())) {
 			e.toString();
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
@@ -541,30 +594,16 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
+			Medication med = null;
+			
+			do {
+				System.out.println("Wich medication do you want to delete? ");
+				String namemed = getString();
+				med = medicationManager.getMedicationByName(namemed);
+			} while(med == null);
+			
 			PatientMedication pm = selectMedicationFromPatient(p);
 			pmManager.unassignPatientMedication(pm); 
-		}
-	}
-	
-	private static void searchingDoctor(Patient p) {	
-		searchDoctorMenu();
-		int choice = getPositiveInteger();
-		
-		switch(choice) {
-			case 1: //name
-				List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
-				listMedications(pmeds);
-				break;
-			case 2: //email
-				addMedication(p);
-				return;
-			case 3: //hospital 
-				updateMedication(p);
-				return;
-			case 0: 
-				return;
-			default:
-				System.out.println("Please introduce a valid option. ");
 		}
 	}
 		
@@ -579,21 +618,29 @@ public class ImprovedMenu {
 
 	private static void listPatients(List<Patient> p) {
 		Iterator<Patient> it = p.iterator();
-		int counter = 0;
+		
 		while (it.hasNext()) {
 			 Patient patient = it.next();
-			 System.out.println("Id " + counter + ": " + patient.getName());
-			 counter++;
+			 patient.toStringForDoctors();
+			 
+		}
+	}
+	
+	private static void listDoctors(List<Doctor> docs) {
+		Iterator<Doctor> it = docs.iterator();
+		
+		while(it.hasNext()) {
+			Doctor doc = it.next();
+			doc.toStringForPatients();
 		}
 	}
 	
 	private static void listMedications(List<Medication> meds) {
 		Iterator<Medication> it = meds.iterator();
-		int counter = 0;
+		
 		while (it.hasNext()) {
 			 Medication med = it.next();
-			 System.out.println("Id " + counter + ": " + med.getName());
-			 counter++;
+			 med.toString();
 		}
 	}
 }

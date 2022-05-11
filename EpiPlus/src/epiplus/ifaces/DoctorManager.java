@@ -6,7 +6,7 @@ import epiplus.pojos.Patient;
 
 public interface DoctorManager {
 	public void addDoctor(Doctor d);
-	public List<Doctor> searchDoctorByEmail(String email);
+	public Doctor searchDoctorByEmail(String email);
 	public List<Doctor> searchDoctorByName(String name);
 	public List<Doctor> searchDoctorByHospital(String hospital);
 	public Doctor getDoctorById(Integer DocId);

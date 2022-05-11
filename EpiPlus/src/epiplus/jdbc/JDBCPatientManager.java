@@ -20,6 +20,8 @@ public class JDBCPatientManager implements PatientManager {
 		this.manager = m;
 	}
 
+	//TODO assign patient to doctor and unassign doctor from patient? 
+	
 	@Override
 	public void addPatient(Patient p) {
 		try {
