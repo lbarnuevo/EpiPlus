@@ -495,10 +495,17 @@ public class ImprovedMenu {
 			return;
 		} else {
 			Medication med = createMedication();
-			medicationManager.addMedication(med);
+			Medication med2 = medicationManager.getMedicationByName(med.getName());
 			
-			PatientMedication pm = createPMed(p, med);
-			pmManager.assignPatientMedication(pm);
+			if(med2 == null) {
+				PatientMedication pm = createPMed(p, med);
+				
+				medicationManager.addMedication(med);
+				pmManager.assignPatientMedication(pm);
+			} else {
+				PatientMedication pm = createPMed(p, med2);
+				pmManager.assignPatientMedication(pm);
+			}
 		}
 	}
 	
