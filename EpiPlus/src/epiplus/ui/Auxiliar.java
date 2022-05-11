@@ -8,9 +8,7 @@ import epiplus.pojos.*;
 
 public class Auxiliar {
 
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	
-	//TODO @lucia do the list of diet, I think we also need to do it for mood and place(work, home...) 
+	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
 	
     public static int getPositiveInteger(){
         boolean read = false;
@@ -106,11 +104,38 @@ public class Auxiliar {
     	ListDiets();
     	String diet = null; 
     	boolean read = false; 
-    	System.out.println("What diet would you say you follow? (FOR THE MOMENT IS NULL ");
+
     	do {
+        	System.out.println("What diet would you say you follow? \nIntroduce one of the previous options.");
     		diet = getString();
-    		read = true;
-    		//TODO add diets 
+    		 
+    		if(diet.equalsIgnoreCase("normal")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("mediterranean")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("high protein")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("high protein vegetarian")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("high protein vegan")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("gluten free")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("lactose free")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("dairy free")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("ketogenic")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("ketogenic vegetarian")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("ketogenic vegan")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("vegan")) {
+    			read = true;
+    		} else if(diet.equalsIgnoreCase("vegetarian")) {
+    			read = true;
+    		}
     		
     	} while(read == false);
  
@@ -199,7 +224,6 @@ public class Auxiliar {
     }
     
     public static Medication createMedication() {
-    //public static PatientMedication createallMedStaff() {
     	System.out.println("\nInput medication information: ");
 		System.out.println("");
 		
@@ -238,7 +262,7 @@ public class Auxiliar {
 		Float length = getPositiveFloat(); 
 		
 		System.out.println("Add previous activity: ");
-		String activity = getString();//TODO add types of activity
+		String activity = getString();
 		
 		System.out.println("Mood: ");
 		String mood = getString();
@@ -279,15 +303,9 @@ public class Auxiliar {
     	System.out.println("Mediterranean: seafood, fish, vegetables, fruits, whole grains");
     	System.out.println("High protein: high protein foods like meat or eggs");
     	System.out.println("High protein vegetarian: high protein foods excluding meat");
-    	System.out.println("Mediterranean: seafood, fish, vegetables, fruits, whole grains");
-    	System.out.println("High protein: high protein foods like meat or eggs");
-    	System.out.println("High protein vegetarian: high protein foods excluding meat");
     	System.out.println("High protein vegan: high protein foods which fulfills vegan diet");
     	System.out.println("Gluten free: diet which exclude gluten foods");
     	System.out.println("Lactose free: diet which exclude lactose products");
-    	System.out.println("High protein vegan: high protein foods which fulfills vegan diet");
-    	System.out.println("Gluten free: diet which exclude gluten foods");
-    	System.out.println("Lactose free: diet which exclude lactose foods");
     	System.out.println("Dairy free: diet which exclude dairy products");
     	System.out.println("Ketogenic: diet which is rich in fats and allow small amount of carbohydrates");
     	System.out.println("Ketogenic vegetarian: diet which is rich in fats and allow small amount of carbohydrates and fulfills vegetarian diet");    	

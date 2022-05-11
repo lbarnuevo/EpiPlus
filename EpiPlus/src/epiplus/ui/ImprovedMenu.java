@@ -119,10 +119,9 @@ public class ImprovedMenu {
 	    System.out.println(" 2.Input new data on medication                              ");
 	    System.out.println(" 3.See user information                                      ");
 	    System.out.println(" 4.Update user information                                   ");
-	    System.out.println(" 5.See list of medications                                   ");
-	    System.out.println(" 6.Show graphs on my evolution                               ");
-	    System.out.println(" 7.Search doctor                                             ");
-	    System.out.println(" 8.Show recipe                                               ");
+	    System.out.println(" 5.Show graphs on my evolution                               ");
+	    System.out.println(" 6.Search doctor                                             ");
+	    System.out.println(" 7.Show recipe                                               ");
 	    System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
 	    System.out.println("---------------------------------------------------------------");
 	}
@@ -140,9 +139,10 @@ public class ImprovedMenu {
 	private static void showMedsMenu() {
 		System.out.println("                  MEDICATION                         ");
 	    System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.Input new medication                                       ");
-	    System.out.println(" 2.Make changes on my medication                              ");
-	    System.out.println(" 3.Delete medication                                          ");
+	    System.out.println(" 1.List all my medications                                       ");
+	    System.out.println(" 2.Input new medication                                       ");
+	    System.out.println(" 3.Make changes on my medication                              ");
+	    System.out.println(" 4.Delete medication                                          ");
 	    System.out.println(" 0. GO BACK TO PATIENT MENU              ");
 	    System.out.println("---------------------------------------------------------------");
 	}
@@ -238,7 +238,6 @@ public class ImprovedMenu {
     }
 
 	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
-		//TODO implement methods before login subsystem
 		
 		do {
 			showPatientMenu();
@@ -258,16 +257,12 @@ public class ImprovedMenu {
 					updateUserPatient(p);
 					break;
 				case 5: 
-					List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
-					listMedications(pmeds);
-					break;
-				case 6: 
 					//TODO show graphs on my evolution
 					break;
-				case 7: 
-					//TODO search doctor
+				case 6: 
+					searchingDoctor(p);
 					break;
-				case 8: 
+				case 7: 
 					//TODO show recipes
 					break; 
 				case 0:
@@ -285,13 +280,17 @@ public class ImprovedMenu {
 			int choice = getPositiveInteger();
 			
 			switch(choice) {
-				case 1:
+				case 1: 
+					List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
+					listMedications(pmeds);
+					break;
+				case 2:
 					addMedication(p);
 					break;
-				case 2: 
-					//TODO updateMedication(p);
+				case 3: 
+					updateMedication(p);
 					break;
-				case 3:
+				case 4:
 					deleteMedication(p);
 					break;
 				case 0: 
@@ -352,11 +351,6 @@ public class ImprovedMenu {
 				s.toString();
 			}
 		}
-		//for (Medication m : medicationManager.getMedicationsOfPatient(p.getId())) {
-		//	m.toString();
-		//}
-		// TODO DEBERÍA VOLVER DESPUÉS A LA LISTA DE NOMBRES Y ID POR SI HAY REPETIDOS Y
-		// EL ESCOGIDO NO INTERESABA
 	}
 	
 	private static void updateUserPatient(Patient p) {
@@ -377,18 +371,15 @@ public class ImprovedMenu {
 					patientManager.updatePatient(p); 
 				} else if (toChange.equalsIgnoreCase("age")) {
 					System.out.println("Input new age: ");
-					int new_age = getPositiveInteger();
-					p.setAge(new_age);
+					p.setAge(getPositiveInteger());
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("height")) {
 					System.out.println("Input new height: ");
-					float new_height = getPositiveFloat();
-					p.setHeight(new_height);
+					p.setHeight(getPositiveFloat());
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("weight")) {
 					System.out.println("Input new weight: ");
-					float new_weight = getPositiveFloat();
-					p.setWeight(new_weight);
+					p.setWeight(getPositiveFloat());
 					patientManager.updatePatient(p);
 				} else if(toChange.equalsIgnoreCase("lifestyle")) {
 					System.out.println("Input new lifestyle: ");
@@ -401,9 +392,8 @@ public class ImprovedMenu {
 			    	p.setDiet(new_diet);
 			    	patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("exercise")) {
-					System.out.println("Input new exercise per week: ");
-					int new_ex = getPositiveInteger();
-					p.setEx_per_week(new_ex);
+					System.out.println("Input new amount of exercise per week: ");
+					p.setEx_per_week(getPositiveInteger());
 					patientManager.updatePatient(p);
 				} //else if (toChange.equalsIgnoreCase("photo")) {
 					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
@@ -495,26 +485,86 @@ public class ImprovedMenu {
 			return;
 		} else {
 			Medication med = createMedication();
-			medicationManager.addMedication(med);
+			Medication med2 = medicationManager.getMedicationByName(med.getName());
 			
-			PatientMedication pm = createPMed(p, med);
-			pmManager.assignPatientMedication(pm);
+			if(med2 == null) {
+				PatientMedication pm = createPMed(p, med);
+				
+				medicationManager.addMedication(med);
+				pmManager.assignPatientMedication(pm);
+			} else {
+				PatientMedication pm = createPMed(p, med2);
+				pmManager.assignPatientMedication(pm);
+			}
 		}
+	}
+	
+	private static void updateMedication(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			PatientMedication pmed = selectMedicationFromPatient(p);
+			
+			System.out.println("\nShowing medications information... \n");
+			pmed.toString();
+			System.out.println("Which information would you like to change?: ");
+			String toChange= getString();
+			
+			if (toChange.equalsIgnoreCase("frequency")) {
+				System.out.println("Input new frequency: ");
+				pmed.setFrequency(getPositiveInteger());
+				pmManager.unassignPatientMedication(pmed);
+			} else if (toChange.equalsIgnoreCase("amount")) {
+				System.out.println("Input new amount: ");
+				pmed.setAmount(getPositiveFloat());
+				pmManager.updatePatientMedication(pmed);
+			}
+		}
+	}
+	
+	private static PatientMedication selectMedicationFromPatient (Patient p) {
+		List<Medication> meds =  pmManager.getMedicationsOfPatient(p.getId());
+		listMedications(meds);
+		
+		Medication med = null;
+		do {
+			System.out.println("Wich medication do you want to change? ");
+			String namemed = getString();
+			med = medicationManager.getMedicationByName(namemed);
+		} while(med == null);
+		
+		PatientMedication pm = null; //TODO method that receives a medication and returns patientmedication? 
+		return pm;
 	}
 	
 	private static void deleteMedication(Patient p) {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
-			listMedications(pmeds);
-			
-			System.out.println("Introduce the medication name: ");
-			String medname = getString();
-			Medication med = medicationManager.getMedicationByName(medname);
-			
-			pmManager.unassignPatientMedication(null); //TODO fix this method 
-			
+			PatientMedication pm = selectMedicationFromPatient(p);
+			pmManager.unassignPatientMedication(pm); 
+		}
+	}
+	
+	private static void searchingDoctor(Patient p) {	
+		searchDoctorMenu();
+		int choice = getPositiveInteger();
+		
+		switch(choice) {
+			case 1: //name
+				List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
+				listMedications(pmeds);
+				break;
+			case 2: //email
+				addMedication(p);
+				return;
+			case 3: //hospital 
+				updateMedication(p);
+				return;
+			case 0: 
+				return;
+			default:
+				System.out.println("Please introduce a valid option. ");
 		}
 	}
 		
@@ -546,6 +596,4 @@ public class ImprovedMenu {
 			 counter++;
 		}
 	}
-	
-	
 }
