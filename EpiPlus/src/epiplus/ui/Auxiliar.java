@@ -224,7 +224,6 @@ public class Auxiliar {
     }
     
     public static Medication createMedication() {
-    //public static PatientMedication createallMedStaff() {
     	System.out.println("\nInput medication information: ");
 		System.out.println("");
 		
