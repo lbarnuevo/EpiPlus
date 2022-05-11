@@ -261,7 +261,7 @@ public class ImprovedMenu {
 					//TODO show graphs on my evolution
 					break;
 				case 6: 
-					//TODO search doctor
+					searchingDoctor(p);
 					break;
 				case 7: 
 					//TODO show recipes
@@ -550,6 +550,28 @@ public class ImprovedMenu {
 		} else {
 			PatientMedication pm = selectMedicationFromPatient(p);
 			pmManager.unassignPatientMedication(pm); 
+		}
+	}
+	
+	private static void searchingDoctor(Patient p) {	
+		searchDoctorMenu();
+		int choice = getPositiveInteger();
+		
+		switch(choice) {
+			case 1: //name
+				List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
+				listMedications(pmeds);
+				break;
+			case 2: //email
+				addMedication(p);
+				return;
+			case 3: //hospital 
+				updateMedication(p);
+				return;
+			case 0: 
+				return;
+			default:
+				System.out.println("Please introduce a valid option. ");
 		}
 	}
 		
