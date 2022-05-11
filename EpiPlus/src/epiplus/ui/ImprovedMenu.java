@@ -603,6 +603,4 @@ public class ImprovedMenu {
 			 counter++;
 		}
 	}
-	
-	
 }
