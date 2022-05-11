@@ -238,7 +238,6 @@ public class ImprovedMenu {
     }
 
 	private static void patientMenu(Patient p) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
-		//TODO implement methods before login subsystem
 		
 		do {
 			showPatientMenu();
@@ -372,18 +371,15 @@ public class ImprovedMenu {
 					patientManager.updatePatient(p); 
 				} else if (toChange.equalsIgnoreCase("age")) {
 					System.out.println("Input new age: ");
-					int new_age = getPositiveInteger();
-					p.setAge(new_age);
+					p.setAge(getPositiveInteger());
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("height")) {
 					System.out.println("Input new height: ");
-					float new_height = getPositiveFloat();
-					p.setHeight(new_height);
+					p.setHeight(getPositiveFloat());
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("weight")) {
 					System.out.println("Input new weight: ");
-					float new_weight = getPositiveFloat();
-					p.setWeight(new_weight);
+					p.setWeight(getPositiveFloat());
 					patientManager.updatePatient(p);
 				} else if(toChange.equalsIgnoreCase("lifestyle")) {
 					System.out.println("Input new lifestyle: ");
@@ -396,9 +392,8 @@ public class ImprovedMenu {
 			    	p.setDiet(new_diet);
 			    	patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("exercise")) {
-					System.out.println("Input new exercise per week: ");
-					int new_ex = getPositiveInteger();
-					p.setEx_per_week(new_ex);
+					System.out.println("Input new amount of exercise per week: ");
+					p.setEx_per_week(getPositiveInteger());
 					patientManager.updatePatient(p);
 				} //else if (toChange.equalsIgnoreCase("photo")) {
 					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
@@ -517,13 +512,11 @@ public class ImprovedMenu {
 			
 			if (toChange.equalsIgnoreCase("frequency")) {
 				System.out.println("Input new frequency: ");
-				int i = getPositiveInteger();
-				pmed.setFrequency(i);
+				pmed.setFrequency(getPositiveInteger());
 				pmManager.unassignPatientMedication(pmed);
 			} else if (toChange.equalsIgnoreCase("amount")) {
 				System.out.println("Input new amount: ");
-				float f = getPositiveFloat();
-				pmed.getAmount();
+				pmed.setAmount(getPositiveFloat());
 				pmManager.updatePatientMedication(pmed);
 			}
 		}
