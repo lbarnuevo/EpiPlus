@@ -8,6 +8,7 @@ import java.util.List;
 
 import epiplus.ifaces.PatientMedicationManager;
 import epiplus.pojos.Medication;
+import epiplus.pojos.Patient;
 import epiplus.pojos.PatientMedication;
 import epiplus.pojos.Symptom;
 
@@ -82,4 +83,29 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			e.printStackTrace();
 		}		
 	}
+
+	@Override
+	public PatientMedication getPatientMedication(Patient p, Medication m) {
+		
+		PatientMedication patientmedication = null;
+				
+		try {
+			String sql = "SELECT * FROM patientmedication WHERE patientId=? AND medicationId=?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, p.getId());
+			prep.setInt(2, m.getId());
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id1 = rs.getInt("patientId");
+				Integer  id2= rs.getInt("medicationId");
+				patientmedication = new PatientMedication (p,m);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return patientmedication;
+		}
 }
