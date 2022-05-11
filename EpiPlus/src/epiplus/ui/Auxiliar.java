@@ -262,7 +262,7 @@ public class Auxiliar {
 		Float length = getPositiveFloat(); 
 		
 		System.out.println("Add previous activity: ");
-		String activity = getString();//TODO add types of activity
+		String activity = getString();
 		
 		System.out.println("Mood: ");
 		String mood = getString();
