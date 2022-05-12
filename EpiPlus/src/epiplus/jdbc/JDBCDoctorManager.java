@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import epiplus.ifaces.DoctorManager;
@@ -156,14 +157,14 @@ public class JDBCDoctorManager implements DoctorManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String name = rs.getString("name");
-				Integer age = rs.getInt("age");
+				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
 				String lifestyle = rs.getString("lifestyle");
 				String diet = rs.getString("diet"); // We need to change this if it is a new class
 				Integer ex_per_week = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, name, age, height, weight, lifestyle, diet, ex_per_week, photo);
+				Patient patient = new Patient(id, name, bd, height, weight, lifestyle, diet, ex_per_week, photo);
 				patientsList.add(patient);
 			}
 			rs.close();
