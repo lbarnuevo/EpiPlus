@@ -9,7 +9,7 @@ import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.pojos.*;
 
-public class ImprovedMenu {
+public class Menu {
 	
 	private static Connection c;
 	private static JDBCManager jdbcManager = new JDBCManager();
