@@ -95,7 +95,6 @@ public class Doctor implements Serializable {
 	public void addPatienttoList(Patient p) {
 		this.patients.add(p);
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -117,10 +116,8 @@ public class Doctor implements Serializable {
 	@Override
 	public String toString() {
 		return "DOCTOR [ID=" + id + ", NAME=" + name + "]" + "\nEmail=" + email + "\nHospitalName=" + hospitalName
-				+ "\nPhoto=" + Arrays.toString(photo);
+				+ "\nPhoto=" + Arrays.toString(photo); //TODO show photo
 	}
-	//WE HAVE TO CHANGE HOW THE PHOTO IS SHOWN
-	//LLAMA A PACIENTES
 
 	public String toStringForPatients() {
 		return "DOCTOR [ID=" + id + ", NAME=" + name + "]" + "\nEmail=" + email + "\nHospitalName=" + hospitalName;

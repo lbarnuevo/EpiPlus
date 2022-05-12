@@ -28,7 +28,7 @@ public class JDBCPatientManager implements PatientManager {
 			String sql = "INSERT INTO patients (name,age,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
-			prep.setInt(2, p.getAge());
+			prep.setDate(2,(java.sql.Date)p.getBirthday());
 			prep.setFloat(3, p.getHeight());
 			prep.setFloat(4, p.getWeight());
 			prep.setString(5, p.getLifestyle());
@@ -56,14 +56,14 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
-				Integer age = rs.getInt("age");
+				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
 				String lifestyle = rs.getString("lifestyle");
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, n, age, height, weight, lifestyle, diet, exercise, photo);
+				Patient patient = new Patient(id, n, bd, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
 			rs.close();
@@ -88,14 +88,14 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
-				Integer age = rs.getInt("age");
+				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
 				String lifestyle = rs.getString("lifestyle");
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				patient = new Patient(id, n, age, height, weight, lifestyle, diet, exercise, photo);
+				patient = new Patient(id, n, bd, height, weight, lifestyle, diet, exercise, photo);
 			}
 			rs.close();
 			prep.close();
@@ -106,16 +106,16 @@ public class JDBCPatientManager implements PatientManager {
 	}
 	
 
-	@Override
-	public void updatePatient(String name, byte[] photo, Integer age, Float height, Float weight, String lifestyle,
+	@Override //TODO i dont think we use this, revise to see if que can delete it 
+	public void updatePatient(String name, byte[] photo, Date bd, Float height, Float weight, String lifestyle,
 			Integer exerciseweek, String diet) {
 		try {
-			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " age=?" + " height=?" + " weight=?"
+			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " birthday=?" + " height=?" + " weight=?"
 					+ " lifestyle=?" + " ex_per_week=?" + " diet=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setString(1, name);
 			p.setBytes(2, photo);
-			p.setInt(3, age);
+			p.setDate(3, (java.sql.Date) bd);
 			p.setFloat(4, height);
 			p.setFloat(5, weight);
 			p.setString(6, lifestyle);
@@ -127,16 +127,16 @@ public class JDBCPatientManager implements PatientManager {
 		}
 	}
 	
-	//THIS ONE IS BETTER (THE OTHER ONE IS BECAUSE ROGRIGO DID IT)
+	
 	@Override
 	public void updatePatient (Patient p) {
 		try {
-			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " age=?" + " height=?" + " weight=?"
+			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " birthday=?" + " height=?" + " weight=?"
 					+ " lifestyle=?" + " ex_per_week=?" + " diet=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getName());
 			ps.setBytes(2, p.getPhoto());
-			ps.setInt(3, p.getAge());
+			ps.setDate(3, (java.sql.Date) p.getBirthday()); 
 			ps.setFloat(4, p.getHeight());
 			ps.setFloat(5, p.getWeight());
 			ps.setString(6, p.getLifestyle());
@@ -179,14 +179,14 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
-				Integer age = rs.getInt("age");
+				Date birthday = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
 				String lifestyle = rs.getString("lifestyle");
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, n, age, height, weight, lifestyle, diet, exercise, photo);
+				Patient patient = new Patient(id, n, birthday, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
 			rs.close();

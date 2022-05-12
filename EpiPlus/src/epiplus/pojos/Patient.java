@@ -3,6 +3,7 @@ package epiplus.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class Patient implements Serializable {
 
 	private Integer id;
 	private String name;
-	private Integer age;
+	private Date birthday;
 	private Float height;
 	private Float weight;
 	private String lifestyle;
@@ -35,12 +36,12 @@ public class Patient implements Serializable {
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
-	public Patient(Integer id, String name, Integer age, Float height, Float weight, String lifestyle, String diet,
+	public Patient(Integer id, String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
 			Integer exercise, byte[] photo) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.age = age;
+		this.birthday = birthday;
 		this.height = height;
 		this.weight = weight;
 		this.lifestyle = lifestyle;
@@ -53,11 +54,11 @@ public class Patient implements Serializable {
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
 	}
 
-	public Patient(String name, Integer age, Float height, Float weight, String lifestyle, String diet,
+	public Patient(String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
 			Integer exercise, byte[] photo) {
 		super();
 		this.name = name;
-		this.age = age;
+		this.birthday = birthday;
 		this.height = height;
 		this.weight = weight;
 		this.lifestyle = lifestyle;
@@ -110,12 +111,12 @@ public class Patient implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getAge() {
-		return age;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public Float getHeight() {
@@ -194,14 +195,13 @@ public class Patient implements Serializable {
 	// TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
 	@Override
 	public String toString() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nAge=" + this.age + "\nHeight=" + this.height
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nDate of birth=" + this.birthday + "\nHeight=" + this.height
 				+ "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
-				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo) + "\n"
-				+ this.doctor.toString();
+				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo);
 	}
 	
 	public String toStringForDoctors() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]"; //TODO add date of birth 
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nDate of birth=" + this.birthday; 
 	}
 }
 

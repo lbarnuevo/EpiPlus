@@ -13,11 +13,13 @@ public class PatientAllergy implements Serializable{
 
 	private Integer patientId;
 	private Integer allergyId;
+	private Allergy allergy;
+	private Patient patient;
 	
+	//TODO ithink this should not be a list like in patientmedication
 	private List<Allergy> allergies; //Many to many relationship 
 	private List<Patient> patients; //Many to many relationship 
-
-	//MANDATORY CONSTRUCTOR 
+ 
 	public PatientAllergy() {
 		super();
 	}
