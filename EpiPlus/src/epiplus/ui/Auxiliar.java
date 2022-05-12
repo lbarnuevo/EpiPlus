@@ -193,8 +193,14 @@ public class Auxiliar {
     	System.out.println("Name: ");
     	String name = getString();
     	
-    	System.out.println("Age: ");
-    	Integer age = getPositiveInteger(); 
+    	System.out.println("Date of birth: ");
+    	System.out.println("Day(d): ");
+		Integer day = getPositiveInteger();
+		System.out.println("Month (m): ");
+		Integer month = getPositiveInteger();
+		System.out.println("Year (yyyy): ");
+		Integer year = getPositiveInteger();
+		Date bd = new Date(year, month, day); //TODO ask why 
     	
     	System.out.println("Height: ");
     	Float height = getPositiveFloat();
@@ -219,7 +225,7 @@ public class Auxiliar {
     		photo = getByte();
     	}
     	
-    	Patient p = new Patient(name, age, height, weight, lifestyle, diet, exercise, photo);
+    	Patient p = new Patient(name, bd, height, weight, lifestyle, diet, exercise, photo);
 		return p;
     }
     

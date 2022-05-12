@@ -110,12 +110,13 @@ public class ImprovedMenu {
 	    System.out.println("---------------------------------------------------------------");
 	    System.out.println(" 1.Register episode                                          ");
 	    System.out.println(" 2.My medications                                            ");
-	    System.out.println(" 3.See user information                                      ");
-	    System.out.println(" 4.Update user information                                   ");
-	    System.out.println(" 5.Show graphs on my evolution NOT DONE                              ");
+	    System.out.println(" 3.My episodes                                               ");
+	    System.out.println(" 4.Show graphs on my evolution NOT DONE                      ");
+	    System.out.println(" 5.Show recipe           NOT DONE                            ");
 	    System.out.println(" 6.Search doctor                                             ");
-	    System.out.println(" 7.Show recipe                         NOT DONE                       ");
-	    System.out.println(" 0. GO BACK TO MAIN MENU                                       ");
+	    System.out.println(" 7.See user information                                      ");
+	    System.out.println(" 8.Update user information                                   ");
+	    System.out.println(" 0. GO BACK TO MAIN MENU                                     ");
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
@@ -259,20 +260,24 @@ public class ImprovedMenu {
 					medicationMenu(p);
 					break;
 				case 3:
-					seeUserPatient(p);
+					List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
+					listEpisodes(episodes);
 					break;
-				case 4: 
-					updateUserPatient(p);
+				case 4:
+					//TODO show graphs on my evolution
 					break;
 				case 5: 
-					//TODO show graphs on my evolution
+					//TODO show recipes
 					break;
 				case 6: 
 					operationsOnDoctor(p);
 					break;
 				case 7: 
-					//TODO show recipes
+					seeUserPatient(p);
 					break; 
+				case 8: 
+					updateUserPatient(p);
+					break;
 				case 0:
 					return;
 				default:
@@ -309,7 +314,6 @@ public class ImprovedMenu {
 	}
 	
 	private static void doctorMenu(Doctor d) throws Exception{ //METHOD FOR LOGIN SUBSYSTEM
-		//BEFORE LOGIN SUBSYSTEM CREATED
 		do {			
 			showDoctorMenu();
 			int choice = getPositiveInteger();
@@ -353,7 +357,7 @@ public class ImprovedMenu {
 			Doctor d = searchDoctor(getPositiveInteger());
 			
 		    System.out.println("---------------------------------------------------------------");
-		    System.out.println(" 1.Show doctor's profile                                       ");
+		    System.out.println(" 1.Show my doctor's profile                                    ");
 		    System.out.println(" 2.Add as my doctor                                            ");
 		    System.out.println(" 3.Delete as my doctor                                         ");
 		    System.out.println(" 0. GO BACK TO PATIENT MENU                                    ");
@@ -364,7 +368,7 @@ public class ImprovedMenu {
 		    
 			switch (choice) {
 				case 1:
-					d.toString();
+					(p.getDoctor()).toString();
 					return;
 				case 2:
 					if(p.getDoctor() == null) {
@@ -393,16 +397,12 @@ public class ImprovedMenu {
 	}
 	
 	private static void seeUserPatient(Patient p) {
+		System.out.println("Showing user's information...");
 		p.toString();
+		
+		System.out.println("--- MY EMERGENCY CONTACTS ---");
 		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
 			c.toString();
-		}
-		
-		for (Episode e : episodeManager.getEpisodesOfPatient(p.getId())) {
-			e.toString();
-			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-				s.toString();
-			}
 		}
 	}
 	
@@ -414,7 +414,7 @@ public class ImprovedMenu {
 				System.out.println("Showing user's information... ");
 				seeUserPatient(p);
 				
-				System.out.println("Which information would you like to change? ");
+				System.out.println("Which information would you like to change? \n(you won't be able to change yor date of birth) ");
 				String toChange= getString();
 				
 				if (toChange.equalsIgnoreCase("name")) {
@@ -422,10 +422,6 @@ public class ImprovedMenu {
 					String toChangeName= getString();
 					p.setName(toChangeName);
 					patientManager.updatePatient(p); 
-				} else if (toChange.equalsIgnoreCase("age")) {
-					System.out.println("Input new age: ");
-					p.setAge(getPositiveInteger());
-					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("height")) {
 					System.out.println("Input new height: ");
 					p.setHeight(getPositiveFloat());
@@ -448,12 +444,7 @@ public class ImprovedMenu {
 					System.out.println("Input new amount of exercise per week: ");
 					p.setEx_per_week(getPositiveInteger());
 					patientManager.updatePatient(p);
-				} //else if (toChange.equalsIgnoreCase("photo")) {
-					// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
-					//String toChangePhoto= getString("\nInput new PHOTO: ");
-					//d.setPhoto(null);;
-					//doctorManager.updateDoctor(d);
-				//}
+				} //TODO change photo
 				
 				if (continueProccess() == false) {
 					return;
@@ -463,19 +454,13 @@ public class ImprovedMenu {
 	} 
 	
 	private static void seeUserDoctor(Doctor d) {
-		List<Patient> pList = new ArrayList<Patient>();
+		System.out.println("Showing user's information...");
+		d.toString();
 		
-		if (continueProccess() == false) {
-			return;
-		} else {
-			System.out.println("Showing user's information...");
-			d.toString();
-			
-			System.out.println("--- MY PATIENTS ---");
-			pList = doctorManager.getPatientsOfDoctor(d.getId());
-			for (Patient patient : pList) {
-				patient.toStringForDoctors();
-			}
+		System.out.println("--- MY PATIENTS ---");
+		List<Patient> pList  = doctorManager.getPatientsOfDoctor(d.getId());
+		for (Patient patient : pList) {
+			patient.toStringForDoctors();
 		}
 	}
 	
@@ -483,32 +468,33 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			System.out.println("\nShowing user's information... \n");
-			d.toString();
-			System.out.println("Which information (name, email...) would you like to change?: ");
-			String toChange= getString();
-			
-			if (toChange.equalsIgnoreCase("name")) {
-				System.out.println("Input new name: ");
-				String toChangeName= getString();
-				d.setName(toChangeName);
-				doctorManager.updateDoctor(d);
-			} else if (toChange.equalsIgnoreCase("email")) {
-				System.out.println("Input new email: ");
-				String toChangeEmail= getString();
-				d.setEmail(toChangeEmail);
-				doctorManager.updateDoctor(d);
-			} else if (toChange.equalsIgnoreCase("hospitalName")) {
-				System.out.println("Input new hospital name: ");
-				String toChangeHospitalName= getString();
-				d.setHospitalName(toChangeHospitalName);
-				doctorManager.updateDoctor(d);
-			} //else if (toChange.equalsIgnoreCase("photo")) {
-				// HOW DO WE IMPORT A PHOTO? FROM A DIRECTORY AS A STRING AND TO AN ARRAY OF BITS?
-				//String toChangePhoto= getString("\nInput new PHOTO: ");
-				//d.setPhoto(null);;
-				//doctorManager.updateDoctor(d);
-			//}
+			while(true) {
+				System.out.println("\nShowing user's information... \n");
+				d.toString();
+				System.out.println("Which information (name, email...) would you like to change?: ");
+				String toChange= getString();
+				
+				if (toChange.equalsIgnoreCase("name")) {
+					System.out.println("Input new name: ");
+					String toChangeName= getString();
+					d.setName(toChangeName);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("email")) {
+					System.out.println("Input new email: ");
+					String toChangeEmail= getString();
+					d.setEmail(toChangeEmail);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("hospitalName")) {
+					System.out.println("Input new hospital name: ");
+					String toChangeHospitalName= getString();
+					d.setHospitalName(toChangeHospitalName);
+					doctorManager.updateDoctor(d);
+				} //TODO change photo 
+				
+				if (continueProccess() == false) {
+					return;
+				}
+			}
 		}
 	}
 	
@@ -546,6 +532,7 @@ public class ImprovedMenu {
 				medicationManager.addMedication(med);
 				pmManager.assignPatientMedication(pm);
 			} else {
+				medicationManager.deleteMedication(med); //because it has been created, in order to avoid duplicates, we delete it 
 				PatientMedication pm = createPMed(p, med2);
 				pmManager.assignPatientMedication(pm);
 			}
@@ -581,12 +568,12 @@ public class ImprovedMenu {
 		
 		Medication med = null;
 		do {
-			System.out.println("Wich medication do you want to change? ");
+			System.out.println("Input the name of the medication: ");
 			String namemed = getString();
 			med = medicationManager.getMedicationByName(namemed);
 		} while(med == null);
 		
-		PatientMedication pm = null; //TODO method that receives a medication and returns patientmedication? 
+		PatientMedication pm = pmManager.getPatientMedication(p, med); 
 		return pm;
 	}
 	
@@ -594,14 +581,6 @@ public class ImprovedMenu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			Medication med = null;
-			
-			do {
-				System.out.println("Wich medication do you want to delete? ");
-				String namemed = getString();
-				med = medicationManager.getMedicationByName(namemed);
-			} while(med == null);
-			
 			PatientMedication pm = selectMedicationFromPatient(p);
 			pmManager.unassignPatientMedication(pm); 
 		}
@@ -641,6 +620,19 @@ public class ImprovedMenu {
 		while (it.hasNext()) {
 			 Medication med = it.next();
 			 med.toString();
+		}
+	}
+	
+	private static void listEpisodes(List<Episode> episodes) {
+		Iterator<Episode> it = episodes.iterator();
+		
+		while(it.hasNext()) {
+			Episode e = it.next();
+			e.toString();
+			
+			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+				s.toString();
+			}
 		}
 	}
 }

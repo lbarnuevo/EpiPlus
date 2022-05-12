@@ -25,7 +25,6 @@ public class EpisodeSymptom implements Serializable{
 		this.severity= severity;
 	}
 
-
 	public Integer getSeverity() {
 		return severity;
 	}
