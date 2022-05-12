@@ -2,10 +2,15 @@ package epiplus.jdbc;
 
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import epiplus.ifaces.PatientAllergyManager;
+import epiplus.pojos.Allergy;
 import epiplus.pojos.PatientAllergy;
+import epiplus.pojos.Symptom;
 
 public class JDBCPatientAllergyManager implements PatientAllergyManager{
 
@@ -21,10 +26,8 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		try {
 			String sql = "INSERT INTO patientallergy (patientId, allergyId)  VALUES (?,?)";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, pa.getPatientId());
-			p.setInt(2, pa.getAllergyId());
-			
-		
+			p.setInt(1, pa.getPatient().getId());
+			p.setInt(2, pa.getAllergy().getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,14 +38,35 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		try {
 			String sql = "DELETE FROM patientallergy WHERE patientId=? AND allergyId=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, pa.getPatientId());
-			p.setInt(2, pa.getAllergyId());
+			p.setInt(1, pa.getPatient().getId());
+			p.setInt(2, pa.getAllergy().getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	
-	
-	
+	//TODO getAllergyes of patients 
+	public List<Allergy> getAllergyesOfPatients(Integer pId) {
+		
+		List<Allergy> allergies = new ArrayList<Allergy>();
+		
+		try {
+			String sql = "SELECT * FROM allergy AS a JOIN patientallergy AS pa ON a.id=pa.allergyId WHERE pa.patientId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, pId);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String name = rs.getString("name");
+				Allergy allergy = new Allergy(id, name);
+				allergies.add(allergy);
+			}
+			rs.close();
+			prep.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return allergies;
+	}	
 }
