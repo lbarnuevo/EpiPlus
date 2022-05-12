@@ -27,6 +27,7 @@ public class Patient implements Serializable {
 	private List<EmergencyContact> emergency_contacts; // Changed Integer to EC class
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
+	private List<Allergy> allergy; //Many to many relationship 
 	
 	//MANDATORY CONSTRUCTOR 
 	public Patient() {
@@ -34,6 +35,7 @@ public class Patient implements Serializable {
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
+		this.allergy = new ArrayList<Allergy>();
 	}
 
 	public Patient(Integer id, String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
@@ -52,6 +54,7 @@ public class Patient implements Serializable {
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
+		this.allergy = new ArrayList<Allergy>();
 	}
 
 	public Patient(String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
@@ -69,6 +72,7 @@ public class Patient implements Serializable {
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
 		this.emergency_contacts = new ArrayList<EmergencyContact>();
+		this.allergy = new ArrayList<Allergy>();
 	}
 
 	public List<Episode> getEpisodes() {
@@ -178,6 +182,15 @@ public class Patient implements Serializable {
 
 	public void setEmergency_contacs(List<EmergencyContact> emergency_contacts) {
 		this.emergency_contacts = emergency_contacts;
+	}
+
+	
+	public List<Allergy> getAllergy() {
+		return allergy;
+	}
+
+	public void setAllergy(List<Allergy> allergy) {
+		this.allergy = allergy;
 	}
 
 	@Override
