@@ -15,6 +15,6 @@ public interface PatientManager {
 	public void deletePatient(Patient p);
 	//public void assignPatient(Doctor dId, Patient pId);
 	//public void unassignPatient(Doctor dId, Patient pId);
-	public void showEvolution(Patient p); //It is void or is other data type?
+	public void showEvolution(Patient p); //It is void or is other data type? /Yes it should be void, Ola
 	public List<Patient> listsAllPatients();
 }

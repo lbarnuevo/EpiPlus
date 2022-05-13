@@ -24,6 +24,12 @@ public class PatientAllergy implements Serializable{
 		this.patient = patient;
 	}
 
+	public PatientAllergy(Patient p, Allergy a) {
+		super();
+		this.allergy = a;
+		this.patient = p;
+	}
+
 	public Allergy getAllergy() {
 		return allergy;
 	}

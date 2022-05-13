@@ -22,6 +22,9 @@ public class Menu {
 	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
 	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
+	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
+	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
+	
 	
 	public static void connect(){
 		try {
@@ -585,7 +588,34 @@ public class Menu {
 			pmManager.unassignPatientMedication(pm); 
 		}
 	}
+	
+	private static void deleteAllergy(Patient p) {
+		if (continueProccess() == false) {
+			return;
+			} else {
+				PatientAllergy pa = selectAllergyFromPatient(p);
+				paManager.unassignPatientAllergy(pa);
+		}
+	}
 		
+	
+	
+	private static PatientAllergy selectAllergyFromPatient(Patient p) {
+		List<Allergy> alls = paManager.getAllergiesOfPatient(p.getId());
+		listAllergies(alls);
+		
+		Allergy all = null;
+		do {
+			System.out.println("INput the name of the allergy: ");
+			String nameall = getString();
+			all = allergyManager.getAllergyByName(nameall);
+		}while (all==null);
+		
+		PatientAllergy pa = paManager.getPatientAllergy(p,all);
+		
+		return pa;
+	}
+
 	private static Patient selectPatient(List<Patient> p) throws Exception{
 		listPatients(p);
 		System.out.println("Introduce the patients id: ");
@@ -635,4 +665,16 @@ public class Menu {
 			}
 		}
 	}
-}
+	
+	private static void listAllergies(List<Allergy> allergies) {
+		Iterator<Allergy> it = allergies.iterator();
+		
+		while(it.hasNext()) {
+			Allergy a = it.next();
+			a.toString();
+			}
+		}
+	}
+
+
+

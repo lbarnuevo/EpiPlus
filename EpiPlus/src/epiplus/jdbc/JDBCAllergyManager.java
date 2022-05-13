@@ -12,6 +12,7 @@ import epiplus.ifaces.EpisodeManager;
 import epiplus.pojos.Allergy;
 import epiplus.pojos.Episode;
 	import epiplus.pojos.Patient;
+import epiplus.pojos.Symptom;
 
 	public class JDBCAllergyManager implements AllergyManager {
 
@@ -85,6 +86,31 @@ import epiplus.pojos.Episode;
 		}
 		return null;
 	}
+
+		@Override
+		public Allergy getAllergyByName(String name) {
+			
+			Allergy allergy = null;
+			
+			try {
+				String sql = "SELECT * FROM allergies WHERE name LIKE ?";
+				PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+				prep.setString(1, name);
+				ResultSet rs = prep.executeQuery();
+
+				while (rs.next()) {
+					Integer id = rs.getInt("id");
+					String n = rs.getString("name");
+					allergy = new Allergy(id, n);
+				}
+				rs.close();
+				prep.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return allergy;
+		
+		}
 			
 			
 			

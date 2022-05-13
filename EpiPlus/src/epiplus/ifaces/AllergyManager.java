@@ -12,6 +12,8 @@ public interface AllergyManager {
 
 	List<Allergy> listAllAllergies();
 
+	Allergy getAllergyByName(String nameall);
+
 	
 	
 }

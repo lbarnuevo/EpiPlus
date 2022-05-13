@@ -20,7 +20,7 @@ public class Auxiliar {
                 if(N>=0) {
                 	read = true;
                 } else {
-                	System.out.println("Error. Introduce a number bigger than cero:");
+                	System.out.println("Error. Introduce a number bigger than zero:");
                 }
         	} catch(IOException ex) {        		
                 System.out.println("Reading error");

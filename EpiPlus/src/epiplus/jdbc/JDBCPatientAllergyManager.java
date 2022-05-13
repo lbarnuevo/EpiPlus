@@ -9,8 +9,10 @@ import java.util.List;
 
 import epiplus.ifaces.PatientAllergyManager;
 import epiplus.pojos.Allergy;
+import epiplus.pojos.Patient;
 import epiplus.pojos.PatientAllergy;
-import epiplus.pojos.Symptom;
+import epiplus.pojos.PatientMedication;
+
 
 public class JDBCPatientAllergyManager implements PatientAllergyManager{
 
@@ -46,7 +48,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 	}
 	
 	//TODO getAllergyes of patients 
-	public List<Allergy> getAllergyesOfPatients(Integer pId) {
+	public List<Allergy> getAllergiesOfPatient(Integer pId) {
 		
 		List<Allergy> allergies = new ArrayList<Allergy>();
 		
@@ -68,5 +70,33 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			e.printStackTrace();
 		}
 		return allergies;
+	}
+
+
+	@Override
+	public PatientAllergy getPatientAllergy(Patient p, Allergy a) {
+		
+		
+		PatientAllergy patientallergy = null;
+		
+		try {
+			String sql = "SELECT * FROM patientallergy WHERE patientId=? AND allergyId=?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, p.getId());
+			prep.setInt(2, a.getId());
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id1 = rs.getInt("patientId");
+				Integer  id2= rs.getInt("allergyId");
+				patientallergy = new PatientAllergy(p,a);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return patientallergy;
+		
 	}	
 }
