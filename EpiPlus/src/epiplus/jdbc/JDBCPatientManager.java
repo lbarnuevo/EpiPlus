@@ -156,10 +156,11 @@ public class JDBCPatientManager implements PatientManager {
 
 	@Override
 	public void showEvolution(Patient p) {
-		// Hay que pensar en cómo hacer esto
-		// Implementar funciones para representar gráficas sobre los datos de episodes
-		// de un paciente
-	}
+		//We could show the data like this:
+		//1. Shows all episodes in a month
+		//2. Shows the number of episodes per month using a counter
+		//3. Shows if there is an exercise or meal repeated in the collection
+		}
 
 	@Override
 	public List<Patient> listsAllPatients() {

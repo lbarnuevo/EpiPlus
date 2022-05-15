@@ -17,11 +17,10 @@ import javax.persistence.TableGenerator;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
-	
+
 	@Id
 	@GeneratedValue(generator = "users")
-	@TableGenerator(name = "users", table = "sqlite_sequence",
-		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
+	@TableGenerator(name = "users", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
 	private String email;
 	@Lob
@@ -29,7 +28,7 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
-	
+
 	public User() {
 		super();
 	}
@@ -89,12 +88,11 @@ public class User implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	//DO WE NEED IT?
+	// DO WE NEED IT?
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + Arrays.toString(password) + ", role=" + role.getName()
-				+ "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + Arrays.toString(password) + ", role="
+				+ role.getName() + "]";
 	}
 
 }
-
