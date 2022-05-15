@@ -8,16 +8,8 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
 		<!-- Entity Class -->
-		<class>sample.db.pojos.Doctor</class>
-		<class>sample.db.pojos.Patient</class>
-		<class>sample.db.pojos.Episode</class>
-		<class>sample.db.pojos.Symptom</class>
-		<class>sample.db.pojos.Allergy</class>
-		<class>sample.db.pojos.EmergencyContact</class>
-		<class>sample.db.pojos.EpisodeSymptom</class>
-		<class>sample.db.pojos.Medication</class>
-		<class>sample.db.pojos.PatientAllergy</class>
-		<class>sample.db.pojos.PatientMedication</class>
+		<class>epiplus.pojos.User</class>
+		<class>epiplus.pojos.Role</class>
 
 		<properties>
 			<!-- Connection properties -->
