@@ -16,6 +16,7 @@ public class Patient implements Serializable {
 
 	private Integer id;
 	private String name;
+	private String email;
 	private Date birthday;
 	private Float height;
 	private Float weight;
@@ -27,9 +28,9 @@ public class Patient implements Serializable {
 	private List<EmergencyContact> emergency_contacts; // Changed Integer to EC class
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
-	private List<Allergy> allergy; //Many to many relationship 
-	
-	//MANDATORY CONSTRUCTOR 
+	private List<Allergy> allergy; // Many to many relationship
+
+	// MANDATORY CONSTRUCTOR
 	public Patient() {
 		super();
 		this.episodes = new ArrayList<Episode>();
@@ -38,11 +39,12 @@ public class Patient implements Serializable {
 		this.allergy = new ArrayList<Allergy>();
 	}
 
-	public Patient(Integer id, String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
-			Integer exercise, byte[] photo) {
+	public Patient(Integer id, String name, String email, Date birthday, Float height, Float weight, String lifestyle,
+			String diet, Integer exercise, byte[] photo) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.email = email;
 		this.birthday = birthday;
 		this.height = height;
 		this.weight = weight;
@@ -57,10 +59,11 @@ public class Patient implements Serializable {
 		this.allergy = new ArrayList<Allergy>();
 	}
 
-	public Patient(String name, Date birthday, Float height, Float weight, String lifestyle, String diet,
+	public Patient(String name, String email, Date birthday, Float height, Float weight, String lifestyle, String diet,
 			Integer exercise, byte[] photo) {
 		super();
 		this.name = name;
+		this.email = email;
 		this.birthday = birthday;
 		this.height = height;
 		this.weight = weight;
@@ -79,16 +82,16 @@ public class Patient implements Serializable {
 		return episodes;
 	}
 
+	public void setEpisodes(List<Episode> episodes) {
+		this.episodes = episodes;
+	}
+
 	public byte[] getPhoto() {
 		return photo;
 	}
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
-	}
-
-	public void setEpisodes(List<Episode> episodes) {
-		this.episodes = episodes;
 	}
 
 	public List<Medication> getMedication() {
@@ -113,6 +116,14 @@ public class Patient implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getBirthday() {
@@ -184,7 +195,6 @@ public class Patient implements Serializable {
 		this.emergency_contacts = emergency_contacts;
 	}
 
-	
 	public List<Allergy> getAllergy() {
 		return allergy;
 	}
@@ -208,13 +218,12 @@ public class Patient implements Serializable {
 	// TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
 	@Override
 	public String toString() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nDate of birth=" + this.birthday + "\nHeight=" + this.height
-				+ "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday + "\nHeight="
+				+ this.height + "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
 				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo);
 	}
-	
+
 	public String toStringForDoctors() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nDate of birth=" + this.birthday; 
+		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday;
 	}
 }
-

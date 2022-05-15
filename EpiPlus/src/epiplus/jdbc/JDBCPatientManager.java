@@ -20,21 +20,22 @@ public class JDBCPatientManager implements PatientManager {
 		this.manager = m;
 	}
 
-	//TODO assign patient to doctor and unassign doctor from patient? 
-	
+	// TODO assign patient to doctor and unassign doctor from patient?
+
 	@Override
 	public void addPatient(Patient p) {
 		try {
-			String sql = "INSERT INTO patients (name,age,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO patients (name,age,email,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
-			prep.setDate(2,(java.sql.Date)p.getBirthday());
-			prep.setFloat(3, p.getHeight());
-			prep.setFloat(4, p.getWeight());
-			prep.setString(5, p.getLifestyle());
-			prep.setString(5, p.getDiet());
-			prep.setInt(4, p.getEx_per_week());
-			prep.setBytes(4, p.getPhoto());
+			prep.setString(2, p.getEmail());
+			prep.setDate(3, (java.sql.Date) p.getBirthday());
+			prep.setFloat(4, p.getHeight());
+			prep.setFloat(5, p.getWeight());
+			prep.setString(6, p.getLifestyle());
+			prep.setString(7, p.getDiet());
+			prep.setInt(8, p.getEx_per_week());
+			prep.setBytes(9, p.getPhoto());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception e) {
@@ -56,6 +57,7 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
+				String e = rs.getString("email");
 				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
@@ -63,7 +65,7 @@ public class JDBCPatientManager implements PatientManager {
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, n, bd, height, weight, lifestyle, diet, exercise, photo);
+				Patient patient = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
 			rs.close();
@@ -88,6 +90,7 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
+				String e = rs.getString("email");
 				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
@@ -95,7 +98,7 @@ public class JDBCPatientManager implements PatientManager {
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				patient = new Patient(id, n, bd, height, weight, lifestyle, diet, exercise, photo);
+				patient = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
 			}
 			rs.close();
 			prep.close();
@@ -104,44 +107,35 @@ public class JDBCPatientManager implements PatientManager {
 		}
 		return patient;
 	}
-	
 
-	@Override //TODO i dont think we use this, revise to see if que can delete it 
-	public void updatePatient(String name, byte[] photo, Date bd, Float height, Float weight, String lifestyle,
-			Integer exerciseweek, String diet) {
-		try {
-			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " birthday=?" + " height=?" + " weight=?"
-					+ " lifestyle=?" + " ex_per_week=?" + " diet=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setString(1, name);
-			p.setBytes(2, photo);
-			p.setDate(3, (java.sql.Date) bd);
-			p.setFloat(4, height);
-			p.setFloat(5, weight);
-			p.setString(6, lifestyle);
-			p.setInt(7, exerciseweek);
-			p.setString(8, diet);
-			p.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+	/*
+	 * @Override //TODO i don't think we use this, revise to see if we can delete it
+	 * public void updatePatient(String name, byte[] photo, Date bd, Float height,
+	 * Float weight, String lifestyle, Integer exerciseweek, String diet) { try {
+	 * String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " birthday=?" +
+	 * " height=?" + " weight=?" + " lifestyle=?" + " ex_per_week=?" + " diet=?";
+	 * PreparedStatement p = manager.getConnection().prepareStatement(sql);
+	 * p.setString(1, name); p.setBytes(2, photo); p.setDate(3, (java.sql.Date) bd);
+	 * p.setFloat(4, height); p.setFloat(5, weight); p.setString(6, lifestyle);
+	 * p.setInt(7, exerciseweek); p.setString(8, diet); p.executeUpdate(); } catch
+	 * (Exception e) { e.printStackTrace(); } }
+	 */
+
 	@Override
-	public void updatePatient (Patient p) {
+	public void updatePatient(Patient p) {
 		try {
-			String sql = "UPDATE patients" + " SET name=?" + " photo=?" + " birthday=?" + " height=?" + " weight=?"
-					+ " lifestyle=?" + " ex_per_week=?" + " diet=?";
+			String sql = "UPDATE patients" + " SET name=?" + " email=?" + " photo=?" + " birthday=?" + " height=?"
+					+ " weight=?" + " lifestyle=?" + " ex_per_week=?" + " diet=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getName());
-			ps.setBytes(2, p.getPhoto());
-			ps.setDate(3, (java.sql.Date) p.getBirthday()); 
-			ps.setFloat(4, p.getHeight());
-			ps.setFloat(5, p.getWeight());
-			ps.setString(6, p.getLifestyle());
-			ps.setInt(7, p.getEx_per_week());
-			ps.setString(8, p.getDiet());
+			ps.setString(2, p.getEmail());
+			ps.setBytes(3, p.getPhoto());
+			ps.setDate(4, (java.sql.Date) p.getBirthday());
+			ps.setFloat(5, p.getHeight());
+			ps.setFloat(6, p.getWeight());
+			ps.setString(7, p.getLifestyle());
+			ps.setInt(8, p.getEx_per_week());
+			ps.setString(9, p.getDiet());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,8 +156,9 @@ public class JDBCPatientManager implements PatientManager {
 
 	@Override
 	public void showEvolution(Patient p) {
-		//Hay que pensar en cómo hacer esto
-		//Implementar funciones para representar gráficas sobre los datos de episodes de un paciente
+		// Hay que pensar en cómo hacer esto
+		// Implementar funciones para representar gráficas sobre los datos de episodes
+		// de un paciente
 	}
 
 	@Override
@@ -179,6 +174,7 @@ public class JDBCPatientManager implements PatientManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String n = rs.getString("name");
+				String e = rs.getString("email");
 				Date birthday = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
@@ -186,7 +182,7 @@ public class JDBCPatientManager implements PatientManager {
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, n, birthday, height, weight, lifestyle, diet, exercise, photo);
+				Patient patient = new Patient(id, n, e, birthday, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
 			rs.close();
@@ -196,5 +192,4 @@ public class JDBCPatientManager implements PatientManager {
 		}
 		return null;
 	}
-
 }

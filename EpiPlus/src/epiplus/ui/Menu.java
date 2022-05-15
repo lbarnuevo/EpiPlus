@@ -91,7 +91,7 @@ public class Menu {
 	
 	/*private static void loginUser() {
 		//TODO loginUser method --> method for both users 
-		//when login in with the user, we show the menu for the type os user, so maybe we could add an attribute that consisted of role of user 
+		//when login in with the user, we show the menu for the type of user, so maybe we could add an attribute that consisted of role of user 
 	}
 	
 	private static void registerUser() {
@@ -101,8 +101,8 @@ public class Menu {
 	
 	private static void showMenu() {
 		System.out.println("---------------------------------------------------------------");
-	    System.out.println(" 1.Log in as a patient                                       ");
-	    System.out.println(" 2.Log in as a doctor                                        ");
+	    System.out.println(" 1.Log in as patient                                       ");
+	    System.out.println(" 2.Log in as doctor                                        ");
 	    System.out.println(" 3.Register as patient/doctor                                ");
 	    System.out.println(" 0. EXIT THE PROGRMAM                                        ");
 	    System.out.println("---------------------------------------------------------------");
@@ -129,7 +129,7 @@ public class Menu {
 	    System.out.println(" 1.See data on patient                                       ");
 	    System.out.println(" 2.See user information                                      ");
 	    System.out.println(" 3.Update user information                                   ");
-	    System.out.println(" 0. GO BACK TO MAIN MENU              ");
+	    System.out.println(" 0. GO BACK TO MAIN MENU                                     ");
 	    System.out.println("---------------------------------------------------------------");
 	}
 	
@@ -140,7 +140,7 @@ public class Menu {
 	    System.out.println(" 2.Input new medication                                       ");
 	    System.out.println(" 3.Make changes on my medication                              ");
 	    System.out.println(" 4.Delete medication                                          ");
-	    System.out.println(" 0. GO BACK TO PATIENT MENU              ");
+	    System.out.println(" 0. GO BACK TO PATIENT MENU                                   ");
 	    System.out.println("---------------------------------------------------------------");
 	}
 	

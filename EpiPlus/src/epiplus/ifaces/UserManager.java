@@ -7,8 +7,6 @@ import epiplus.pojos.User;
 
 public interface UserManager {
 
-	//FROM RODRIGO's EXAMPLE
-	public void connect(); //PRIVATE?
 	public void disconnect();
 	public void newUser(User u);
 	public Role getRole(String name);

@@ -193,6 +193,9 @@ public class Auxiliar {
     	System.out.println("Name: ");
     	String name = getString();
     	
+    	System.out.println("Email: ");
+    	String email = getString();
+    	
     	System.out.println("Date of birth: ");
     	System.out.println("Day(d): ");
 		Integer day = getPositiveInteger();
@@ -225,7 +228,7 @@ public class Auxiliar {
     		photo = getByte();
     	}
     	
-    	Patient p = new Patient(name, bd, height, weight, lifestyle, diet, exercise, photo);
+    	Patient p = new Patient(name, email, bd, height, weight, lifestyle, diet, exercise, photo);
 		return p;
     }
     

@@ -157,6 +157,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String name = rs.getString("name");
+				String email = rs.getString("email");
 				Date bd = rs.getDate("birthday");
 				Float height = rs.getFloat("height");
 				Float weight = rs.getFloat("weight");
@@ -164,7 +165,7 @@ public class JDBCDoctorManager implements DoctorManager {
 				String diet = rs.getString("diet"); // We need to change this if it is a new class
 				Integer ex_per_week = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
-				Patient patient = new Patient(id, name, bd, height, weight, lifestyle, diet, ex_per_week, photo);
+				Patient patient = new Patient(id, name, email, bd, height, weight, lifestyle, diet, ex_per_week, photo);
 				patientsList.add(patient);
 			}
 			rs.close();

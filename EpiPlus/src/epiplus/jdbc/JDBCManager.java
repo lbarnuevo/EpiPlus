@@ -83,6 +83,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			sql = "CREATE TABLE patients(" + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + "name TEXT NOT NULL,"
+					+ "email TEXT NOT NULL,"
 					+ "age INTEGER NOT NULL," + "height REAL NOT NULL," // in cm
 					+ "weight REAL NOT NULL, " // in kg
 					+ "lifestyle TEXT CHECK('lifestyle' IN ('sedentary','little activity','moderate ativity','high activity')) NOT NULL,"

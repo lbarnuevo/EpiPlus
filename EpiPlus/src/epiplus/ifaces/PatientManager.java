@@ -9,8 +9,8 @@ public interface PatientManager {
 	public void addPatient (Patient p);
 	public List<Patient> searchPatientByName(String name);
 	public Patient getPatientById(Integer pacId);
-	public void updatePatient(String name, byte[] photo, Date bd, Float height, Float weight, 
-			String lifestyle, Integer exerciseweek, String diet);
+	//public void updatePatient(String name, byte[] photo, Date bd, Float height, Float weight, 
+			//String lifestyle, Integer exerciseweek, String diet);
 	public void updatePatient(Patient p);
 	public void deletePatient(Patient p);
 	//public void assignPatient(Doctor dId, Patient pId);
