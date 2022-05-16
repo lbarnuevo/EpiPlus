@@ -25,27 +25,8 @@ public class Menu {
 	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
 	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
 
-	public static void connect() {
-		try {
-			// Open database connection
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:./db/EpiPlus(3).db");
-			c.createStatement().execute("PRAGMA foreign_keys=ON");
-			System.out.println("Database connection opened.");
-			jdbcManager.createTables();
-
-		} catch (SQLException E) {
-			System.out.println("There was a database exception.");
-			E.printStackTrace();
-		} catch (Exception e) {
-			System.out.println("There was a general exception.");
-			e.printStackTrace();
-		}
-	}
-
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
-		connect();
 
 		int choice;
 
