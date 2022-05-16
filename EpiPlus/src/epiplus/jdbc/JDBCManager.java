@@ -54,7 +54,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 
 			// -----------------PATIENTS----------
-			sql = "CREATE TABLE patients(" 
+			sql = "CREATE TABLE patients (" 
 					+ " id 			INTEGER PRIMARY KEY AUTOINCREMENT," 
 					+ " name		TEXT NOT NULL,"
 					+ " email		TEXT NOT NULL,"
@@ -109,7 +109,7 @@ public class JDBCManager {
 			stmt.executeUpdate(sql);
 			
 			// -----------------PATIENT-MEDICATION----------
-			sql = "CREATE TABLE patientmedication( " 
+			sql = "CREATE TABLE patientmedication ( " 
 					+ " patientId 		INTEGER NOT NULL," 
 					+ " medicationId 	INTEGER NOT NULL,"
 					+ " frequency 		INTEGER NOT NULL," // times per day
