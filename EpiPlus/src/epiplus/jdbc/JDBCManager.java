@@ -23,7 +23,6 @@ public class JDBCManager {
 		} catch (ClassNotFoundException e) {
 			System.out.println("Libraries not loaded");
 		}
-
 	}
 
 	public void disconnect() {

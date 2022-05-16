@@ -18,13 +18,16 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		this.manager = m;
 	}
 
+	//TODO assign patient 
+	
 	@Override
 	public void addEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "INSERT INTO emergencycontact (name,number) VALUES (?,?)";
+			String sql = "INSERT INTO emergencycontact (name,number,patientId) VALUES (?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, c.getName());
-			prep.setFloat(1, c.getNumber());
+			prep.setFloat(2, c.getNumber());
+			prep.setInt(3, c.getPatient().getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

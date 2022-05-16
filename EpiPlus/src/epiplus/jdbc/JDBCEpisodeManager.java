@@ -17,8 +17,8 @@ public class JDBCEpisodeManager implements EpisodeManager {
 
 	public JDBCEpisodeManager(JDBCManager m) {
 		this.manager = m;
-	}
-
+	} 
+	
 	@Override
 	public void addEpisode(Episode e) {
 		try {
