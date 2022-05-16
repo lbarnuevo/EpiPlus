@@ -25,7 +25,7 @@ public class Patient implements Serializable {
 	private Integer ex_per_week;
 	private Doctor doctor; // Many to one relationship
 	private byte[] photo;
-	private List<EmergencyContact> emergency_contacts; // Changed Integer to EC class
+	private List<EmergencyContact> emergency_contacts; //One to many relationship
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
 	private List<Allergy> allergy; // Many to many relationship

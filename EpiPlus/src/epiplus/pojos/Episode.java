@@ -22,7 +22,7 @@ public class Episode implements Serializable{
 	private String previous_meal;
 	private Boolean injuries;
 	
-	private Patient patient; // Many to one relationship 
+	private Patient patient; // One to many relationship 
 	private List<Symptom> symptoms; //Many to many relationship 
 	
 	public Episode() {
