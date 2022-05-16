@@ -38,7 +38,7 @@ public class JDBCManager {
 	}
 
 //------CREATE TABLES-------------
-	public void createTables() {
+	public void createTables() { //TODO add user 
 		// Create Tables
 		try {
 			Statement stmt = c.createStatement();
