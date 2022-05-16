@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.SymptomManager;
-import epiplus.pojos.Medication;
 import epiplus.pojos.Symptom;
 
 public class JDBCSymptomManager implements SymptomManager{

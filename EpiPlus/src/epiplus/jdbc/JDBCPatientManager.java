@@ -9,8 +9,6 @@ import java.util.List;
 
 import epiplus.ifaces.PatientManager;
 import epiplus.pojos.Doctor;
-import epiplus.pojos.EmergencyContact;
-import epiplus.pojos.Episode;
 import epiplus.pojos.Patient;
 
 public class JDBCPatientManager implements PatientManager {

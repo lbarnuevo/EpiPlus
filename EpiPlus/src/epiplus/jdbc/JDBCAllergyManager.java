@@ -1,18 +1,12 @@
 package epiplus.jdbc;
 		
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.util.ArrayList;
-	import java.util.Date;
-	import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import epiplus.ifaces.AllergyManager;
-import epiplus.ifaces.EpisodeManager;
-import epiplus.pojos.Allergy;
-import epiplus.pojos.Episode;
-	import epiplus.pojos.Patient;
-import epiplus.pojos.Symptom;
+import epiplus.ifaces.*;
+import epiplus.pojos.*;
 
 	public class JDBCAllergyManager implements AllergyManager {
 

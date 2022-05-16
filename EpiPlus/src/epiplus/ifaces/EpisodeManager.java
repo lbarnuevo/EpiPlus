@@ -1,6 +1,5 @@
 package epiplus.ifaces;
 
-import java.util.Date;
 import java.util.List;
 
 import epiplus.pojos.Episode;

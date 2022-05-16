@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.MedicationManager;
-import epiplus.pojos.Doctor;
 import epiplus.pojos.Medication;
-import epiplus.pojos.Symptom;
 
 public class JDBCMedicationManager implements MedicationManager {
 

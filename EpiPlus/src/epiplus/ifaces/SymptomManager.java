@@ -2,7 +2,6 @@ package epiplus.ifaces;
 
 import java.util.*;
 
-import epiplus.pojos.Medication;
 import epiplus.pojos.Symptom;
 
 public interface SymptomManager {

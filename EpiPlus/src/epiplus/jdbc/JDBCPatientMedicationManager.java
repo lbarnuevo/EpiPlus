@@ -10,7 +10,6 @@ import epiplus.ifaces.PatientMedicationManager;
 import epiplus.pojos.Medication;
 import epiplus.pojos.Patient;
 import epiplus.pojos.PatientMedication;
-import epiplus.pojos.Symptom;
 
 public class JDBCPatientMedicationManager implements PatientMedicationManager{
 

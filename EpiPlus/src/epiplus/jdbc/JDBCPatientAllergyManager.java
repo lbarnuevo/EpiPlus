@@ -11,7 +11,6 @@ import epiplus.ifaces.PatientAllergyManager;
 import epiplus.pojos.Allergy;
 import epiplus.pojos.Patient;
 import epiplus.pojos.PatientAllergy;
-import epiplus.pojos.PatientMedication;
 
 
 public class JDBCPatientAllergyManager implements PatientAllergyManager{

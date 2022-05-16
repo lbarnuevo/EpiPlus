@@ -9,7 +9,6 @@ import java.util.List;
 
 import epiplus.ifaces.EpisodeManager;
 import epiplus.pojos.Episode;
-import epiplus.pojos.Patient;
 
 public class JDBCEpisodeManager implements EpisodeManager {
 
