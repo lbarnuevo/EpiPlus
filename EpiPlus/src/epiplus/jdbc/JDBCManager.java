@@ -85,7 +85,7 @@ public class JDBCManager {
 			// -----------------SYMPTOMS----------
 			sql= "CREATE TABLE symptoms (" 
 					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ " name	TEXT NOT NULL," 
+					+ " name	TEXT NOT NULL" 
 					+ ");";
 			stmt.executeUpdate(sql);		
 

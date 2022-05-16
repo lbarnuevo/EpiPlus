@@ -56,7 +56,6 @@ public class Menu {
 					break;
 
 				case 0:
-					c.close();
 					jdbcManager.disconnect();
 					System.exit(0);
 
