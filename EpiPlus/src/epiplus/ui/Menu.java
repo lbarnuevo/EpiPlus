@@ -1,7 +1,6 @@
 package epiplus.ui;
 
 import java.io.*;
-import java.sql.*;
 import java.util.*;
 
 import static epiplus.ui.Auxiliar.*;
@@ -11,7 +10,6 @@ import epiplus.pojos.*;
 
 public class Menu {
 
-	private static Connection c;
 	private static JDBCManager jdbcManager = new JDBCManager();
 
 	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
