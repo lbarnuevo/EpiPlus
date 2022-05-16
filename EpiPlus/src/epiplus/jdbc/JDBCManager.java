@@ -67,6 +67,7 @@ public class JDBCManager {
 					+ " photo 		BLOB,"
 					+ " doctorId INTEGER NOT NULL REFERENCES doctors(id) ON DELETE SET NULL" 
 					+ ");";
+			stmt.executeUpdate(sql);
 			
 			// -----------------EPISODES----------
 			sql = "CREATE TABLE episodes (" 
