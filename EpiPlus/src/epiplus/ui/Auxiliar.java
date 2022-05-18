@@ -3,13 +3,16 @@
 package epiplus.ui;
 
 import java.io.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import epiplus.pojos.*;
 
 public class Auxiliar {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	
 	public static int getPositiveInteger() {
 		boolean read = false;
 		int N = -1;
@@ -194,14 +197,9 @@ public class Auxiliar {
 		System.out.println("Email: ");
 		String email = getString();
 
-		System.out.println("Date of birth: ");
-		System.out.println("Day(d): ");
-		Integer day = getPositiveInteger();
-		System.out.println("Month (m): ");
-		Integer month = getPositiveInteger();
-		System.out.println("Year (yyyy): ");
-		Integer year = getPositiveInteger();
-		Date bd = new Date(year, month, day); // TODO ask why
+		System.out.println("Date of birth (dd-MM-yyyy): ");
+		String dob = getString();
+		LocalDate birthday = LocalDate.parse(dob, formatter);
 
 		System.out.println("Height: ");
 		Float height = getPositiveFloat();
@@ -225,7 +223,7 @@ public class Auxiliar {
 		if (confirmation == true) {
 			photo = getByte();
 		}
-		Patient p = new Patient(name, email, bd, height, weight, lifestyle, diet, exercise, photo);
+		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo);
 		return p;
 	}
 
@@ -254,14 +252,9 @@ public class Auxiliar {
 		System.out.println("Input the episode's information: ");
 		System.out.println("");
 
-		System.out.println("Date of the episode: ");
-		System.out.println("Day(d): ");
-		Integer day = getPositiveInteger();
-		System.out.println("Month (m): ");
-		Integer month = getPositiveInteger();
-		System.out.println("Year (yyyy): ");
-		Integer year = getPositiveInteger();
-		Date doe = new Date(year, month, day);
+		System.out.println("Date of episode (dd-MM-yyyy): ");
+		String doe = getString();
+		LocalDate depisode = LocalDate.parse(doe, formatter);
 
 		System.out.println("Episode length: ");
 		Float length = getPositiveFloat();
@@ -281,7 +274,7 @@ public class Auxiliar {
 		System.out.println("Did you had any injury?(Yes --> Y / No --> N): ");
 		Boolean injuries = askConfirmation();
 
-		Episode ep = new Episode(doe, length, activity, mood, place, previous_meal, injuries);
+		Episode ep = new Episode(Date.valueOf(depisode), length, activity, mood, place, previous_meal, injuries);
 		return ep;
 	}
 

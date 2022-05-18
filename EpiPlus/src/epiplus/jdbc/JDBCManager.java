@@ -103,8 +103,8 @@ public class JDBCManager {
 
 			// -----------------MEDICATIONS----------
 			sql = "CREATE TABLE medications (" 
-					+ "	id	 	INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT,"
-					+ "	name   	TEXT NOT NULL" 
+					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
+					+ " name	TEXT NOT NULL" 
 					+ ");";
 			stmt.executeUpdate(sql);
 			
@@ -122,7 +122,7 @@ public class JDBCManager {
 
 			// -----------------EMERGENCY CONTACT----------
 			sql = "CREATE TABLE emergencycontacts (" 
-					+ " id	 	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,"
+					+ " id	 	INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " name	TEXT NOT NULL," 
 					+ " number	INTEGER NOT NULL," 
 					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE CASCADE"
