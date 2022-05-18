@@ -350,7 +350,7 @@ public class Menu {
 			case 2:
 				if (p.getDoctor() == null) {
 					p.setDoctor(d);
-					patientManager.updatePatient(p); // TODO not sure??
+					patientManager.assignDoctor(p, d);
 					return;
 				} else {
 					System.out.println("You already have a doctor.");
@@ -362,7 +362,7 @@ public class Menu {
 					return;
 				} else {
 					p.setDoctor(null);
-					patientManager.updatePatient(p); // TODO not sure??
+					patientManager.unassignDoctor(p, d);
 					return;
 				}
 			case 0:
@@ -622,42 +622,28 @@ public class Menu {
 		return patient;
 	}
 
-	// WHY ARE WE USING ITERATORS? Rodrigo prefers for each loops
+
 	private static void listPatients(List<Patient> p) {
-		Iterator<Patient> it = p.iterator();
-
-		while (it.hasNext()) {
-			Patient patient = it.next();
-			patient.toStringForDoctors();
-
+		for (Patient pat : p) {
+			pat.toStringForDoctors();
 		}
 	}
 
 	private static void listDoctors(List<Doctor> docs) {
-		Iterator<Doctor> it = docs.iterator();
-
-		while (it.hasNext()) {
-			Doctor doc = it.next();
-			doc.toStringForPatients();
+		for (Doctor d : docs) {
+			d.toStringForPatients();
 		}
 	}
 
 	private static void listMedications(List<Medication> meds) {
-		Iterator<Medication> it = meds.iterator();
-
-		while (it.hasNext()) {
-			Medication med = it.next();
-			med.toString();
+		for (Medication m: meds) {
+			m.toString();
 		}
 	}
 
 	private static void listEpisodes(List<Episode> episodes) {
-		Iterator<Episode> it = episodes.iterator();
-
-		while (it.hasNext()) {
-			Episode e = it.next();
+		for (Episode e: episodes) {
 			e.toString();
-
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
 				s.toString();
 			}
@@ -665,10 +651,7 @@ public class Menu {
 	}
 
 	private static void listAllergies(List<Allergy> allergies) {
-		Iterator<Allergy> it = allergies.iterator();
-
-		while (it.hasNext()) {
-			Allergy a = it.next();
+		for (Allergy a: allergies) {
 			a.toString();
 		}
 	}
