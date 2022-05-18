@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import epiplus.ifaces.PatientManager;
@@ -26,7 +26,7 @@ public class JDBCPatientManager implements PatientManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
 			prep.setString(2, p.getEmail());
-			prep.setDate(3, (java.sql.Date) p.getBirthday());
+			prep.setDate(3, p.getBirthday());
 			prep.setFloat(4, p.getHeight());
 			prep.setFloat(5, p.getWeight());
 			prep.setString(6, p.getLifestyle());
@@ -139,7 +139,7 @@ public class JDBCPatientManager implements PatientManager {
 			ps.setString(1, p.getName());
 			ps.setString(2, p.getEmail());
 			ps.setBytes(3, p.getPhoto());
-			ps.setDate(4, (java.sql.Date) p.getBirthday());
+			ps.setDate(4, p.getBirthday());
 			ps.setFloat(5, p.getHeight());
 			ps.setFloat(6, p.getWeight());
 			ps.setString(7, p.getLifestyle());
