@@ -115,7 +115,7 @@ public class JDBCManager {
 					+ " frequency 		INTEGER NOT NULL," // times per day
 					+ " amount 			REAL NOT NULL,"
 					+ " FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE CASCADE,"
-					+ " FOREIGN KEY (medicationId) REFERENCES medications(id) ON DELETE CASCADE"
+					+ " FOREIGN KEY (medicationId) REFERENCES medications(id) ON DELETE CASCADE,"
 					+ " PRIMARY KEY (patientId,medicationId)\r\n"
 					+ ");";
 			stmt.executeUpdate(sql);
