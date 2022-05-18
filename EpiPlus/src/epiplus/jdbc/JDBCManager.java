@@ -142,7 +142,7 @@ public class JDBCManager {
 			sql = "CREATE TABLE patientallergies ("
 					+ " patientId 		INTEGER NOT NULL,"
 					+ " allergyId		INTEGER NOT NULL,"
-					+ "	FOREING KEY (patientId) REFERENCES patients(id) ON DELETE CASCADE,"
+					+ "	FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE CASCADE,"
 					+ "	FOREIGN KEY (allergyId) REFERENCES allergies(id) ON DELETE CASCADE,"
 					+ " PRIMARY KEY (patientId,allergyId)\r\n"
 					+ ");";
