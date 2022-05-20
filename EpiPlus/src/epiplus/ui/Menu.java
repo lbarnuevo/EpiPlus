@@ -74,9 +74,9 @@ public class Menu {
 
 	public static User loginUser(String role) {
 		System.out.println("Enter email:");
-		String email = getString();
+		String email = getString(reader);
 		System.out.println("Enter password:");
-		String passwd = getString();
+		String passwd = getString(reader);
 		User u = uManager.checkPassword(email, passwd);
 
 		if (u != null) {
@@ -701,24 +701,15 @@ public class Menu {
 	}
 
 	private static void listMedications(List<Medication> meds) {
-<<<<<<< HEAD
 		for (Medication m: meds) {
 			System.out.println(m.toString());
-=======
-		for (Medication m : meds) {
-			m.toString();
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 		}
 	}
 
 	private static void listEpisodes(List<Episode> episodes) {
-<<<<<<< HEAD
 		for (Episode e: episodes) {
 			System.out.println(e.toString());
-=======
-		for (Episode e : episodes) {
-			e.toString();
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
+			
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
 				System.out.println(s.toString());
 			}
@@ -726,13 +717,8 @@ public class Menu {
 	}
 
 	private static void listAllergies(List<Allergy> allergies) {
-<<<<<<< HEAD
 		for (Allergy a: allergies) {
 			System.out.println(a.toString());
-=======
-		for (Allergy a : allergies) {
-			a.toString();
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 		}
 	}
 }
