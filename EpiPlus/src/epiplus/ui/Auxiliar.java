@@ -83,7 +83,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("What life style would you say you follow?\n\nIntroduce one of the previous options. ");
+			System.out.println("What lifestyle would you say you follow?\n\nIntroduce one of the previous options. ");
 			lifestyle = getString(reader);
 			if (lifestyle.equalsIgnoreCase("sedentary")) {
 				read = true;
@@ -170,7 +170,7 @@ public class Auxiliar {
 				read = true;
 			} else if (allergyName.equalsIgnoreCase("fruits")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("high-histamine food")) {
+			} else if (allergyName.equalsIgnoreCase("high-histamine food")||allergyName.equalsIgnoreCase("high histamine food")) {
 				read = true;
 			}
 

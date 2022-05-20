@@ -19,6 +19,7 @@ public class Doctor implements Serializable {
 	private String hospitalName;
 	private byte[] photo; 
 	private List<Patient> patients; //One to many relationship 
+	//private Integer user_id;
 	
 	public Doctor() {
 		super();
@@ -35,12 +36,14 @@ public class Doctor implements Serializable {
 		this.patients = new ArrayList<Patient>();
 	}
 	
-	public Doctor (String name, String email, String hospitalName, byte[] photo) {
+	public Doctor (String name, String email, String hospitalName, byte[] photo/*,Integer user*/) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
+		//this.user_id= user;
+		
 		this.patients = new ArrayList<Patient>();
 	}
 	
