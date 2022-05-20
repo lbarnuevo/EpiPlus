@@ -23,7 +23,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 		try {
 			String sql = "INSERT INTO episodes (doe,length,activity,mood,place,previous_meal,injuries, patientID) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setDate(1,e.getDoe()); //¿necesita un casting?
+			prep.setDate(1,e.getDoe()); 
 			prep.setFloat(2, e.getLength());
 			prep.setString(3, e.getActivity());
 			prep.setString(4, e.getMood());

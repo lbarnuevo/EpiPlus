@@ -83,6 +83,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}		
 	}
 
+	//WHY DO WE NEED THIS
 	@Override
 	public PatientMedication getPatientMedication(Patient p, Medication m) {
 		
