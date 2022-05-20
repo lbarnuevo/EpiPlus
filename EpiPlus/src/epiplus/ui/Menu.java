@@ -98,7 +98,7 @@ public class Menu {
 		System.out.println(" 6.Search doctor                                             ");
 		System.out.println(" 7.See user information                                      ");
 		System.out.println(" 8.Update user information                                   ");
-		System.out.println(" 0. GO BACK TO MAIN MENU                                     ");
+		System.out.println(" 0. LOG OUT                                                  ");
 		System.out.println("---------------------------------------------------------------");
 	}
 
@@ -108,7 +108,7 @@ public class Menu {
 		System.out.println(" 1.See data on patient                                       ");
 		System.out.println(" 2.See user information                                      ");
 		System.out.println(" 3.Update user information                                   ");
-		System.out.println(" 0. GO BACK TO MAIN MENU                                     ");
+		System.out.println(" 0. LOG OUT                                                  ");
 		System.out.println("---------------------------------------------------------------");
 	}
 
@@ -139,14 +139,14 @@ public class Menu {
 	}
 
 	private static void registerMenu() throws NumberFormatException, IOException {
-		System.out.println("                  REGISTER MENU                         ");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.Register as a doctor                           ");
-		System.out.println(" 2.Register as a patient                                     ");
-		System.out.println(" 0.GO BACK TO MAIN MENU                              ");
-		System.out.println("---------------------------------------------------------------");
-
 		do {
+			System.out.println("                  REGISTER MENU                         ");
+			System.out.println("---------------------------------------------------------------");
+			System.out.println(" 1.Register as a doctor                           ");
+			System.out.println(" 2.Register as a patient                                     ");
+			System.out.println(" 0.GO BACK TO MAIN MENU                              ");
+			System.out.println("---------------------------------------------------------------");
+			
 			int choice = getPositiveInteger(reader);
 			switch (choice) {
 			case 1:
@@ -348,7 +348,7 @@ public class Menu {
 
 			switch (choice) {
 			case 1:
-				(p.getDoctor()).toString();
+				System.out.println((p.getDoctor()).toString());
 				if (p.getDoctor().getPhoto()!=null) {
 					ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
 					ImageWindow window = new ImageWindow();
@@ -383,7 +383,8 @@ public class Menu {
 
 	private static void seeUserPatient(Patient p) {
 		System.out.println("Showing user's information...");
-		p.toString();
+		System.out.println(p.toString());
+		
 		if (p.getPhoto()!=null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
@@ -392,7 +393,7 @@ public class Menu {
 
 		System.out.println("--- MY EMERGENCY CONTACTS ---");
 		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
-			c.toString();
+			System.out.println(c.toString());
 		}
 	}
 
@@ -405,7 +406,7 @@ public class Menu {
 				seeUserPatient(p);
 
 				System.out.println(
-						"Which information would you like to change? \n(you won't be able to change yor date of birth) ");
+						"Which information would you like to change? \n(you won't be able to change yor date of birth or email) ");
 				String toChange = getString(reader);
 
 				if (toChange.equalsIgnoreCase("name")) {
@@ -446,7 +447,8 @@ public class Menu {
 
 	private static void seeUserDoctor(Doctor d) {
 		System.out.println("Showing user's information...");
-		d.toString();
+		System.out.println(d.toString());
+		
 		if (d.getPhoto()!=null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
 			ImageWindow window = new ImageWindow();
@@ -466,19 +468,14 @@ public class Menu {
 		} else {
 			while (true) {
 				System.out.println("\nShowing user's information... \n");
-				d.toString();
-				System.out.println("Which information (name, email...) would you like to change?: ");
+				System.out.println(d.toString());
+				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
 				String toChange = getString(reader);
 
 				if (toChange.equalsIgnoreCase("name")) {
 					System.out.println("Input new name: ");
 					String toChangeName = getString(reader);
 					d.setName(toChangeName);
-					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("email")) {
-					System.out.println("Input new email: ");
-					String toChangeEmail = getString(reader);
-					d.setEmail(toChangeEmail);
 					doctorManager.updateDoctor(d);
 				} else if (toChange.equalsIgnoreCase("hospitalName")) {
 					System.out.println("Input new hospital name: ");
@@ -555,9 +552,9 @@ public class Menu {
 		for (Episode ep : episodes) {
 			if (ep.getDoe().getMonth() == month) {
 				count++;
-				ep.toString();
+				System.out.println(ep.toString());
 				for (Symptom s : esManager.getSymptomsOfEpisode(ep.getId())) {
-					s.toString();
+					System.out.println(s.toString());
 				}
 			}
 			else {
@@ -574,7 +571,7 @@ public class Menu {
 			PatientMedication pmed = selectMedicationFromPatient(p);
 
 			System.out.println("\nShowing medications information... \n");
-			pmed.toString();
+			System.out.println(pmed.toString());
 			System.out.println("Which information would you like to change?: ");
 			String toChange = getString(reader);
 
@@ -651,34 +648,34 @@ public class Menu {
 
 	private static void listPatients(List<Patient> p) {
 		for (Patient pat : p) {
-			pat.toStringForDoctors();
+			System.out.println(pat.toStringForDoctors());
 		}
 	}
 
 	private static void listDoctors(List<Doctor> docs) {
 		for (Doctor d : docs) {
-			d.toStringForPatients();
+			System.out.println(d.toStringForPatients());
 		}
 	}
 
 	private static void listMedications(List<Medication> meds) {
 		for (Medication m: meds) {
-			m.toString();
+			System.out.println(m.toString());
 		}
 	}
 
 	private static void listEpisodes(List<Episode> episodes) {
 		for (Episode e: episodes) {
-			e.toString();
+			System.out.println(e.toString());
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-				s.toString();
+				System.out.println(s.toString());
 			}
 		}
 	}
 
 	private static void listAllergies(List<Allergy> allergies) {
 		for (Allergy a: allergies) {
-			a.toString();
+			System.out.println(a.toString());
 		}
 	}
 }

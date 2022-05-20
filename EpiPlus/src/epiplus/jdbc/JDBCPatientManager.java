@@ -22,7 +22,7 @@ public class JDBCPatientManager implements PatientManager {
 	@Override
 	public void addPatient(Patient p) {
 		try {
-			String sql = "INSERT INTO patients (name,age,email,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO patients (name,email,birthday,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
 			prep.setString(2, p.getEmail());

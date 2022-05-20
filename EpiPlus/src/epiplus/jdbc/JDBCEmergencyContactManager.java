@@ -22,7 +22,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	@Override
 	public void addEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "INSERT INTO emergencycontact (name,number,patientId) VALUES (?,?)";
+			String sql = "INSERT INTO emergencycontact (name,number,patientId) VALUES (?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, c.getName());
 			prep.setFloat(2, c.getNumber());

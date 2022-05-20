@@ -194,12 +194,12 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	public void updateDoctor(Doctor d) {
 		try {
-			String sql = "UPDATE doctors" + " SET name=?" + " photo=?" + " email=?" + " hospitalName=?";
+			String sql = "UPDATE doctors" + " SET name=?" + " email=?" + " hospitalName=?" + " photo=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setString(1, d.getName());
-			p.setBytes(2, d.getPhoto());
-			p.setString(3, d.getEmail());
-			p.setString(4, d.getHospitalName());
+			p.setString(2, d.getEmail());
+			p.setString(3, d.getHospitalName());
+			p.setBytes(4, d.getPhoto());
 			p.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

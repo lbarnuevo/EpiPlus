@@ -65,7 +65,7 @@ public class JDBCManager {
 					+ " diet 		TEXT CHECK ('diet' IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')),"
 					+ " ex_per_week INTEGER,"
 					+ " photo 		BLOB,"
-					+ " doctorId INTEGER NOT NULL REFERENCES doctors(id) ON DELETE SET NULL" 
+					+ " doctorId INTEGER REFERENCES doctors(id) ON DELETE SET NULL" 
 					+ ");";
 			stmt.executeUpdate(sql);
 			

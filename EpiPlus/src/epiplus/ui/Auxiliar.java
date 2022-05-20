@@ -83,7 +83,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("What life style would you say you follow? \nIntroduce one of the previous options. ");
+			System.out.println("What life style would you say you follow?\n\nIntroduce one of the previous options. ");
 			lifestyle = getString(reader);
 			if (lifestyle.equalsIgnoreCase("sedentary")) {
 				read = true;
@@ -106,7 +106,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("What diet would you say you follow? \nIntroduce one of the previous options.");
+			System.out.println("What diet would you say you follow? \n\nIntroduce one of the previous options.");
 			diet = getString(reader);
 
 			if (diet.equalsIgnoreCase("normal")) {
@@ -200,10 +200,10 @@ public class Auxiliar {
 		String dob = getString(reader);
 		LocalDate birthday = LocalDate.parse(dob, formatter);
 
-		System.out.println("Height: ");
+		System.out.println("Height (cm): ");
 		Float height = getPositiveFloat(reader);
 
-		System.out.println("Weight: ");
+		System.out.println("Weight (kg): ");
 		Float weight = getPositiveFloat(reader);
 
 		System.out.println("Lifestyle: ");
