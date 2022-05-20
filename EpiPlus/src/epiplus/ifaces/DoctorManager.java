@@ -11,7 +11,6 @@ public interface DoctorManager {
 	public List<Doctor> searchDoctorByHospital(String hospital);
 	public Doctor getDoctorById(Integer DocId);
 	public List<Patient> getPatientsOfDoctor(Integer DocId);
-	public void updateDoctor(String name, byte[] photo, String email, String hospital);
 	public void updateDoctor(Doctor doctor);
 	public void deleteDoctor(Doctor d);
 	public List<Doctor> listsAllDoctors();
