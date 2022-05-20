@@ -10,10 +10,9 @@ import epiplus.pojos.*;
 
 public class Auxiliar {
 
-	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
-	public static int getPositiveInteger() {
+	public static int getPositiveInteger(BufferedReader reader) {
 		boolean read = false;
 		int N = -1;
 
@@ -34,7 +33,7 @@ public class Auxiliar {
 		return N;
 	}
 
-	public static String getString() {
+	public static String getString(BufferedReader reader) {
 		String leido = null;
 		try {
 			leido = reader.readLine();
@@ -44,7 +43,7 @@ public class Auxiliar {
 		return leido;
 	}
 
-	public static Float getPositiveFloat() {
+	public static Float getPositiveFloat(BufferedReader reader) {
 		boolean read = false;
 		Float N = -1.0f;
 		do {
@@ -62,11 +61,11 @@ public class Auxiliar {
 		return N;
 	}
 
-	public static byte[] getByte() {
+	public static byte[] getPhoto(BufferedReader reader) {
 		byte[] bytesBlob = null;
 		try {
 			System.out.print("Type the file name as it appears in folder /photos, including extension: ");
-			String fileName = getString();
+			String fileName = getString(reader);
 			File photo = new File("./photos/" + fileName);
 			InputStream streamBlob = new FileInputStream(photo);
 			bytesBlob = new byte[streamBlob.available()];
@@ -78,14 +77,14 @@ public class Auxiliar {
 		return bytesBlob;
 	}
 
-	public static String getLifeStyle() {
+	public static String getLifeStyle(BufferedReader reader) {
 		ListLifestyle();
 		String lifestyle = null;
 		boolean read = false;
 
 		do {
 			System.out.println("What life style would you say you follow? \nIntroduce one of the previous options. ");
-			lifestyle = getString();
+			lifestyle = getString(reader);
 			if (lifestyle.equalsIgnoreCase("sedentary")) {
 				read = true;
 			} else if (lifestyle.equalsIgnoreCase("low")) {
@@ -101,14 +100,14 @@ public class Auxiliar {
 		return lifestyle;
 	}
 
-	public static String getDiet() {
+	public static String getDiet(BufferedReader reader) {
 		ListDiets();
 		String diet = null;
 		boolean read = false;
 
 		do {
 			System.out.println("What diet would you say you follow? \nIntroduce one of the previous options.");
-			diet = getString();
+			diet = getString(reader);
 
 			if (diet.equalsIgnoreCase("normal")) {
 				read = true;
@@ -143,9 +142,9 @@ public class Auxiliar {
 		return diet;
 	}
 
-	public static Boolean askConfirmation() {
+	public static Boolean askConfirmation(BufferedReader reader) {
 		boolean confir = false;
-		String confirmation = getString();
+		String confirmation = getString(reader);
 
 		while (true) {
 			if ("Y".equalsIgnoreCase(confirmation)) {
@@ -156,141 +155,147 @@ public class Auxiliar {
 				break;
 			} else {
 				System.out.println("Please introduce Y/N: ");
-				confirmation = getString();
+				confirmation = getString(reader);
 			}
 		}
 		return confir;
 	}
 
-	public static Doctor createDoctor() {
+	public static Doctor createDoctor(BufferedReader reader) throws IOException {
 		System.out.println("Input doctor information");
 		System.out.println("");
 
 		System.out.println("Name: ");
-		String name = getString();
+		String name = getString(reader);
 
 		System.out.println("Hospital name: ");
-		String hospital = getString();
+		String hospital = getString(reader);
 
 		System.out.println("Email: ");
-		String email = getString();
+		String email = getString(reader);
 
 		System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-		boolean confirmation = askConfirmation();
+		boolean confirmation = askConfirmation(reader);
 
 		byte[] photo = null;
 		if (confirmation == true) {
-			photo = getByte();
+			photo = getPhoto(reader);
 		}
 
 		Doctor doc = new Doctor(name, email, hospital, photo);
 		return doc;
 	}
 
-	public static Patient createPatient() {
+	public static Patient createPatient(BufferedReader reader) throws IOException {
 		System.out.println("Input patient information");
 		System.out.println("");
 
 		System.out.println("Name: ");
-		String name = getString();
+		String name = getString(reader);
 
 		System.out.println("Email: ");
-		String email = getString();
+		String email = getString(reader);
 
 		System.out.println("Date of birth (dd-MM-yyyy): ");
-		String dob = getString();
+		String dob = getString(reader);
 		LocalDate birthday = LocalDate.parse(dob, formatter);
 
 		System.out.println("Height: ");
-		Float height = getPositiveFloat();
+		Float height = getPositiveFloat(reader);
 
 		System.out.println("Weight: ");
-		Float weight = getPositiveFloat();
+		Float weight = getPositiveFloat(reader);
 
 		System.out.println("Lifestyle: ");
-		String lifestyle = getLifeStyle();
+		String lifestyle = getLifeStyle(reader);
 
 		System.out.println("Diet: ");
-		String diet = getDiet();
+		String diet = getDiet(reader);
 
 		System.out.println("Exercise per week (how many hours): ");
-		Integer exercise = getPositiveInteger();
+		Integer exercise = getPositiveInteger(reader);
 
 		System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-		boolean confirmation = askConfirmation();
+		boolean confirmation = askConfirmation(reader);
 
 		byte[] photo = null;
 		if (confirmation == true) {
-			photo = getByte();
+			photo = getPhoto(reader);
 		}
 		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo);
 		return p;
 	}
 
-	public static Medication createMedication() {
+	public static Medication createMedication(BufferedReader reader) throws IOException {
 		System.out.println("\nInput medication information: ");
 		System.out.println("");
 
 		System.out.println("Input it's name: ");
-		String name = getString();
+		String name = getString(reader);
 
 		Medication med = new Medication(name);
 		return med;
 	}
 
-	public static PatientMedication createPMed(Patient patient, Medication med) {
+	public static PatientMedication createPMed(Patient patient, Medication med) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
 		System.out.println("Input frequency: ");
-		Integer freq = getPositiveInteger();
+		Integer freq = getPositiveInteger(reader);
 		System.out.println("Input amount: ");
-		Float amount = getPositiveFloat();
+		Float amount = getPositiveFloat(reader);
 
 		PatientMedication pmed = new PatientMedication(freq, amount, patient, med);
+		reader.close();
 		return pmed;
 	}
 
-	public static Episode createEpisode() {
+	public static Episode createEpisode(BufferedReader reader) throws IOException {
 		System.out.println("Input the episode's information: ");
 		System.out.println("");
 
 		System.out.println("Date of episode (dd-MM-yyyy): ");
-		String doe = getString();
+		String doe = getString(reader);
 		LocalDate depisode = LocalDate.parse(doe, formatter);
 
 		System.out.println("Episode length: ");
-		Float length = getPositiveFloat();
+		Float length = getPositiveFloat(reader);
 
 		System.out.println("Add previous activity: ");
-		String activity = getString();
+		String activity = getString(reader);
 
 		System.out.println("Mood: ");
-		String mood = getString();
+		String mood = getString(reader);
 
 		System.out.println("Place: ");
-		String place = getString();
+		String place = getString(reader);
 
 		System.out.println("Previous meal: ");
-		String previous_meal = getString();
+		String previous_meal = getString(reader);
 
 		System.out.println("Did you had any injury?(Yes --> Y / No --> N): ");
-		Boolean injuries = askConfirmation();
+		Boolean injuries = askConfirmation(reader);
 
 		Episode ep = new Episode(Date.valueOf(depisode), length, activity, mood, place, previous_meal, injuries);
 		return ep;
 	}
 
-	public static Symptom createSymptom() {
+	public static Symptom createSymptom(BufferedReader reader) throws IOException {		
 		System.out.println("Symptoms name: ");
-		String name = getString();
+		String name = getString(reader);
 
 		Symptom symp = new Symptom(name);
 		return symp;
 	}
 
-	public static EpisodeSymptom createSeverity(Episode ep, Symptom symp) {
+	public static EpisodeSymptom createSeverity(Episode ep, Symptom symp) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
 		System.out.println("Input the severity of the symptom in a scale from 0 to 10: ");
-		Integer sev = getPositiveInteger();
+		Integer sev = getPositiveInteger(reader);
 
 		EpisodeSymptom epsymp = new EpisodeSymptom(ep, symp, sev);
+		reader.close();
 		return epsymp;
 	}
 
