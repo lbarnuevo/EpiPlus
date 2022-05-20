@@ -7,6 +7,7 @@ import static epiplus.ui.Auxiliar.*;
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.pojos.*;
+import epiplus.graphics.*;
 
 public class Menu {
 
@@ -346,6 +347,11 @@ public class Menu {
 			switch (choice) {
 			case 1:
 				(p.getDoctor()).toString();
+				if (p.getDoctor().getPhoto()!=null) {
+					ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
+					ImageWindow window = new ImageWindow();
+					window.showBlob(blobIn);
+				}
 				return;
 			case 2:
 				if (p.getDoctor() == null) {
@@ -376,6 +382,11 @@ public class Menu {
 	private static void seeUserPatient(Patient p) {
 		System.out.println("Showing user's information...");
 		p.toString();
+		if (p.getPhoto()!=null) {
+			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
+			ImageWindow window = new ImageWindow();
+			window.showBlob(blobIn);
+		}
 
 		System.out.println("--- MY EMERGENCY CONTACTS ---");
 		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
@@ -434,6 +445,11 @@ public class Menu {
 	private static void seeUserDoctor(Doctor d) {
 		System.out.println("Showing user's information...");
 		d.toString();
+		if (d.getPhoto()!=null) {
+			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
+			ImageWindow window = new ImageWindow();
+			window.showBlob(blobIn);
+		}
 
 		System.out.println("--- MY PATIENTS ---");
 		List<Patient> pList = doctorManager.getPatientsOfDoctor(d.getId());
