@@ -8,7 +8,6 @@ import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.jpa.JPAUserManager;
 import epiplus.pojos.*;
-import hospital.pojos.User;
 
 public class Menu {
 
