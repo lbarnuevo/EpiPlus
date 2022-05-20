@@ -95,7 +95,7 @@ public class Menu {
 	 * when login in with the user, we show the menu for the type of user, so maybe
 	 * we could add an attribute that consisted of role of user }
 	 * 
-	 * Maybe when logged in as a patient, reminder of taking medication and notify
+	 * Maybe when logged in as a patient, reminder of taking medication (show the frequency) and notify
 	 * how much is left.
 	 */
 

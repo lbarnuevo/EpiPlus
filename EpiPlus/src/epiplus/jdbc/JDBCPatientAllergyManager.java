@@ -46,7 +46,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		}
 	}
 	
-	//TODO getAllergyes of patients 
+	//TODO getAllergies of patients 
 	public List<Allergy> getAllergiesOfPatient(Integer pId) {
 		
 		List<Allergy> allergies = new ArrayList<Allergy>();
@@ -72,6 +72,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 	}
 
 
+	//WHY DO WE NEED THIS
 	@Override
 	public PatientAllergy getPatientAllergy(Patient p, Allergy a) {
 		
