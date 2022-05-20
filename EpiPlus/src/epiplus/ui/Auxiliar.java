@@ -11,7 +11,7 @@ import epiplus.pojos.*;
 public class Auxiliar {
 
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	
+
 	public static int getPositiveInteger(BufferedReader reader) {
 		boolean read = false;
 		int N = -1;
@@ -142,6 +142,43 @@ public class Auxiliar {
 		return diet;
 	}
 
+	public static Allergy getAllergy(BufferedReader reader) {
+		ListAllergies();
+		String allergyName = null;
+		Allergy allergy = null;
+		boolean read = false;
+
+		do {
+			System.out.println("Do you have any allergies? \n\nIntroduce one or more of the options above.");
+			allergyName = getString(reader);
+
+			if (allergyName.equalsIgnoreCase("egg")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("fish")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("animal milk")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("nuts")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("legums")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("soja")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("wheat")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("vegetables")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("fruits")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("high-histamine food")) {
+				read = true;
+			}
+
+		} while (read == false);
+		allergy = new Allergy(allergyName);
+		return allergy;
+	}
+
 	public static Boolean askConfirmation(BufferedReader reader) {
 		boolean confir = false;
 		String confirmation = getString(reader);
@@ -226,6 +263,20 @@ public class Auxiliar {
 		return p;
 	}
 
+	public static EmergencyContact createEmergencyContacts(BufferedReader reader) throws IOException {
+		System.out.println("Input emergency contact");
+		System.out.println("");
+
+		System.out.println("Name: ");
+		String name = getString(reader);
+
+		System.out.println("Telephone number: ");
+		Float number = getPositiveFloat(reader);
+
+		EmergencyContact ec = new EmergencyContact(name, number);
+		return ec;
+	}
+
 	public static Medication createMedication(BufferedReader reader) throws IOException {
 		System.out.println("\nInput medication information: ");
 		System.out.println("");
@@ -239,7 +290,7 @@ public class Auxiliar {
 
 	public static PatientMedication createPMed(Patient patient, Medication med) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		System.out.println("Input frequency: ");
 		Integer freq = getPositiveInteger(reader);
 		System.out.println("Input amount: ");
@@ -280,7 +331,7 @@ public class Auxiliar {
 		return ep;
 	}
 
-	public static Symptom createSymptom(BufferedReader reader) throws IOException {		
+	public static Symptom createSymptom(BufferedReader reader) throws IOException {
 		System.out.println("Symptoms name: ");
 		String name = getString(reader);
 
@@ -290,7 +341,7 @@ public class Auxiliar {
 
 	public static EpisodeSymptom createSeverity(Episode ep, Symptom symp) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		System.out.println("Input the severity of the symptom in a scale from 0 to 10: ");
 		Integer sev = getPositiveInteger(reader);
 
@@ -327,5 +378,21 @@ public class Auxiliar {
 		System.out.println("Low: practice no impact sports (yoga, pilates...)");
 		System.out.println("Medium: practice low impact sports (walking, swimmming...)");
 		System.out.println("High: practice high impact sports ");
+	}
+
+	public static void ListAllergies() {
+		System.out.println("               DEFINITION OF ALLERGIES AND INTOLERANCES               ");
+		System.out.println("---------------------------------------------------------------------");
+		System.out.println("Egg");
+		System.out.println("Fish");
+		System.out.println("Animal milk");
+		System.out.println("Nuts (almonds, peanuts, seeds, walnuts, pistachios, hazelnuts, cashews...)");
+		System.out.println("Legums (green peas, garbanzo peas...)");
+		System.out.println("Soja");
+		System.out.println("Wheat");
+		System.out.println("Vegetables (tomatp, carrot, lettuce");
+		System.out.println("Fruits (melon, pineapple, strawberry, kiwi, peach...");
+		System.out.println("High-histamine food (wine, cheese, pickles, sardine...");
+
 	}
 }
