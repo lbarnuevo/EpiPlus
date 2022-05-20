@@ -71,6 +71,8 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	//updateUserPassword(email, newPassword, oldPassword)
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

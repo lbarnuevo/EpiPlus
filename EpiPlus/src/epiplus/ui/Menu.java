@@ -124,8 +124,24 @@ public class Menu {
 		System.out.println(" 8.Update user information                                   ");
 		System.out.println(" 0. GO BACK TO MAIN MENU                                     ");
 		System.out.println("---------------------------------------------------------------");
+		//IT WOULD BE INTERESTING TO ADD AN OPTION TO CHANGE THE PASSWORD
 	}
-
+	
+	/*
+	private static void changePassword() throws Exception{
+ 		System.out.println("Please, introduce again your email address:");
+ 		String email = reader.readLine();
+ 		System.out.println("Now, please, introduce again your password:");
+ 		String oldPassword = reader.readLine();
+ 		System.out.println("Now, please, introduce your new password:");
+ 		String newPassword = reader.readLine();
+ 		System.out.println("Are you sure you want to change your password? (YES / NO)");
+ 		String sure = reader.readLine();
+ 		if(sure.equalsIgnoreCase("yes")) {
+ 			umanager.updateUserPassword(email, newPassword, oldPassword);
+ 		}
+ 	}
+*/
 	private static void showDoctorMenu() {
 		System.out.println("                  DOCTOR MENU                         ");
 		System.out.println("---------------------------------------------------------------");
@@ -547,6 +563,7 @@ public class Menu {
 
 	private static void showEvolution(Patient p) {
 		// We could show the data like this:
+		//PRECONDITION: 1 month of data and at least 1 episode recorded
 		// 1. Shows all episodes in a month
 		// 2. Shows the number of episodes per month using a counter
 		// 3. Shows if there is an exercise or meal repeated in the collection ?????
