@@ -29,10 +29,12 @@ public class JPAUserManager implements UserManager {
 
 		//??
 		// Insert the roles needed only if they are not there already
-		/*
-		 * if (this.getRoles().isEmpty()) { Role owner = new Role("owner"); Role vet =
-		 * new Role("vet"); this.newRole(owner); this.newRole(vet); }
-		 */
+		if (this.getRoles().isEmpty()) { 
+			Role doctor = new Role("doctor"); 
+			Role patient = new Role("patient"); 
+			this.newRole(doctor); 
+			this.newRole(patient); }
+		 
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class JPAUserManager implements UserManager {
 	}
 	
 	//PRIVATE?
-	public void newUser(Role r) {
+	public void newRole(Role r) {
 		em.getTransaction().begin();
 		em.persist(r);
 		em.getTransaction().commit();
@@ -63,9 +65,9 @@ public class JPAUserManager implements UserManager {
 
 	@Override
 	public List<Role> getRoles() {
-		// TODO Auto-generated method stub
-		//returns an user if there is a match, null if there isn't
-		return null;
+		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
+		List<Role> roles = (List<Role>) q.getResultList();
+		return roles;
 	}
 
 	@Override

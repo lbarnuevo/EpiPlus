@@ -89,7 +89,6 @@ public class Role implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	//DO WE NEED IT?
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + "]";

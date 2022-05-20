@@ -6,7 +6,9 @@ import java.util.*;
 import static epiplus.ui.Auxiliar.*;
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
+import epiplus.jpa.JPAUserManager;
 import epiplus.pojos.*;
+import hospital.pojos.User;
 
 public class Menu {
 
@@ -22,6 +24,7 @@ public class Menu {
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
 	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
+	private static UserManager uManager = new JPAUserManager();
 
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
@@ -37,6 +40,7 @@ public class Menu {
 				switch (choice) {
 				case 1:
 					// TODO loginPatient();
+					loginUser("patient");
 					System.out.println("Enter patient name: ");
 					String p_name = getString();
 					Patient p = searchPatient(p_name);
@@ -66,13 +70,37 @@ public class Menu {
 		}
 	}
 
+	public static User loginUser(String role) {
+		System.out.println("Enter email:");
+		String email = getString();
+		System.out.println("Enter password:");
+		String passwd = getString();
+		User u = uManager.checkPassword(email, passwd);
+
+		if (u != null) {
+			if (u.getRole().getName().equals(role)) {
+				System.out.println("Login as "+ role+ " ran successfully");
+		} else {
+			System.out.println("User not found in the database. Are you sure you want to login as a "+role+ "?");
+		}
+		}
+		else {
+			System.out.println("User not found in the database. Please, register.");
+		}
+		// ownerMenu(u.getId());
+		return u;
+	}
+	
+	// TODO loginUser method --> method for both users
 	/*
-	 * private static void loginUser() { //TODO loginUser method --> method for both
-	 * users //when login in with the user, we show the menu for the type of user,
-	 * so maybe we could add an attribute that consisted of role of user }
+	 * when login in with the user, we show the menu for the type of user, so maybe
+	 * we could add an attribute that consisted of role of user }
 	 * 
-	 * private static void registerUser() { //TODO register method }
+	 * Maybe when logged in as a patient, reminder of taking medication and notify
+	 * how much is left.
 	 */
+
+	/* private static void registerUser() { //TODO register method } */
 
 	private static void showMenu() {
 		System.out.println("---------------------------------------------------------------");
@@ -91,7 +119,7 @@ public class Menu {
 		System.out.println(" 3.My episodes                                               ");
 		System.out.println(" 4.Show graphs on my evolution NOT DONE                      ");
 		// System.out.println(" 4.See my evolution ");
-		System.out.println(" 5.Show recipe           NOT DONE                            ");
+		System.out.println(" 5.Show recipes          NOT DONE YET                        ");
 		System.out.println(" 6.Search doctor                                             ");
 		System.out.println(" 7.See user information                                      ");
 		System.out.println(" 8.Update user information                                   ");
@@ -524,8 +552,8 @@ public class Menu {
 		// 2. Shows the number of episodes per month using a counter
 		// 3. Shows if there is an exercise or meal repeated in the collection ?????
 		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
-		int month=1;
-		int count=0;
+		int month = 1;
+		int count = 0;
 		for (Episode ep : episodes) {
 			if (ep.getDoe().getMonth() == month) {
 				count++;
@@ -533,9 +561,8 @@ public class Menu {
 				for (Symptom s : esManager.getSymptomsOfEpisode(ep.getId())) {
 					s.toString();
 				}
-			}
-			else {
-				System.out.println("Number of episodes in month "+ month+ ": " + count);
+			} else {
+				System.out.println("Number of episodes in month " + month + ": " + count);
 				month++;
 			}
 		}
@@ -622,7 +649,6 @@ public class Menu {
 		return patient;
 	}
 
-
 	private static void listPatients(List<Patient> p) {
 		for (Patient pat : p) {
 			pat.toStringForDoctors();
@@ -636,13 +662,13 @@ public class Menu {
 	}
 
 	private static void listMedications(List<Medication> meds) {
-		for (Medication m: meds) {
+		for (Medication m : meds) {
 			m.toString();
 		}
 	}
 
 	private static void listEpisodes(List<Episode> episodes) {
-		for (Episode e: episodes) {
+		for (Episode e : episodes) {
 			e.toString();
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
 				s.toString();
@@ -651,7 +677,7 @@ public class Menu {
 	}
 
 	private static void listAllergies(List<Allergy> allergies) {
-		for (Allergy a: allergies) {
+		for (Allergy a : allergies) {
 			a.toString();
 		}
 	}

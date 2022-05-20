@@ -88,7 +88,6 @@ public class User implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	// DO WE NEED IT?
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + Arrays.toString(password) + ", role="
