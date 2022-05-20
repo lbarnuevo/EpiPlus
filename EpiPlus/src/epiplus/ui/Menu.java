@@ -42,7 +42,7 @@ public class Menu {
 				switch (choice) {
 				case 1:
 					// TODO loginPatient();
-					loginUser("patient");
+					//loginUser("patient");
 					System.out.println("Enter patient name: ");
 					String p_name = getString(reader);
 					Patient p = searchPatient(p_name);
@@ -72,7 +72,7 @@ public class Menu {
 		}
 	}
 
-	public static User loginUser(String role) {
+	/*public static User loginUser(String role) {
 		System.out.println("Enter email:");
 		String email = getString(reader);
 		System.out.println("Enter password:");
@@ -91,7 +91,7 @@ public class Menu {
 		}
 		// ownerMenu(u.getId());
 		return u;
-	}
+	} */
 	
 	// TODO loginUser method --> method for both users
 	/*
