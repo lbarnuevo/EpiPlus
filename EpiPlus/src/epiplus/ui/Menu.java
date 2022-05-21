@@ -210,21 +210,17 @@ public class Menu {
 		Patient patient = createPatient(reader);
 		patientManager.addPatient(patient);
 
-		List<EmergencyContact> listContacts = null;
 		int stop1 = 1;
 		while (stop1 != 0) {
-			EmergencyContact contact = createEmergencyContacts(reader);
-			listContacts.add(contact);
+			EmergencyContact contact = createEmergencyContacts(reader, patient);
+			ecManager.addEmergencyContact(contact);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Emergency contact added. Press '0' if finished, other key if you want to continue.");
 			stop1 = getInteger();
 		}
-
-		List<Allergy> listAllergies = null;
 		int stop2 = 1;
 		while (stop2 != 0) {
-			Allergy allergy = getAllergy(reader);
-			listAllergies.add(allergy);
+			addAllergy(patient);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Allergy added. Press '0' if finished, other key if you want to continue.");
 			stop2 = getInteger();
@@ -593,6 +589,29 @@ public class Menu {
 																// we delete it
 					PatientMedication pm = createPMed(p, med2);
 					pmManager.assignPatientMedication(pm);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void addAllergy(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			try {
+				Allergy a = getAllergy(reader);
+				Allergy a2 = allergyManager.getAllergyByName(a.getName());
+
+				if (a2 == null) {
+					PatientAllergy pa = new PatientAllergy (a,p);
+
+					allergyManager.addAllergy(a);
+					paManager.assignPatientAllergy(pa);
+				} else {
+					PatientAllergy pa = new PatientAllergy (a2,p);
+					paManager.assignPatientAllergy(pa);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
