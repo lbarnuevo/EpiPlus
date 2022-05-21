@@ -843,7 +843,7 @@ public class Menu {
 			System.out.println("Type yes or no: ");
 			String choice2 = getString(reader);
 			if (choice2 == "yes") { showMenu();}
-			else if (choice2 == "no") {
+			else if (choice2 == "no") {}
 			
 		}
 		
