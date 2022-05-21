@@ -26,7 +26,7 @@ public class Menu {
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
 	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
-	private static UserManager uManager = new JPAUserManager();
+	//private static UserManager uManager = new JPAUserManager();
 
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
@@ -210,21 +210,23 @@ public class Menu {
 		Patient patient = createPatient(reader);
 		patientManager.addPatient(patient);
 
+		/*List<EmergencyContact> listContacts = null;
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 		int stop1 = 1;
 		while (stop1 != 0) {
 			EmergencyContact contact = createEmergencyContacts(reader, patient);
 			ecManager.addEmergencyContact(contact);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Emergency contact added. Press '0' if finished, other key if you want to continue.");
-			stop1 = getInteger();
+			stop1 = getPositiveInteger(reader);
 		}
 		int stop2 = 1;
 		while (stop2 != 0) {
 			addAllergy(patient);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Allergy added. Press '0' if finished, other key if you want to continue.");
-			stop2 = getInteger();
-		}
+			stop2 = getPositiveInteger(reader);
+		} */
 
 		System.out.println("\nYou have been successfully registered");
 	}
