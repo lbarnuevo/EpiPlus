@@ -599,7 +599,7 @@ public class Menu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			try {
+			//try {
 				Allergy a = getAllergy(reader);
 				Allergy a2 = allergyManager.getAllergyByName(a.getName());
 
@@ -612,9 +612,9 @@ public class Menu {
 					PatientAllergy pa = new PatientAllergy (a2,p);
 					paManager.assignPatientAllergy(pa);
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			//} catch (IOException e) {
+				//e.printStackTrace();
+			//}
 		}
 	}
 
@@ -718,7 +718,7 @@ public class Menu {
 			all = allergyManager.getAllergyByName(nameall);
 		} while (all == null);
 
-		PatientAllergy pa = new PatientAllergy(p, all);
+		PatientAllergy pa = new PatientAllergy(all, p);
 
 		return pa;
 	}
