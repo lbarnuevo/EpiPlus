@@ -210,14 +210,14 @@ public class Menu {
 		Patient patient = createPatient(reader);
 		patientManager.addPatient(patient);
 
-		List<EmergencyContact> listContacts = null;
+		/*List<EmergencyContact> listContacts = null;
 		int stop1 = 1;
 		while (stop1 != 0) {
 			EmergencyContact contact = createEmergencyContacts(reader);
 			listContacts.add(contact);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Emergency contact added. Press '0' if finished, other key if you want to continue.");
-			stop1 = getInteger();
+			stop1 = getPositiveInteger(reader);
 		}
 
 		List<Allergy> listAllergies = null;
@@ -227,8 +227,8 @@ public class Menu {
 			listAllergies.add(allergy);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Allergy added. Press '0' if finished, other key if you want to continue.");
-			stop2 = getInteger();
-		}
+			stop2 = getPositiveInteger(reader);
+		} */
 
 		System.out.println("\nYou have been successfully registered");
 	}
