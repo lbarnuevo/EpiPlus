@@ -85,7 +85,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			while (rs.next()) {
 				Integer id1 = rs.getInt("patientId");
 				Integer  id2= rs.getInt("allergyId");
-				patientallergy = new PatientAllergy(p,a);
+				patientallergy = new PatientAllergy(a,p);
 			}
 			rs.close();
 			prep.close();

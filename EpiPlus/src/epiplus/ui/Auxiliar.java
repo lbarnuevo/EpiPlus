@@ -262,7 +262,7 @@ public class Auxiliar {
 		return p;
 	}
 
-	public static EmergencyContact createEmergencyContacts(BufferedReader reader) throws IOException {
+	public static EmergencyContact createEmergencyContacts(BufferedReader reader, Patient patient) throws IOException {
 		System.out.println("Input emergency contact");
 		System.out.println("");
 
@@ -272,7 +272,7 @@ public class Auxiliar {
 		System.out.println("Telephone number: ");
 		Float number = getPositiveFloat(reader);
 
-		EmergencyContact ec = new EmergencyContact(name, number);
+		EmergencyContact ec = new EmergencyContact(name, number, patient);
 		return ec;
 	}
 

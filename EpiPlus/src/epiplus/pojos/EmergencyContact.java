@@ -20,10 +20,11 @@ public class EmergencyContact {
 		this.number=number;
 	}
 	
-	public EmergencyContact(String name, Float number) {
+	public EmergencyContact(String name, Float number, Patient patient) {
 		super();
 		this.name=name;
 		this.number=number;
+		this.patient=patient;
 	}
 
 	public Patient getPatient() {
