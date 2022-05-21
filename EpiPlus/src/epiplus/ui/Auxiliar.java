@@ -234,8 +234,7 @@ public class Auxiliar {
 		String email = getString(reader);
 
 		System.out.println("Date of birth (dd-MM-yyyy): ");
-		String dob = getString(reader);
-		LocalDate birthday = LocalDate.parse(dob, formatter);
+		LocalDate birthday = LocalDate.parse(getString(reader), formatter);
 
 		System.out.println("Height (cm): ");
 		Float height = getPositiveFloat(reader);
@@ -263,7 +262,7 @@ public class Auxiliar {
 		return p;
 	}
 
-	public static EmergencyContact createEmergencyContacts(BufferedReader reader) throws IOException {
+	public static EmergencyContact createEmergencyContacts(BufferedReader reader, Patient patient) throws IOException {
 		System.out.println("Input emergency contact");
 		System.out.println("");
 
@@ -273,7 +272,7 @@ public class Auxiliar {
 		System.out.println("Telephone number: ");
 		Float number = getPositiveFloat(reader);
 
-		EmergencyContact ec = new EmergencyContact(name, number);
+		EmergencyContact ec = new EmergencyContact(name, number, patient);
 		return ec;
 	}
 

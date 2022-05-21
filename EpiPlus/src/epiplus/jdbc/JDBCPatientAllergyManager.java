@@ -71,9 +71,9 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		return allergies;
 	}
 
-
-	//WHY DO WE NEED THIS
-	/*@Override
+	/*
+	//WHY DO WE NEED THIS -> same with patientmedication, we need this to delete the correct position from the table when we do unassign 
+	@Override
 	public PatientAllergy getPatientAllergy(Patient p, Allergy a) {
 		
 		
@@ -89,7 +89,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			while (rs.next()) {
 				Integer id1 = rs.getInt("patientId");
 				Integer  id2= rs.getInt("allergyId");
-				patientallergy = new PatientAllergy(p,a);
+				patientallergy = new PatientAllergy(a,p);
 			}
 			rs.close();
 			prep.close();

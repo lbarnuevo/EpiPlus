@@ -26,7 +26,7 @@ public class Menu {
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
 	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
-	private static UserManager uManager = new JPAUserManager();
+	//private static UserManager uManager = new JPAUserManager();
 
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
@@ -210,25 +210,23 @@ public class Menu {
 		Patient patient = createPatient(reader);
 		patientManager.addPatient(patient);
 
-		List<EmergencyContact> listContacts = null;
+		/*List<EmergencyContact> listContacts = null;
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 		int stop1 = 1;
 		while (stop1 != 0) {
-			EmergencyContact contact = createEmergencyContacts(reader);
-			listContacts.add(contact);
+			EmergencyContact contact = createEmergencyContacts(reader, patient);
+			ecManager.addEmergencyContact(contact);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Emergency contact added. Press '0' if finished, other key if you want to continue.");
-			stop1 = getInteger();
+			stop1 = getPositiveInteger(reader);
 		}
-
-		List<Allergy> listAllergies = null;
 		int stop2 = 1;
 		while (stop2 != 0) {
-			Allergy allergy = getAllergy(reader);
-			listAllergies.add(allergy);
+			addAllergy(patient);
 			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
 			System.out.println("Allergy added. Press '0' if finished, other key if you want to continue.");
-			stop2 = getInteger();
-		}
+			stop2 = getPositiveInteger(reader);
+		} */
 
 		System.out.println("\nYou have been successfully registered");
 	}
@@ -443,15 +441,15 @@ public class Menu {
 		System.out.println("Showing user's information...");
 		System.out.println(p.toString());
 
+		System.out.println("--- MY EMERGENCY CONTACTS ---");
+		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
+			System.out.println(c.toString());
+		}
+		
 		if (p.getPhoto() != null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
-		}
-
-		System.out.println("--- MY EMERGENCY CONTACTS ---");
-		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
-			System.out.println(c.toString());
 		}
 	}
 
@@ -588,15 +586,35 @@ public class Menu {
 					medicationManager.addMedication(med);
 					pmManager.assignPatientMedication(pm);
 				} else {
-					medicationManager.deleteMedication(med); // because it has been created, in order to avoid
-																// duplicates,
-																// we delete it
 					PatientMedication pm = createPMed(p, med2);
 					pmManager.assignPatientMedication(pm);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private static void addAllergy(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			//try {
+				Allergy a = getAllergy(reader);
+				Allergy a2 = allergyManager.getAllergyByName(a.getName());
+
+				if (a2 == null) {
+					PatientAllergy pa = new PatientAllergy (a,p);
+
+					allergyManager.addAllergy(a);
+					paManager.assignPatientAllergy(pa);
+				} else {
+					PatientAllergy pa = new PatientAllergy (a2,p);
+					paManager.assignPatientAllergy(pa);
+				}
+			//} catch (IOException e) {
+				//e.printStackTrace();
+			//}
 		}
 	}
 
@@ -657,7 +675,7 @@ public class Menu {
 			med = medicationManager.getMedicationByName(namemed);
 		} while (med == null);
 
-		PatientMedication pm = pmManager.getPatientMedication(p, med);
+		PatientMedication pm = new PatientMedication(p, med);
 		return pm;
 	}
 
@@ -665,7 +683,17 @@ public class Menu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			PatientMedication pm = selectMedicationFromPatient(p);
+			List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
+			listMedications(meds);
+
+			Medication med = null;
+			do {
+				System.out.println("Input the name of the medication: ");
+				String namemed = getString(reader);
+				med = medicationManager.getMedicationByName(namemed);
+			} while (med == null);
+
+			PatientMedication pm = new PatientMedication(p, med);
 			pmManager.unassignPatientMedication(pm);
 		}
 	}
@@ -690,7 +718,7 @@ public class Menu {
 			all = allergyManager.getAllergyByName(nameall);
 		} while (all == null);
 
-		PatientAllergy pa = paManager.getPatientAllergy(p, all);
+		PatientAllergy pa = new PatientAllergy(all, p);
 
 		return pa;
 	}
@@ -712,7 +740,7 @@ public class Menu {
 
 	private static void listDoctors(List<Doctor> docs) {
 		for (Doctor d : docs) {
-			System.out.println(d.toStringForPatients());
+			System.out.println(d.toString());
 		}
 	}
 

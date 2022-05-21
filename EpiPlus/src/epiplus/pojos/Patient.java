@@ -53,6 +53,7 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = photo;
+		this.doctor = null;
 
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
@@ -72,6 +73,7 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = photo;
+		this.doctor = null;
 		//this.user_id= user;
 
 		this.episodes = new ArrayList<Episode>();
@@ -217,12 +219,11 @@ public class Patient implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	// TODO HABRÁ QUE CAMBIAR EL CÓMO ENSEÑAMOS LA FOTO
 	@Override
 	public String toString() {
 		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday + "\nHeight="
 				+ this.height + "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
-				+ "\nExercise per week" + this.ex_per_week + "\nPhoto=" + Arrays.toString(this.photo);
+				+ "\nExercise per week" + this.ex_per_week;
 	}
 
 	public String toStringForDoctors() {
