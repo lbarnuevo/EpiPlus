@@ -443,15 +443,15 @@ public class Menu {
 		System.out.println("Showing user's information...");
 		System.out.println(p.toString());
 
+		System.out.println("--- MY EMERGENCY CONTACTS ---");
+		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
+			System.out.println(c.toString());
+		}
+		
 		if (p.getPhoto() != null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
-		}
-
-		System.out.println("--- MY EMERGENCY CONTACTS ---");
-		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
-			System.out.println(c.toString());
 		}
 	}
 
@@ -588,9 +588,6 @@ public class Menu {
 					medicationManager.addMedication(med);
 					pmManager.assignPatientMedication(pm);
 				} else {
-					medicationManager.deleteMedication(med); // because it has been created, in order to avoid
-																// duplicates,
-																// we delete it
 					PatientMedication pm = createPMed(p, med2);
 					pmManager.assignPatientMedication(pm);
 				}
@@ -657,7 +654,7 @@ public class Menu {
 			med = medicationManager.getMedicationByName(namemed);
 		} while (med == null);
 
-		PatientMedication pm = pmManager.getPatientMedication(p, med);
+		PatientMedication pm = new PatientMedication(p, med);
 		return pm;
 	}
 
@@ -665,7 +662,17 @@ public class Menu {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			PatientMedication pm = selectMedicationFromPatient(p);
+			List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
+			listMedications(meds);
+
+			Medication med = null;
+			do {
+				System.out.println("Input the name of the medication: ");
+				String namemed = getString(reader);
+				med = medicationManager.getMedicationByName(namemed);
+			} while (med == null);
+
+			PatientMedication pm = new PatientMedication(p, med);
 			pmManager.unassignPatientMedication(pm);
 		}
 	}
@@ -685,12 +692,12 @@ public class Menu {
 
 		Allergy all = null;
 		do {
-			System.out.println("INput the name of the allergy: ");
+			System.out.println("Input the name of the allergy: ");
 			String nameall = getString(reader);
 			all = allergyManager.getAllergyByName(nameall);
 		} while (all == null);
 
-		PatientAllergy pa = paManager.getPatientAllergy(p, all);
+		PatientAllergy pa = new PatientAllergy(p, all);
 
 		return pa;
 	}
@@ -712,7 +719,7 @@ public class Menu {
 
 	private static void listDoctors(List<Doctor> docs) {
 		for (Doctor d : docs) {
-			System.out.println(d.toStringForPatients());
+			System.out.println(d.toString());
 		}
 	}
 
