@@ -83,6 +83,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}		
 	}
 
+	/*
 	//WHY DO WE NEED THIS -> wee need this in order to eliminate the relationship when we delete a medication from a patient, I explained it to isabel the other day 
 	@Override
 	public PatientMedication getPatientMedication(Patient p, Medication m) {
@@ -108,5 +109,5 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}
 		return patientmedication;
 		}
-		
+		*/
 }
