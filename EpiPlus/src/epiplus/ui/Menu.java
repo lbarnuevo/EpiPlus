@@ -806,7 +806,7 @@ public class Menu {
 			
 			
 		case 3:	//Feta salad, only replace feta
-			String[] ingredientsSalad = {"lettuce", "tomatoe", "cucumber", "feta"} 
+			String[] ingredientsSalad = {"lettuce", "tomatoe", "cucumber", "feta"} ;
 			
 			System.out.println("Feta salad recipe:");
 			System.out.println("Needed ingredients: half of lettuce, 2 tomatoes, 1 cucumber, 200g of feta cheese/n");
@@ -851,7 +851,8 @@ public class Menu {
 		
 	}
 	
-	private static void chooseRecipe() {
+	//Patient p has already logged in, connection with the database done
+	private static void chooseRecipe(Patient p) {
 		
 		//Integer choice = 1;
 		
@@ -869,7 +870,10 @@ public class Menu {
 		
 		//getting allergies and diet - help please :(
 		
-		
+		List <Allergy> allergies= paManager.getAllergiesOfPatient(p.getId()); 
+		//returns list of allergies of the patient calling this function
+		String diet= p.getDiet(); 
+		//returns diet (as a String) of the patient
 		
 		
 	
