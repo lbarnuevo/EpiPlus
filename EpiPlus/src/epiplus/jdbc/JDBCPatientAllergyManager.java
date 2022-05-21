@@ -73,7 +73,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 
 
 	//WHY DO WE NEED THIS
-	@Override
+	/*@Override
 	public PatientAllergy getPatientAllergy(Patient p, Allergy a) {
 		
 		
@@ -98,5 +98,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		}
 		return patientallergy;
 		
-	}	
+		
+	}
+	*/	
 }

@@ -35,7 +35,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public Doctor searchDoctorByEmail(String email) { // TODO change so it returns a doctor
+	public Doctor searchDoctorByEmail(String email) { 
 
 		Doctor d = null;
 

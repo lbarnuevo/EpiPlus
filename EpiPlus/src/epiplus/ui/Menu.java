@@ -13,7 +13,7 @@ import epiplus.graphics.*;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	
+
 	private static JDBCManager jdbcManager = new JDBCManager();
 
 	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
@@ -42,7 +42,7 @@ public class Menu {
 				switch (choice) {
 				case 1:
 					// TODO loginPatient();
-					//loginUser("patient");
+					// loginUser("patient");
 					System.out.println("Enter patient name: ");
 					String p_name = getString(reader);
 					Patient p = searchPatient(p_name);
@@ -72,34 +72,28 @@ public class Menu {
 		}
 	}
 
-	/*public static User loginUser(String role) {
-		System.out.println("Enter email:");
-		String email = getString(reader);
-		System.out.println("Enter password:");
-		String passwd = getString(reader);
-		User u = uManager.checkPassword(email, passwd);
+	/*
+	 * public static User loginUser(String role) {
+	 * System.out.println("Enter email:"); String email = getString(reader);
+	 * System.out.println("Enter password:"); String passwd = getString(reader);
+	 * User u = uManager.checkPassword(email, passwd);
+	 * 
+	 * if (u != null) { if (u.getRole().getName().equals(role)) {
+	 * System.out.println("Login as "+ role+ " ran successfully"); } else {
+	 * System.out.
+	 * println("User not found in the database. Are you sure you want to login as a "
+	 * +role+ "?"); } } else {
+	 * System.out.println("User not found in the database. Please, register."); } //
+	 * ownerMenu(u.getId()); return u; }
+	 */
 
-		if (u != null) {
-			if (u.getRole().getName().equals(role)) {
-				System.out.println("Login as "+ role+ " ran successfully");
-		} else {
-			System.out.println("User not found in the database. Are you sure you want to login as a "+role+ "?");
-		}
-		}
-		else {
-			System.out.println("User not found in the database. Please, register.");
-		}
-		// ownerMenu(u.getId());
-		return u;
-	} */
-	
 	// TODO loginUser method --> method for both users
 	/*
 	 * when login in with the user, we show the menu for the type of user, so maybe
 	 * we could add an attribute that consisted of role of user }
 	 * 
-	 * Maybe when logged in as a patient, reminder of taking medication (show the frequency) and notify
-	 * how much is left.
+	 * Maybe when logged in as a patient, reminder of taking medication (show the
+	 * frequency) and notify how much is left.
 	 */
 
 	/* private static void registerUser() { //TODO register method } */
@@ -127,28 +121,28 @@ public class Menu {
 		System.out.println(" 8.Update user information                                   ");
 		System.out.println(" 0. LOG OUT                                                  ");
 		System.out.println("---------------------------------------------------------------");
-		//IT WOULD BE INTERESTING TO ADD AN OPTION TO CHANGE THE PASSWORD
+		// IT WOULD BE INTERESTING TO ADD AN OPTION TO CHANGE THE PASSWORD
 	}
+
+	//TODO good idea
+		/*
+		 * private static void changePassword() throws Exception{
+		 * System.out.println("Please, introduce again your email address:"); String
+		 * email = reader.readLine();
+		 * System.out.println("Now, please, introduce again your password:"); String
+		 * oldPassword = reader.readLine();
+		 * System.out.println("Now, please, introduce your new password:"); String
+		 * newPassword = reader.readLine(); System.out.
+		 * println("Are you sure you want to change your password? (YES / NO)"); String
+		 * sure = reader.readLine(); if(sure.equalsIgnoreCase("yes")) {
+		 * umanager.updateUserPassword(email, newPassword, oldPassword); } }
+		 */
 	
-	/*
-	private static void changePassword() throws Exception{
- 		System.out.println("Please, introduce again your email address:");
- 		String email = reader.readLine();
- 		System.out.println("Now, please, introduce again your password:");
- 		String oldPassword = reader.readLine();
- 		System.out.println("Now, please, introduce your new password:");
- 		String newPassword = reader.readLine();
- 		System.out.println("Are you sure you want to change your password? (YES / NO)");
- 		String sure = reader.readLine();
- 		if(sure.equalsIgnoreCase("yes")) {
- 			umanager.updateUserPassword(email, newPassword, oldPassword);
- 		}
- 	}
-*/
 	private static void showDoctorMenu() {
 		System.out.println("                  DOCTOR MENU                         ");
 		System.out.println("---------------------------------------------------------------");
 		System.out.println(" 1.See data on patient                                       ");
+		// + See evolution on patient
 		System.out.println(" 2.See user information                                      ");
 		System.out.println(" 3.Update user information                                   ");
 		System.out.println(" 0. LOG OUT                                                  ");
@@ -189,7 +183,7 @@ public class Menu {
 			System.out.println(" 2.Register as a patient                                     ");
 			System.out.println(" 0.GO BACK TO MAIN MENU                              ");
 			System.out.println("---------------------------------------------------------------");
-			
+
 			int choice = getPositiveInteger(reader);
 			switch (choice) {
 			case 1:
@@ -215,6 +209,27 @@ public class Menu {
 	private static void registerPatient() throws IOException {
 		Patient patient = createPatient(reader);
 		patientManager.addPatient(patient);
+
+		List<EmergencyContact> listContacts = null;
+		int stop1 = 1;
+		while (stop1 != 0) {
+			EmergencyContact contact = createEmergencyContacts(reader);
+			listContacts.add(contact);
+			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
+			System.out.println("Emergency contact added. Press '0' if finished, other key if you want to continue.");
+			stop1 = getInteger();
+		}
+
+		List<Allergy> listAllergies = null;
+		int stop2 = 1;
+		while (stop2 != 0) {
+			Allergy allergy = getAllergy(reader);
+			listAllergies.add(allergy);
+			// CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
+			System.out.println("Allergy added. Press '0' if finished, other key if you want to continue.");
+			stop2 = getInteger();
+		}
+
 		System.out.println("\nYou have been successfully registered");
 	}
 
@@ -392,7 +407,7 @@ public class Menu {
 			switch (choice) {
 			case 1:
 				System.out.println((p.getDoctor()).toString());
-				if (p.getDoctor().getPhoto()!=null) {
+				if (p.getDoctor().getPhoto() != null) {
 					ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
 					ImageWindow window = new ImageWindow();
 					window.showBlob(blobIn);
@@ -427,8 +442,8 @@ public class Menu {
 	private static void seeUserPatient(Patient p) {
 		System.out.println("Showing user's information...");
 		System.out.println(p.toString());
-		
-		if (p.getPhoto()!=null) {
+
+		if (p.getPhoto() != null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -491,8 +506,8 @@ public class Menu {
 	private static void seeUserDoctor(Doctor d) {
 		System.out.println("Showing user's information...");
 		System.out.println(d.toString());
-		
-		if (d.getPhoto()!=null) {
+
+		if (d.getPhoto() != null) {
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -573,20 +588,21 @@ public class Menu {
 					medicationManager.addMedication(med);
 					pmManager.assignPatientMedication(pm);
 				} else {
-					medicationManager.deleteMedication(med); // because it has been created, in order to avoid duplicates,
+					medicationManager.deleteMedication(med); // because it has been created, in order to avoid
+																// duplicates,
 																// we delete it
 					PatientMedication pm = createPMed(p, med2);
 					pmManager.assignPatientMedication(pm);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-			}		
+			}
 		}
 	}
 
 	private static void showEvolution(Patient p) {
 		// We could show the data like this:
-		//PRECONDITION: 1 month of data and at least 1 episode recorded
+		// PRECONDITION: 1 month of data and at least 1 episode recorded
 		// 1. Shows all episodes in a month
 		// 2. Shows the number of episodes per month using a counter
 		// 3. Shows if there is an exercise or meal repeated in the collection ?????
@@ -701,15 +717,15 @@ public class Menu {
 	}
 
 	private static void listMedications(List<Medication> meds) {
-		for (Medication m: meds) {
+		for (Medication m : meds) {
 			System.out.println(m.toString());
 		}
 	}
 
 	private static void listEpisodes(List<Episode> episodes) {
-		for (Episode e: episodes) {
+		for (Episode e : episodes) {
 			System.out.println(e.toString());
-			
+
 			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
 				System.out.println(s.toString());
 			}
@@ -717,7 +733,7 @@ public class Menu {
 	}
 
 	private static void listAllergies(List<Allergy> allergies) {
-		for (Allergy a: allergies) {
+		for (Allergy a : allergies) {
 			System.out.println(a.toString());
 		}
 	}

@@ -27,6 +27,12 @@ public class Allergy implements Serializable{
 		this.patients = new ArrayList<Patient>();
 	}
 	
+	public Allergy(String name) {
+		super();
+		this.name = name;
+		this.patients = new ArrayList<Patient>();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

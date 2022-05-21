@@ -19,6 +19,12 @@ public class EmergencyContact {
 		this.name=name;
 		this.number=number;
 	}
+	
+	public EmergencyContact(String name, Float number) {
+		super();
+		this.name=name;
+		this.number=number;
+	}
 
 	public Patient getPatient() {
 		return patient;

@@ -29,6 +29,7 @@ public class Patient implements Serializable {
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
 	private List<Allergy> allergy; // Many to many relationship
+	//private Integer user_id;
 
 	// MANDATORY CONSTRUCTOR
 	public Patient() {
@@ -60,7 +61,7 @@ public class Patient implements Serializable {
 	}
 
 	public Patient(String name, String email, Date birthday, Float height, Float weight, String lifestyle, String diet,
-			Integer exercise, byte[] photo) {
+			Integer exercise, byte[] photo/*,Integer user*/) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -71,6 +72,7 @@ public class Patient implements Serializable {
 		this.diet = diet;
 		this.ex_per_week = exercise;
 		this.photo = photo;
+		//this.user_id= user;
 
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
