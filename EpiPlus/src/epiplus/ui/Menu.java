@@ -806,7 +806,7 @@ public class Menu {
 			
 			
 		case 3:	//Feta salad, only replace feta
-			String[] ingredientsSalad = {"lettuce", "tomatoe", "cucumber", "feta"} 
+			String[] ingredientsSalad = {"lettuce", "tomatoe", "cucumber", "feta"}; 
 			
 			System.out.println("Feta salad recipe:");
 			System.out.println("Needed ingredients: half of lettuce, 2 tomatoes, 1 cucumber, 200g of feta cheese/n");
@@ -868,12 +868,6 @@ public class Menu {
 		showRecipe(choice);
 		
 		//getting allergies and diet - help please :(
-		
-		
-		
-		
-	
-
 	
 	}
 }
