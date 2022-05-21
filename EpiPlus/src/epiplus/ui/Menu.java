@@ -26,7 +26,7 @@ public class Menu {
 	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
 	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
 	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
-	private static UserManager uManager = new JPAUserManager();
+	//private static UserManager uManager = new JPAUserManager();
 
 	public static void main(String[] args) {
 		System.out.println("WELCOME TO EPI+ !!");
