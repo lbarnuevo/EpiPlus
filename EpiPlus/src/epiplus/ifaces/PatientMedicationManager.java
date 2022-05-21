@@ -11,5 +11,9 @@ public interface PatientMedicationManager {
 	public void unassignPatientMedication(PatientMedication pm);
 	public void updatePatientMedication (PatientMedication pm);
 	public List<Medication> getMedicationsOfPatient(Integer pacId);
+<<<<<<< HEAD
 	//public PatientMedication getPatientMedication (Patient p, Medication m);
+=======
+	// public PatientMedication getPatientMedication (Patient p, Medication m);
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 }

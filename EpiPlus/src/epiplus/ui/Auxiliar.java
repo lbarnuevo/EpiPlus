@@ -234,8 +234,7 @@ public class Auxiliar {
 		String email = getString(reader);
 
 		System.out.println("Date of birth (dd-MM-yyyy): ");
-		String dob = getString(reader);
-		LocalDate birthday = LocalDate.parse(dob, formatter);
+		LocalDate birthday = LocalDate.parse(getString(reader), formatter);
 
 		System.out.println("Height (cm): ");
 		Float height = getPositiveFloat(reader);

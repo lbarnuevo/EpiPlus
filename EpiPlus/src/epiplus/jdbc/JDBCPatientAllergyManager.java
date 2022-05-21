@@ -100,5 +100,5 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		
 		
 	}
-		*/
+	*/	
 }

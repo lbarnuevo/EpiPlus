@@ -83,9 +83,13 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}		
 	}
 
+<<<<<<< HEAD
 	/*
 	//WHY DO WE NEED THIS -> wee need this in order to eliminate the relationship when we delete a medication from a patient, I explained it to isabel the other day 
 	@Override
+=======
+	/* @Override
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	public PatientMedication getPatientMedication(Patient p, Medication m) {
 		
 		PatientMedication patientmedication = null;
@@ -109,5 +113,9 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}
 		return patientmedication;
 		}
+<<<<<<< HEAD
 		*/
+=======
+		*/ 
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 }
