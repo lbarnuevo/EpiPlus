@@ -685,7 +685,7 @@ public class Menu {
 
 		Allergy all = null;
 		do {
-			System.out.println("INput the name of the allergy: ");
+			System.out.println("Input the name of the allergy: ");
 			String nameall = getString(reader);
 			all = allergyManager.getAllergyByName(nameall);
 		} while (all == null);
@@ -736,5 +736,116 @@ public class Menu {
 		for (Allergy a : allergies) {
 			System.out.println(a.toString());
 		}
+	}
+	
+	private static void showRecipe(Integer choice) {
+		
+
+		switch(choice) {
+		
+									// We consider allergy given in single form, not plural so it is able to match ingredients below
+		case 1:						//Hummus for every diet, changes in low and high fat (olive oil)
+			String[] ingredientsHummus = {"chickpea", "tahini","lemon", "salt", "olive", "baking soda"};	
+			// I want to do an if allergy in ingredients than show modified recipe or a respond that its not for the user
+			
+			System.out.println("Hummus recipe:");
+			System.out.println("Needed ingredients: 300g of chickpeas, 4 tablespoons of tahini, juice from 1 lemon, 2 teaspoons of salt, 3 tablespoons of olive oil, 1.5 teaspoon of baking soda/n");
+			System.out.println("Take chickpeas and place it in a large bowl. Add plenty of water and soak overnight.");
+			System.out.println("When ready, drain chickpeas and place them in a medium-sized heavy cooking pot. Cover with water by about 2 inches.");
+			System.out.println("Bring to a boil, then reduce heat and simmer for up to 2 hours.");
+			System.out.println("Cover the cooked chickpeas in hot water and add baking soda.");
+			System.out.println("Leave for a few minutes.");
+			System.out.println("Take a handful of chickpeas and rub under running water to remove the skins.");
+			System.out.println("Let the chickpeas cool completely.");
+			System.out.println("Puree the chickpeas in a food processor.");
+			System.out.println("Add the rest and keep blending until its consistency is smooth.");
+			System.out.println("Transfer to a serving bowl and garnish with for example parsley or paprika./n");
+			
+		case 2:		//Shakshuka, only replace with oil and eggs
+			String[] ingredientsShakshuka = {"olive oil","onion","red bell pepper","garlic","paprika","cumin","chili","tomatoe","egg","salt","pepper"};
+			
+			System.out.println("Shakshuka recipe:");
+			System.out.println("Needed ingredients: 6 eggs, 1 red bell pepper, 1 onion, 1 garlic, 1 mashed tomatoes can, 2 teaspoons of paprika, 2 teaspoons of cumin, 1 teaspoon of salt, 1 teaspoon of pepper, 1 teaspoon of chili powder, 1 tablespoon of olive oil /n");
+			
+			System.out.println("Heat olive oil in a large sauté pan on medium heat.");
+			System.out.println("Add the chopped bell pepper and onion and cook for 5 minutes or until the onion becomes translucent.");
+			System.out.println("Add garlic and spices and cook an additional minute");
+			System.out.println("Pour the can of tomatoes and juice into the pan and break down the tomatoes using a large spoon.");
+			System.out.println("Season with salt and pepper and bring the sauce to a simmer");
+			System.out.println("Use your large spoon to make small wells in the sauce and crack the eggs into each well.");
+			System.out.println("Cover the pan and cook for 5-8 minutes, or until the eggs are done to your liking");
+			System.out.println("Optionally garnish with chopped cilantro and parsley./n");
+			
+			
+		case 3:	//Feta salad, only replace feta
+			String[] ingredientsSalad = {"lettuce", "tomatoe", "cucumber", "feta"} 
+			
+			System.out.println("Feta salad recipe:");
+			System.out.println("Needed ingredients: half of lettuce, 2 tomatoes, 1 cucumber, 200g of feta cheese/n");
+			System.out.println("Chop half a lettuce into small pieces. Do the same with 2 tomatoes, 1 cucumber and a feta cheese");
+			System.out.println("Mix everything together in a bowl");
+			System.out.println("Use the spices you like for example: oregano, salt, pepper");
+			System.out.println("Optionally you can add 1 table spoon of olive oil./n");
+			
+		case 4:
+			//Chinese noodles
+			String[] ingredientsNoodles = {"noodle","onion","red bell pepper","tofu","soy sauce","oil","paprika"};
+			System.out.println("Chinese noodles recipe:");
+			System.out.println("Needed ingredients: 1 pack of noodles, 1 big onion, 1 red bell pepper, 150g of tofu, 5 tablespoons of soy sauce, 2 table spoons of oil, 2 teaspoons of paprika");
+			System.out.println("Dice 2 onions and fry on oil you like, for example sesame oil.");
+			System.out.println("Boil noodles.");
+			System.out.println("Add soy sauce");
+			System.out.println("Slice red bell pepper and other greens of your choice");
+			System.out.println("Dice tofu and add to the veggies.");
+			System.out.println("Add paprika.");
+			System.out.println("Add noodles to the rest and fry for 2 minutes./n");
+			
+		case 5:
+			//Oatmeal, replace milk, not for keto, high protein
+			String[] ingredientsOatmeal = {"oat","milk","cinnamon"};
+			System.out.println("Oatmeal recipe:");
+			System.out.println("Needed ingredients: 1 cup of oats, 1 cup of milk, 1 teaspoon of cinnamon");
+			System.out.println("Boil in milk oats.");
+			System.out.println("Add cinnamon.");
+			System.out.println("You can add anything you want, nuts, goji berries, dates etc. It is recommended to add any fresh fruit.");
+			System.out.println("Mix everything and boil until oats are soft./n");
+				
+		default:
+			System.out.println("Wrong number, do you want to back to the menu?");
+			System.out.println("Type yes or no: ");
+			String choice2 = getString(reader);
+			if (choice2 == "yes") { showMenu();}
+			else if (choice2 == "no") {
+			
+		}
+		
+		
+		
+	}
+	
+	private static void chooseRecipe() {
+		
+		//Integer choice = 1;
+		
+		System.out.println("What recipe do you want to see?");
+		System.out.println("1. Hummus");
+		System.out.println("2. Shakshuka");
+		System.out.println("3. Salad");
+		System.out.println("4. Chinese noodles");
+		System.out.println("5. Oatmeal");
+		
+		System.out.println("Input the number of the recipe: ");
+		Integer choice = getPositiveInteger(reader);
+		
+		showRecipe(choice);
+		
+		//getting allergies and diet - help please :(
+		
+		
+		
+		
+	
+
+	
 	}
 }
