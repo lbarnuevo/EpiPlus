@@ -73,7 +73,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 	@Override
 	public void updatePatientMedication(PatientMedication pm) {
 		try {
-			String sql = "UPDATE patientmedication " + " SET frequency=?" + " amount=?";
+			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pm.getFrequency());
 			p.setFloat(2, pm.getAmount());

@@ -34,6 +34,13 @@ public class Medication implements Serializable{
 		this.patient = new ArrayList<Patient>();
 	}
 
+	public void addPatient(Patient p) {
+		patient.add(p);
+	}
+	
+	public void deletePatient(Patient p) {
+		patient.remove(p);
+	}
 	public List<Patient> getPatient() {
 		return patient;
 	}

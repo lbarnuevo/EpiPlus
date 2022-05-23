@@ -83,7 +83,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("What lifestyle would you say you follow?\n\nIntroduce one of the previous options. ");
+			System.out.println("\n\nWhat lifestyle would you say you follow?\nIntroduce one of the previous options. ");
 			lifestyle = getString(reader);
 			if (lifestyle.equalsIgnoreCase("sedentary")) {
 				read = true;
@@ -106,7 +106,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("What diet would you say you follow? \n\nIntroduce one of the previous options.");
+			System.out.println("\n\nWhat diet would you say you follow?\nIntroduce one of the previous options.");
 			diet = getString(reader);
 
 			if (diet.equalsIgnoreCase("normal")) {
@@ -149,7 +149,7 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("Do you have any allergies? \n\nIntroduce one or more of the options above.");
+			System.out.println("\n\nDo you have any allergies? \n\nIntroduce one or more of the options above.");
 			allergyName = getString(reader);
 
 			if (allergyName.equalsIgnoreCase("egg")) {

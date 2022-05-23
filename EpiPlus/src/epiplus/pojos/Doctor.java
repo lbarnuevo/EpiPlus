@@ -47,6 +47,10 @@ public class Doctor implements Serializable {
 		this.patients = new ArrayList<Patient>();
 	}
 	
+	public void addPatient(Patient p) {
+		patients.add(p);
+	}
+	
 	public byte[] getPhoto() {
 		return photo;
 	}
@@ -118,6 +122,6 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DOCTOR [ID=" + id + ", NAME=" + name + "]" + "\nEmail=" + email + "\nHospitalName=" + hospitalName;
+		return "DOCTOR [ID = " + id + ", NAME=" + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
 	}
 }
