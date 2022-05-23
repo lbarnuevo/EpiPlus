@@ -5,6 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Medication")
+@XmlType(propOrder = { "name", "patient"} )
 public class Medication implements Serializable{
 	
 	/**
@@ -13,7 +25,12 @@ public class Medication implements Serializable{
 	private static final long serialVersionUID = -7574063760306956061L;
 	
 	private Integer id;
+	
+	@XmlAttribute
 	private String name;
+	
+	@XmlElement(name = "Patient")
+	@XmlElementWrapper(name = "Patients")
 	private List<Patient> patient;//Many to many relationship 
 	
 	public Medication() {
