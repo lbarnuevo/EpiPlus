@@ -235,7 +235,6 @@ public class Menu {
 
 		List<Patient> patients = patientManager.searchPatientByName(name);
 		Patient p = selectPatient(patients);
-		listPatients(patients);
 
 		return p;
 	}
@@ -404,13 +403,19 @@ public class Menu {
 
 			switch (choice) {
 			case 1:
-				System.out.println((p.getDoctor()).toString());
-				if (p.getDoctor().getPhoto() != null) {
-					ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
-					ImageWindow window = new ImageWindow();
-					window.showBlob(blobIn);
+				if (p.getDoctor() == null) {
+					System.out.println("You have not added any doctor. ");
+					break;
+				} else {
+					System.out.println((p.getDoctor()).toString());
+					if (p.getDoctor().getPhoto() != null) {
+						ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
+						ImageWindow window = new ImageWindow();
+						window.showBlob(blobIn);
+					}
+					return;
 				}
-				return;
+				
 			case 2:
 				if (p.getDoctor() == null) {
 					p.setDoctor(d);
@@ -438,10 +443,10 @@ public class Menu {
 	}
 
 	private static void seeUserPatient(Patient p) {
-		System.out.println("Showing user's information...");
+		System.out.println("Showing user's information...\n");
 		System.out.println(p.toString());
 
-		System.out.println("--- MY EMERGENCY CONTACTS ---");
+		System.out.println("\n--- MY EMERGENCY CONTACTS ---");
 		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
 			System.out.println(c.toString());
 		}
@@ -547,19 +552,22 @@ public class Menu {
 		}
 	}
 
-	private static void registerEpisode() {
+	private static void registerEpisode(Patient p) {
 		if (continueProccess() == false) {
 			return;
 		} else {
 			try {
 				Episode ep = createEpisode(reader);
+				ep.setPatient(p);
 				episodeManager.addEpisode(ep);
 
 				Symptom symptom = createSymptom(reader);
+				symptom.setEpisodes(ep);
 				Symptom s2 = symptomManager.getSymptomByName(symptom.getName());
 
 				if (s2 == null) {
 					symptomManager.addSymptom(symptom);
+					
 					EpisodeSymptom epsymp = createSeverity(ep, symptom);
 					esManager.assignEpisodeSymptom(epsymp);
 				} else {
@@ -582,7 +590,8 @@ public class Menu {
 
 				if (med2 == null) {
 					PatientMedication pm = createPMed(p, med);
-
+					pm.setMedication(med);
+					
 					medicationManager.addMedication(med);
 					pmManager.assignPatientMedication(pm);
 				} else {
@@ -605,6 +614,7 @@ public class Menu {
 
 				if (a2 == null) {
 					PatientAllergy pa = new PatientAllergy (a,p);
+					pa.setPatient(p);
 
 					allergyManager.addAllergy(a);
 					paManager.assignPatientAllergy(pa);

@@ -72,7 +72,7 @@ public class JDBCManager {
 			// -----------------EPISODES----------
 			sql = "CREATE TABLE episodes (" 
 					+ "	id	    	INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ "	date		DATE NOT NULL,"
+					+ "	doe		DATE NOT NULL,"
 					+ "	length		REAL NOT NULL," // time in minutes
 					+ "	activity	TEXT," // before attack
 					+ "	mood	    TEXT," 
