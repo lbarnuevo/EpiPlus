@@ -25,7 +25,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 	@Override
 	public void assignPatientAllergy(PatientAllergy pa) {
 		try {
-			String sql = "INSERT INTO patientallergy (patientId, allergyId)  VALUES (?,?)";
+			String sql = "INSERT INTO patientallergies (patientId, allergyId)  VALUES (?,?)";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pa.getPatient().getId());
 			p.setInt(2, pa.getAllergy().getId());
@@ -37,7 +37,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 	@Override
 	public void unassignPatientAllergy(PatientAllergy pa) {
 		try {
-			String sql = "DELETE FROM patientallergy WHERE patientId=? AND allergyId=?";
+			String sql = "DELETE FROM patientallergies WHERE patientId=? AND allergyId=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pa.getPatient().getId());
 			p.setInt(2, pa.getAllergy().getId());
@@ -52,7 +52,7 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		List<Allergy> allergies = new ArrayList<Allergy>();
 		
 		try {
-			String sql = "SELECT * FROM allergy AS a JOIN patientallergy AS pa ON a.id=pa.allergyId WHERE pa.patientId LIKE ?";
+			String sql = "SELECT * FROM allergy AS a JOIN patientallergies AS pa ON a.id=pa.allergyId WHERE pa.patientId LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, pId);
 			ResultSet rs = prep.executeQuery();

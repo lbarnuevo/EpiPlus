@@ -94,7 +94,7 @@ public class JDBCDoctorManager implements DoctorManager {
 		List<Doctor> doctorsList = new ArrayList<Doctor>();
 
 		try {
-			String sql = "SELECT * FROM doctors WHERE hospital LIKE ?";
+			String sql = "SELECT * FROM doctors WHERE hospitalName LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, hospital);
 			ResultSet rs = prep.executeQuery();
@@ -179,7 +179,7 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void updateDoctor(Doctor d) {
 		try {
-			String sql = "UPDATE doctors" + " SET name=?" + " email=?" + " hospitalName=?" + " photo=?";
+			String sql = "UPDATE doctors" + " SET name=?," + " email=?," + " hospitalName=?," + " photo=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setString(1, d.getName());
 			p.setString(2, d.getEmail());
