@@ -766,18 +766,30 @@ public class Menu {
 		}
 	}
 	
-	private static void showRecipe(Integer choice) {
+	private static void showRecipe(Integer choice, String diet, List <Allergy> allergies) {
 		
 
 		switch(choice) {
 		
 									// We consider allergy given in single form, not plural so it is able to match ingredients below
 		case 1:						//Hummus for every diet, changes in low and high fat (olive oil)
-			String[] ingredientsHummus = {"chickpea", "tahini","lemon", "salt", "olive", "baking soda"};	
-			// I want to do an if allergy in ingredients than show modified recipe or a respond that its not for the user
+			String[] ingredientsHummus = new String[] {"chickpea", "tahini","lemon", "salt", "olive", "baking soda"};	
+			
+			List<String> hummus = Arrays.asList(ingredientsHummus);
+			
+			Iterator<Allergy> itr  = allergies.listIterator();
+			
+			while(itr.hasNext()) {
+				
+				((AllergyManager) allergies).listAllAllergies().contains(itr.next());
+				
+			}
 			
 			System.out.println("Hummus recipe:");
 			System.out.println("Needed ingredients: 300g of chickpeas, 4 tablespoons of tahini, juice from 1 lemon, 2 teaspoons of salt, 3 tablespoons of olive oil, 1.5 teaspoon of baking soda/n");
+			
+			if( diet =="ketogenic") {System.out.println("For your ketogenic diet, you can add more olive oil.");}
+			
 			System.out.println("Take chickpeas and place it in a large bowl. Add plenty of water and soak overnight.");
 			System.out.println("When ready, drain chickpeas and place them in a medium-sized heavy cooking pot. Cover with water by about 2 inches.");
 			System.out.println("Bring to a boil, then reduce heat and simmer for up to 2 hours.");
@@ -795,7 +807,17 @@ public class Menu {
 			System.out.println("Shakshuka recipe:");
 			System.out.println("Needed ingredients: 6 eggs, 1 red bell pepper, 1 onion, 1 garlic, 1 mashed tomatoes can, 2 teaspoons of paprika, 2 teaspoons of cumin, 1 teaspoon of salt, 1 teaspoon of pepper, 1 teaspoon of chili powder, 1 tablespoon of olive oil /n");
 			
-			System.out.println("Heat olive oil in a large sauté pan on medium heat.");
+			if (diet == "vegan") { System.out.println("For yout "+ diet +" diet, replace eggs with 200g of tofu."); } 
+			if (diet == "high protein vegan" ) {System.out.println("For your"+ diet +" diet replace eggs with 300g of tofu. You also can use less than whole can of tomatoes. "); }
+			if (diet == "ketogenic" || diet == "ketogenic vegetarian") {System.out.println("For your "+ diet +" diet you can use less tomatoes and more olive oil.");}
+			if (diet == "ketogenc vegan") {System.out.println("For your "+ diet +" diet you can replace eggs with 150g of tofu and use more olive oil.");}
+			if (diet == "high protein vegetarian") {System.out.println("For your "+ diet +" diet you can use less than whole can of tomatoes and use 8 eggs.");}
+			if (diet == "high protein") { System.out.println("For your "+ diet +" diet you can use 8 eggs.");}
+			
+			
+			
+			
+			System.out.println("Heat olive oil in a large saute pan on medium heat.");
 			System.out.println("Add the chopped bell pepper and onion and cook for 5 minutes or until the onion becomes translucent.");
 			System.out.println("Add garlic and spices and cook an additional minute");
 			System.out.println("Pour the can of tomatoes and juice into the pan and break down the tomatoes using a large spoon.");
@@ -811,6 +833,15 @@ public class Menu {
 			
 			System.out.println("Feta salad recipe:");
 			System.out.println("Needed ingredients: half of lettuce, 2 tomatoes, 1 cucumber, 200g of feta cheese/n");
+			
+			if (diet == "vegan") { System.out.println("For yout "+ diet +" diet, replace feta with 200g of pickled tofu or vegan feta from a shop."); } 
+			if (diet == "high protein vegan" ) {System.out.println("For your"+ diet +" diet replace feta with 300g of pickled tofu or vegan tofu from a shop. You also can use less lettuce. "); }
+			if (diet == "ketogenic" || diet == "ketogenic vegetarian") {System.out.println("For your "+ diet +" diet you can use less vegetables, more feta cheese and add olive oil.");}
+			if (diet == "ketogenc vegan") {System.out.println("For your "+ diet +" diet you can replace feta cheese with pickled tofu or vegan feta from a shop. You also can use less vegetables and add olive oil.");}
+			if (diet == "high protein vegetarian" || diet == "high protein" ) {System.out.println("For your "+ diet +" diet you can use 300g of feta cheese and less vegetables.");}
+			if (diet == "lactose free") { System.out.println("For your "+ diet +" diet you can use lactose free feta cheese. If you can't find one, you can use pickled tofu or vegan feta cheese.");}
+			if (diet == "dairy free") { System.out.println("For your "+ diet +" diet you can use pickled tofu or vegan feta cheese.");}
+			
 			System.out.println("Chop half a lettuce into small pieces. Do the same with 2 tomatoes, 1 cucumber and a feta cheese");
 			System.out.println("Mix everything together in a bowl");
 			System.out.println("Use the spices you like for example: oregano, salt, pepper");
@@ -821,6 +852,12 @@ public class Menu {
 			String[] ingredientsNoodles = {"noodle","onion","red bell pepper","tofu","soy sauce","oil","paprika"};
 			System.out.println("Chinese noodles recipe:");
 			System.out.println("Needed ingredients: 1 pack of noodles, 1 big onion, 1 red bell pepper, 150g of tofu, 5 tablespoons of soy sauce, 2 table spoons of oil, 2 teaspoons of paprika");
+			
+			if (diet == "high protein vegetarian" || diet == "high protein" || diet == "high protein vegan"  ) {System.out.println("For your"+ diet +" diet you can use 200g of tofu and less noodles.");}
+			if (diet == "ketogenic" || diet == "ketogenic vegetarian" || diet == "ketogenic vegan") {System.out.println("For your "+ diet +" diet you can use less noodles and more oil.");}
+			if (diet == "gluten free") { System.out.println("For your "+ diet +" diet remember to use gluten free noodles");}
+			
+			
 			System.out.println("Dice 2 onions and fry on oil you like, for example sesame oil.");
 			System.out.println("Boil noodles.");
 			System.out.println("Add soy sauce");
@@ -834,6 +871,15 @@ public class Menu {
 			String[] ingredientsOatmeal = {"oat","milk","cinnamon"};
 			System.out.println("Oatmeal recipe:");
 			System.out.println("Needed ingredients: 1 cup of oats, 1 cup of milk, 1 teaspoon of cinnamon");
+			
+			if (diet == "high protein vegetarian" || diet == "high protein") {System.out.println("For your"+ diet +" diet you can add proteins powder or add tofu or use high protein milk.");}
+			if (diet == "high protein vegan"  ) {System.out.println("For your"+ diet +" diet replace milk with plant based milk. To add proteins you can use high protein plant based milk or add tofu or vegan protein powder.");}
+			if (diet == "ketogenic" || diet == "ketogenic vegetarian") { System.out.println("For your"+ diet +" diet you can use coconut milk or high fat milk. Use only 1/3 cup of oats. Add many nuts or chia seeds to make it more ketogenic.");}
+			if (diet == "dairy free" || diet == "vegan") { System.out.println("For your"+ diet +" replace cow milk with plant based milk.");}
+			if (diet == "lactose free") { System.out.println("For your"+ diet +" replace normal cow milk with lactose free milk or vegan milk");}
+			if (diet == "ketogenic vegan") { System.out.println("For your"+ diet +" replace cow milk with plant based milk. You can add many nuts or chia seeds to make it more ketogenic.");}
+			
+			
 			System.out.println("Boil in milk oats.");
 			System.out.println("Add cinnamon.");
 			System.out.println("You can add anything you want, nuts, goji berries, dates etc. It is recommended to add any fresh fruit.");
@@ -867,14 +913,18 @@ public class Menu {
 		System.out.println("Input the number of the recipe: ");
 		Integer choice = getPositiveInteger(reader);
 		
-		showRecipe(choice);
 		
-		//getting allergies and diet - help please :(
 		
-		List <Allergy> allergies= paManager.getAllergiesOfPatient(p.getId()); 
-		//returns list of allergies of the patient calling this function
-		String diet= p.getDiet(); 
-		//returns diet (as a String) of the patient
+				List <Allergy> allergies= paManager.getAllergiesOfPatient(p.getId()); 
+				//returns list of allergies of the patient calling this function
+				String diet= p.getDiet(); 
+				//returns diet (as a String) of the patient
+		
+		
+		
+		showRecipe(choice,diet,allergies);
+		
+		
 	
 	}
 }
