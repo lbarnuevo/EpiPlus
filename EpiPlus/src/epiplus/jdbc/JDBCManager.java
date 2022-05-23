@@ -152,7 +152,6 @@ public class JDBCManager {
 
 
 		} catch (SQLException e) {
-			// Do not complain if tables already exist
 			if (!e.getMessage().contains("already exists")) {
 				e.printStackTrace();
 			}

@@ -352,6 +352,7 @@ public class Auxiliar {
 	public static void ListDiets() {
 		System.out.println("                  	DEFINITION OF DIETS                        ");
 		System.out.println("---------------------------------------------------------------");
+		
 		System.out.println("Normal: do not have any specified diet");
 		System.out.println("Mediterranean: seafood, fish, vegetables, fruits, whole grains");
 		System.out.println("High protein: high protein foods like meat or eggs");
@@ -372,7 +373,8 @@ public class Auxiliar {
 
 	public static void ListLifestyle() {
 		System.out.println("                  	DEFINITION OF LIFESTYLES                        ");
-		System.out.println("---------------------------------------------------------------");
+		System.out.println("--------------------------------------------------------------------");
+		
 		System.out.println("Sedentary: do not play any sports");
 		System.out.println("Low: practice no impact sports (yoga, pilates...)");
 		System.out.println("Medium: practice low impact sports (walking, swimmming...)");
@@ -381,17 +383,40 @@ public class Auxiliar {
 
 	public static void ListAllergies() {
 		System.out.println("               DEFINITION OF ALLERGIES AND INTOLERANCES               ");
-		System.out.println("---------------------------------------------------------------------");
+		System.out.println("----------------------------------------------------------------------");
+		
+		System.out.println("LEGUMS/SEEDS/SPICES:");
+		System.out.println("Chickpea");
+		System.out.println("Tahini");
+		System.out.println("Cumin");
+		System.out.println("Soybean");
+		System.out.println("Tofu");
+		System.out.println("Cinnamon");
+		
+		System.out.println("CEREALS:");
+		System.out.println("Oat");
+		
+		System.out.println("FRUITS:");
+		System.out.println("Lemon");
+		System.out.println("Olive");
+		System.out.println("Tomato");
+		
+		System.out.println("VEGETABLES:");
+		System.out.println("Onion");
+		System.out.println("Red bell pepper");
+		System.out.println("Pepper");
+		System.out.println("Garlic");
+		System.out.println("Paprika");
+		System.out.println("Lettuce");
+		System.out.println("Cucumber");
+		System.out.println("Chili");
+		
+		System.out.println("ANIMAL PRODUCTS:");
 		System.out.println("Egg");
-		System.out.println("Fish");
-		System.out.println("Animal milk");
-		System.out.println("Nuts (almonds, peanuts, seeds, walnuts, pistachios, hazelnuts, cashews...)");
-		System.out.println("Legums (green peas, garbanzo peas...)");
-		System.out.println("Soja");
-		System.out.println("Wheat");
-		System.out.println("Vegetables (tomatp, carrot, lettuce");
-		System.out.println("Fruits (melon, pineapple, strawberry, kiwi, peach...");
-		System.out.println("High-histamine food (wine, cheese, pickles, sardine...");
+		System.out.println("Feta cheese");		
+		System.out.println("Cow milk");
 
+		System.out.println("OTHERS:");
+		System.out.println("Baking soda");
 	}
 }
