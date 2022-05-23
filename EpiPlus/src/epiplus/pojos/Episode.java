@@ -160,7 +160,7 @@ public class Episode implements Serializable{
 
 	@Override
 	public String toString() {
-		return "EPISODE [ID=" + id +"]" + "\nDate="+ doe + "\nLength=" + length + "\nActivity=" + activity + "\nMood="
-				+ mood + "\nPlace=" + place + "\nPrevious meal=" + previous_meal + "\nInjuries=" + injuries;
+		return "EPISODE [ID = " + id +"]" + "\nDate = "+ doe + "\nLength = " + length + "\nActivity = " + activity + "\nMood = "
+				+ mood + "\nPlace = " + place + "\nPrevious meal = " + previous_meal + "\nInjuries = " + injuries;
 	}
 }

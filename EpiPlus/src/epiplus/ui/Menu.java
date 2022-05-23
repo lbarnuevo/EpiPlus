@@ -74,17 +74,28 @@ public class Menu {
 
 	/*
 	 * public static User loginUser(String role) {
-	 * System.out.println("Enter email:"); String email = getString(reader);
-	 * System.out.println("Enter password:"); String passwd = getString(reader);
+	 * System.out.println("Enter email:"); 
+	 * String email = getString(reader);
+	 * System.out.println("Enter password:"); 
+	 * String passwd = getString(reader);
 	 * User u = uManager.checkPassword(email, passwd);
 	 * 
-	 * if (u != null) { if (u.getRole().getName().equals(role)) {
-	 * System.out.println("Login as "+ role+ " ran successfully"); } else {
-	 * System.out.
-	 * println("User not found in the database. Are you sure you want to login as a "
-	 * +role+ "?"); } } else {
-	 * System.out.println("User not found in the database. Please, register."); } //
-	 * ownerMenu(u.getId()); return u; }
+	 * 	if (u != null) { 
+	 * 		if (u.getRole().getName().equals(role)) {
+	 * 		System.out.println("Login as "+ role+ " ran successfully"); 
+	 *		} 
+	 * 		else {
+	 * 		System.out.println("User not found in the database. Are you sure you want to login as a "
+	 * 		+role+ "?"); 
+	 * 		} 
+	 * 	} else {
+	 * 	System.out.println("User not found in the database. Please, register."); 
+	 * 	}
+	 * 
+	 * if (role==doctor){
+	 * doctorMenu(u.getEmail()); //user email=patient email/doctor email 
+	 * return u; 
+	 * }
 	 */
 
 	// TODO loginUser method --> method for both users
@@ -998,7 +1009,6 @@ public class Menu {
 		}
 	}
 
-	// Patient p has already logged in, connection with the database done
 	private static void chooseRecipe(Patient p) {
 
 		System.out.println("What recipe do you want to see?");

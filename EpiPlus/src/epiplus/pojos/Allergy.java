@@ -79,7 +79,7 @@ public class Allergy implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Allergy [id=" + id + ", name=" + name + "]";
+		return "Allergy [ID = " + id + ", NAME = " + name + "]";
 	}
 }
 
