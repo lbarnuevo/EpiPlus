@@ -64,6 +64,10 @@ public class Episode implements Serializable{
 	public void setSymptoms(List<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
+	
+	public void addSymptom(Symptom s) {
+		symptoms.add(s);
+	}
 
 	public Integer getId() {
 		return id;

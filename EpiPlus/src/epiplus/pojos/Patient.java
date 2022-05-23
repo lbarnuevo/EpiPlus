@@ -82,6 +82,37 @@ public class Patient implements Serializable {
 		this.allergy = new ArrayList<Allergy>();
 	}
 
+	public void addEC(EmergencyContact ec) {
+		emergency_contacts.add(ec);
+	}
+	
+	public void deleteEC(EmergencyContact ec) {
+		emergency_contacts.remove(ec);
+	}
+	
+	public void addMedication(Medication m) {
+		medication.add(m);
+	}
+	
+	public void deleteMedication(Medication m) {
+		medication.remove(m);
+	}
+	
+	public void addEpisodes(Episode e) {
+		episodes.add(e);
+	}
+	
+	public void deleteEpisodes(Episode e) {
+		episodes.remove(e);
+	}
+	
+	public void addAllergy(Allergy a) {
+		allergy.add(a);
+	}
+	
+	public void deleteAllergy(Allergy a) {
+		allergy.remove(a);
+	}
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}

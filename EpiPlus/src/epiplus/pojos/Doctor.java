@@ -47,6 +47,10 @@ public class Doctor implements Serializable {
 		this.patients = new ArrayList<Patient>();
 	}
 	
+	public void addPatient(Patient p) {
+		patients.add(p);
+	}
+	
 	public byte[] getPhoto() {
 		return photo;
 	}

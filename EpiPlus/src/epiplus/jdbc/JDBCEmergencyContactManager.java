@@ -22,7 +22,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	@Override
 	public void addEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "INSERT INTO emergencycontact (name,number,patientId) VALUES (?,?,?)";
+			String sql = "INSERT INTO emergencycontacts (name,number,patientId) VALUES (?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, c.getName());
 			prep.setFloat(2, c.getNumber());
@@ -35,7 +35,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	@Override
 	public void deleteEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "DELETE FROM emergencycontact WHERE id=?";
+			String sql = "DELETE FROM emergencycontacts WHERE id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, c.getId());
 			p.executeUpdate();
@@ -50,7 +50,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		List<EmergencyContact> contactsList = new ArrayList<EmergencyContact>();
 
 		try {
-			String sql = "SELECT * FROM emergencycontact WHERE patientId LIKE ?";
+			String sql = "SELECT * FROM emergencycontacts WHERE patientId LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, pacId);
 			ResultSet rs = prep.executeQuery();
@@ -75,7 +75,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	@Override
 	public void updateEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "UPDATE emergencycontacts" + " SET name=?" + " number=?";
+			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, c.getName());
 			ps.setFloat(2, c.getNumber());
@@ -91,7 +91,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		List<EmergencyContact> emergencyContactsList = new ArrayList<EmergencyContact>();
 
 		try {
-			String sql = "SELECT * FROM emergencycontact";
+			String sql = "SELECT * FROM emergencycontacts";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			ResultSet r = prep.executeQuery();
 
