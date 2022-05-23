@@ -2,6 +2,8 @@ package epiplus.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -35,6 +37,21 @@ public class JDBCManager {
 
 	public Connection getConnection() {
 		return c;
+	}
+	
+	public Integer getLastId() {
+		String query = "SELECT last_insert_rowid() AS lastId";
+		PreparedStatement p;
+		Integer lastId = null;
+		try {
+			p = c.prepareStatement(query);
+			ResultSet rs = p.executeQuery();
+			lastId = rs.getInt("lastId");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lastId;
 	}
 
 //------CREATE TABLES-------------

@@ -286,7 +286,7 @@ public class Menu {
 
 			switch (choice) {
 			case 1:
-				registerEpisode();
+				registerEpisode(p);
 				break;
 			case 2:
 				medicationMenu(p);
@@ -557,7 +557,7 @@ public class Menu {
 				episodeManager.addEpisode(ep);
 
 				Symptom symptom = createSymptom(reader);
-				symptom.setEpisodes(ep);
+				symptom.addEpisodes(ep);
 				Symptom s2 = symptomManager.getSymptomByName(symptom.getName());
 
 				if (s2 == null) {
@@ -585,9 +585,10 @@ public class Menu {
 
 				if (med2 == null) {
 					PatientMedication pm = createPMed(p, med);
-					pm.setMedication(med);
 					
 					medicationManager.addMedication(med);
+					//int id = manager.getLastId();
+					//med.setId(id);
 					pmManager.assignPatientMedication(pm);
 				} else {
 					PatientMedication pm = createPMed(p, med2);
