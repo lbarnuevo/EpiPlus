@@ -2,6 +2,8 @@ package epiplus.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -36,6 +38,21 @@ public class JDBCManager {
 	public Connection getConnection() {
 		return c;
 	}
+	
+	public Integer getLastId() {
+		String query = "SELECT last_insert_rowid() AS lastId";
+		PreparedStatement p;
+		Integer lastId = null;
+		try {
+			p = c.prepareStatement(query);
+			ResultSet rs = p.executeQuery();
+			lastId = rs.getInt("lastId");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lastId;
+	}
 
 //------CREATE TABLES-------------
 	public void createTables() { //TODO add user 
@@ -59,10 +76,10 @@ public class JDBCManager {
 					+ " name		TEXT NOT NULL,"
 					+ " email		TEXT NOT NULL,"
 					+ " birthday 	DATE NOT NULL," 
-					+ " height		REAL," // in cm
+					+ " height		REAL," // in m
 					+ " weight		REAL," // in kg
-					+ " lifestyle 	TEXT CHECK('lifestyle' IN ('sedentary','low activity','medium ativity','high activity')),"
-					+ " diet 		TEXT CHECK ('diet' IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')),"
+					+ " lifestyle 	TEXT CHECK(lifestyle IN ('sedentary','low','medium','high')),"
+					+ " diet 		TEXT CHECK (diet IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')),"
 					+ " ex_per_week INTEGER,"
 					+ " photo 		BLOB,"
 					+ " doctorId INTEGER REFERENCES doctors(id) ON DELETE SET NULL" 
@@ -72,7 +89,7 @@ public class JDBCManager {
 			// -----------------EPISODES----------
 			sql = "CREATE TABLE episodes (" 
 					+ "	id	    	INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ "	date		DATE NOT NULL,"
+					+ "	doe		DATE NOT NULL,"
 					+ "	length		REAL NOT NULL," // time in minutes
 					+ "	activity	TEXT," // before attack
 					+ "	mood	    TEXT," 
@@ -152,7 +169,6 @@ public class JDBCManager {
 
 
 		} catch (SQLException e) {
-			// Do not complain if tables already exist
 			if (!e.getMessage().contains("already exists")) {
 				e.printStackTrace();
 			}

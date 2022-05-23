@@ -133,8 +133,8 @@ public class JDBCPatientManager implements PatientManager {
 	@Override
 	public void updatePatient(Patient p) {
 		try {
-			String sql = "UPDATE patients" + " SET name=?" + " email=?" + " photo=?" + " birthday=?" + " height=?"
-					+ " weight=?" + " lifestyle=?" + " ex_per_week=?" + " diet=?";
+			String sql = "UPDATE patients" + " SET name=?," + " email=?," + " photo=?," + " birthday=?," + " height=?,"
+					+ " weight=?," + " lifestyle=?," + " ex_per_week=?," + " diet=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getName());
 			ps.setString(2, p.getEmail());

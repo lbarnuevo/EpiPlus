@@ -27,14 +27,14 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			p.setInt(1, pm.getPatient().getId());
 			p.setInt(2, pm.getMedication().getId());
 			p.setInt(3, pm.getFrequency());
-			p.setFloat (4,pm.getAmount());
+			p.setFloat (4, pm.getAmount());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void unassignPatientMedication(PatientMedication pm) { //TODO a lo mejor es mejor pasar la medication en lugar de la relacion? no se 
+	public void unassignPatientMedication(PatientMedication pm) { 
 		try {
 			String sql = "DELETE FROM patientmedication WHERE patientId=? AND medicationId=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
@@ -73,7 +73,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 	@Override
 	public void updatePatientMedication(PatientMedication pm) {
 		try {
-			String sql = "UPDATE patientmedication " + " SET frequency=?" + " amount=?";
+			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pm.getFrequency());
 			p.setFloat(2, pm.getAmount());

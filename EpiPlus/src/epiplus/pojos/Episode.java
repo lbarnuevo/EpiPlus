@@ -89,6 +89,10 @@ public class Episode implements Serializable{
 	public void setSymptoms(List<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
+	
+	public void addSymptom(Symptom s) {
+		symptoms.add(s);
+	}
 
 	public Integer getId() {
 		return id;
@@ -181,7 +185,7 @@ public class Episode implements Serializable{
 
 	@Override
 	public String toString() {
-		return "EPISODE [ID=" + id +"]" + "\nDate="+ doe + "\nLength=" + length + "\nActivity=" + activity + "\nMood="
-				+ mood + "\nPlace=" + place + "\nPrevious meal=" + previous_meal + "\nInjuries=" + injuries;
+		return "EPISODE [ID = " + id +"]" + "\nDate = "+ doe + "\nLength = " + length + "\nActivity = " + activity + "\nMood = "
+				+ mood + "\nPlace = " + place + "\nPrevious meal = " + previous_meal + "\nInjuries = " + injuries;
 	}
 }

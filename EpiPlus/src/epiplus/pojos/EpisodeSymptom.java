@@ -82,6 +82,6 @@ public class EpisodeSymptom implements Serializable{
 
 	@Override
 	public String toString() {
-		return "EpisodeSymptom [severity=" + severity + ", episode=" + episode + ", symptom=" + symptom + "]";
+		return "EpisodeSymptom [severity = " + severity + ", episode = " + episode + ", symptom = " + symptom + "]";
 	}
 }

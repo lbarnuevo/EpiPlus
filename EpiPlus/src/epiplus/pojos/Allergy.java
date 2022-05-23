@@ -50,6 +50,9 @@ public class Allergy implements Serializable{
 		this.patients = new ArrayList<Patient>();
 	}
 	
+	public void addPatient(Patient p) {
+		patients.add(p);
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -93,7 +96,7 @@ public class Allergy implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Allergy [id=" + id + ", name=" + name + "]";
+		return "Allergy [ID = " + id + ", NAME = " + name + "]";
 	}
 }
 
