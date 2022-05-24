@@ -38,7 +38,7 @@ public class Doctor implements Serializable {
 	@XmlElement(name = "Patient")
 	@XmlElementWrapper(name = "Patients")
 	private List<Patient> patients; //One to many relationship 
-	private Integer user_id;
+	private Integer role_id;
 	
 	public Doctor() {
 		super();
@@ -61,7 +61,7 @@ public class Doctor implements Serializable {
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
-		this.user_id = user;
+		this.role_id = user;
 		
 		this.patients = new ArrayList<Patient>();
 	}
@@ -127,11 +127,11 @@ public class Doctor implements Serializable {
 	}
 
 	public Integer getUser_id() {
-		return user_id;
+		return role_id;
 	}
 
 	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+		this.role_id = user_id;
 	}
 
 	@Override

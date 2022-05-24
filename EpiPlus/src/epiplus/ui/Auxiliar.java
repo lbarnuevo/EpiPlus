@@ -196,6 +196,7 @@ public class Auxiliar {
 		return confir;
 	}
 
+	//TODO delete when we ask rodrigo 
 	public static Doctor createDoctor(BufferedReader reader) throws IOException {
 		System.out.println("Input doctor information");
 		System.out.println("");
@@ -217,10 +218,13 @@ public class Auxiliar {
 			photo = getPhoto(reader);
 		}
 
-		Doctor doc = new Doctor(name, email, hospital, photo);
+		int id = 1; 
+		
+		Doctor doc = new Doctor(name, email, hospital, photo, id);
 		return doc;
 	}
 
+	//TODO when we ask rodrigo about jpa 
 	public static Patient createPatient(BufferedReader reader) throws IOException {
 		System.out.println("Input patient information");
 		System.out.println("");
@@ -256,7 +260,10 @@ public class Auxiliar {
 		if (confirmation == true) {
 			photo = getPhoto(reader);
 		}
-		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo);
+		
+		int id = 2; 
+		
+		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
 		return p;
 	}
 
