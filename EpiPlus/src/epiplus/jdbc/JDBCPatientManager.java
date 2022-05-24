@@ -22,7 +22,7 @@ public class JDBCPatientManager implements PatientManager {
 	@Override
 	public void addPatient(Patient p) {
 		try {
-			String sql = "INSERT INTO patients (name,email,birthday,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO patients (name,email,birthday,height,weight,lifestyle,diet,ex_per_week,photo,role_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
 			prep.setString(2, p.getEmail());
@@ -33,6 +33,7 @@ public class JDBCPatientManager implements PatientManager {
 			prep.setString(7, p.getDiet());
 			prep.setInt(8, p.getEx_per_week());
 			prep.setBytes(9, p.getPhoto());
+			prep.setInt(10, p.getRole_id());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception e) {
@@ -87,6 +88,7 @@ public class JDBCPatientManager implements PatientManager {
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
+				
 				Patient patient = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
