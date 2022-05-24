@@ -11,9 +11,19 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "users")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "User")
+@XmlType(propOrder = { "email","password","role"})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
@@ -23,11 +33,17 @@ public class User implements Serializable {
 	@TableGenerator(name = "users", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
+	
+	@XmlAttribute
 	private String email;
+	
 	@Lob
+	@XmlElement
 	private byte[] password;
+	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
+	@XmlElement
 	private Role role;
 
 	public User() {

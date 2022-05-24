@@ -2,11 +2,27 @@ package epiplus.pojos;
 
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "EmergencyContact")
+@XmlType(propOrder = { "name", "number","patient"} )
 public class EmergencyContact {
 
+	//@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private Float number;
+	@XmlElement
 	private Patient patient;
 	
 	public EmergencyContact() {

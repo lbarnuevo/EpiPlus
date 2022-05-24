@@ -7,6 +7,18 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Patient")
+@XmlType(propOrder = { "name", "email","birthday","height","weight","lifestyle","diet","ex_per_week","doctor","photo","emergency_contacts","episodes","medication","allergy"} )
 public class Patient implements Serializable {
 
 	/**
@@ -15,20 +27,59 @@ public class Patient implements Serializable {
 	private static final long serialVersionUID = 2234593157068704294L;
 
 	private Integer id;
+	
+	@XmlAttribute
 	private String name;
+	
+	@XmlAttribute
 	private String email;
+	
+	@XmlElement
 	private Date birthday;
+	
+	@XmlAttribute
 	private Float height;
+	
+	@XmlAttribute
 	private Float weight;
+	
+	@XmlElement
 	private String lifestyle;
+	
+	@XmlElement
 	private String diet;
+	
+	@XmlAttribute
 	private Integer ex_per_week;
+<<<<<<< HEAD
+=======
+	
+	@XmlElement(name = "Doctor")
+	@XmlElementWrapper(name = "doctors")
+	private Doctor doctor; // Many to one relationship
+	
+	@XmlElement
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	private byte[] photo;
 	
+<<<<<<< HEAD
 	private Doctor doctor; // Many to one relationship
+=======
+	@XmlElement(name = "EmergencyContact")
+	@XmlElementWrapper(name = "emergency_contacts")
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	private List<EmergencyContact> emergency_contacts; //One to many relationship
+	
+	@XmlElement(name = "Episode")
+	@XmlElementWrapper(name = "episodes")
 	private List<Episode> episodes; // Many to one relationship
+	
+	@XmlElement(name = "Medication")
+	@XmlElementWrapper(name = "medications")
 	private List<Medication> medication; // Many to many relationship
+	
+	@XmlElement(name = "Allergy")
+	@XmlElementWrapper(name = "allergies")
 	private List<Allergy> allergy; // Many to many relationship
 	//private Integer user_id;
 

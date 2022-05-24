@@ -3,6 +3,16 @@ package epiplus.pojos;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "PatientMedication")
+@XmlType(propOrder = { "frequency", "amount","patient","medication"})
 public class PatientMedication implements Serializable{
 
 	/**
@@ -10,9 +20,13 @@ public class PatientMedication implements Serializable{
 	 */
 	private static final long serialVersionUID = 8962678955441389723L;
 	
+	@XmlAttribute
 	private Integer frequency;
+	@XmlAttribute
 	private Float amount; 
+	@XmlElement
 	private Patient patient;
+	@XmlElement
 	private Medication medication;
 	
 	public PatientMedication() {
