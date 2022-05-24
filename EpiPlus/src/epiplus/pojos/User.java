@@ -20,7 +20,8 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "users")
-	@TableGenerator(name = "users", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
+	@TableGenerator(name = "users", table = "sqlite_sequence",
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
 	private String email;
 	@Lob
@@ -33,10 +34,11 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String email, byte[] password) {
+	public User(String email, byte[] password, Role role) {
 		super();
 		this.email = email;
 		this.password = password;
+		this.role = role; 
 	}
 
 	public Integer getId() {
@@ -70,8 +72,6 @@ public class User implements Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-	//updateUserPassword(email, newPassword, oldPassword)
 	
 	@Override
 	public int hashCode() {

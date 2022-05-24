@@ -1,5 +1,3 @@
-//THIS IS A CLASS FOR FUNCTIONS THAT CAN INTERACT WITH THE USER
-
 package epiplus.ui;
 
 import java.io.*;

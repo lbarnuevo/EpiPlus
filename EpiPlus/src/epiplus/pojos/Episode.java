@@ -66,7 +66,15 @@ public class Episode implements Serializable{
 	}
 	
 	public void addSymptom(Symptom s) {
-		symptoms.add(s);
+		if(!symptoms.contains(s)) {
+			symptoms.add(s);
+		}
+	}
+	
+	public void removeSymptom(Symptom s) {
+		if(symptoms.contains(s)) {
+			symptoms.remove(s);
+		}
 	}
 
 	public Integer getId() {

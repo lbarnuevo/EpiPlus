@@ -23,8 +23,9 @@ public class Patient implements Serializable {
 	private String lifestyle;
 	private String diet;
 	private Integer ex_per_week;
-	private Doctor doctor; // Many to one relationship
 	private byte[] photo;
+	
+	private Doctor doctor; // Many to one relationship
 	private List<EmergencyContact> emergency_contacts; //One to many relationship
 	private List<Episode> episodes; // Many to one relationship
 	private List<Medication> medication; // Many to many relationship
@@ -83,36 +84,53 @@ public class Patient implements Serializable {
 	}
 
 	public void addEC(EmergencyContact ec) {
-		emergency_contacts.add(ec);
+		if(!emergency_contacts.contains(ec) ) {
+			emergency_contacts.add(ec);
+		}
 	}
 	
-	public void deleteEC(EmergencyContact ec) {
-		emergency_contacts.remove(ec);
+	public void removeEC(EmergencyContact ec) {
+		if(emergency_contacts.contains(ec)) {
+			emergency_contacts.remove(ec);
+		}
 	}
 	
 	public void addMedication(Medication m) {
-		medication.add(m);
+		if(!medication.contains(m)) {
+			medication.add(m);
+		}
 	}
 	
-	public void deleteMedication(Medication m) {
-		medication.remove(m);
+	public void removeMedication(Medication m) {
+		if(medication.contains(m)) {
+			medication.remove(m);
+		}
 	}
 	
 	public void addEpisodes(Episode e) {
-		episodes.add(e);
+		if(!episodes.contains(e) ) {
+			episodes.add(e);
+		}
 	}
 	
-	public void deleteEpisodes(Episode e) {
-		episodes.remove(e);
+	public void removeEpisodes(Episode e) {
+		if(episodes.contains(e) ) {
+			episodes.remove(e);
+		}
 	}
 	
 	public void addAllergy(Allergy a) {
-		allergy.add(a);
+		if(!allergy.contains(a)) {
+			allergy.add(a);
+		}
 	}
 	
-	public void deleteAllergy(Allergy a) {
-		allergy.remove(a);
+	public void removeAllergy(Allergy a) {
+		if(allergy.contains(a)) {
+			allergy.remove(a);
+		}
 	}
+	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}

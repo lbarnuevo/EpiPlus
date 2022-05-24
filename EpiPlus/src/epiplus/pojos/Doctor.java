@@ -48,7 +48,15 @@ public class Doctor implements Serializable {
 	}
 	
 	public void addPatient(Patient p) {
-		patients.add(p);
+		if(!patients.contains(p)) {
+			patients.add(p);
+		}
+	}
+	
+	public void removePatient(Patient p) {
+		if(patients.contains(p)) {
+			patients.remove(p);
+		}
 	}
 	
 	public byte[] getPhoto() {

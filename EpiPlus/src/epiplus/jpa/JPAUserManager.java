@@ -21,20 +21,19 @@ public class JPAUserManager implements UserManager {
 		this.connect();
 	}
 
-	public void connect() {
+	private void connect() {
 		em = Persistence.createEntityManagerFactory("epiplus-provider").createEntityManager();
 		em.getTransaction().begin();
 		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
 		em.getTransaction().commit();
-
-		//??
+		
 		// Insert the roles needed only if they are not there already
 		if (this.getRoles().isEmpty()) { 
 			Role doctor = new Role("doctor"); 
 			Role patient = new Role("patient"); 
 			this.newRole(doctor); 
-			this.newRole(patient); }
-		 
+			this.newRole(patient);
+		}
 	}
 
 	@Override
@@ -49,8 +48,7 @@ public class JPAUserManager implements UserManager {
 		em.getTransaction().commit();
 	}
 	
-	//PRIVATE?
-	public void newRole(Role r) {
+	private void newRole(Role r) {
 		em.getTransaction().begin();
 		em.persist(r);
 		em.getTransaction().commit();

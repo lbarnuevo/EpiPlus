@@ -35,11 +35,15 @@ public class Symptom implements Serializable{
 	}
 
 	public void addEpisodes(Episode e) {
-		episodes.add(e);
+		if(!episodes.contains(e)) {
+			episodes.add(e);	
+		}
 	}
 	
 	public void deleteEpisodes(Episode e) {
-		episodes.remove(e);
+		if(episodes.contains(e)) {
+			episodes.remove(e);	
+		}
 	}
 	
 	public List<Episode> getEpisodes() {
