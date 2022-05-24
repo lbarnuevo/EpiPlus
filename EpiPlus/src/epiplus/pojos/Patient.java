@@ -27,6 +27,7 @@ public class Patient implements Serializable {
 	private static final long serialVersionUID = 2234593157068704294L;
 
 	private Integer id;
+	private Integer role_id;
 	
 	@XmlAttribute
 	private String name;
@@ -74,7 +75,6 @@ public class Patient implements Serializable {
 	@XmlElement(name = "Allergy")
 	@XmlElementWrapper(name = "allergies")
 	private List<Allergy> allergy; // Many to many relationship
-	//private Integer user_id;
 
 	// MANDATORY CONSTRUCTOR
 	public Patient() {
@@ -107,7 +107,7 @@ public class Patient implements Serializable {
 	}
 
 	public Patient(String name, String email, Date birthday, Float height, Float weight, String lifestyle, String diet,
-			Integer exercise, byte[] photo/*,Integer user*/) {
+			Integer exercise, byte[] photo,Integer user) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -119,7 +119,7 @@ public class Patient implements Serializable {
 		this.ex_per_week = exercise;
 		this.photo = photo;
 		this.doctor = null;
-		//this.user_id= user;
+		this.role_id = user;
 
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
@@ -279,9 +279,12 @@ public class Patient implements Serializable {
 		this.doctor = doctor;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public Integer getRole_id() {
+		return role_id;
+	}
+
+	public void setRole_id(Integer role_id) {
+		this.role_id = role_id;
 	}
 
 	public List<EmergencyContact> getEmergency_contacts() {
@@ -299,6 +302,11 @@ public class Patient implements Serializable {
 	public void setAllergy(List<Allergy> allergy) {
 		this.allergy = allergy;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -314,9 +322,9 @@ public class Patient implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday + "\nHeight="
-				+ this.height + "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
-				+ "\nExercise per week" + this.ex_per_week;
+		return "PATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday + "\nHeight = "
+				+ this.height + "\nWeight = " + this.weight + "\nLifestyle = " + this.lifestyle + "\nDiet = " + this.diet
+				+ "\nExercise per week (hours) = " + this.ex_per_week;
 	}
 
 	public String toStringForDoctors() {

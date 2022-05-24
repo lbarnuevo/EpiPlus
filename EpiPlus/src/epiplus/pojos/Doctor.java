@@ -38,7 +38,7 @@ public class Doctor implements Serializable {
 	@XmlElement(name = "Patient")
 	@XmlElementWrapper(name = "Patients")
 	private List<Patient> patients; //One to many relationship 
-	//private Integer user_id;
+	private Integer user_id;
 	
 	public Doctor() {
 		super();
@@ -55,13 +55,13 @@ public class Doctor implements Serializable {
 		this.patients = new ArrayList<Patient>();
 	}
 	
-	public Doctor (String name, String email, String hospitalName, byte[] photo/*,Integer user*/) {
+	public Doctor (String name, String email, String hospitalName, byte[] photo, Integer user) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
-		//this.user_id= user;
+		this.user_id = user;
 		
 		this.patients = new ArrayList<Patient>();
 	}
@@ -125,9 +125,13 @@ public class Doctor implements Serializable {
 	public void setHospitalName(String hospitalName) {
 		this.hospitalName = hospitalName;
 	}
-	
-	public void addPatienttoList(Patient p) {
-		this.patients.add(p);
+
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	@Override
@@ -149,6 +153,6 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DOCTOR [ID = " + id + ", NAME=" + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
+		return "DOCTOR [ID = " + id + ", NAME = " + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
 	}
 }
