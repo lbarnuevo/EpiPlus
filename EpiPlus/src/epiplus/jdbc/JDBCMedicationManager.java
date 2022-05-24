@@ -23,6 +23,8 @@ public class JDBCMedicationManager implements MedicationManager {
 			String sql = "INSERT INTO medications (name) VALUES (?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, m.getName());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

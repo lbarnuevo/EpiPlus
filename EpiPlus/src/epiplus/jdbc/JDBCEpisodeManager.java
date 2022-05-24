@@ -63,7 +63,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
-				Date doe = rs.getDate("date");
+				Date doe = rs.getDate("doe");
 				Float length = rs.getFloat("length");
 				String  activity= rs.getString("activity");
 				String mood = rs.getString("mood");

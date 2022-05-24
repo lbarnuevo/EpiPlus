@@ -83,34 +83,4 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}		
 	}
 
-	/*
-	//WHY DO WE NEED THIS -> wee need this in order to eliminate the relationship when we delete a medication from a patient, I explained it to isabel the other day 
-	@Override
-=======
-	/* @Override
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
-	public PatientMedication getPatientMedication(Patient p, Medication m) {
-		
-		PatientMedication patientmedication = null;
-				
-		try {
-			String sql = "SELECT * FROM patientmedication WHERE patientId=? AND medicationId=?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, p.getId());
-			prep.setInt(2, m.getId());
-			ResultSet rs = prep.executeQuery();
-
-			while (rs.next()) {
-				Integer id1 = rs.getInt("patientId");
-				Integer  id2= rs.getInt("medicationId");
-				patientmedication = new PatientMedication (p,m);
-			}
-			rs.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return patientmedication;
-		}
-		*/
 }
