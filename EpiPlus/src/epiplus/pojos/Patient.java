@@ -51,23 +51,16 @@ public class Patient implements Serializable {
 	
 	@XmlAttribute
 	private Integer ex_per_week;
-<<<<<<< HEAD
-=======
 	
 	@XmlElement(name = "Doctor")
 	@XmlElementWrapper(name = "doctors")
 	private Doctor doctor; // Many to one relationship
 	
 	@XmlElement
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	private byte[] photo;
-	
-<<<<<<< HEAD
-	private Doctor doctor; // Many to one relationship
-=======
+
 	@XmlElement(name = "EmergencyContact")
 	@XmlElementWrapper(name = "emergency_contacts")
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	private List<EmergencyContact> emergency_contacts; //One to many relationship
 	
 	@XmlElement(name = "Episode")
