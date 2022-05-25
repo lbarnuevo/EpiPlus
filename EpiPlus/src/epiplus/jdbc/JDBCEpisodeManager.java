@@ -27,8 +27,8 @@ public class JDBCEpisodeManager implements EpisodeManager {
 			prep.setFloat(2, e.getLength());
 			prep.setString(3, e.getActivity());
 			prep.setString(4, e.getMood());
-			prep.setString(5, e.getMood());
-			prep.setString(6, e.getPlace());
+			prep.setString(5, e.getPlace());
+			prep.setString(6, e.getPrevious_meal());
 			prep.setBoolean(7, e.getInjuries());
 			prep.setInt(8, e.getPatient().getId());
 			prep.executeUpdate();
