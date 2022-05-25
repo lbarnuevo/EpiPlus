@@ -8,12 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.*;
 
-import static epiplus.ui.Auxiliar.*;
+import epiplus.ui.Auxiliar.*;
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.jpa.JPAUserManager;
 import epiplus.pojos.*;
+import epiplus.xml.AllergyXml;
 import epiplus.graphics.*;
+import epiplus.xml.*;
 
 public class Menu {
 
@@ -84,13 +86,20 @@ public class Menu {
 						doctorMenu(d);
 						break;
 					case 3: 
-						//TODO generate xml
+						
 						registerMenu();
 						
 						break;
 					case 4: 
-						//TODO generate html
+						//TODO generate xml
+						Allergy a = new Allergy(1,"cashews");
+						AllergyXml.allergy2Xml(a);
+						
 						break;
+						
+					case 5:
+						//TODO generate html
+						
 					case 6: 
 						changePassword(1);
 						break; 
