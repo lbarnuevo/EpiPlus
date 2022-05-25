@@ -28,6 +28,8 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			p.setInt(2, pm.getMedication().getId());
 			p.setInt(3, pm.getFrequency());
 			p.setFloat (4, pm.getAmount());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -40,6 +42,8 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pm.getPatient().getId());
 			p.setInt(2, pm.getMedication().getId());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,6 +82,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			p.setInt(1, pm.getFrequency());
 			p.setFloat(2, pm.getAmount());
 			p.executeUpdate();
+			p.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

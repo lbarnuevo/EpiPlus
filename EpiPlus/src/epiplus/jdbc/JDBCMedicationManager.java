@@ -37,6 +37,7 @@ public class JDBCMedicationManager implements MedicationManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, m.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

@@ -29,6 +29,8 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pa.getPatient().getId());
 			p.setInt(2, pa.getAllergy().getId());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,6 +43,8 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pa.getPatient().getId());
 			p.setInt(2, pa.getAllergy().getId());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,36 +73,5 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 			e.printStackTrace();
 		}
 		return allergies;
-	}
-
-	/*
-	//WHY DO WE NEED THIS -> same with patientmedication, we need this to delete the correct position from the table when we do unassign 
-	@Override
-	public PatientAllergy getPatientAllergy(Patient p, Allergy a) {
-		
-		
-		PatientAllergy patientallergy = null;
-		
-		try {
-			String sql = "SELECT * FROM patientallergy WHERE patientId=? AND allergyId=?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, p.getId());
-			prep.setInt(2, a.getId());
-			ResultSet rs = prep.executeQuery();
-
-			while (rs.next()) {
-				Integer id1 = rs.getInt("patientId");
-				Integer  id2= rs.getInt("allergyId");
-				patientallergy = new PatientAllergy(a,p);
-			}
-			rs.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return patientallergy;
-		
-		
-	}
-	*/	
+	}	
 }

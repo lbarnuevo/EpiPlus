@@ -15,9 +15,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 
 	public JDBCEmergencyContactManager(JDBCManager m) {
 		this.manager = m;
-	}
-
-	//TODO assign patient 
+	} 
 	
 	@Override
 	public void addEmergencyContact(EmergencyContact c) {
@@ -27,6 +25,8 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			prep.setString(1, c.getName());
 			prep.setFloat(2, c.getNumber());
 			prep.setInt(3, c.getPatient().getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,6 +39,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, c.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -67,8 +68,6 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// return null;//this function should return a patirnt so why is it returning a
-		// null? --> I'm(Marta) going to change it
 		return contactsList;
 	}
 
@@ -80,6 +79,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			ps.setString(1, c.getName());
 			ps.setFloat(2, c.getNumber());
 			ps.executeUpdate();
+			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

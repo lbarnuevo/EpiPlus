@@ -187,6 +187,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			p.setString(3, d.getHospitalName());
 			p.setBytes(4, d.getPhoto());
 			p.executeUpdate();
+			p.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -199,6 +200,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, d.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

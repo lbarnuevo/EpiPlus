@@ -48,6 +48,8 @@ public class JDBCPatientManager implements PatientManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getId());
 			prep.setInt(2, p.getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,6 +61,8 @@ public class JDBCPatientManager implements PatientManager {
 			String sql = "UPDATE patients SET doctorId=NULL WHERE id=?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, p.getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,6 +152,7 @@ public class JDBCPatientManager implements PatientManager {
 			ps.setInt(8, p.getEx_per_week());
 			ps.setString(9, p.getDiet());
 			ps.executeUpdate();
+			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -160,6 +165,7 @@ public class JDBCPatientManager implements PatientManager {
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setInt(1, p.getId());
 			ps.executeUpdate();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
