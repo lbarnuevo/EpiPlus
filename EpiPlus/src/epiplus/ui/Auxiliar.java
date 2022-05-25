@@ -147,28 +147,52 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("\n\nDo you have any allergies? \n\nIntroduce one or more of the options above.");
+			System.out.println("\n\nDo you have any allergies? \nIntroduce one or more of the options above.");
 			allergyName = getString(reader);
 
-			if (allergyName.equalsIgnoreCase("egg")) {
+			if (allergyName.equalsIgnoreCase("chickpea")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("fish")) {
+			} else if (allergyName.equalsIgnoreCase("tahini")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("animal milk")) {
+			} else if (allergyName.equalsIgnoreCase("cumin")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("nuts")) {
+			} else if (allergyName.equalsIgnoreCase("soybean")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("legums")) {
+			} else if (allergyName.equalsIgnoreCase("tofu")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("soja")) {
+			} else if (allergyName.equalsIgnoreCase("cinnamon")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("wheat")) {
+			} else if (allergyName.equalsIgnoreCase("oat")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("vegetables")) {
+			} else if (allergyName.equalsIgnoreCase("lemon")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("fruits")) {
+			} else if (allergyName.equalsIgnoreCase("olive")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("high-histamine food")||allergyName.equalsIgnoreCase("high histamine food")) {
+			} else if (allergyName.equalsIgnoreCase("tomato")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("onion")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("red bell pepper")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("pepper")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("garlic")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("paprika")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("lettuce")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("cucumber")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("chili")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("egg")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("feta cheese")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("cow milk")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("baking soda")) {
 				read = true;
 			}
 
