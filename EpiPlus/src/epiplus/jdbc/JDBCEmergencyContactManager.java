@@ -1,5 +1,6 @@
 package epiplus.jdbc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import epiplus.ifaces.EmergencyContactManager;
 import epiplus.pojos.EmergencyContact;
+import epiplus.pojos.Patient;
 
 public class JDBCEmergencyContactManager implements EmergencyContactManager {
 
@@ -85,6 +87,30 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		}
 	}
 
+	@Override
+	public EmergencyContact getECbyId(int id) {
+		EmergencyContact ec = null; 
+
+		try {
+			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, id);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer eid = rs.getInt("id");
+				String n = rs.getString("name");
+				Float number = rs.getFloat("number");
+				ec = new EmergencyContact(eid, n, number);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ec;
+	}
+	
 	@Override
 	public List<EmergencyContact> listsAllEmergencyContacts() {
 

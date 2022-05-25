@@ -11,4 +11,5 @@ public interface EmergencyContactManager {
 	public void updateEmergencyContact(EmergencyContact c);
 	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId);
 	public List<EmergencyContact> listsAllEmergencyContacts();
+	public EmergencyContact getECbyId(int id);
 }
