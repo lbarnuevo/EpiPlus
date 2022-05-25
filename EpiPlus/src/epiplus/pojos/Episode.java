@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -26,7 +27,12 @@ public class Episode implements Serializable{
 	private static final long serialVersionUID = -5004715535383971325L;
 	//@XmlElement
 	private Integer id;
+	
+	//so it is today's date? if yes -> adapter
+	
 	@XmlElement
+	@XmlJavaTypeAdapter(SQLDateAdapter.class) // need to ask
+	
 	private Date doe; //doe = date of episode 
 	@XmlAttribute
 	private Float length; 
