@@ -50,7 +50,6 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		}
 	}
 	
-	//TODO getAllergies of patients 
 	public List<Allergy> getAllergiesOfPatient(Integer pId) {
 		
 		List<Allergy> allergies = new ArrayList<Allergy>();

@@ -39,6 +39,36 @@ public class JDBCEpisodeManager implements EpisodeManager {
 	}
 
 	@Override
+	public Episode getEpisode(Integer eId) {
+		
+		Episode episode=null;
+		
+		try {
+			String sql = "SELECT * FROM episodes WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, eId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				Date doe = rs.getDate("doe");
+				Float length = rs.getFloat("length");
+				String  activity= rs.getString("activity");
+				String mood = rs.getString("mood");
+				String place = rs.getString("place");
+				String meals = rs.getString("previous_meal");
+				Boolean injuries = rs.getBoolean("injuries");
+				episode = new Episode(id,doe,length,activity,mood,place,meals,injuries);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return episode;
+	}
+	
+	@Override
 	public void deleteEpisode(Episode e) {
 		try {
 			String sql = "DELETE FROM episodes WHERE id=?";
