@@ -55,7 +55,7 @@ public class JPAUserManager implements UserManager {
 	}
 
 	@Override
-	public Role getRole(int id) {
+	public Role getRole(Integer id) {
 		Query q = em.createNativeQuery("SELECT * FROM roles WHERE id = ?", Role.class);
 		q.setParameter(1, id);
 		return (Role) q.getSingleResult();

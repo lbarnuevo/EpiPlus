@@ -239,7 +239,7 @@ public class Auxiliar {
 		System.out.println("Date of birth (dd-MM-yyyy): ");
 		LocalDate birthday = LocalDate.parse(getString(reader), formatter);
 
-		System.out.println("Height (cm): ");
+		System.out.println("Height (m): ");
 		Float height = getPositiveFloat(reader);
 
 		System.out.println("Weight (kg): ");
