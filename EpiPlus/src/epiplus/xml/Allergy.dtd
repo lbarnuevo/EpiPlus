@@ -1,0 +1,8 @@
+<! DOCTYPE Allergy [						<!-- is it okay?-->
+	<!ELEMENT Allergy (id,name)>
+	<!ELEMENT id (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT patient (id, name, email, birthday, height, weight, lifestyle, diet, ex_per_week, photo)>
+	<!ATTLIST Patients name PCDATA #REQUIRED
+						id PCDATA #REQUIRED>
+	]>
