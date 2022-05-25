@@ -1,6 +1,11 @@
 package epiplus.ui;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.*;
 
 import static epiplus.ui.Auxiliar.*;
@@ -13,179 +18,116 @@ import epiplus.graphics.*;
 public class Menu {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-	private static JDBCManager jdbcManager = new JDBCManager();
-
-	private static DoctorManager doctorManager = new JDBCDoctorManager(jdbcManager);
-	private static PatientManager patientManager = new JDBCPatientManager(jdbcManager);
-	private static EmergencyContactManager ecManager = new JDBCEmergencyContactManager(jdbcManager);
-	private static EpisodeManager episodeManager = new JDBCEpisodeManager(jdbcManager);
-	private static EpisodeSymptomManager esManager = new JDBCEpisodeSymptomManager(jdbcManager);
-	private static MedicationManager medicationManager = new JDBCMedicationManager(jdbcManager);
-	private static PatientMedicationManager pmManager = new JDBCPatientMedicationManager(jdbcManager);
-	private static SymptomManager symptomManager = new JDBCSymptomManager(jdbcManager);
-	private static AllergyManager allergyManager = new JDBCAllergyManager(jdbcManager);
-	private static PatientAllergyManager paManager = new JDBCPatientAllergyManager(jdbcManager);
-	// private static UserManager uManager = new JPAUserManager();
+	private static JDBCManager dbManager;
+	private static UserManager userManager;
+	private static DoctorManager doctorManager;
+	private static PatientManager patientManager;
+	
+	private static EmergencyContactManager ecManager;
+	private static EpisodeManager episodeManager;
+	private static EpisodeSymptomManager esManager;
+	private static MedicationManager medicationManager;
+	private static PatientMedicationManager pmManager;
+	private static SymptomManager symptomManager;
+	private static AllergyManager allergyManager;
+	private static PatientAllergyManager paManager;
 
 	public static void main(String[] args) {
-		System.out.println("WELCOME TO EPI+ !!");
-
-		int choice;
-
+		dbManager = new JDBCManager();
+		doctorManager = new JDBCDoctorManager(dbManager);
+		patientManager = new JDBCPatientManager(dbManager);
+		episodeManager = new JDBCEpisodeManager(dbManager);
+		esManager = new JDBCEpisodeSymptomManager(dbManager);
+		medicationManager = new JDBCMedicationManager(dbManager);
+		pmManager = new JDBCPatientMedicationManager(dbManager);
+		symptomManager = new JDBCSymptomManager(dbManager);
+		allergyManager = new JDBCAllergyManager(dbManager);
+		paManager = new JDBCPatientAllergyManager(dbManager);
+		ecManager = new JDBCEmergencyContactManager(dbManager);
+		
+		userManager = new JPAUserManager();
 		try {
 			do {
-				showMenu();
-				System.out.println("Please choose an option: ");
-
-				choice = getPositiveInteger(reader);
+				System.out.println("                    WELCOME TO EPI+ !!                     ");
+				System.out.println("---------------------------------------------------------------");
+				System.out.println(" 1. Login as patient                                           ");
+				System.out.println(" 2. log in as doctor (TEMPORARY) ");
+				System.out.println(" 3. Register                                                   ");
+				System.out.println(" 4. Generate XML                                               ");
+				System.out.println(" 5. Generate HTML                                              ");
+				System.out.println(" 6. I forgot my password                                       ");
+				System.out.println(" 0. Exit the program                                           ");
+				System.out.println("---------------------------------------------------------------");
+				System.out.println("\n\nPlease chose one of the previous options: ");
+				
+				int choice = getPositiveInteger(reader);
 				switch (choice) {
-				case 1:
-					// TODO loginPatient();
-					// loginUser("patient");
-					System.out.println("Enter patient name: ");
-					String p_name = getString(reader);
-					Patient p = searchPatient(p_name);
-					patientMenu(p);
-					break;
-
-				case 2:
-					// TODO loginDoctor()
-					Doctor d = searchDoctor(1);
-					doctorMenu(d);
-					break;
-
-				case 3:
-					registerMenu();
-					break;
-
-				case 0:
-					jdbcManager.disconnect();
-					System.exit(0);
-
-				default:
-					System.out.println("Please introduce a valid option. ");
+					case 1: 
+						//login(); 
+						System.out.println("Enter patient name: ");
+						String p_name = getString(reader);
+						Patient p = searchPatient(p_name);
+						patientMenu(p);
+						
+						break; 
+					case 2: 
+						//register();
+						
+						System.out.println("Introduce the doctor's name: ");
+						List<Doctor> docs = doctorManager.searchDoctorByName(getString(reader));
+						listDoctors(docs);
+						Doctor d = null; 
+						do {
+							System.out.println("Introduce the doctor´s id: ");
+							d = doctorManager.getDoctorById(getPositiveInteger(reader));
+						} while (d == null);
+						doctorMenu(d);
+						break;
+					case 3: 
+						//TODO generate xml
+						registerMenu();
+						
+						break;
+					case 4: 
+						//TODO generate html
+						break;
+					case 6: 
+						changePassword(1);
+						break; 
+					case 0:
+						System.out.println("See you soon! :)");
+						dbManager.disconnect();
+						System.exit(0);
 				}
-			} while (true);
-		} catch (Exception e) {
+
+			} while(true);
+			
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
+	
+	//TODO ask rodrigo why jpa doesnt work so we can delete these methods 
+	public static Patient searchPatient(String name) throws Exception {
 
-	/*
-	 * public static User loginUser(String role) {
-	 * System.out.println("Enter email:"); 
-	 * String email = getString(reader);
-	 * System.out.println("Enter password:"); 
-	 * String passwd = getString(reader);
-	 * User u = uManager.checkPassword(email, passwd);
-	 * 
-	 * 	if (u != null) { 
-	 * 		if (u.getRole().getName().equals(role)) {
-	 * 		System.out.println("Login as "+ role+ " ran successfully"); 
-	 *		} 
-	 * 		else {
-	 * 		System.out.println("User not found in the database. Are you sure you want to login as a "
-	 * 		+role+ "?"); 
-	 * 		} 
-	 * 	} else {
-	 * 	System.out.println("User not found in the database. Please, register."); 
-	 * 	}
-	 * 
-	 * if (role==doctor){
-	 * doctorMenu(u.getEmail()); //user email=patient email/doctor email 
-	 * return u; 
-	 * }
-	 */
-
-	// TODO loginUser method --> method for both users
-	/*
-	 * when login in with the user, we show the menu for the type of user, so maybe
-	 * we could add an attribute that consisted of role of user }
-	 * 
-	 * Maybe when logged in as a patient, reminder of taking medication (show the
-	 * frequency) and notify how much is left.
-	 */
-
-	/* private static void registerUser() { //TODO register method } */
-
-	private static void showMenu() {
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.Log in as patient                                       ");
-		System.out.println(" 2.Log in as doctor                                        ");
-		System.out.println(" 3.Register as patient/doctor                                ");
-		System.out.println(" 0. EXIT THE PROGRMAM                                        ");
-		System.out.println("---------------------------------------------------------------");
+		List<Patient> patients = patientManager.searchPatientByName(name);
+		Patient p = selectPatient(patients);
+		return p;
 	}
+	private static Patient selectPatient(List<Patient> p) throws Exception {
+		listPatients(p);
+		System.out.println("Introduce the patients id: ");
+		Integer id = getPositiveInteger(reader);
 
-	private static void showPatientMenu() {
-		System.out.println("                  PATIENT MENU                        ");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.Register episode                                          ");
-		System.out.println(" 2.My medications                                            ");
-		System.out.println(" 3.My episodes                                               ");
-		System.out.println(" 4.Show graphs on my evolution NOT DONE                      ");
-		// System.out.println(" 4.See my evolution ");
-		System.out.println(" 5.Show recipes          NOT DONE YET                        ");
-		System.out.println(" 6.Search doctor                                             ");
-		System.out.println(" 7.See user information                                      ");
-		System.out.println(" 8.Update user information                                   ");
-		System.out.println(" 0. LOG OUT                                                  ");
-		System.out.println("---------------------------------------------------------------");
-		// IT WOULD BE INTERESTING TO ADD AN OPTION TO CHANGE THE PASSWORD
+		Patient patient = patientManager.getPatientById(id);
+		return patient;
 	}
-
-	// TODO good idea
-	/*
-	 * private static void changePassword() throws Exception{
-	 * System.out.println("Please, introduce again your email address:"); String
-	 * email = reader.readLine();
-	 * System.out.println("Now, please, introduce again your password:"); String
-	 * oldPassword = reader.readLine();
-	 * System.out.println("Now, please, introduce your new password:"); String
-	 * newPassword = reader.readLine(); System.out.
-	 * println("Are you sure you want to change your password? (YES / NO)"); String
-	 * sure = reader.readLine(); if(sure.equalsIgnoreCase("yes")) {
-	 * umanager.updateUserPassword(email, newPassword, oldPassword); } }
-	 */
-
-	private static void showDoctorMenu() {
-		System.out.println("                  DOCTOR MENU                         ");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.See data on patient                                       ");
-		// + See evolution on patient
-		System.out.println(" 2.See user information                                      ");
-		System.out.println(" 3.Update user information                                   ");
-		System.out.println(" 0. LOG OUT                                                  ");
-		System.out.println("---------------------------------------------------------------");
+	private static void listPatients(List<Patient> p) {
+		for (Patient pat : p) {
+			System.out.println(pat.toStringForDoctors());
+		}
 	}
-
-	private static void showMedsMenu() {
-		System.out.println("                  MEDICATION                         ");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.List all my medications                                       ");
-		System.out.println(" 2.Input new medication                                       ");
-		System.out.println(" 3.Make changes on my medication                              ");
-		System.out.println(" 4.Delete medication                                          ");
-		System.out.println(" 0. GO BACK TO PATIENT MENU                                   ");
-		System.out.println("---------------------------------------------------------------");
-	}
-
-	private static void searchDoctorMenu() {
-		System.out.println("                                          ");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println(" 1.Search by name                                       ");
-		System.out.println(" 2.Search by email                                      ");
-		System.out.println(" 3.Search by hospital                                   ");
-		System.out.println(" 0. GO BACK TO PATIENT MENU              ");
-		System.out.println("---------------------------------------------------------------");
-	}
-
-	private static boolean continueProccess() {
-		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
-		return askConfirmation(reader);
-	}
-
 	private static void registerMenu() throws NumberFormatException, IOException {
 		do {
 			System.out.println("                  REGISTER MENU                         ");
@@ -210,89 +152,261 @@ public class Menu {
 			}
 		} while (true);
 	}
-
-	private static void registerDoctor() throws IOException {
-		Doctor doctor = createDoctor(reader);
-		doctorManager.addDoctor(doctor);
-		System.out.println("\nYou have been successfully registered");
+	private static void registerDoctor() throws IOException{
+		Doctor d = createDoctor(reader);
+		doctorManager.addDoctor(d);
+		int id = dbManager.getLastId();
+		d.setId(id);
 	}
-
 	private static void registerPatient() throws IOException {
 		Patient patient = createPatient(reader);
+		System.out.println("Adding allergies...");
+		addAllergy(patient);
+		
 		patientManager.addPatient(patient);
-
-		/*
-		 * List<EmergencyContact> listContacts = null; >>>>>>> branch 'master' of
-		 * https://github.com/lbarnuevo/EpiPlus int stop1 = 1; while (stop1 != 0) {
-		 * EmergencyContact contact = createEmergencyContacts(reader, patient);
-		 * ecManager.addEmergencyContact(contact); // CREO QUE HAY UNA FUNCIÓN
-		 * ESPECÍFICA CREADA PARA ESTO: System.out.
-		 * println("Emergency contact added. Press '0' if finished, other key if you want to continue."
-		 * ); stop1 = getPositiveInteger(reader); } int stop2 = 1; while (stop2 != 0) {
-		 * addAllergy(patient); // CREO QUE HAY UNA FUNCIÓN ESPECÍFICA CREADA PARA ESTO:
-		 * System.out.
-		 * println("Allergy added. Press '0' if finished, other key if you want to continue."
-		 * ); stop2 = getPositiveInteger(reader); }
-		 */
-
+		patient.setId(dbManager.getLastId());
 		System.out.println("\nYou have been successfully registered");
 	}
 
-	public static Patient searchPatient(String name) throws Exception {
-
-		List<Patient> patients = patientManager.searchPatientByName(name);
-		Patient p = selectPatient(patients);
-		return p;
-	}
-
-	public static Doctor searchDoctor(int choice) throws Exception {
-		List<Doctor> docs = null;
-		Doctor d = null;
-
-		switch (choice) {
-		case 1:
-			System.out.println("Introduce the doctor's name: ");
-			docs = doctorManager.searchDoctorByName(getString(reader));
-			listDoctors(docs);
-
-			do {
-				System.out.println("Introduce the doctor´s id: ");
-				d = doctorManager.getDoctorById(getPositiveInteger(reader));
-			} while (d == null);
-
-			break;
-
-		case 2:
-			System.out.println("Introduce the email: ");
-			d = doctorManager.searchDoctorByEmail(getString(reader));
-			if (d == null) {
-				System.out.println("There is not a doctor with that id. ");
-			} else {
-				break;
-			}
-
-		case 3: // hospital
-			System.out.println("Introduce the hospital´s name: ");
-			docs = doctorManager.searchDoctorByHospital(getString(reader));
-			listDoctors(docs);
-
-			do {
-				System.out.println("Introduce the doctor´s id: ");
-				d = doctorManager.getDoctorById(getPositiveInteger(reader));
-			} while (d == null);
-
-			break;
-		default:
-			System.out.println("That option does not exist. ");
+	
+	//THESE ARE THE ACTUAL METHODS THAT WILL BE USED 
+	
+	public static void login() {
+		System.out.println("Email address: ");
+		String email = getString(reader);
+		
+		System.out.println("Password: ");
+		String passwd = getString(reader);
+		
+		User u = userManager.checkPassword(email, passwd);
+		
+		if(u == null) {
+			System.out.println("Wrong email or password");
+			return; 
+		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
+			//TODO go to doctor menu 
+		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
+			//TODO go to patient menu 
 		}
-
-		return d;
 	}
+	
+	public static void register() throws Exception {
+		System.out.println(userManager.getRoles());
+		System.out.println("Please, input the chosen role ID: ");
+		int id = getPositiveInteger(reader);
+		Role role = userManager.getRole(id);
+		
+		String email; 
+		
+		switch(id) {
+			case 1:
+				System.out.println("----DOCTOR REGISTRATION----");
+				System.out.println("");
+				
+				System.out.println("Please, write your email address: ");
+				email = reader.readLine();
+				
+				if(userManager.checkEmail(email)) {
+					System.out.println("There is already a doctor account with that email, please try to log in");
+					return; 
+					
+				} else {
+					System.out.println("Name: ");
+					String name = getString(reader);
 
+					System.out.println("Hospital name: ");
+					String hospital = getString(reader);
+
+					System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
+					boolean confirmation = askConfirmation(reader);
+
+					byte[] photo = null;
+					if (confirmation == true) {
+						photo = getPhoto(reader);
+					}
+					
+					System.out.println("Please, write your password: ");
+					String pass = getString(reader);
+
+					Doctor doc = new Doctor(name, email, hospital, photo, id);
+					doctorManager.addDoctor(doc);
+					
+					
+					MessageDigest md1 = MessageDigest.getInstance("MD5");
+					md1.update(pass.getBytes());
+					byte[] digest = md1.digest();
+					User user = new User(email, digest, role);
+					userManager.newUser(user);
+					
+					doctorMenu(doc);
+				}
+				
+			case 2: 
+					System.out.println("-----PATIENT REGISTRATION-----");
+					System.out.println("");
+					
+					System.out.println("Please, write your email address: ");
+					email = getString(reader);
+					
+					if(userManager.checkEmail(email)) {
+						System.out.println("There is already a patient account with that email, please try to log in");
+						return; 
+						
+					} else {
+						System.out.println("Name: ");
+						String name = getString(reader);
+				
+						System.out.println("Date of birth (dd-MM-yyyy): ");
+						LocalDate birthday = LocalDate.parse(getString(reader), formatter);
+				
+						System.out.println("Height (cm): ");
+						Float height = getPositiveFloat(reader);
+				
+						System.out.println("Weight (kg): ");
+						Float weight = getPositiveFloat(reader);
+				
+						System.out.println("Lifestyle: ");
+						String lifestyle = getLifeStyle(reader);
+				
+						System.out.println("Diet: ");
+						String diet = getDiet(reader);
+				
+						System.out.println("Exercise per week (hours per week): ");
+						Integer exercise = getPositiveInteger(reader);
+				
+						System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
+						boolean confirmation = askConfirmation(reader);
+				
+						byte[] photo = null;
+						if (confirmation == true) {
+							photo = getPhoto(reader);
+						}
+						
+						System.out.println("Please, write your password: ");
+						String pass = getString(reader);
+	
+						Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
+						patientManager.addPatient(p);
+						
+						System.out.println("Adding allergies...");
+						addAllergy(p);
+						
+						MessageDigest md1 = MessageDigest.getInstance("MD5");
+						md1.update(pass.getBytes());
+						byte[] digest = md1.digest();
+						
+						User user = new User(email, digest, role);
+						userManager.newUser(user);
+						
+						patientMenu(p);
+					}	
+		}
+	} 
+	
+	private static void changePassword(int choice ) {
+		String email; 
+		switch(choice) {
+			case 1: //Case when the user forgot their password
+				System.out.println("Please, write your email address");
+				email = getString(reader);
+				System.out.println("Please, write your NEW password:");
+				String password = getString(reader);
+				userManager.forgotPassword(email, password);
+				return; 
+			case 2: //Case were the user wants tp change their password
+				System.out.println("Please, introduce your email address:");
+		 		email = getString(reader);
+		 		System.out.println("Now, please, introduce your password:");
+		 		String oldPassword = getString(reader);
+		 		System.out.println("Now, please, introduce your new password:");
+		 		String newPassword = getString(reader);
+		 		
+		 		if(continueProccess()) {
+		 			userManager.updatePassword(email, newPassword, oldPassword);
+		 			return; 
+		 		}
+		}
+	}
+	
+	private static void deleteAccount() {
+		//when you delete the account, also delete the doctor/patient from the database 
+		//maybe we can do it with the role 
+		System.out.println("Please, introduce again your email address:");
+		String email = getString(reader);
+		if(continueProccess()) {
+			userManager.deleteUser(email);
+		}
+	}
+	
+	private static boolean continueProccess() {
+		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
+		return askConfirmation(reader);
+	}
+	
+	public static void doctorMenu(Doctor d) throws Exception {
+		do {
+			System.out.println("                     DOCTOR MENU                            ");
+			System.out.println("---------------------------------------------------------------");
+			System.out.println(" 1. See data of one of my patients                          ");
+			System.out.println(" 2. See evolution of a patient                              ");
+			System.out.println(" 3. See my profile                                          ");
+			System.out.println(" 4. Edit my profile                                         ");
+			System.out.println(" 5. Change my password                                      ");
+			System.out.println(" 6. Delete my account                                       ");
+			System.out.println(" 0. Log out                                                  ");
+			System.out.println("---------------------------------------------------------------");
+			
+			int choice = getPositiveInteger(reader);
+
+			switch (choice) {
+			case 1:
+				Patient p = selectPatient(d);
+				System.out.println("\n" + p.toString());
+				break;
+			case 2:
+				//TODO see evolution 
+				break;
+			case 3:
+				seeUserDoctor(d); 
+				break;
+			case 4:
+				updateUserDoctor(d);
+				break; 
+			case 5: 
+				changePassword(2); //Do they have to login again? 
+				break; 
+			case 6: 
+				deleteAccount();
+				break; 
+			case 0:
+				System.out.println("~~Byee! ");
+				return;
+			default:
+				System.out.println("Please introduce a valid option. ");
+			}
+		} while(true);
+	}
+	
 	private static void patientMenu(Patient p) throws Exception { // METHOD FOR LOGIN SUBSYSTEM
 
 		do {
-			showPatientMenu();
+			System.out.println("                      PATIENT MENU                           ");
+			System.out.println("---------------------------------------------------------------");
+			System.out.println(" 1. Register a new episode                                    ");
+			System.out.println(" 2. My medications                                            ");
+			System.out.println(" 3. My episodes                                               ");
+			System.out.println(" 4. See my evolution            NOT DONE                      ");
+			System.out.println(" 5. Show recipes                  	                          ");
+			System.out.println(" 6. Add emergency contacts          	                      ");
+			System.out.println(" 7. Add a doctor                  	                          ");
+			System.out.println(" 8. Delete my current doctor                   	              ");
+			System.out.println(" 9. See my profile                   	                      ");
+			System.out.println(" 10. Edit my profile              	                          ");
+			System.out.println(" 11. Change my password                                       ");
+			System.out.println(" 12. Delete my account                                        ");
+			System.out.println(" 0. Log out                                                  ");
+			System.out.println("---------------------------------------------------------------");
+			
 			int choice = getPositiveInteger(reader);
 
 			switch (choice) {
@@ -300,161 +414,127 @@ public class Menu {
 				registerEpisode(p);
 				break;
 			case 2:
-				medicationMenu(p);
+				Medications(p);
 				break;
 			case 3:
-				List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
-				listEpisodes(episodes);
+				listEpisodes(p); 
+				deleteEpisode(p);
 				break;
 			case 4:
-				showEvolution(p);
+				//TODO showEvolution(p);
 				break;
 			case 5:
-				//chooseRecipe(p);
+				Recipes(p); 
 				break;
 			case 6:
-				operationsOnDoctor(p);
+				addEmergencyContact(p);
 				break;
 			case 7:
+				assignDoctor(p); 
+				break;
+			case 8: 
+				unassignDoctor(p);
+				break; 
+			case 9:
 				seeUserPatient(p);
-				break;
-			case 8:
-				updateUserPatient(p);
-				break;
+				break; 
+			case 10: 
+				updateUserPatient(p); 
+				break; 
+			case 11: 
+				changePassword(2); //Do they have to login again?
+				break; 
+			case 12: 
+				deleteAccount();
+				break; 
 			case 0:
+				System.out.println("~~Byee");
 				return;
 			default:
 				System.out.println("Please introduce a valid option. ");
 			}
 		} while (true);
 	}
-
-	private static void medicationMenu(Patient p) {
+	
+	private static void Medications(Patient p) throws Exception{
 		do {
-			showMedsMenu();
+			System.out.println("               MY MEDICATIONS                      ");
+			System.out.println("1. See my current medications                      ");
+			System.out.println("2. Add a new medication        					   ");
+			System.out.println("3. Modify frequency or amount of a medication      ");
+			System.out.println("4. Delete one of my medications                    ");
+			System.out.println("0. Go back                                         ");
+			
+			System.out.println("Please, introduce an option: ");
 			int choice = getPositiveInteger(reader);
-
-			switch (choice) {
-			case 1:
-				List<Medication> pmeds = pmManager.getMedicationsOfPatient(p.getId());
-				listMedications(pmeds);
-				break;
-			case 2:
-				addMedication(p);
-				break;
-			case 3:
-				updateMedication(p);
-				break;
-			case 4:
-				deleteMedication(p);
-				break;
-			case 0:
-				return;
-			default:
-				System.out.println("Please introduce a valid option. ");
-			}
-		} while (true);
-	}
-
-	private static void doctorMenu(Doctor d) throws Exception { // METHOD FOR LOGIN SUBSYSTEM
-		do {
-			showDoctorMenu();
-			int choice = getPositiveInteger(reader);
-
-			switch (choice) {
-			case 1:
-				seePatient(d);
-				break;
-			case 2:
-				seeUserDoctor(d);
-				break;
-			case 3:
-				updateUserDoctor(d);
-				break;
-			case 0:
-				return;
-			default:
-				System.out.println("Please introduce a valid option. ");
-			}
-		} while (true);
-	}
-
-	private static void seePatient(Doctor d) throws Exception {
-		List<Patient> pList = new ArrayList<Patient>();
-
-		if (continueProccess() == false) {
-			return;
-		} else {
-			pList = doctorManager.getPatientsOfDoctor(d.getId());
-
-			Patient p = selectPatient(pList);
-			seeUserPatient(p);
-		}
-	}
-
-	private static void operationsOnDoctor(Patient p) throws Exception {
-		do {
-			searchDoctorMenu();
-			Doctor d = searchDoctor(getPositiveInteger(reader));
-
-			System.out.println("---------------------------------------------------------------");
-			System.out.println(" 1.Show my doctor's profile                                    ");
-			System.out.println(" 2.Add as my doctor                                            ");
-			System.out.println(" 3.Delete as my doctor                                         ");
-			System.out.println(" 0. GO BACK TO PATIENT MENU                                    ");
-			System.out.println("---------------------------------------------------------------");
-
-			System.out.println("Introduce the option: ");
-			int choice = getPositiveInteger(reader);
-
-			switch (choice) {
-			case 1:
-				if (p.getDoctor() == null) {
-					System.out.println("You have not added any doctor. ");
+			switch(choice) {
+				case 1: 
+					listMedications(p);
 					break;
-				} else {
-					System.out.println((p.getDoctor()).toString());
-					if (p.getDoctor().getPhoto() != null) {
-						ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getDoctor().getPhoto());
-						ImageWindow window = new ImageWindow();
-						window.showBlob(blobIn);
-					}
-					return;
-				}
-				
-			case 2:
-				if (p.getDoctor() == null) {
-					p.setDoctor(d);
-					patientManager.assignDoctor(p, d);
-					return;
-				} else {
-					System.out.println("You already have a doctor.");
-					return;
-				}
-			case 3:
-				if (p.getDoctor() == null) {
-					System.out.println("You have not registered him as a doctor.");
-					return;
-				} else {
-					p.setDoctor(null);
-					patientManager.unassignDoctor(p, d);
-					return;
-				}
-			case 0:
-				return;
-			default:
-				System.out.println("Please introduce a valid option. ");
+				case 2: 
+					addMedication(p);
+					break;
+				case 3: 
+					updateMedication(p);
+					break;
+				case 4: 
+					deleteMedication(p);
+					break; 
+				case 0:
+					return; 
+				default:
+					System.out.println("Please, introduce a valid option.");
 			}
-		} while (true);
+			
+		} while(true);
+	}
+	
+	private static void Recipes(Patient p) {
+		do {
+			System.out.println("~~~~What recipe do you want to see?~~~~");
+			System.out.println("1. Hummus");
+			System.out.println("2. Shakshuka");
+			System.out.println("3. Salad");
+			System.out.println("4. Chinese noodles");
+			System.out.println("5. Oatmeal");
+			System.out.println("0. Go back");
+			
+			System.out.println("Please, introduce an option: ");
+			int choice = getPositiveInteger(reader);
+			switch(choice) {
+			case 1:
+				showHummusRecipe(p.getDiet(), paManager.getAllergiesOfPatient(p.getId()));
+				return;
+			case 2: 
+				showShakshukaRecipe(p.getDiet(), paManager.getAllergiesOfPatient(p.getId()));
+				return;
+			case 3: 
+				showFetaRecipe(p.getDiet(), paManager.getAllergiesOfPatient(p.getId()));
+				return; 
+			case 4: 
+				showNoodlesRecipe(p.getDiet(), paManager.getAllergiesOfPatient(p.getId()));
+				return; 
+			case 5: 
+				showOatmealRecipe(p.getDiet(), paManager.getAllergiesOfPatient(p.getId()));
+				return;
+			case 0: 
+				return; 
+			default:
+				System.out.println("That is not an option. ");
+			}
+		} while(true);
 	}
 
+
+	//TODO one unique seeuser method with roles 
 	private static void seeUserPatient(Patient p) {
 		System.out.println("Showing user's information...\n");
 		System.out.println(p.toString());
 
-		System.out.println("\n--- MY EMERGENCY CONTACTS ---");
-		for (EmergencyContact c : ecManager.getEmergencyContactsOfPatient(p.getId())) {
-			System.out.println(c.toString());
+		listEC(p);
+		
+		if(p.getDoctor() != null) {
+			System.out.println("My doctor : " + p.getDoctor().toString());
 		}
 
 		if (p.getPhoto() != null) {
@@ -463,7 +543,54 @@ public class Menu {
 			window.showBlob(blobIn);
 		}
 	}
+	
+	private static void seeUserDoctor(Doctor d) {
+		System.out.println("Showing user's information...");
+		System.out.println(d.toString());
 
+		if (d.getPhoto() != null) {
+			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
+			ImageWindow window = new ImageWindow();
+			window.showBlob(blobIn);
+		}
+
+		System.out.println("--- MY PATIENTS ---");
+		List<Patient> pList = doctorManager.getPatientsOfDoctor(d.getId());
+		for (Patient patient : pList) {
+			patient.toStringForDoctors();
+		}
+	}
+
+	//TODO one unique updateuser methods with roles 
+	private static void updateUserDoctor(Doctor d) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			while (true) {
+				System.out.println("\nShowing user's information... \n");
+				System.out.println(d.toString());
+				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
+				String toChange = getString(reader);
+
+				if (toChange.equalsIgnoreCase("name")) {
+					System.out.println("Input new name: ");
+					String toChangeName = getString(reader);
+					d.setName(toChangeName);
+					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("hospitalName")) {
+					System.out.println("Input new hospital name: ");
+					String toChangeHospitalName = getString(reader);
+					d.setHospitalName(toChangeHospitalName);
+					doctorManager.updateDoctor(d);
+				} // TODO change photo
+
+				if (continueProccess() == false) {
+					return;
+				}
+			}
+		}
+	}
+	
 	private static void updateUserPatient(Patient p) {
 		if (continueProccess() == false) {
 			return;
@@ -503,7 +630,17 @@ public class Menu {
 					System.out.println("Input new amount of exercise per week: ");
 					p.setEx_per_week(getPositiveInteger(reader));
 					patientManager.updatePatient(p);
-				} // TODO change photo
+				} else if(toChange.equalsIgnoreCase("emergency contacts")) {
+					System.out.println("Update emergency contacts...");
+					updateEContacts(p);
+				
+					System.out.println("Delete emergency contact...");
+					deleteEContact(p);	
+				} else if(toChange.equalsIgnoreCase("allergy")) {
+					System.out.println("Note: You won't be able to change any atributes from an allergy, onlt delete it");
+					deleteAllergy(p);
+				}
+				// TODO change photo
 
 				if (continueProccess() == false) {
 					return;
@@ -512,52 +649,32 @@ public class Menu {
 		}
 	}
 
-	private static void seeUserDoctor(Doctor d) {
-		System.out.println("Showing user's information...");
-		System.out.println(d.toString());
 
-		if (d.getPhoto() != null) {
-			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
-			ImageWindow window = new ImageWindow();
-			window.showBlob(blobIn);
-		}
+	//Methods for working with patients from doctor
+	private static Patient selectPatient(Doctor d) {
+		listPatients(d);
+		Patient p = null; 
+		
+		do {
+			System.out.println("Introduce the patient's id: ");
+			int id = getPositiveInteger(reader);
+			p = patientManager.getPatientById(id);
+		} while (p == null);
 
-		System.out.println("--- MY PATIENTS ---");
-		List<Patient> pList = doctorManager.getPatientsOfDoctor(d.getId());
-		for (Patient patient : pList) {
-			patient.toStringForDoctors();
+		return p;
+	}
+	
+	private static void listPatients(Doctor d) {
+		List<Patient> pts = doctorManager.getPatientsOfDoctor(d.getId());
+		
+		for(Patient p: pts) {
+			System.out.println(p.toStringForDoctors());
 		}
 	}
-
-	private static void updateUserDoctor(Doctor d) {
-		if (continueProccess() == false) {
-			return;
-		} else {
-			while (true) {
-				System.out.println("\nShowing user's information... \n");
-				System.out.println(d.toString());
-				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
-				String toChange = getString(reader);
-
-				if (toChange.equalsIgnoreCase("name")) {
-					System.out.println("Input new name: ");
-					String toChangeName = getString(reader);
-					d.setName(toChangeName);
-					doctorManager.updateDoctor(d);
-				} else if (toChange.equalsIgnoreCase("hospitalName")) {
-					System.out.println("Input new hospital name: ");
-					String toChangeHospitalName = getString(reader);
-					d.setHospitalName(toChangeHospitalName);
-					doctorManager.updateDoctor(d);
-				} // TODO change photo
-
-				if (continueProccess() == false) {
-					return;
-				}
-			}
-		}
-	}
-
+	
+	
+	
+	//Methods for working with episodes 
 	private static void registerEpisode(Patient p) {
 		if (continueProccess() == false) {
 			return;
@@ -566,26 +683,61 @@ public class Menu {
 				Episode ep = createEpisode(reader);
 				ep.setPatient(p);
 				episodeManager.addEpisode(ep);
-
-				Symptom symptom = createSymptom(reader);
-				symptom.addEpisodes(ep);
-				Symptom s2 = symptomManager.getSymptomByName(symptom.getName());
-
-				if (s2 == null) {
-					symptomManager.addSymptom(symptom);
+				ep.setId(dbManager.getLastId());
+				
+				Symptom smp = createSymptom(reader);
+				Symptom s2 = symptomManager.getSymptomByName(smp.getName());
+				//TODO solve problems with episodes 
+				if(s2 == null) {
+					symptomManager.addSymptom(smp);
+					smp.setId(dbManager.getLastId());
+					smp.addEpisodes(ep);
+					ep.addSymptom(smp);
 					
-					EpisodeSymptom epsymp = createSeverity(ep, symptom);
-					esManager.assignEpisodeSymptom(epsymp);
+					//EpisodeSymptom epsp = createSeverity(ep, smp);
+					//esManager.assignEpisodeSymptom(epsp);
 				} else {
-					EpisodeSymptom epsymp = createSeverity(ep, s2);
-					esManager.assignEpisodeSymptom(epsymp);
+					s2.addEpisodes(ep);
+					ep.addSymptom(s2);
+					
+					//EpisodeSymptom epsp = createSeverity(ep, s2);
+					//esManager.assignEpisodeSymptom(epsp);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+	
+	private static void deleteEpisode(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			boolean deleted = false;
+			do {
+				System.out.println("Introduce the episode's id: ");
+				//TODO getEpisodeByID
+				//then delete episode + delete the episodesymptom relationship between them, 
+				//and remove episode form list of episodes in symptoms 
+			} while(deleted == false);
+		}
+	}
+	
+	private static void listEpisodes(Patient p) {
+		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
+		
+		for (Episode e : episodes) {
+			System.out.println(e.toString());
+			
+			//for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+			//	System.out.println(s.toString());
+			//}
+			System.out.println("------------------------\n");
+		}
+	}
 
+
+	//Methods for working with medications
 	private static void addMedication(Patient p) {
 		if (continueProccess() == false) {
 			return;
@@ -595,47 +747,347 @@ public class Menu {
 				Medication med2 = medicationManager.getMedicationByName(med.getName());
 
 				if (med2 == null) {
-					PatientMedication pm = createPMed(p, med);
-					
 					medicationManager.addMedication(med);
-					//int id = manager.getLastId();
-					//med.setId(id);
-					pmManager.assignPatientMedication(pm);
+					med.setId(dbManager.getLastId());
+					med.addPatient(p);
+					p.addMedication(med);
+					
+					//TODO ask rodrigo 
+					//PatientMedication pm = createPMed(p, med);
+					//pmManager.assignPatientMedication(pm);
+					
 				} else {
-					PatientMedication pm = createPMed(p, med2);
-					pmManager.assignPatientMedication(pm);
+					med2.addPatient(p);
+					p.addMedication(med2);
+					
+					//PatientMedication pm = createPMed(p, med2);
+					//pmManager.assignPatientMedication(pm);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+	
+	private static PatientMedication getMedFromPatient(Patient p) {
+		listMedications(p);
+		Medication med = null;
+		
+		do {
+			System.out.println("Input the name of the medication: ");
+			String namemed = getString(reader);
+			med = medicationManager.getMedicationByName(namemed);
+		} while (med == null);
 
+		PatientMedication pm = new PatientMedication(p, med);
+
+		return pm;
+	}
+	
+	private static void deleteMedication(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			PatientMedication pm = getMedFromPatient(p);
+			Medication med = pm.getMedication();
+			p.removeMedication(med);
+			med.removePatient(p);
+			
+			pmManager.unassignPatientMedication(pm);
+		}
+	}
+	
+	private static void updateMedication(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			PatientMedication pmed = getMedFromPatient(p);
+
+			System.out.println("\nShowing medications information... \n");
+			System.out.println(pmed.toString());
+			
+			System.out.println("\nWhich information would you like to change?: ");
+			String toChange = getString(reader);
+
+			if (toChange.equalsIgnoreCase("frequency")) {
+				System.out.println("Input new frequency: ");
+				pmed.setFrequency(getPositiveInteger(reader));
+				pmManager.updatePatientMedication(pmed);
+			} else if (toChange.equalsIgnoreCase("amount")) {
+				System.out.println("Input new amount: ");
+				pmed.setAmount(getPositiveFloat(reader));
+				pmManager.updatePatientMedication(pmed);
+			}
+		}
+	}
+	
+	private static void listMedications(Patient p) {
+		List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
+		
+		for (Medication m : meds) {
+			System.out.println(m.toString());
+			//TODO also print the frequency and the amount 
+			System.out.println("-----------------------------\n");
+		}
+	}
+	
+	
+	//Methods for doing operations on doctors from a patients account
+	private static Doctor searchDoctor() {
+		do {
+			System.out.println("		SEARCHING MENU			   ");
+			System.out.println("1. Search by the doctor's name     ");
+			System.out.println("2. Search by the doctor's email    ");
+			System.out.println("3. Search by the hospital          "); //TODO consider deleting this 
+			System.out.println("0. Go back                         ");
+			
+			System.out.println("\nPlease introduce the option: ");
+			
+			List<Doctor> docs = null;
+			Doctor d = null; 
+			
+			int choice = getPositiveInteger(reader);
+			switch(choice) {
+				case 1: 
+					System.out.println("Introduce the doctor's name: ");
+					docs = doctorManager.searchDoctorByName(getString(reader));
+					
+					if(docs.isEmpty()) {
+						System.out.println("There is not a doctor with that name");
+						break;
+					} else {
+						listDoctors(docs);
+						do {
+							System.out.println("Introduce the doctor´s id: ");
+							d = doctorManager.getDoctorById(getPositiveInteger(reader));
+						} while (d == null);
+						return d; 
+					}
+					
+				case 2: 
+					System.out.println("Introduce the doctor's email: ");
+					d = doctorManager.searchDoctorByEmail(getString(reader));
+	
+					if(d == null) {
+						System.out.println("There is not a doctor with that email");
+						break;
+					} else {
+						return d; 
+					}
+					
+				case 3: 
+					System.out.println("Introduce the hospital's name: ");
+					docs = doctorManager.searchDoctorByHospital(getString(reader));
+					
+					if(docs.isEmpty()) {
+						System.out.println("There is no doctor's in that hospital. Check for spelling mistakes");
+						break;
+					} else {
+						listDoctors(docs);
+						do {
+							System.out.println("Introduce the doctor´s id: ");
+							d = doctorManager.getDoctorById(getPositiveInteger(reader));
+						} while (d == null);
+						return d; 
+					} 
+				case 0: 
+					return null; 
+				default: 
+					System.out.println("That option does not exist.");
+			}
+		} while(true);
+	}
+	
+	private static void assignDoctor(Patient p) {
+		if (p.getDoctor() != null) {
+			System.out.println("You already have a desiganted doctor, if you want to chenge it, you have to delete him as your doctor first");
+			return; 
+		} else {
+			Doctor d = searchDoctor();
+		
+			if(d == null) {
+				return; 
+			} else {
+				p.setDoctor(d);
+				d.addPatient(p);
+				
+				patientManager.assignDoctor(p, d);
+				return;
+			}
+		}
+	}
+	
+	private static void unassignDoctor(Patient p) {
+		if (p.getDoctor() == null) {
+			System.out.println("You have not registered any doctor");
+			return; 
+		} else {
+			patientManager.unassignDoctor(p, p.getDoctor());
+			p.getDoctor().removePatient(p);
+			p.setDoctor(null);
+		}
+	}
+	
+	private static void listDoctors(List<Doctor> docs) {
+		for (Doctor d : docs) {
+			System.out.println(d.toString());
+		}
+	}
+	
+	
+	//Methods for emergency contacts 
+	private static EmergencyContact selectEC(Patient p) {
+		listEC(p);
+		EmergencyContact ec = null; 
+		
+		do {
+			System.out.println("Introduce the contacts id: ");
+			int id = getPositiveInteger(reader);
+			ec = ecManager.getECbyId(id);
+		} while (ec == null);
+
+		return ec;  
+	}
+	
+	private static void listEC(Patient p) {
+		List<EmergencyContact> ecs = ecManager.getEmergencyContactsOfPatient(p.getId());
+
+		System.out.println("\n--- MY EMERGENCY CONTACTS ---");
+		for(EmergencyContact e2 : ecs) {
+			System.out.println(e2.toString());
+			System.out.println("-----------------------------\n");
+		}
+	}
+	
+	private static void addEmergencyContact(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			try {
+				EmergencyContact ec = createEmergencyContacts(reader, p);
+				List<EmergencyContact> ecs = ecManager.getEmergencyContactsOfPatient(p.getId());
+				
+				for(EmergencyContact e2 : ecs) {
+					if(e2.getNumber() == ec.getNumber()) {
+						System.out.println("There is already an emergency contact with that number.");
+						return; 
+					}
+				}
+				
+				ecManager.addEmergencyContact(ec);
+				ec.setId(dbManager.getLastId());
+				p.addEC(ec);
+				
+				return; 
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void updateEContacts(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			EmergencyContact ec = selectEC(p);
+
+			System.out.println("\nShowing emergency contact's information... \n");
+			System.out.println(ec.toString());
+			
+			System.out.println("\nWhich information would you like to change?: ");
+			String toChange = getString(reader);
+
+			if (toChange.equalsIgnoreCase("name")) {
+				System.out.println("Input new name: ");
+				ec.setName(getString(reader));
+				ecManager.updateEmergencyContact(ec);
+			} else if (toChange.equalsIgnoreCase("number")) {
+				System.out.println("Input new number: ");
+				ec.setNumber(getPositiveFloat(reader));
+				ecManager.updateEmergencyContact(ec);
+			}
+		}
+	}
+	
+	private static void deleteEContact(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			EmergencyContact ec = selectEC(p);
+			
+			p.removeEC(ec);
+			ecManager.deleteEmergencyContact(ec);
+		}
+	}
+	
+	
+	//Methods for allergy
 	private static void addAllergy(Patient p) {
 		if (continueProccess() == false) {
 			return;
 		} else {
-			// try {
 			Allergy a = getAllergy(reader);
 			Allergy a2 = allergyManager.getAllergyByName(a.getName());
 
-				if (a2 == null) {
-					PatientAllergy pa = new PatientAllergy (a,p);
-					pa.setPatient(p);
-
+			if (a2 == null) {
 				allergyManager.addAllergy(a);
-				paManager.assignPatientAllergy(pa);
+				a.setId(dbManager.getLastId());
+				a.addPatient(p);
+				p.addAllergy(a);
+				
+				//PatientAllergy pa = new PatientAllergy(a, p);
+				//paManager.assignPatientAllergy(pa);
+				
 			} else {
-				PatientAllergy pa = new PatientAllergy(a2, p);
-				paManager.assignPatientAllergy(pa);
+				a2.addPatient(p);
+				p.addAllergy(a2);
+				
+				//PatientAllergy pa = new PatientAllergy(a2, p);
+				//paManager.assignPatientAllergy(pa);
 			}
-			// } catch (IOException e) {
-			// e.printStackTrace();
-			// }
 		}
 	}
+	
+	private static void deleteAllergy(Patient p) {
+		if (continueProccess() == false) {
+			return;
+		} else {
+			PatientAllergy pa = getAllergyFromPatient(p);
+			Allergy a = pa.getAllergy();
+			p.removeAllergy(a);
+			a.removePatient(p);
+			
+			paManager.unassignPatientAllergy(pa);
+		}
+	}
+	
+	private static PatientAllergy getAllergyFromPatient(Patient p) {
+		listAllergy(p);
+		Allergy a = null; 
+		
+		do {
+			System.out.println("Input the allergy id: ");
+			String name = getString(reader);
+			a = allergyManager.getAllergyByName(name);
+		} while (a == null);
 
-	private static void showEvolution(Patient p) {
+		PatientAllergy pa = new PatientAllergy(a, p);
+		return pa; 
+	}
+	
+	private static void listAllergy(Patient p) {
+		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
+		
+		System.out.println("\n--- MY ALLERGIES ---");
+		for(Allergy a: allergies) {
+			System.out.println(a.toString());
+			System.out.println("-----------------------------\n");
+		}
+	}
+	
+	
+	//Methods for showing evolution //TODO show evolution
+	/*private static void showEvolution(Patient p) {
 		// We could show the data like this:
 		// PRECONDITION: 1 month of data and at least 1 episode recorded
 		// 1. Shows all episodes in a month
@@ -656,374 +1108,186 @@ public class Menu {
 				month++;
 			}
 		}
-	}
+	}*/
+	
+	
+	//Methods for showing recipes 
+	private static void showHummusRecipe(String diet, List<Allergy> allergies) {
+		System.out.println("~~INGREDIENTS:");
+		System.out.println("\n300g of chickpeas\n4 tablespoons of tahini \njuice from 1 lemon "
+				+ "\n2 teaspoons of salt \n3 tablespoons of olive oil \n1.5 teaspoon of baking soda");
 
-	private static void updateMedication(Patient p) {
-		if (continueProccess() == false) {
-			return;
-		} else {
-			PatientMedication pmed = selectMedicationFromPatient(p);
+		String[] ingredientsHummus = new String[] { "chickpea", "tahini", "lemon", "salt", "olive", "baking soda" };
 
-			System.out.println("\nShowing medications information... \n");
-			System.out.println(pmed.toString());
-			System.out.println("Which information would you like to change?: ");
-			String toChange = getString(reader);
-
-			if (toChange.equalsIgnoreCase("frequency")) {
-				System.out.println("Input new frequency: ");
-				pmed.setFrequency(getPositiveInteger(reader));
-				pmManager.unassignPatientMedication(pmed);
-			} else if (toChange.equalsIgnoreCase("amount")) {
-				System.out.println("Input new amount: ");
-				pmed.setAmount(getPositiveFloat(reader));
-				pmManager.updatePatientMedication(pmed);
-			}
-		}
-	}
-
-	private static PatientMedication selectMedicationFromPatient(Patient p) {
-		List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
-		listMedications(meds);
-
-		Medication med = null;
-		do {
-			System.out.println("Input the name of the medication: ");
-			String namemed = getString(reader);
-			med = medicationManager.getMedicationByName(namemed);
-		} while (med == null);
-
-		PatientMedication pm = new PatientMedication(p, med);
-		return pm;
-	}
-
-	private static void deleteMedication(Patient p) {
-		if (continueProccess() == false) {
-			return;
-		} else {
-			List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
-			listMedications(meds);
-
-			Medication med = null;
-			do {
-				System.out.println("Input the name of the medication: ");
-				String namemed = getString(reader);
-				med = medicationManager.getMedicationByName(namemed);
-			} while (med == null);
-
-			PatientMedication pm = new PatientMedication(p, med);
-			pmManager.unassignPatientMedication(pm);
-		}
-	}
-
-	private static void deleteAllergy(Patient p) {
-		if (continueProccess() == false) {
-			return;
-		} else {
-			PatientAllergy pa = selectAllergyFromPatient(p);
-			paManager.unassignPatientAllergy(pa);
-		}
-	}
-
-	private static PatientAllergy selectAllergyFromPatient(Patient p) {
-		List<Allergy> alls = paManager.getAllergiesOfPatient(p.getId());
-		listAllergies(alls);
-
-		Allergy all = null;
-		do {
-			System.out.println("Input the name of the allergy: ");
-			String nameall = getString(reader);
-			all = allergyManager.getAllergyByName(nameall);
-		} while (all == null);
-
-		PatientAllergy pa = new PatientAllergy(all, p);
-
-		return pa;
-	}
-
-	private static Patient selectPatient(List<Patient> p) throws Exception {
-		listPatients(p);
-		System.out.println("Introduce the patients id: ");
-		Integer id = getPositiveInteger(reader);
-
-		Patient patient = patientManager.getPatientById(id);
-		return patient;
-	}
-
-	private static void listPatients(List<Patient> p) {
-		for (Patient pat : p) {
-			System.out.println(pat.toStringForDoctors());
-		}
-	}
-
-	private static void listDoctors(List<Doctor> docs) {
-		for (Doctor d : docs) {
-			System.out.println(d.toString());
-		}
-	}
-
-	private static void listMedications(List<Medication> meds) {
-		for (Medication m : meds) {
-			System.out.println(m.toString());
-		}
-	}
-
-	private static void listEpisodes(List<Episode> episodes) {
-		for (Episode e : episodes) {
-			System.out.println(e.toString());
-
-			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-				System.out.println(s.toString());
-			}
-		}
-	}
-
-	private static void listAllergies(List<Allergy> allergies) {
 		for (Allergy a : allergies) {
-			System.out.println(a.toString());
-		}
-	}
-
-	private static void showRecipe(Integer choice, String diet, List<Allergy> allergies) {
-
-		switch (choice) {
-
-		case 1: // Hummus for every diet, changes in low and high fat (olive oil)
-			String[] ingredientsHummus = new String[] { "chickpea", "tahini", "lemon", "salt", "olive", "baking soda" };
-
-			for (Allergy a : allergies) {
-				for (int i = 0; i < ingredientsHummus.length; i++) {
-					if (a.getName() == ingredientsHummus[i]) {
-						System.out.println("CAREFUL: This recipe contains " + ingredientsHummus[i] + ". "
-								+ "Replace the ingredient or choose another recipe.");
-					}
+			for (int i = 0; i < ingredientsHummus.length; i++) {
+				if (a.getName() == ingredientsHummus[i]) {
+					System.out.println("CAREFUL: This recipe contains " + ingredientsHummus[i] + ". "
+							+ "Replace the ingredient or choose another recipe.");
 				}
-			}
-
-			System.out.println("\nHummus recipe:");
-			System.out.println(
-					"\nNeeded ingredients: 300g of chickpeas, 4 tablespoons of tahini, juice from 1 lemon, 2 teaspoons of salt, 3 tablespoons of olive oil, 1.5 teaspoon of baking soda/n");
-
-			if (diet == "ketogenic") {
-				System.out.println("For your ketogenic diet, you can add more olive oil.");
-			}
-
-			System.out
-					.println("\nTake chickpeas and place it in a large bowl. Add plenty of water and soak overnight.");
-			System.out.println(
-					"When ready, drain chickpeas and place them in a medium-sized heavy cooking pot. Cover with water by about 2 inches.");
-			System.out.println("Bring to a boil, then reduce heat and simmer for up to 2 hours.");
-			System.out.println("Cover the cooked chickpeas in hot water and add baking soda.");
-			System.out.println("Leave for a few minutes.");
-			System.out.println("Take a handful of chickpeas and rub under running water to remove the skins.");
-			System.out.println("Let the chickpeas cool completely.");
-			System.out.println("Puree the chickpeas in a food processor.");
-			System.out.println("Add the rest and keep blending until its consistency is smooth.");
-			System.out.println("Transfer to a serving bowl and garnish with for example parsley or paprika./n");
-
-		case 2: // Shakshuka, only replace with oil and eggs
-			String[] ingredientsShakshuka = { "olive", "onion", "red bell pepper", "garlic", "paprika", "cumin",
-					"chili", "tomato", "egg", "salt", "pepper" };
-
-			for (Allergy a : allergies) {
-				for (int i = 0; i < ingredientsShakshuka.length; i++) {
-					if (a.getName() == ingredientsShakshuka[i]) {
-						System.out.println("CAREFUL: This recipe contains " + ingredientsShakshuka[i] + ". "
-								+ "Replace the ingredient or choose another recipe.");
-					}
-				}
-			}
-
-			System.out.println("\nShakshuka recipe:");
-			System.out.println(
-					"\nNeeded ingredients: 6 eggs, 1 red bell pepper, 1 onion, 1 garlic, 1 mashed tomatoes can, 2 teaspoons of paprika, 2 teaspoons of cumin, 1 teaspoon of salt, 1 teaspoon of pepper, 1 teaspoon of chili powder, 1 tablespoon of olive oil /n");
-
-			if (diet == "vegan") {
-				System.out.println("For your " + diet + " diet, replace eggs with 200g of tofu.");
-			}
-			if (diet == "high protein vegan") {
-				System.out.println("For your" + diet
-						+ " diet replace eggs with 300g of tofu. You also can use less than a whole can of tomatoes. ");
-			}
-			if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
-				System.out.println("For your " + diet + " diet you can use less tomatoes and more olive oil.");
-			}
-			if (diet == "ketogenic vegan") {
-				System.out.println(
-						"For your " + diet + " diet you can replace eggs with 150g of tofu and use more olive oil.");
-			}
-			if (diet == "high protein vegetarian") {
-				System.out.println(
-						"For your " + diet + " diet you can use less than a whole can of tomatoes and use 8 eggs.");
-			}
-			if (diet == "high protein") {
-				System.out.println("For your " + diet + " diet you can use 8 eggs.");
-			}
-
-			System.out.println("\nHeat olive oil in a large saute pan on medium heat.");
-			System.out.println(
-					"Add the chopped bell pepper and onion and cook for 5 minutes or until the onion becomes translucent.");
-			System.out.println("Add garlic and spices and cook an additional minute");
-			System.out.println(
-					"Pour the can of tomatoes and juice into the pan and break down the tomatoes using a large spoon.");
-			System.out.println("Season with salt and pepper and bring the sauce to a simmer");
-			System.out.println(
-					"Use your large spoon to make small wells in the sauce and crack the eggs into each well.");
-			System.out.println("Cover the pan and cook for 5-8 minutes, or until the eggs are done to your liking");
-			System.out.println("Optionally garnish with chopped cilantro and parsley./n");
-
-		case 3: // Feta salad, only replace feta
-			String[] ingredientsSalad = { "lettuce", "tomato", "cucumber", "feta" };
-
-			for (Allergy a : allergies) {
-				for (int i = 0; i < ingredientsSalad.length; i++) {
-					if (a.getName() == ingredientsSalad[i]) {
-						System.out.println("CAREFUL: This recipe contains " + ingredientsSalad[i] + ". "
-								+ "Replace the ingredient or choose another recipe.");
-					}
-				}
-			}
-
-			System.out.println("Feta salad recipe:");
-			System.out.println("Needed ingredients: half of lettuce, 2 tomatoes, 1 cucumber, 200g of feta cheese/n");
-
-			if (diet == "vegan") {
-				System.out.println("For your " + diet + " diet, replace feta with 200g of pickled tofu or vegan feta.");
-			}
-			if (diet == "high protein vegan") {
-				System.out.println("For your" + diet
-						+ " diet replace feta with 300g of pickled tofu or vegan tofu. You also can use less lettuce. ");
-			}
-			if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
-				System.out.println(
-						"For your " + diet + " diet you can use less vegetables, more feta cheese and add olive oil.");
-			}
-			if (diet == "ketogenic vegan") {
-				System.out.println("For your " + diet
-						+ " diet you can replace feta cheese with pickled tofu or vegan feta. You also can use less vegetables and add olive oil.");
-			}
-			if (diet == "high protein vegetarian" || diet == "high protein") {
-				System.out.println("For your " + diet + " diet you can use 300g of feta cheese and less vegetables.");
-			}
-			if (diet == "lactose free") {
-				System.out.println("For your " + diet
-						+ " diet you can use lactose free feta cheese. If you can't find one, you can use pickled tofu or vegan feta cheese.");
-			}
-			if (diet == "dairy free") {
-				System.out.println("For your " + diet + " diet you can use pickled tofu or vegan feta cheese.");
-			}
-
-			System.out.println(
-					"\nChop half a lettuce into small pieces. Do the same with 2 tomatoes, 1 cucumber and a feta cheese");
-			System.out.println("Mix everything together in a bowl");
-			System.out.println("Use the spices you like for example: oregano, salt, pepper");
-			System.out.println("Optionally you can add 1 table spoon of olive oil./n");
-
-		case 4:
-			// Chinese noodles
-			String[] ingredientsNoodles = { "onion", "red bell pepper", "tofu", "soybean", "paprika" };
-
-			for (Allergy a : allergies) {
-				for (int i = 0; i < ingredientsNoodles.length; i++) {
-					if (a.getName() == ingredientsNoodles[i]) {
-						System.out.println("CAREFUL: This recipe contains " + ingredientsNoodles[i] + ". "
-								+ "Replace the ingredient or choose another recipe.");
-					}
-				}
-			}
-
-			System.out.println("\nChinese noodles recipe:");
-			System.out.println(
-					"\nNeeded ingredients: 1 pack of noodles (of rice, wheat..., as preferred), 1 big onion, 1 red bell pepper, 150g of tofu, 5 tablespoons of soy sauce, 2 table spoons of oil (olive or sunflower, as preferred), 2 teaspoons of paprika");
-
-			if (diet == "high protein vegetarian" || diet == "high protein" || diet == "high protein vegan") {
-				System.out.println("For your" + diet + " diet you can use 200g of tofu and less noodles.");
-			}
-			if (diet == "ketogenic" || diet == "ketogenic vegetarian" || diet == "ketogenic vegan") {
-				System.out.println("For your " + diet + " diet you can use less noodles and more oil.");
-			}
-			if (diet == "gluten free") {
-				System.out.println("For your " + diet + " diet remember to use gluten free noodles");
-			}
-
-			System.out.println("\nDice 2 onions and fry on oil you like, for example sesame oil.");
-			System.out.println("Boil noodles.");
-			System.out.println("Add soy sauce");
-			System.out.println("Slice red bell pepper and other greens of your choice");
-			System.out.println("Dice tofu and add to the veggies.");
-			System.out.println("Add paprika.");
-			System.out.println("Add noodles to the rest and fry for 2 minutes./n");
-
-		case 5:
-			// Oatmeal, replace milk, not for keto, high protein
-			String[] ingredientsOatmeal = { "oat", "cow milk", "cinnamon" };
-
-			for (Allergy a : allergies) {
-				for (int i = 0; i < ingredientsOatmeal.length; i++) {
-					if (a.getName() == ingredientsOatmeal[i]) {
-						System.out.println("CAREFUL: This recipe contains " + ingredientsOatmeal[i] + ". "
-								+ "Replace the ingredient or choose another recipe.");
-					}
-				}
-			}
-
-			System.out.println("\nOatmeal recipe:");
-			System.out.println("\nNeeded ingredients: 1 cup of oats, 1 cup of milk, 1 teaspoon of cinnamon");
-
-			if (diet == "high protein vegetarian" || diet == "high protein") {
-				System.out.println(
-						"For your" + diet + " diet you can add protein powder or tofu or use high protein milk.");
-			}
-			if (diet == "high protein vegan") {
-				System.out.println("For your" + diet
-						+ " diet replace cow milk with plant-based milk. To add proteins you can use high protein plant-based milk or add tofu or vegan protein powder.");
-			}
-			if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
-				System.out.println("For your" + diet
-						+ " diet you can use coconut milk or high fat milk. Use only 1/3 cup of oats. Add lots of nuts or chia seeds to make it more ketogenic.");
-			}
-			if (diet == "dairy free" || diet == "vegan") {
-				System.out.println("For your" + diet + " replace cow milk with plant based milk.");
-			}
-			if (diet == "lactose free") {
-				System.out.println("For your" + diet + " replace normal cow milk with lactose free milk or vegan milk");
-			}
-			if (diet == "ketogenic vegan") {
-				System.out.println("For your" + diet
-						+ " replace cow milk with plant based milk. You can add many nuts or chia seeds to make it more ketogenic.");
-			}
-
-			System.out.println("\nBoil oats in milk.");
-			System.out.println("Add cinnamon.");
-			System.out.println(
-					"You can add anything you want, nuts, goji berries, dates etc. It is recommended to add fresh fruit.");
-			System.out.println("Mix everything and boil until oats are soft./n");
-
-		default:
-			System.out.println("Wrong number, do you want to back to the menu?");
-			System.out.println("Type yes or no: ");
-			String choice2 = getString(reader);
-			if (choice2 == "yes") {
-				showMenu();
-			} else if (choice2 == "no") {
 			}
 		}
+
+		if (diet == "ketogenic") {
+			System.out.println("Note: for your ketogenic diet, you can add more olive oil.");
+		}
+		showHummus();
 	}
+	
+	private static void showShakshukaRecipe(String diet, List<Allergy> allergies) {
+		System.out.println("~~INGREDIENTS:");
+		System.out.println("6 eggs \n1 red bell pepper \n1 onion \n1 garlic \n1 mashed tomatoes can "
+				+ "\n2 teaspoons of paprika \n2 teaspoons of cumin \n1 teaspoon of salt \n1 teaspoon of pepper "
+				+ "\n1 teaspoon of chili powder \n1 tablespoon of olive oil" );
+				
+		String[] ingredientsShakshuka = { "olive", "onion", "red bell pepper", "garlic", "paprika", "cumin",
+				"chili", "tomato", "egg", "salt", "pepper" };
 
-	private static void chooseRecipe(Patient p) {
+		for (Allergy a : allergies) {
+			for (int i = 0; i < ingredientsShakshuka.length; i++) {
+				if (a.getName() == ingredientsShakshuka[i]) {
+					System.out.println("CAREFUL: This recipe contains " + ingredientsShakshuka[i] + ". "
+							+ "Replace the ingredient or choose another recipe.");
+				}
+			}
+		}
 
-		System.out.println("What recipe do you want to see?");
-		System.out.println("1. Hummus");
-		System.out.println("2. Shakshuka");
-		System.out.println("3. Salad");
-		System.out.println("4. Chinese noodles");
-		System.out.println("5. Oatmeal");
+		if (diet == "vegan") {
+			System.out.println("For your " + diet + " diet, replace eggs with 200g of tofu.");
+		}
+		if (diet == "high protein vegan") {
+			System.out.println("For your" + diet
+					+ " diet replace eggs with 300g of tofu. You also can use less than a whole can of tomatoes. ");
+		}
+		if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
+			System.out.println("For your " + diet + " diet you can use less tomatoes and more olive oil.");
+		}
+		if (diet == "ketogenic vegan") {
+			System.out.println(
+					"For your " + diet + " diet you can replace eggs with 150g of tofu and use more olive oil.");
+		}
+		if (diet == "high protein vegetarian") {
+			System.out.println(
+					"For your " + diet + " diet you can use less than a whole can of tomatoes and use 8 eggs.");
+		}
+		if (diet == "high protein") {
+			System.out.println("For your " + diet + " diet you can use 8 eggs.");
+		}
 
-		System.out.println("Input the number of the recipe: ");
-		Integer choice = getPositiveInteger(reader);
+		showShakshuka();
+	}
+	
+	private static void showFetaRecipe(String diet, List<Allergy> allergies) {
+		System.out.println("~~INGREDIENTS:");
+		System.out.println("half of lettuce \n2 tomatoes \n1 cucumber \n200g of feta cheese");
 
-		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
-		String diet = p.getDiet();
+		String[] ingredientsSalad = { "lettuce", "tomato", "cucumber", "feta" };
 
-		showRecipe(choice, diet, allergies);
+		for (Allergy a : allergies) {
+			for (int i = 0; i < ingredientsSalad.length; i++) {
+				if (a.getName() == ingredientsSalad[i]) {
+					System.out.println("CAREFUL: This recipe contains " + ingredientsSalad[i] + ". "
+							+ "Replace the ingredient or choose another recipe.");
+				}
+			}
+		}
+
+		if (diet == "vegan") {
+			System.out.println("For your " + diet + " diet, replace feta with 200g of pickled tofu or vegan feta.");
+		}
+		if (diet == "high protein vegan") {
+			System.out.println("For your" + diet
+					+ " diet replace feta with 300g of pickled tofu or vegan tofu. You also can use less lettuce. ");
+		}
+		if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
+			System.out.println(
+					"For your " + diet + " diet you can use less vegetables, more feta cheese and add olive oil.");
+		}
+		if (diet == "ketogenic vegan") {
+			System.out.println("For your " + diet
+					+ " diet you can replace feta cheese with pickled tofu or vegan feta. You also can use less vegetables and add olive oil.");
+		}
+		if (diet == "high protein vegetarian" || diet == "high protein") {
+			System.out.println("For your " + diet + " diet you can use 300g of feta cheese and less vegetables.");
+		}
+		if (diet == "lactose free") {
+			System.out.println("For your " + diet
+					+ " diet you can use lactose free feta cheese. If you can't find one, you can use pickled tofu or vegan feta cheese.");
+		}
+		if (diet == "dairy free") {
+			System.out.println("For your " + diet + " diet you can use pickled tofu or vegan feta cheese.");
+		}
+
+		showFetaSalad();
+	}
+	
+	private static void showNoodlesRecipe(String diet, List<Allergy> allergies) {
+		System.out.println("~~INGREDIENTS:");
+		System.out.println("1 pack of noodles (of rice, wheat..., as preferred) \n1 big onion \n1 red bell pepper"
+				+ " \n150g of tofu \n5 tablespoons of soy sauce \n2 table spoons of oil (olive or sunflower, as preferred) \n2 teaspoons of paprika");
+
+		String[] ingredientsNoodles = { "onion", "red bell pepper", "tofu", "soybean", "paprika" };
+
+		for (Allergy a : allergies) {
+			for (int i = 0; i < ingredientsNoodles.length; i++) {
+				if (a.getName() == ingredientsNoodles[i]) {
+					System.out.println("CAREFUL: This recipe contains " + ingredientsNoodles[i] + ". "
+							+ "Replace the ingredient or choose another recipe.");
+				}
+			}
+		}
+
+		if (diet == "high protein vegetarian" || diet == "high protein" || diet == "high protein vegan") {
+			System.out.println("For your" + diet + " diet you can use 200g of tofu and less noodles.");
+		}
+		if (diet == "ketogenic" || diet == "ketogenic vegetarian" || diet == "ketogenic vegan") {
+			System.out.println("For your " + diet + " diet you can use less noodles and more oil.");
+		}
+		if (diet == "gluten free") {
+			System.out.println("For your " + diet + " diet remember to use gluten free noodles");
+		}
+		
+		showChineseNoodles();
+	}
+	
+	private static void showOatmealRecipe(String diet, List<Allergy> allergies) {
+		System.out.println("~~INGREDIENTS:");
+		System.out.println("1 cup of oats \n1 cup of milk \n1 teaspoon of cinnamon");
+
+		String[] ingredientsOatmeal = { "oat", "cow milk", "cinnamon" };
+
+		for (Allergy a : allergies) {
+			for (int i = 0; i < ingredientsOatmeal.length; i++) {
+				if (a.getName() == ingredientsOatmeal[i]) {
+					System.out.println("CAREFUL: This recipe contains " + ingredientsOatmeal[i] + ". "
+							+ "Replace the ingredient or choose another recipe.");
+				}
+			}
+		}
+
+		if (diet == "high protein vegetarian" || diet == "high protein") {
+			System.out.println(
+					"For your" + diet + " diet you can add protein powder or tofu or use high protein milk.");
+		}
+		if (diet == "high protein vegan") {
+			System.out.println("For your" + diet
+					+ " diet replace cow milk with plant-based milk. To add proteins you can use high protein plant-based milk or add tofu or vegan protein powder.");
+		}
+		if (diet == "ketogenic" || diet == "ketogenic vegetarian") {
+			System.out.println("For your" + diet
+					+ " diet you can use coconut milk or high fat milk. Use only 1/3 cup of oats. Add lots of nuts or chia seeds to make it more ketogenic.");
+		}
+		if (diet == "dairy free" || diet == "vegan") {
+			System.out.println("For your" + diet + " replace cow milk with plant based milk.");
+		}
+		if (diet == "lactose free") {
+			System.out.println("For your" + diet + " replace normal cow milk with lactose free milk or vegan milk");
+		}
+		if (diet == "ketogenic vegan") {
+			System.out.println("For your" + diet
+					+ " replace cow milk with plant based milk. You can add many nuts or chia seeds to make it more ketogenic.");
+		}
+
+		showOatmeal();
 	}
 }
