@@ -24,6 +24,7 @@ public class Auxiliar {
 				}
 			} catch (IOException ex) {
 				System.out.println("Reading error");
+				ex.printStackTrace();
 			} catch (NumberFormatException ex) {
 				System.out.println("Error. Introduce a number:");
 			}
@@ -301,7 +302,6 @@ public class Auxiliar {
 		Float amount = getPositiveFloat(reader);
 
 		PatientMedication pmed = new PatientMedication(freq, amount, patient, med);
-		reader.close();
 		return pmed;
 	}
 
@@ -350,7 +350,6 @@ public class Auxiliar {
 		Integer sev = getPositiveInteger(reader);
 
 		EpisodeSymptom epsymp = new EpisodeSymptom(ep, symp, sev);
-		reader.close();
 		return epsymp;
 	}
 

@@ -45,7 +45,7 @@ public class Menu {
 		paManager = new JDBCPatientAllergyManager(dbManager);
 		ecManager = new JDBCEmergencyContactManager(dbManager);
 		
-		userManager = new JPAUserManager();
+		//userManager = new JPAUserManager();
 		try {
 			do {
 				System.out.println("                    WELCOME TO EPI+ !!                     ");
@@ -160,11 +160,11 @@ public class Menu {
 	}
 	private static void registerPatient() throws IOException {
 		Patient patient = createPatient(reader);
-		System.out.println("Adding allergies...");
-		addAllergy(patient);
-		
 		patientManager.addPatient(patient);
 		patient.setId(dbManager.getLastId());
+		System.out.println("Adding allergies...");
+		addAllergy(patient);
+
 		System.out.println("\nYou have been successfully registered");
 	}
 
@@ -418,7 +418,7 @@ public class Menu {
 				break;
 			case 3:
 				listEpisodes(p); 
-				deleteEpisode(p);
+				// deleteEpisode(p);
 				break;
 			case 4:
 				//TODO showEvolution(p);
@@ -532,6 +532,9 @@ public class Menu {
 		System.out.println(p.toString());
 
 		listEC(p);
+		System.out.println("");
+		listAllergy(p);
+		System.out.println("");
 		
 		if(p.getDoctor() != null) {
 			System.out.println("My doctor : " + p.getDoctor().toString());
@@ -687,21 +690,21 @@ public class Menu {
 				
 				Symptom smp = createSymptom(reader);
 				Symptom s2 = symptomManager.getSymptomByName(smp.getName());
-				//TODO solve problems with episodes 
+				
 				if(s2 == null) {
 					symptomManager.addSymptom(smp);
 					smp.setId(dbManager.getLastId());
 					smp.addEpisodes(ep);
 					ep.addSymptom(smp);
 					
-					//EpisodeSymptom epsp = createSeverity(ep, smp);
-					//esManager.assignEpisodeSymptom(epsp);
+					EpisodeSymptom epsp = createSeverity(ep, smp);
+					esManager.assignEpisodeSymptom(epsp);
 				} else {
 					s2.addEpisodes(ep);
 					ep.addSymptom(s2);
 					
-					//EpisodeSymptom epsp = createSeverity(ep, s2);
-					//esManager.assignEpisodeSymptom(epsp);
+					EpisodeSymptom epsp = createSeverity(ep, s2);
+					esManager.assignEpisodeSymptom(epsp);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -729,9 +732,9 @@ public class Menu {
 		for (Episode e : episodes) {
 			System.out.println(e.toString());
 			
-			//for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-			//	System.out.println(s.toString());
-			//}
+			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+				System.out.println(s.toString());
+			}
 			System.out.println("------------------------\n");
 		}
 	}
@@ -752,16 +755,15 @@ public class Menu {
 					med.addPatient(p);
 					p.addMedication(med);
 					
-					//TODO ask rodrigo 
-					//PatientMedication pm = createPMed(p, med);
-					//pmManager.assignPatientMedication(pm);
+					PatientMedication pm = createPMed(p, med);
+					pmManager.assignPatientMedication(pm);
 					
 				} else {
 					med2.addPatient(p);
 					p.addMedication(med2);
 					
-					//PatientMedication pm = createPMed(p, med2);
-					//pmManager.assignPatientMedication(pm);
+					PatientMedication pm = createPMed(p, med2);
+					pmManager.assignPatientMedication(pm);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -1035,15 +1037,15 @@ public class Menu {
 				a.addPatient(p);
 				p.addAllergy(a);
 				
-				//PatientAllergy pa = new PatientAllergy(a, p);
-				//paManager.assignPatientAllergy(pa);
+				PatientAllergy pa = new PatientAllergy(a, p);
+				paManager.assignPatientAllergy(pa);
 				
 			} else {
 				a2.addPatient(p);
 				p.addAllergy(a2);
 				
-				//PatientAllergy pa = new PatientAllergy(a2, p);
-				//paManager.assignPatientAllergy(pa);
+				PatientAllergy pa = new PatientAllergy(a2, p);
+				paManager.assignPatientAllergy(pa);
 			}
 		}
 	}
