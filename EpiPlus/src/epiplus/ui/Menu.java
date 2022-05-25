@@ -387,7 +387,7 @@ public class Menu {
 		} while(true);
 	}
 	
-	private static void patientMenu(Patient p) throws Exception { // METHOD FOR LOGIN SUBSYSTEM
+	private static void patientMenu(Patient p) throws Exception { 
 
 		do {
 			System.out.println("                      PATIENT MENU                           ");
