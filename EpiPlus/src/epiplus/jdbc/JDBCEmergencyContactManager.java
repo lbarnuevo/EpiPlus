@@ -1,5 +1,6 @@
 package epiplus.jdbc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import epiplus.ifaces.EmergencyContactManager;
 import epiplus.pojos.EmergencyContact;
+import epiplus.pojos.Patient;
 
 public class JDBCEmergencyContactManager implements EmergencyContactManager {
 
@@ -15,9 +17,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 
 	public JDBCEmergencyContactManager(JDBCManager m) {
 		this.manager = m;
-	}
-
-	//TODO assign patient 
+	} 
 	
 	@Override
 	public void addEmergencyContact(EmergencyContact c) {
@@ -27,6 +27,8 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			prep.setString(1, c.getName());
 			prep.setFloat(2, c.getNumber());
 			prep.setInt(3, c.getPatient().getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,6 +41,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, c.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -67,8 +70,6 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// return null;//this function should return a patirnt so why is it returning a
-		// null? --> I'm(Marta) going to change it
 		return contactsList;
 	}
 
@@ -80,11 +81,36 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			ps.setString(1, c.getName());
 			ps.setFloat(2, c.getNumber());
 			ps.executeUpdate();
+			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Override
+	public EmergencyContact getECbyId(int id) {
+		EmergencyContact ec = null; 
+
+		try {
+			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, id);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer eid = rs.getInt("id");
+				String n = rs.getString("name");
+				Float number = rs.getFloat("number");
+				ec = new EmergencyContact(eid, n, number);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ec;
+	}
+	
 	@Override
 	public List<EmergencyContact> listsAllEmergencyContacts() {
 

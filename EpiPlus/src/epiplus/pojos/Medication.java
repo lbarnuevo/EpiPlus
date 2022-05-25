@@ -52,12 +52,17 @@ public class Medication implements Serializable{
 	}
 
 	public void addPatient(Patient p) {
-		patient.add(p);
+		if(!patient.contains(p)) {
+			patient.add(p);
+		}
 	}
 	
-	public void deletePatient(Patient p) {
-		patient.remove(p);
+	public void removePatient(Patient p) {
+		if(patient.contains(p)) {
+			patient.remove(p);
+		}
 	}
+	
 	public List<Patient> getPatient() {
 		return patient;
 	}

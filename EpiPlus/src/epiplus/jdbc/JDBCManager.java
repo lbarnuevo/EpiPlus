@@ -64,9 +64,10 @@ public class JDBCManager {
 			String sql = "CREATE TABLE doctors (" 
 					+ "	id		INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "	name	TEXT NOT NULL," 
-					+ "	email	TEXT NOT NULL," 
+					+ "	email	TEXT NOT NULL UNIQUE," 
 					+ "	hospitalName TEXT NOT NULL,"
-					+ " photo BLOB " 
+					+ " photo BLOB,"
+					+ " role_id INTEGER NOT NULL"
 					+ ");";
 			stmt.executeUpdate(sql);
 
@@ -74,7 +75,7 @@ public class JDBCManager {
 			sql = "CREATE TABLE patients (" 
 					+ " id 			INTEGER PRIMARY KEY AUTOINCREMENT," 
 					+ " name		TEXT NOT NULL,"
-					+ " email		TEXT NOT NULL,"
+					+ " email		TEXT NOT NULL UNIQUE,"
 					+ " birthday 	DATE NOT NULL," 
 					+ " height		REAL," // in m
 					+ " weight		REAL," // in kg
@@ -82,6 +83,7 @@ public class JDBCManager {
 					+ " diet 		TEXT CHECK (diet IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')),"
 					+ " ex_per_week INTEGER,"
 					+ " photo 		BLOB,"
+					+ " role_id INTEGER NOT NULL,"
 					+ " doctorId INTEGER REFERENCES doctors(id) ON DELETE SET NULL" 
 					+ ");";
 			stmt.executeUpdate(sql);
@@ -103,7 +105,7 @@ public class JDBCManager {
 			// -----------------SYMPTOMS----------
 			sql= "CREATE TABLE symptoms (" 
 					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ " name	TEXT NOT NULL" 
+					+ " name	TEXT NOT NULL UNIQUE" 
 					+ ");";
 			stmt.executeUpdate(sql);		
 
@@ -121,7 +123,7 @@ public class JDBCManager {
 			// -----------------MEDICATIONS----------
 			sql = "CREATE TABLE medications (" 
 					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ " name	TEXT NOT NULL" 
+					+ " name	TEXT NOT NULL UNIQUE" 
 					+ ");";
 			stmt.executeUpdate(sql);
 			
@@ -150,7 +152,7 @@ public class JDBCManager {
 			// -----------------ALLERGY----------
 			sql = "CREATE TABLE allergies (" 
 					+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "	name	TEXT NOT NULL"
+					+ "	name	TEXT NOT NULL UNIQUE"
 					+ ");";
 
 			stmt.executeUpdate(sql);

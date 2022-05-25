@@ -22,7 +22,7 @@ public class JDBCPatientManager implements PatientManager {
 	@Override
 	public void addPatient(Patient p) {
 		try {
-			String sql = "INSERT INTO patients (name,email,birthday,height,weight,lifestyle,diet,ex_per_week,photo) VALUES (?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO patients (name,email,birthday,height,weight,lifestyle,diet,ex_per_week,photo,role_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, p.getName());
 			prep.setString(2, p.getEmail());
@@ -33,6 +33,7 @@ public class JDBCPatientManager implements PatientManager {
 			prep.setString(7, p.getDiet());
 			prep.setInt(8, p.getEx_per_week());
 			prep.setBytes(9, p.getPhoto());
+			prep.setInt(10, p.getRole_id());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception e) {
@@ -47,6 +48,8 @@ public class JDBCPatientManager implements PatientManager {
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, d.getId());
 			prep.setInt(2, p.getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,6 +61,8 @@ public class JDBCPatientManager implements PatientManager {
 			String sql = "UPDATE patients SET doctorId=NULL WHERE id=?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, p.getId());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,6 +92,7 @@ public class JDBCPatientManager implements PatientManager {
 				String diet = rs.getString("diet");
 				Integer exercise = rs.getInt("ex_per_week");
 				byte[] photo = rs.getBytes("photo");
+				
 				Patient patient = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
 				patientsList.add(patient);
 			}
@@ -146,6 +152,7 @@ public class JDBCPatientManager implements PatientManager {
 			ps.setInt(8, p.getEx_per_week());
 			ps.setString(9, p.getDiet());
 			ps.executeUpdate();
+			ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,6 +165,7 @@ public class JDBCPatientManager implements PatientManager {
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setInt(1, p.getId());
 			ps.executeUpdate();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

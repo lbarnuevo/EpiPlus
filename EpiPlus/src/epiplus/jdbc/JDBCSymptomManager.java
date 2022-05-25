@@ -23,6 +23,8 @@ public class JDBCSymptomManager implements SymptomManager{
 			String sql = "INSERT INTO symptoms (name) VALUES (?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, s.getName());
+			prep.executeUpdate();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,6 +37,7 @@ public class JDBCSymptomManager implements SymptomManager{
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, s.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

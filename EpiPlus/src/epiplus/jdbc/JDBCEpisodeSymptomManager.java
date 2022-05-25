@@ -26,6 +26,8 @@ public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
 			p.setInt(1, es.getEpisode().getId());
 			p.setInt(2, es.getSymptom().getId());
 			p.setInt(3, es.getSeverity());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -38,6 +40,8 @@ public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, es.getEpisode().getId());
 			p.setInt(2, es.getSymptom().getId());
+			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

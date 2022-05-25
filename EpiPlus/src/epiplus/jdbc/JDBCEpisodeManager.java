@@ -45,6 +45,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, e.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -63,7 +64,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
-				Date doe = rs.getDate("date");
+				Date doe = rs.getDate("doe");
 				Float length = rs.getFloat("length");
 				String  activity= rs.getString("activity");
 				String mood = rs.getString("mood");

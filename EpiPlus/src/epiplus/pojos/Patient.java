@@ -27,6 +27,7 @@ public class Patient implements Serializable {
 	private static final long serialVersionUID = 2234593157068704294L;
 
 	private Integer id;
+	private Integer role_id;
 	
 	@XmlAttribute
 	private String name;
@@ -58,7 +59,7 @@ public class Patient implements Serializable {
 	
 	@XmlElement
 	private byte[] photo;
-	
+
 	@XmlElement(name = "EmergencyContact")
 	@XmlElementWrapper(name = "emergency_contacts")
 	private List<EmergencyContact> emergency_contacts; //One to many relationship
@@ -74,7 +75,6 @@ public class Patient implements Serializable {
 	@XmlElement(name = "Allergy")
 	@XmlElementWrapper(name = "allergies")
 	private List<Allergy> allergy; // Many to many relationship
-	//private Integer user_id;
 
 	// MANDATORY CONSTRUCTOR
 	public Patient() {
@@ -107,7 +107,7 @@ public class Patient implements Serializable {
 	}
 
 	public Patient(String name, String email, Date birthday, Float height, Float weight, String lifestyle, String diet,
-			Integer exercise, byte[] photo/*,Integer user*/) {
+			Integer exercise, byte[] photo,Integer user) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -119,7 +119,7 @@ public class Patient implements Serializable {
 		this.ex_per_week = exercise;
 		this.photo = photo;
 		this.doctor = null;
-		//this.user_id= user;
+		this.role_id = user;
 
 		this.episodes = new ArrayList<Episode>();
 		this.medication = new ArrayList<Medication>();
@@ -128,36 +128,53 @@ public class Patient implements Serializable {
 	}
 
 	public void addEC(EmergencyContact ec) {
-		emergency_contacts.add(ec);
+		if(!emergency_contacts.contains(ec) ) {
+			emergency_contacts.add(ec);
+		}
 	}
 	
-	public void deleteEC(EmergencyContact ec) {
-		emergency_contacts.remove(ec);
+	public void removeEC(EmergencyContact ec) {
+		if(emergency_contacts.contains(ec)) {
+			emergency_contacts.remove(ec);
+		}
 	}
 	
 	public void addMedication(Medication m) {
-		medication.add(m);
+		if(!medication.contains(m)) {
+			medication.add(m);
+		}
 	}
 	
-	public void deleteMedication(Medication m) {
-		medication.remove(m);
+	public void removeMedication(Medication m) {
+		if(medication.contains(m)) {
+			medication.remove(m);
+		}
 	}
 	
 	public void addEpisodes(Episode e) {
-		episodes.add(e);
+		if(!episodes.contains(e) ) {
+			episodes.add(e);
+		}
 	}
 	
-	public void deleteEpisodes(Episode e) {
-		episodes.remove(e);
+	public void removeEpisodes(Episode e) {
+		if(episodes.contains(e) ) {
+			episodes.remove(e);
+		}
 	}
 	
 	public void addAllergy(Allergy a) {
-		allergy.add(a);
+		if(!allergy.contains(a)) {
+			allergy.add(a);
+		}
 	}
 	
-	public void deleteAllergy(Allergy a) {
-		allergy.remove(a);
+	public void removeAllergy(Allergy a) {
+		if(allergy.contains(a)) {
+			allergy.remove(a);
+		}
 	}
+	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -262,9 +279,12 @@ public class Patient implements Serializable {
 		this.doctor = doctor;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public Integer getRole_id() {
+		return role_id;
+	}
+
+	public void setRole_id(Integer role_id) {
+		this.role_id = role_id;
 	}
 
 	public List<EmergencyContact> getEmergency_contacts() {
@@ -282,6 +302,11 @@ public class Patient implements Serializable {
 	public void setAllergy(List<Allergy> allergy) {
 		this.allergy = allergy;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -297,9 +322,9 @@ public class Patient implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday + "\nHeight="
-				+ this.height + "\nWeight=" + this.weight + "\nLifestyle=" + this.lifestyle + "\nDiet=" + this.diet
-				+ "\nExercise per week" + this.ex_per_week;
+		return "PATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday + "\nHeight = "
+				+ this.height + "\nWeight = " + this.weight + "\nLifestyle = " + this.lifestyle + "\nDiet = " + this.diet
+				+ "\nExercise per week (hours) = " + this.ex_per_week;
 	}
 
 	public String toStringForDoctors() {

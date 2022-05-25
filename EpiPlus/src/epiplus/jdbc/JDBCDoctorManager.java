@@ -21,12 +21,13 @@ public class JDBCDoctorManager implements DoctorManager {
 
 	public void addDoctor(Doctor d) {
 		try {
-			String sql = "INSERT INTO doctors (name, email, hospitalName, photo) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO doctors (name, email, hospitalName, photo, role_id) VALUES (?,?,?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, d.getName());
 			prep.setString(2, d.getEmail());
 			prep.setString(3, d.getHospitalName());
 			prep.setBytes(4, d.getPhoto());
+			prep.setInt(5, d.getUser_id());
 			prep.executeUpdate();
 			prep.close();
 		} catch (Exception e) {
@@ -186,6 +187,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			p.setString(3, d.getHospitalName());
 			p.setBytes(4, d.getPhoto());
 			p.executeUpdate();
+			p.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -198,6 +200,7 @@ public class JDBCDoctorManager implements DoctorManager {
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, d.getId());
 			p.executeUpdate();
+			p.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
