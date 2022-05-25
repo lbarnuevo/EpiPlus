@@ -119,7 +119,7 @@ public class JPAUserManager implements UserManager {
 	}
 	
 	@Override
-	public Boolean updatePassword(String mail, String newPass, String oldPass) {
+	public void updatePassword(String mail, String newPass, String oldPass) {
 		try {
  			MessageDigest md = MessageDigest.getInstance("MD5");
  			md.update(oldPass.getBytes());
@@ -139,9 +139,29 @@ public class JPAUserManager implements UserManager {
  			em.getTransaction().commit();
  			
  		}catch(Exception e) {
- 			System.out.println("The current password is not correct");
- 			return true;
+ 			System.out.println("The current password is not correct"); 
  		}
- 		return null;
 	}
+	
+	@Override
+	public void forgotPassword(String mail, String newpass) {
+		try {
+ 			MessageDigest md = MessageDigest.getInstance("MD5");
+ 			md.update(newpass.getBytes());
+ 			byte[] hash = md.digest();
+ 			
+ 			Query q = em.createNativeQuery("SELECT * FROM users WHERE email = ? ", User.class);
+ 			q.setParameter(1, mail);
+ 			q.setParameter(2, hash);
+ 			
+ 			User u = (User) q.getSingleResult();
+
+ 			em.getTransaction().begin();
+ 			u.setPassword(hash);
+ 			em.getTransaction().commit(); 
+ 		}catch(Exception e) {
+ 			System.out.println("The current password is not correct");
+ 		}
+	}
+
 }
