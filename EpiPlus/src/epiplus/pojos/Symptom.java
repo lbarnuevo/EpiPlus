@@ -104,6 +104,6 @@ public class Symptom implements Serializable{
 
 	@Override
 	public String toString() {
-		return "SYMPTOM [ID=" + id + ", NAME=" + name + "]";
+		return "SYMPTOM [ID = " + id + ", NAME = " + name + "]";
 	}
 }

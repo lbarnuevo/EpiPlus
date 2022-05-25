@@ -328,6 +328,6 @@ public class Patient implements Serializable {
 	}
 
 	public String toStringForDoctors() {
-		return "PATIENT [ID=" + this.id + ", NAME=" + this.name + "]" + "\nEmail=" + this.email + "\nDate of birth=" + this.birthday;
+		return "PATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday;
 	}
 }

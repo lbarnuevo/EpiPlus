@@ -67,7 +67,7 @@ public class PatientAllergy implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PatientAllergy [allergy=" + allergy + ", patient=" + patient + "]";
+		return "PatientAllergy [allergy = " + allergy + ", patient = " + patient + "]";
 	}
 	
 	

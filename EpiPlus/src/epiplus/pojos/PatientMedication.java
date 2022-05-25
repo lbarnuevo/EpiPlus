@@ -100,8 +100,8 @@ public class PatientMedication implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "PatientMedication [frequency=" + frequency + ", amount=" + amount + ", patient=" + patient
-				+ ", medication=" + medication + "]";
+		return "PatientMedication [frequency = " + frequency + ", amount = " + amount + ", patient = " + patient
+				+ ", medication = " + medication + "]";
 	}
 	
 }
