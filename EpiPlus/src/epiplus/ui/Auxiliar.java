@@ -361,6 +361,8 @@ public class Auxiliar {
 
 	public static Symptom createSymptom(BufferedReader reader) throws IOException {
 		System.out.println("Symptoms name: ");
+		System.out.println("(Some ideas: temporary confusion, stiff muscles, lose of consciousness or awareness, "
+				+ "staring spell, uncontrollable movement of legs and arms...)");
 		String name = getString(reader);
 
 		Symptom symp = new Symptom(name);
