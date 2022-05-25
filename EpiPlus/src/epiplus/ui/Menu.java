@@ -48,7 +48,7 @@ public class Menu {
 		userManager = new JPAUserManager();
 		try {
 			do {
-				System.out.println("                    WELCOME TO EPI+ !!                     ");
+				System.out.println("\n                     WELCOME TO EPI+ !!                      ");
 				System.out.println("---------------------------------------------------------------");
 				System.out.println(" 1. Login as patient                                           ");
 				System.out.println(" 2. log in as doctor (TEMPORARY) ");
@@ -130,7 +130,7 @@ public class Menu {
 	}
 	private static void registerMenu() throws NumberFormatException, IOException {
 		do {
-			System.out.println("                  REGISTER MENU                         ");
+			System.out.println("\n                       REGISTER MENU                         ");
 			System.out.println("---------------------------------------------------------------");
 			System.out.println(" 1.Register as a doctor                           ");
 			System.out.println(" 2.Register as a patient                                     ");
@@ -160,7 +160,7 @@ public class Menu {
 	}
 	private static void registerPatient() throws IOException {
 		Patient patient = createPatient(reader);
-		System.out.println("Adding allergies...");
+		System.out.println("\nAdding allergies...");
 		addAllergy(patient);
 		
 		patientManager.addPatient(patient);
@@ -200,7 +200,7 @@ public class Menu {
 		
 		switch(id) {
 			case 1:
-				System.out.println("----DOCTOR REGISTRATION----");
+				System.out.println("\n----DOCTOR REGISTRATION----");
 				System.out.println("");
 				
 				System.out.println("Please, write your email address: ");
@@ -242,7 +242,7 @@ public class Menu {
 				}
 				
 			case 2: 
-					System.out.println("-----PATIENT REGISTRATION-----");
+					System.out.println("\n-----PATIENT REGISTRATION-----");
 					System.out.println("");
 					
 					System.out.println("Please, write your email address: ");
@@ -259,7 +259,7 @@ public class Menu {
 						System.out.println("Date of birth (dd-MM-yyyy): ");
 						LocalDate birthday = LocalDate.parse(getString(reader), formatter);
 				
-						System.out.println("Height (cm): ");
+						System.out.println("Height (m): ");
 						Float height = getPositiveFloat(reader);
 				
 						System.out.println("Weight (kg): ");
@@ -288,7 +288,7 @@ public class Menu {
 						Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
 						patientManager.addPatient(p);
 						
-						System.out.println("Adding allergies...");
+						System.out.println("\nAdding allergies...");
 						addAllergy(p);
 						
 						MessageDigest md1 = MessageDigest.getInstance("MD5");
@@ -345,7 +345,7 @@ public class Menu {
 	
 	public static void doctorMenu(Doctor d) throws Exception {
 		do {
-			System.out.println("                     DOCTOR MENU                            ");
+			System.out.println("\n                    DOCTOR MENU                            ");
 			System.out.println("---------------------------------------------------------------");
 			System.out.println(" 1. See data of one of my patients                          ");
 			System.out.println(" 2. See evolution of a patient                              ");
@@ -379,7 +379,7 @@ public class Menu {
 				deleteAccount();
 				break; 
 			case 0:
-				System.out.println("~~Byee! ");
+				System.out.println("~~Byee! :)");
 				return;
 			default:
 				System.out.println("Please introduce a valid option. ");
@@ -448,7 +448,7 @@ public class Menu {
 				deleteAccount();
 				break; 
 			case 0:
-				System.out.println("~~Byee");
+				System.out.println("\n~~Byee");
 				return;
 			default:
 				System.out.println("Please introduce a valid option. ");
@@ -458,14 +458,14 @@ public class Menu {
 	
 	private static void Medications(Patient p) throws Exception{
 		do {
-			System.out.println("               MY MEDICATIONS                      ");
+			System.out.println("\n               MY MEDICATIONS                    ");
 			System.out.println("1. See my current medications                      ");
 			System.out.println("2. Add a new medication        					   ");
 			System.out.println("3. Modify frequency or amount of a medication      ");
 			System.out.println("4. Delete one of my medications                    ");
 			System.out.println("0. Go back                                         ");
 			
-			System.out.println("Please, introduce an option: ");
+			System.out.println("\nPlease, introduce an option: ");
 			int choice = getPositiveInteger(reader);
 			switch(choice) {
 				case 1: 
@@ -491,7 +491,7 @@ public class Menu {
 	
 	private static void Recipes(Patient p) {
 		do {
-			System.out.println("~~~~What recipe do you want to see?~~~~");
+			System.out.println("\n~~~~What recipe do you want to see?~~~~");
 			System.out.println("1. Hummus");
 			System.out.println("2. Shakshuka");
 			System.out.println("3. Salad");
@@ -499,7 +499,7 @@ public class Menu {
 			System.out.println("5. Oatmeal");
 			System.out.println("0. Go back");
 			
-			System.out.println("Please, introduce an option: ");
+			System.out.println("\nPlease, introduce an option: ");
 			int choice = getPositiveInteger(reader);
 			switch(choice) {
 			case 1:
@@ -526,15 +526,15 @@ public class Menu {
 	}
 
 
-	//TODO one unique seeuser method with roles 
+	//TODO one unique seeUser method with roles 
 	private static void seeUserPatient(Patient p) {
-		System.out.println("Showing user's information...\n");
+		System.out.println("\nShowing user's information...\n");
 		System.out.println(p.toString());
 
 		listEC(p);
 		
 		if(p.getDoctor() != null) {
-			System.out.println("My doctor : " + p.getDoctor().toString());
+			System.out.println("My doctor : " + p.getDoctor().toString()+ "\n");
 		}
 
 		if (p.getPhoto() != null) {
@@ -545,7 +545,7 @@ public class Menu {
 	}
 	
 	private static void seeUserDoctor(Doctor d) {
-		System.out.println("Showing user's information...");
+		System.out.println("\nShowing user's information...");
 		System.out.println(d.toString());
 
 		if (d.getPhoto() != null) {
@@ -554,14 +554,14 @@ public class Menu {
 			window.showBlob(blobIn);
 		}
 
-		System.out.println("--- MY PATIENTS ---");
+		System.out.println("\n--- MY PATIENTS ---");
 		List<Patient> pList = doctorManager.getPatientsOfDoctor(d.getId());
 		for (Patient patient : pList) {
 			patient.toStringForDoctors();
 		}
 	}
 
-	//TODO one unique updateuser methods with roles 
+	//TODO one unique updateUser methods with roles 
 	private static void updateUserDoctor(Doctor d) {
 		if (continueProccess() == false) {
 			return;
@@ -596,11 +596,11 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println("Showing user's information... ");
+				System.out.println("\nShowing user's information... ");
 				seeUserPatient(p);
 
 				System.out.println(
-						"Which information would you like to change? \n(you won't be able to change yor date of birth or email) ");
+						"\nWhich information would you like to change? \n(you won't be able to change yor date of birth or email) ");
 				String toChange = getString(reader);
 
 				if (toChange.equalsIgnoreCase("name")) {
@@ -609,11 +609,11 @@ public class Menu {
 					p.setName(toChangeName);
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("height")) {
-					System.out.println("Input new height: ");
+					System.out.println("Input new height (m): ");
 					p.setHeight(getPositiveFloat(reader));
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("weight")) {
-					System.out.println("Input new weight: ");
+					System.out.println("Input new weight (kg): ");
 					p.setWeight(getPositiveFloat(reader));
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("lifestyle")) {
@@ -627,7 +627,7 @@ public class Menu {
 					p.setDiet(new_diet);
 					patientManager.updatePatient(p);
 				} else if (toChange.equalsIgnoreCase("exercise")) {
-					System.out.println("Input new amount of exercise per week: ");
+					System.out.println("Input new amount of exercise per week (hours): ");
 					p.setEx_per_week(getPositiveInteger(reader));
 					patientManager.updatePatient(p);
 				} else if(toChange.equalsIgnoreCase("emergency contacts")) {
@@ -637,7 +637,7 @@ public class Menu {
 					System.out.println("Delete emergency contact...");
 					deleteEContact(p);	
 				} else if(toChange.equalsIgnoreCase("allergy")) {
-					System.out.println("Note: You won't be able to change any atributes from an allergy, onlt delete it");
+					System.out.println("Note: You won't be able to change any atributes from an allergy, only delete it");
 					deleteAllergy(p);
 				}
 				// TODO change photo
@@ -810,11 +810,11 @@ public class Menu {
 			String toChange = getString(reader);
 
 			if (toChange.equalsIgnoreCase("frequency")) {
-				System.out.println("Input new frequency: ");
+				System.out.println("Input new frequency (times per day): ");
 				pmed.setFrequency(getPositiveInteger(reader));
 				pmManager.updatePatientMedication(pmed);
 			} else if (toChange.equalsIgnoreCase("amount")) {
-				System.out.println("Input new amount: ");
+				System.out.println("Input new amount (mg): ");
 				pmed.setAmount(getPositiveFloat(reader));
 				pmManager.updatePatientMedication(pmed);
 			}
@@ -900,7 +900,7 @@ public class Menu {
 	
 	private static void assignDoctor(Patient p) {
 		if (p.getDoctor() != null) {
-			System.out.println("You already have a desiganted doctor, if you want to chenge it, you have to delete him as your doctor first");
+			System.out.println("You already have a designated doctor, if you want to change it, you have to delete him as your doctor first");
 			return; 
 		} else {
 			Doctor d = searchDoctor();
