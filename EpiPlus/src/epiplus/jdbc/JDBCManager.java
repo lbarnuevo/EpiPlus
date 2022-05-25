@@ -2,6 +2,8 @@ package epiplus.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -36,6 +38,21 @@ public class JDBCManager {
 	public Connection getConnection() {
 		return c;
 	}
+	
+	public Integer getLastId() {
+		String query = "SELECT last_insert_rowid() AS lastId";
+		PreparedStatement p;
+		Integer lastId = null;
+		try {
+			p = c.prepareStatement(query);
+			ResultSet rs = p.executeQuery();
+			lastId = rs.getInt("lastId");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lastId;
+	}
 
 //------CREATE TABLES-------------
 	public void createTables() { //TODO add user 
@@ -47,9 +64,10 @@ public class JDBCManager {
 			String sql = "CREATE TABLE doctors (" 
 					+ "	id		INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "	name	TEXT NOT NULL," 
-					+ "	email	TEXT NOT NULL," 
+					+ "	email	TEXT NOT NULL UNIQUE," 
 					+ "	hospitalName TEXT NOT NULL,"
-					+ " photo BLOB " 
+					+ " photo BLOB,"
+					+ " role_id INTEGER NOT NULL"
 					+ ");";
 			stmt.executeUpdate(sql);
 
@@ -57,7 +75,7 @@ public class JDBCManager {
 			sql = "CREATE TABLE patients (" 
 					+ " id 			INTEGER PRIMARY KEY AUTOINCREMENT," 
 					+ " name		TEXT NOT NULL,"
-					+ " email		TEXT NOT NULL,"
+					+ " email		TEXT NOT NULL UNIQUE,"
 					+ " birthday 	DATE NOT NULL," 
 					+ " height		REAL," // in m
 					+ " weight		REAL," // in kg
@@ -65,6 +83,7 @@ public class JDBCManager {
 					+ " diet 		TEXT CHECK (diet IN ('normal','mediterranean', 'high protein','high protein vegetarian', 'high protein vegan', 'gluten free', 'lactose free', 'dairy free', 'ketogenic', 'ketogenic vegetarian', 'ketogenic vegan', 'vegan','vegetarian')),"
 					+ " ex_per_week INTEGER,"
 					+ " photo 		BLOB,"
+					+ " role_id INTEGER NOT NULL,"
 					+ " doctorId INTEGER REFERENCES doctors(id) ON DELETE SET NULL" 
 					+ ");";
 			stmt.executeUpdate(sql);
@@ -86,7 +105,7 @@ public class JDBCManager {
 			// -----------------SYMPTOMS----------
 			sql= "CREATE TABLE symptoms (" 
 					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ " name	TEXT NOT NULL" 
+					+ " name	TEXT NOT NULL UNIQUE" 
 					+ ");";
 			stmt.executeUpdate(sql);		
 
@@ -104,7 +123,7 @@ public class JDBCManager {
 			// -----------------MEDICATIONS----------
 			sql = "CREATE TABLE medications (" 
 					+ " id	    INTEGER PRIMARY KEY AUTOINCREMENT," 
-					+ " name	TEXT NOT NULL" 
+					+ " name	TEXT NOT NULL UNIQUE" 
 					+ ");";
 			stmt.executeUpdate(sql);
 			
@@ -133,7 +152,7 @@ public class JDBCManager {
 			// -----------------ALLERGY----------
 			sql = "CREATE TABLE allergies (" 
 					+ "	id	    INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "	name	TEXT NOT NULL"
+					+ "	name	TEXT NOT NULL UNIQUE"
 					+ ");";
 
 			stmt.executeUpdate(sql);

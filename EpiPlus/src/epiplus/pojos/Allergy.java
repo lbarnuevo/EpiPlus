@@ -5,14 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Allergy")
+@XmlType(propOrder = { "name", "patients"} )
 public class Allergy implements Serializable{
 	
 	private static final long serialVersionUID = -935621693802822621L;
 
+	//@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	
+	
+	@XmlElement(name = "Patient")
+	@XmlElementWrapper(name = "Patients")
 	private List<Patient> patients; //Many to many relationship 
 
 	public Allergy() {
@@ -34,8 +51,17 @@ public class Allergy implements Serializable{
 	}
 	
 	public void addPatient(Patient p) {
-		patients.add(p);
+		if(!patients.contains(p)) {
+			patients.add(p);
+		}
 	}
+	
+	public void removePatient(Patient p) {
+		if(patients.contains(p)) {
+			patients.remove(p);
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}

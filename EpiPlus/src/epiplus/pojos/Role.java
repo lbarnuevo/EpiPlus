@@ -11,9 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "roles")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Role")
+@XmlType(propOrder = { "name", "users"})
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 3815457760670380250L;
@@ -22,9 +33,14 @@ public class Role implements Serializable {
 	@GeneratedValue(generator = "roles")
 	@TableGenerator(name = "roles", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
+	
 	private Integer id;
+	@XmlAttribute
 	private String name;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+	@XmlElement(name = "User")
+	@XmlElementWrapper(name = "users")
+	
 	private List<User> users;
 	
 	public Role() {

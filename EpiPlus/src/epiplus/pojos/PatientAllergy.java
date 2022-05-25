@@ -2,14 +2,24 @@ package epiplus.pojos;
 
 import java.io.Serializable;
 import java.util.Objects;
-	
-	
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+	
+	
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "PatientAllergy")
+@XmlType(propOrder = { "allergy","patient"})
 public class PatientAllergy implements Serializable{
 	
 	private static final long serialVersionUID = 3645664353573792203L;
 
+	@XmlElement
 	private Allergy allergy;
+	@XmlElement
 	private Patient patient;
  
 	public PatientAllergy() {

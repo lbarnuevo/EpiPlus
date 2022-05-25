@@ -1,5 +1,3 @@
-//THIS IS A CLASS FOR FUNCTIONS THAT CAN INTERACT WITH THE USER
-
 package epiplus.ui;
 
 import java.io.*;
@@ -10,7 +8,7 @@ import epiplus.pojos.*;
 
 public class Auxiliar {
 
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 	public static int getPositiveInteger(BufferedReader reader) {
 		boolean read = false;
@@ -198,6 +196,7 @@ public class Auxiliar {
 		return confir;
 	}
 
+	//TODO delete when we ask rodrigo 
 	public static Doctor createDoctor(BufferedReader reader) throws IOException {
 		System.out.println("Input doctor information");
 		System.out.println("");
@@ -219,10 +218,13 @@ public class Auxiliar {
 			photo = getPhoto(reader);
 		}
 
-		Doctor doc = new Doctor(name, email, hospital, photo);
+		int id = 1; 
+		
+		Doctor doc = new Doctor(name, email, hospital, photo, id);
 		return doc;
 	}
 
+	//TODO when we ask rodrigo about jpa 
 	public static Patient createPatient(BufferedReader reader) throws IOException {
 		System.out.println("Input patient information");
 		System.out.println("");
@@ -258,7 +260,10 @@ public class Auxiliar {
 		if (confirmation == true) {
 			photo = getPhoto(reader);
 		}
-		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo);
+		
+		int id = 2; 
+		
+		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
 		return p;
 	}
 
@@ -419,4 +424,58 @@ public class Auxiliar {
 		System.out.println("OTHERS:");
 		System.out.println("Baking soda");
 	}
+
+	public static void showHummus() {
+		System.out.println("\n       HUMMUS RECIPE        ");
+		System.out.println("\nTake chickpeas and place it in a large bowl. Add plenty of water and soak overnight.");
+		System.out.println("When ready, drain chickpeas and place them in a medium-sized heavy cooking pot. Cover with water by about 2 inches.");
+		System.out.println("Bring to a boil, then reduce heat and simmer for up to 2 hours.");
+		System.out.println("Cover the cooked chickpeas in hot water and add baking soda.");
+		System.out.println("Leave for a few minutes.");
+		System.out.println("Take a handful of chickpeas and rub under running water to remove the skins.");
+		System.out.println("Let the chickpeas cool completely.");
+		System.out.println("Puree the chickpeas in a food processor.");
+		System.out.println("Add the rest and keep blending until its consistency is smooth.");
+		System.out.println("Transfer to a serving bowl and garnish with for example parsley or paprika./n");
+	}
+	
+	public static void showShakshuka() {
+		System.out.println("\n       SHAKSHUKA RECIPE        ");
+		System.out.println("\nHeat olive oil in a large saute pan on medium heat.");
+		System.out.println("Add the chopped bell pepper and onion and cook for 5 minutes or until the onion becomes translucent.");
+		System.out.println("Add garlic and spices and cook an additional minute");
+		System.out.println("Pour the can of tomatoes and juice into the pan and break down the tomatoes using a large spoon.");
+		System.out.println("Season with salt and pepper and bring the sauce to a simmer");
+		System.out.println("Use your large spoon to make small wells in the sauce and crack the eggs into each well.");
+		System.out.println("Cover the pan and cook for 5-8 minutes, or until the eggs are done to your liking");
+		System.out.println("Optionally garnish with chopped cilantro and parsley./n");
+	}
+	
+	public static void showFetaSalad() {
+		System.out.println("\n       FETA SALAD RECIPE        ");
+		System.out.println("\nChop half a lettuce into small pieces. Do the same with 2 tomatoes, 1 cucumber and a feta cheese");
+		System.out.println("Mix everything together in a bowl");
+		System.out.println("Use the spices you like for example: oregano, salt, pepper");
+		System.out.println("Optionally you can add 1 table spoon of olive oil./n");
+	}
+	
+	public static void showChineseNoodles() {
+		System.out.println("\n       CHINESE NOODLES RECIPE        ");
+		System.out.println("\nDice 2 onions and fry on oil you like, for example sesame oil.");
+		System.out.println("Boil noodles.");
+		System.out.println("Add soy sauce");
+		System.out.println("Slice red bell pepper and other greens of your choice");
+		System.out.println("Dice tofu and add to the veggies.");
+		System.out.println("Add paprika.");
+		System.out.println("Add noodles to the rest and fry for 2 minutes./n");
+	}
+	
+	public static void showOatmeal() {
+		System.out.println("\n       OATMEAL RECIPE        ");
+		System.out.println("\nBoil oats in milk.");
+		System.out.println("Add cinnamon.");
+		System.out.println("You can add anything you want, nuts, goji berries, dates etc. It is recommended to add fresh fruit.");
+		System.out.println("Mix everything and boil until oats are soft./n");
+	}
+	
 }

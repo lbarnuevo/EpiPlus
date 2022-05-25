@@ -6,23 +6,48 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Episode")
+@XmlType(propOrder = { "doe", "length","activity","mood","place","previous_meal","injuries"} )
 public class Episode implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5004715535383971325L;
-	
+	//@XmlElement
 	private Integer id;
+	@XmlElement
 	private Date doe; //doe = date of episode 
+	@XmlAttribute
 	private Float length; 
+	@XmlElement
 	private String activity;
+	@XmlElement
 	private String mood;
+	@XmlElement
 	private String place;
+	@XmlElement
 	private String previous_meal;
+	@XmlElement
 	private Boolean injuries;
 	
+
+	@XmlElement(name = "Patient")
+	@XmlElementWrapper(name = "Patients")
 	private Patient patient; // One to many relationship 
+
+	@XmlElement(name = "Symptom")
+	@XmlElementWrapper(name = " Symptoms")
 	private List<Symptom> symptoms; //Many to many relationship 
 	
 	public Episode() {
@@ -66,7 +91,15 @@ public class Episode implements Serializable{
 	}
 	
 	public void addSymptom(Symptom s) {
-		symptoms.add(s);
+		if(!symptoms.contains(s)) {
+			symptoms.add(s);
+		}
+	}
+	
+	public void removeSymptom(Symptom s) {
+		if(symptoms.contains(s)) {
+			symptoms.remove(s);
+		}
 	}
 
 	public Integer getId() {

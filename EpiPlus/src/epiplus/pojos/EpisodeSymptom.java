@@ -3,6 +3,17 @@ package epiplus.pojos;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "EpisodeSymptom")
+@XmlType(propOrder = { "severity", "episode","symptom"} )
 public class EpisodeSymptom implements Serializable{
 
 	/**
@@ -10,8 +21,11 @@ public class EpisodeSymptom implements Serializable{
 	 */
 	private static final long serialVersionUID = -8368812583304410229L;
 	
+	@XmlAttribute
 	private Integer severity; 
+	@XmlElement
 	private Episode episode;
+	@XmlElement
 	private Symptom symptom;
 	
 	public EpisodeSymptom() {

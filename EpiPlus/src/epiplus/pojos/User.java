@@ -11,32 +11,50 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "users")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "User")
+@XmlType(propOrder = { "email","password","role"})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
 
 	@Id
 	@GeneratedValue(generator = "users")
-	@TableGenerator(name = "users", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
+	@TableGenerator(name = "users", table = "sqlite_sequence",
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
 	private Integer id;
+	
+	@XmlAttribute
 	private String email;
+	
 	@Lob
+	@XmlElement
 	private byte[] password;
+	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
+	@XmlElement
 	private Role role;
 
 	public User() {
 		super();
 	}
 
-	public User(String email, byte[] password) {
+	public User(String email, byte[] password, Role role) {
 		super();
 		this.email = email;
 		this.password = password;
+		this.role = role; 
 	}
 
 	public Integer getId() {
@@ -70,8 +88,6 @@ public class User implements Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-	//updateUserPassword(email, newPassword, oldPassword)
 	
 	@Override
 	public int hashCode() {

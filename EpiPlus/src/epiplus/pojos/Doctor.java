@@ -6,20 +6,39 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Doctor")
+@XmlType(propOrder = { "name", "email","hospitalName","photo","patients"} )
 public class Doctor implements Serializable { 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8279974867568397173L;
-	
+	//@XmlAttribute
 	private Integer id;
+	@XmlAttribute
 	private String name;
+	@XmlElement
 	private String email;
+	@XmlElement
 	private String hospitalName;
+	@XmlElement
 	private byte[] photo; 
+
+	@XmlElement(name = "Patient")
+	@XmlElementWrapper(name = "Patients")
 	private List<Patient> patients; //One to many relationship 
-	//private Integer user_id;
+	private Integer role_id;
 	
 	public Doctor() {
 		super();
@@ -36,19 +55,27 @@ public class Doctor implements Serializable {
 		this.patients = new ArrayList<Patient>();
 	}
 	
-	public Doctor (String name, String email, String hospitalName, byte[] photo/*,Integer user*/) {
+	public Doctor (String name, String email, String hospitalName, byte[] photo, Integer user) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.hospitalName = hospitalName;
 		this.photo= photo;
-		//this.user_id= user;
+		this.role_id = user;
 		
 		this.patients = new ArrayList<Patient>();
 	}
 	
 	public void addPatient(Patient p) {
-		patients.add(p);
+		if(!patients.contains(p)) {
+			patients.add(p);
+		}
+	}
+	
+	public void removePatient(Patient p) {
+		if(patients.contains(p)) {
+			patients.remove(p);
+		}
 	}
 	
 	public byte[] getPhoto() {
@@ -98,9 +125,13 @@ public class Doctor implements Serializable {
 	public void setHospitalName(String hospitalName) {
 		this.hospitalName = hospitalName;
 	}
-	
-	public void addPatienttoList(Patient p) {
-		this.patients.add(p);
+
+	public Integer getUser_id() {
+		return role_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.role_id = user_id;
 	}
 
 	@Override
@@ -122,6 +153,6 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DOCTOR [ID = " + id + ", NAME=" + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
+		return "DOCTOR [ID = " + id + ", NAME = " + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
 	}
 }
