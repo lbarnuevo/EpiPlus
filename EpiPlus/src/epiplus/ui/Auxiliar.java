@@ -202,6 +202,12 @@ public class Auxiliar {
 		return allergy;
 	}
 
+	public String getStringNoSpaces(BufferedReader reader) {
+		
+		String s = getString(reader);
+		return s.replaceAll(" ", "");
+	}
+
 	public static Boolean askConfirmation(BufferedReader reader) {
 		boolean confir = false;
 		String confirmation = getString(reader);
