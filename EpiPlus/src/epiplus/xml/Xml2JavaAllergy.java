@@ -13,8 +13,6 @@ import javax.xml.bind.Unmarshaller;
 
 import epiplus.pojos.Allergy;
 import epiplus.pojos.Patient;
-import sample.db.pojos.Report;
-import sample.db.pojos.Employee;
 
 public class Xml2JavaAllergy {
 
