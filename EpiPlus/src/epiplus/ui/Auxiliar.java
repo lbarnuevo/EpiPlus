@@ -24,6 +24,7 @@ public class Auxiliar {
 				}
 			} catch (IOException ex) {
 				System.out.println("Reading error");
+				ex.printStackTrace();
 			} catch (NumberFormatException ex) {
 				System.out.println("Error. Introduce a number:");
 			}
@@ -147,28 +148,52 @@ public class Auxiliar {
 		boolean read = false;
 
 		do {
-			System.out.println("\n\nDo you have any allergies? \n\nIntroduce one or more of the options above.");
+			System.out.println("\n\nDo you have any allergies? \nIntroduce one or more of the options above.");
 			allergyName = getString(reader);
 
-			if (allergyName.equalsIgnoreCase("egg")) {
+			if (allergyName.equalsIgnoreCase("chickpea")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("fish")) {
+			} else if (allergyName.equalsIgnoreCase("tahini")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("animal milk")) {
+			} else if (allergyName.equalsIgnoreCase("cumin")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("nuts")) {
+			} else if (allergyName.equalsIgnoreCase("soybean")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("legums")) {
+			} else if (allergyName.equalsIgnoreCase("tofu")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("soja")) {
+			} else if (allergyName.equalsIgnoreCase("cinnamon")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("wheat")) {
+			} else if (allergyName.equalsIgnoreCase("oat")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("vegetables")) {
+			} else if (allergyName.equalsIgnoreCase("lemon")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("fruits")) {
+			} else if (allergyName.equalsIgnoreCase("olive")) {
 				read = true;
-			} else if (allergyName.equalsIgnoreCase("high-histamine food")||allergyName.equalsIgnoreCase("high histamine food")) {
+			} else if (allergyName.equalsIgnoreCase("tomato")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("onion")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("red bell pepper")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("pepper")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("garlic")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("paprika")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("lettuce")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("cucumber")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("chili")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("egg")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("feta cheese")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("cow milk")) {
+				read = true;
+			} else if (allergyName.equalsIgnoreCase("baking soda")) {
 				read = true;
 			}
 
@@ -238,7 +263,7 @@ public class Auxiliar {
 		System.out.println("Date of birth (dd-MM-yyyy): ");
 		LocalDate birthday = LocalDate.parse(getString(reader), formatter);
 
-		System.out.println("Height (cm): ");
+		System.out.println("Height (m): ");
 		Float height = getPositiveFloat(reader);
 
 		System.out.println("Weight (kg): ");
@@ -301,7 +326,6 @@ public class Auxiliar {
 		Float amount = getPositiveFloat(reader);
 
 		PatientMedication pmed = new PatientMedication(freq, amount, patient, med);
-		reader.close();
 		return pmed;
 	}
 
@@ -337,6 +361,8 @@ public class Auxiliar {
 
 	public static Symptom createSymptom(BufferedReader reader) throws IOException {
 		System.out.println("Symptoms name: ");
+		System.out.println("(Some ideas: temporary confusion, stiff muscles, lose of consciousness or awareness, "
+				+ "staring spell, uncontrollable movement of legs and arms...)");
 		String name = getString(reader);
 
 		Symptom symp = new Symptom(name);
@@ -350,7 +376,6 @@ public class Auxiliar {
 		Integer sev = getPositiveInteger(reader);
 
 		EpisodeSymptom epsymp = new EpisodeSymptom(ep, symp, sev);
-		reader.close();
 		return epsymp;
 	}
 

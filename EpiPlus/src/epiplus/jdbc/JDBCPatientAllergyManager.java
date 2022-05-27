@@ -50,13 +50,12 @@ public class JDBCPatientAllergyManager implements PatientAllergyManager{
 		}
 	}
 	
-	//TODO getAllergies of patients 
 	public List<Allergy> getAllergiesOfPatient(Integer pId) {
 		
 		List<Allergy> allergies = new ArrayList<Allergy>();
 		
 		try {
-			String sql = "SELECT * FROM allergy AS a JOIN patientallergies AS pa ON a.id=pa.allergyId WHERE pa.patientId LIKE ?";
+			String sql = "SELECT * FROM allergies AS a JOIN patientallergies AS pa ON a.id=pa.allergyId WHERE pa.patientId LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, pId);
 			ResultSet rs = prep.executeQuery();

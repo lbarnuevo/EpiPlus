@@ -31,7 +31,7 @@ public class Episode implements Serializable{
 	//so it is today's date? if yes -> adapter
 	
 	@XmlElement
-	@XmlJavaTypeAdapter(SQLDateAdapter.class) // need to ask
+	@XmlJavaTypeAdapter(SQLDateAdapter.class) // TODO import need to ask
 	
 	private Date doe; //doe = date of episode 
 	@XmlAttribute

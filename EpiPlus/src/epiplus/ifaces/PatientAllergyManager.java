@@ -11,6 +11,5 @@ public interface PatientAllergyManager {
 	void assignPatientAllergy(PatientAllergy pa);
 	void unassignPatientAllergy(PatientAllergy pa);
 	public List<Allergy> getAllergiesOfPatient(Integer pId);
-	//public PatientAllergy getPatientAllergy(Patient p, Allergy all);
 
 }
