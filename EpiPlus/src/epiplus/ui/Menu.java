@@ -221,7 +221,7 @@ public class Menu {
 					
 				} else {
 					System.out.println("Name: ");
-					String name = getString(reader);
+					String name = Auxiliar.getString(reader);
 
 					System.out.println("Hospital name: ");
 					String hospital = getString(reader);

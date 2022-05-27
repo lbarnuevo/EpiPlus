@@ -4,7 +4,7 @@
 <xsl:template> match ="/">
 	<html>>
 	<p>><b><xsl:value-of select="//name" /></b></p>
-	<p>><b> Content: </b> <xsl:value-of select= "//content"/></p>
+	<p>><b> Content: </b> <xsl:value-of select= "//patient"/></p>
 	</html>
 	</xsl:template>
 	
