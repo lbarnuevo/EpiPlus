@@ -62,51 +62,6 @@ public class Menu {
 
 				int choice = Auxiliar.getPositiveInteger(reader);
 				switch (choice) {
-<<<<<<< HEAD
-				case 1:
-					// login();
-					System.out.println("Enter patient name: ");
-					String p_name = Auxiliar.getString(reader);
-					Patient p = searchPatient(p_name);
-					patientMenu(p);
-
-					break;
-				case 2:
-					// register();
-
-					System.out.println("Introduce the doctor's name: ");
-					List<Doctor> docs = doctorManager.searchDoctorByName(Auxiliar.getString(reader));
-					listDoctors(docs);
-					Doctor d = null;
-					do {
-						System.out.println("Introduce the doctor´s id: ");
-						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
-					} while (d == null);
-					doctorMenu(d);
-					break;
-				case 3:
-
-					registerMenu();
-
-					break;
-				case 4:
-					// TODO generate xml
-					Allergy a = new Allergy(1, "cashews");
-					AllergyXml.allergy2Xml(a);
-
-					break;
-
-				case 5:
-					// TODO generate html
-
-				case 6:
-					changePassword(1);
-					break;
-				case 0:
-					System.out.println("See you soon! :)");
-					dbManager.disconnect();
-					System.exit(0);
-=======
 					case 1: 
 						login(); 
 						break; 
@@ -131,7 +86,6 @@ public class Menu {
 						System.out.println("See you soon! :)");
 						dbManager.disconnect();
 						System.exit(0);
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 				}
 
 			} while (true);
@@ -141,80 +95,9 @@ public class Menu {
 		}
 
 	}
-<<<<<<< HEAD
 
-	// TODO ask rodrigo why jpa doesn't work so we can delete these methods
-	public static Patient searchPatient(String name) throws Exception {
-
-		List<Patient> patients = patientManager.searchPatientByName(name);
-		Patient p = selectPatient(patients);
-		return p;
-	}
-
-	private static Patient selectPatient(List<Patient> p) throws Exception {
-		listPatients(p);
-		System.out.println("Introduce the patients id: ");
-		Integer id = Auxiliar.getPositiveInteger(reader);
-
-		Patient patient = patientManager.getPatientById(id);
-		return patient;
-	}
-
-	private static void listPatients(List<Patient> p) {
-		for (Patient pat : p) {
-			System.out.println(pat.toStringForDoctors());
-		}
-	}
-
-	private static void registerMenu() throws NumberFormatException, IOException {
-		do {
-			System.out.println("\n                       REGISTER MENU                         ");
-			System.out.println("---------------------------------------------------------------");
-			System.out.println(" 1.Register as a doctor                           ");
-			System.out.println(" 2.Register as a patient                                     ");
-			System.out.println(" 0.GO BACK TO MAIN MENU                              ");
-			System.out.println("---------------------------------------------------------------");
-
-			int choice = Auxiliar.getPositiveInteger(reader);
-			switch (choice) {
-			case 1:
-				registerDoctor();
-				break;
-			case 2:
-				registerPatient();
-				break;
-			case 0:
-				return;
-			default:
-				System.out.println("Please enter a valid option. ");
-			}
-		} while (true);
-	}
-
-	private static void registerDoctor() throws IOException {
-		Doctor d = Auxiliar.createDoctor(reader);
-		doctorManager.addDoctor(d);
-		int id = dbManager.getLastId();
-		d.setId(id);
-	}
-
-	private static void registerPatient() throws IOException {
-		Patient patient = Auxiliar.createPatient(reader);
-		patientManager.addPatient(patient);
-		patient.setId(dbManager.getLastId());
-		System.out.println("Adding allergies...");
-		addAllergy(patient);
-
-		System.out.println("\nYou have been successfully registered");
-	}
-
-	// THESE ARE THE ACTUAL METHODS THAT WILL BE USED
-
-=======
 	
 	//THESE ARE THE ACTUAL METHODS THAT WILL BE USED 
-	
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 	public static void login() {
 		System.out.println("Email address: ");
 		String email = Auxiliar.getString(reader);
@@ -250,7 +133,6 @@ public class Menu {
 			System.out.println("Please, write your email address: ");
 			email = reader.readLine();
 
-<<<<<<< HEAD
 			if (userManager.checkEmail(email)) {
 				System.out.println("There is already a doctor account with that email, please try to log in");
 				return;
@@ -268,12 +150,14 @@ public class Menu {
 				byte[] photo = null;
 				if (confirmation == true) {
 					photo = Auxiliar.getPhoto(reader);
-=======
+					
+					System.out.println("Please, write your password: ");
+					String pass = Auxiliar.getString(reader);
+
 					Doctor doc = new Doctor(name, email, hospital, photo, id);
 					doctorManager.addDoctor(doc);
 					doc.setId(dbManager.getLastId());
-					
-					
+								
 					MessageDigest md1 = MessageDigest.getInstance("MD5");
 					md1.update(pass.getBytes());
 					byte[] digest = md1.digest();
@@ -282,86 +166,8 @@ public class Menu {
 					
 					doctorMenu(doc);
 					return; 
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
 				}
-<<<<<<< HEAD
-
-				System.out.println("Please, write your password: ");
-				String pass = Auxiliar.getString(reader);
-
-				Doctor doc = new Doctor(name, email, hospital, photo, id);
-				doctorManager.addDoctor(doc);
-
-				MessageDigest md1 = MessageDigest.getInstance("MD5");
-				md1.update(pass.getBytes());
-				byte[] digest = md1.digest();
-				User user = new User(email, digest, role);
-				userManager.newUser(user);
-
-				doctorMenu(doc);
 			}
-
-		case 2:
-			System.out.println("\n-----PATIENT REGISTRATION-----");
-			System.out.println("");
-
-			System.out.println("Please, write your email address: ");
-			email = Auxiliar.getString(reader);
-
-			if (userManager.checkEmail(email)) {
-				System.out.println("There is already a patient account with that email, please try to log in");
-				return;
-
-			} else {
-				System.out.println("Name: ");
-				String name = Auxiliar.getString(reader);
-
-				System.out.println("Date of birth (dd-MM-yyyy): ");
-				LocalDate birthday = LocalDate.parse(Auxiliar.getString(reader), Auxiliar.formatter);
-
-				System.out.println("Height (m): ");
-				Float height = Auxiliar.getPositiveFloat(reader);
-
-				System.out.println("Weight (kg): ");
-				Float weight = Auxiliar.getPositiveFloat(reader);
-
-				System.out.println("Lifestyle: ");
-				String lifestyle = Auxiliar.getLifeStyle(reader);
-
-				System.out.println("Diet: ");
-				String diet = Auxiliar.getDiet(reader);
-
-				System.out.println("Exercise per week (hours per week): ");
-				Integer exercise = Auxiliar.getPositiveInteger(reader);
-
-				System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-				boolean confirmation = Auxiliar.askConfirmation(reader);
-
-				byte[] photo = null;
-				if (confirmation == true) {
-					photo = Auxiliar.getPhoto(reader);
-				}
-
-				System.out.println("Please, write your password: ");
-				String pass = Auxiliar.getString(reader);
-
-				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise,
-						photo, id);
-				patientManager.addPatient(p);
-
-				System.out.println("\nAdding allergies...");
-				addAllergy(p);
-
-				MessageDigest md1 = MessageDigest.getInstance("MD5");
-				md1.update(pass.getBytes());
-				byte[] digest = md1.digest();
-
-				User user = new User(email, digest, role);
-				userManager.newUser(user);
-
-				patientMenu(p);
-			}
-=======
 				
 			case 2: 
 					System.out.println("\n-----PATIENT REGISTRATION-----");
@@ -414,6 +220,7 @@ public class Menu {
 						System.out.println("\nAdding allergies...");
 						addAllergy(p);
 						
+						
 						MessageDigest md1 = MessageDigest.getInstance("MD5");
 						md1.update(pass.getBytes());
 						byte[] digest = md1.digest();
@@ -422,35 +229,10 @@ public class Menu {
 						userManager.newUser(user);
 						
 						patientMenu(p);
+						return;
 					}	
 		}
 	} 
-	
-	private static void changePassword(int choice ) {
-		String email; 
-		switch(choice) {
-			case 1: //Case when the user forgot their password
-				System.out.println("Please, write your email address");
-				email = Auxiliar.getString(reader);
-				System.out.println("Please, write your NEW password:");
-				String password = Auxiliar.getString(reader);
-				userManager.forgotPassword(email, password);
-				return; 
-			case 2: //Case were the user wants tp change their password
-				System.out.println("Please, introduce your email address:");
-		 		email = Auxiliar.getString(reader);
-		 		System.out.println("Now, please, introduce your password:");
-		 		String oldPassword = Auxiliar.getString(reader);
-		 		System.out.println("Now, please, introduce your new password:");
-		 		String newPassword = Auxiliar.getString(reader);
-		 		
-		 		if(continueProccess()) {
-		 			userManager.updatePassword(email, newPassword, oldPassword);
-		 			return; 
-		 		}
->>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
-		}
-	}
 
 	private static void changePassword(int choice) {
 		String email;
@@ -522,8 +304,8 @@ public class Menu {
 				updateUserDoctor(d);
 				break;
 			case 5:
-				changePassword(2); // Do they have to login again?
-				break;
+				changePassword(2);
+				return;
 			case 6:
 				deleteAccount();
 				break;
@@ -593,8 +375,8 @@ public class Menu {
 				updateUserPatient(p);
 				break;
 			case 11:
-				changePassword(2); // Do they have to login again?
-				break;
+				changePassword(2); 
+				return;
 			case 12:
 				deleteAccount();
 				break;
