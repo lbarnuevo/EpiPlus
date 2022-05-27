@@ -49,6 +49,22 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}
 	}
 	
+	
+
+	@Override
+	public void updatePatientMedication(PatientMedication pm) {
+		try {
+			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=?";
+			PreparedStatement p = manager.getConnection().prepareStatement(sql);
+			p.setInt(1, pm.getFrequency());
+			p.setFloat(2, pm.getAmount());
+			p.executeUpdate();
+			p.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	@Override
 	public List<Medication> getMedicationsOfPatient(Integer pacId) {
 
@@ -73,19 +89,31 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 		}
 		return medicationsList;
 	}
-
+	
 	@Override
-	public void updatePatientMedication(PatientMedication pm) {
+	public PatientMedication getPatientMedication(Patient p, Medication m) {
+
+		PatientMedication pm=null;
+		
 		try {
-			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, pm.getFrequency());
-			p.setFloat(2, pm.getAmount());
-			p.executeUpdate();
-			p.close();
+			String sql = "SELECT * FROM patientmedication WHERE patientId LIKE ? AND medicationId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, p.getId());
+			prep.setInt(2, m.getId());
+			
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer freq = rs.getInt("frequency");
+				Float  amount= rs.getFloat("amount");
+				pm = new PatientMedication (freq,amount);
+			}
+			rs.close();
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		return pm;
 	}
 
 	
