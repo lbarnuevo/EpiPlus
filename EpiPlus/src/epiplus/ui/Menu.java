@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.*;
 
-import epiplus.ui.Auxiliar.*;
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.jpa.JPAUserManager;
