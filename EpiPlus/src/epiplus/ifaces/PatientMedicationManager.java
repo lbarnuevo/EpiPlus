@@ -10,5 +10,6 @@ public interface PatientMedicationManager {
 	public void assignPatientMedication(PatientMedication pm);
 	public void unassignPatientMedication(PatientMedication pm);
 	public void updatePatientMedication (PatientMedication pm);
-	public List<Medication> getMedicationsOfPatient(Integer pacId);
+	public List<Medication> getMedicationsOfPatient (Integer pacId);
+	public PatientMedication getPatientMedication(Patient p, Medication m); //TODO add to UML
 }
