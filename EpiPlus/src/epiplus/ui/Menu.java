@@ -51,12 +51,11 @@ public class Menu {
 			do {
 				System.out.println("\n                     WELCOME TO EPI+ !!                      ");
 				System.out.println("---------------------------------------------------------------");
-				System.out.println(" 1. Login as patient                                           ");
-				System.out.println(" 2. log in as doctor (TEMPORARY) ");
-				System.out.println(" 3. Register                                                   ");
-				System.out.println(" 4. Generate XML                                               ");
-				System.out.println(" 5. Generate HTML                                              ");
-				System.out.println(" 6. I forgot my password                                       ");
+				System.out.println(" 1. Login                                                      ");
+				System.out.println(" 2. Register                                                   ");
+				System.out.println(" 3. Generate XML                                               ");
+				System.out.println(" 4. Generate HTML                                              ");
+				System.out.println(" 5. I forgot my password                                       ");
 				System.out.println(" 0. Exit the program                                           ");
 				System.out.println("---------------------------------------------------------------");
 				System.out.println("\n\nPlease chose one of the previous options: ");
@@ -64,43 +63,23 @@ public class Menu {
 				int choice = Auxiliar.getPositiveInteger(reader);
 				switch (choice) {
 					case 1: 
-						//login(); 
-						System.out.println("Enter patient name: ");
-						String p_name = Auxiliar.getString(reader);
-						Patient p = searchPatient(p_name);
-						patientMenu(p);
-						
+						login(); 
 						break; 
 					case 2: 
-						//register();
-						
-						System.out.println("Introduce the doctor's name: ");
-						List<Doctor> docs = doctorManager.searchDoctorByName(Auxiliar.getString(reader));
-						listDoctors(docs);
-						Doctor d = null; 
-						do {
-							System.out.println("Introduce the doctor´s id: ");
-							d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
-						} while (d == null);
-						doctorMenu(d);
+						register();
 						break;
 					case 3: 
-						
-						registerMenu();
-						
-						break;
-					case 4: 
 						//TODO generate xml
 						Allergy a = new Allergy(1,"cashews");
 						AllergyXml.allergy2Xml(a);
 						
 						break;
 						
-					case 5:
+					case 4:
 						//TODO generate html
 						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
 						
-					case 6: 
+					case 5: 
 						changePassword(1);
 						break; 
 					case 0:
@@ -116,67 +95,6 @@ public class Menu {
 		}
 		
 	}
-	
-	//TODO ask rodrigo why jpa doesnt work so we can delete these methods 
-	public static Patient searchPatient(String name) throws Exception {
-
-		List<Patient> patients = patientManager.searchPatientByName(name);
-		Patient p = selectPatient(patients);
-		return p;
-	}
-	private static Patient selectPatient(List<Patient> p) throws Exception {
-		listPatients(p);
-		System.out.println("Introduce the patients id: ");
-		Integer id = Auxiliar.getPositiveInteger(reader);
-
-		Patient patient = patientManager.getPatientById(id);
-		return patient;
-	}
-	private static void listPatients(List<Patient> p) {
-		for (Patient pat : p) {
-			System.out.println(pat.toStringForDoctors());
-		}
-	}
-	private static void registerMenu() throws NumberFormatException, IOException {
-		do {
-			System.out.println("\n                       REGISTER MENU                         ");
-			System.out.println("---------------------------------------------------------------");
-			System.out.println(" 1.Register as a doctor                           ");
-			System.out.println(" 2.Register as a patient                                     ");
-			System.out.println(" 0.GO BACK TO MAIN MENU                              ");
-			System.out.println("---------------------------------------------------------------");
-
-			int choice = Auxiliar.getPositiveInteger(reader);
-			switch (choice) {
-			case 1:
-				registerDoctor();
-				break;
-			case 2:
-				registerPatient();
-				break;
-			case 0:
-				return;
-			default:
-				System.out.println("Please enter a valid option. ");
-			}
-		} while (true);
-	}
-	private static void registerDoctor() throws IOException{
-		Doctor d = Auxiliar.createDoctor(reader);
-		doctorManager.addDoctor(d);
-		int id = dbManager.getLastId();
-		d.setId(id);
-	}
-	private static void registerPatient() throws IOException {
-		Patient patient = Auxiliar.createPatient(reader);
-		patientManager.addPatient(patient);
-		patient.setId(dbManager.getLastId());
-		System.out.println("Adding allergies...");
-		addAllergy(patient);
-
-		System.out.println("\nYou have been successfully registered");
-	}
-
 	
 	//THESE ARE THE ACTUAL METHODS THAT WILL BE USED 
 	
@@ -239,6 +157,7 @@ public class Menu {
 
 					Doctor doc = new Doctor(name, email, hospital, photo, id);
 					doctorManager.addDoctor(doc);
+					doc.setId(dbManager.getLastId());
 					
 					
 					MessageDigest md1 = MessageDigest.getInstance("MD5");
@@ -248,6 +167,7 @@ public class Menu {
 					userManager.newUser(user);
 					
 					doctorMenu(doc);
+					return; 
 				}
 				
 			case 2: 
@@ -296,6 +216,7 @@ public class Menu {
 	
 						Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
 						patientManager.addPatient(p);
+						p.setId(dbManager.getLastId());
 						
 						System.out.println("\nAdding allergies...");
 						addAllergy(p);
