@@ -728,7 +728,7 @@ public class Menu {
 			boolean deleted = false;
 			do {
 				System.out.println("Introduce the episode's id: ");
-				Integer eId=getPositiveInteger(reader);
+				Integer eId=Auxiliar.getPositiveInteger(reader);
 				episodeManager.deleteEpisode(episodeManager.getEpisode(eId));
 				//TODO needed? then delete episode + delete the episodesymptom relationship between them, 
 				//and remove episode form list of episodes in symptoms 
