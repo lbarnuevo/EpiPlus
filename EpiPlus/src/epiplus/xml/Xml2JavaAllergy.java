@@ -32,43 +32,7 @@ public class Xml2JavaAllergy {
 		File file = new File("./xmls/External-Allergy.xml");
 		Allergy allergy = (Allergy) unmarshaller.unmarshal(file);
 
-		// Print the report
-		System.out.println("Allergy:");
 		
-		System.out.println("Id: " + allergy.getId());
-		System.out.println("Name: " + allergy.getName());
-		
-		
-		List<Patient> patients = allergy.getPatients();
-		for (Patient pat : patients) {
-			System.out.println("Patient: " + pat.getName());
-		}
-
-		// Store the report in the database
-		// Create entity manager
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_PROVIDER);
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		em.createNativeQuery("PRAGMA foreign_keys=ON").executeUpdate();
-		em.getTransaction().commit();
-
-		// Create a transaction
-		EntityTransaction tx1 = em.getTransaction();
-
-		// Start transaction
-		tx1.begin();
-
-		// Persist
-		// We assume the authors are not already in the database
-		// In a real world, we should check if they already exist
-		// and update them instead of inserting as new
-		for (Patient patient : patients) {
-			em.persist(patient);
-		}
-		em.persist(allergy);
-		
-		// End transaction
-		tx1.commit();
 	}
 	
 }
