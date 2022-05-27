@@ -729,8 +729,9 @@ public class Menu {
 			boolean deleted = false;
 			do {
 				System.out.println("Introduce the episode's id: ");
-				//TODO getEpisodeByID
-				//then delete episode + delete the episodesymptom relationship between them, 
+				Integer eId=Auxiliar.getPositiveInteger(reader);
+				episodeManager.deleteEpisode(episodeManager.getEpisode(eId));
+				//TODO needed? then delete episode + delete the episodesymptom relationship between them, 
 				//and remove episode form list of episodes in symptoms 
 			} while(deleted == false);
 		}
@@ -850,7 +851,7 @@ public class Menu {
 			System.out.println("		SEARCHING MENU			   ");
 			System.out.println("1. Search by the doctor's name     ");
 			System.out.println("2. Search by the doctor's email    ");
-			System.out.println("3. Search by the hospital          "); //TODO consider deleting this 
+			System.out.println("3. Search by the hospital          "); //TODO way to read something from keyboard ignoring the spaces
 			System.out.println("0. Go back                         ");
 			
 			System.out.println("\nPlease introduce the option: ");
