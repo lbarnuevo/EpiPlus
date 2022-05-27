@@ -98,6 +98,7 @@ public class Menu {
 						
 					case 5:
 						//TODO generate html
+						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
 						
 					case 6: 
 						changePassword(1);

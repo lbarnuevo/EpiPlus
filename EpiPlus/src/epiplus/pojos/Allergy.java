@@ -22,7 +22,7 @@ public class Allergy implements Serializable{
 	
 	private static final long serialVersionUID = -935621693802822621L;
 
-	//@XmlAttribute
+	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
 	private String name;
