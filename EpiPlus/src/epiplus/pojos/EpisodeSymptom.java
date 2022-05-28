@@ -38,6 +38,13 @@ public class EpisodeSymptom implements Serializable{
 		this.symptom=symptom;
 		this.severity= severity;
 	}
+	
+	public EpisodeSymptom(Integer severity) {
+		super();
+		this.episode=null;
+		this.symptom=null;
+		this.severity= severity;
+	}
 
 	public Integer getSeverity() {
 		return severity;
@@ -82,6 +89,6 @@ public class EpisodeSymptom implements Serializable{
 
 	@Override
 	public String toString() {
-		return "EpisodeSymptom [severity = " + severity + ", episode = " + episode + ", symptom = " + symptom + "]";
+		return "Severity = " + severity;
 	}
 }

@@ -142,7 +142,7 @@ public class Menu {
 				String name = Auxiliar.getString(reader);
 
 				System.out.println("Hospital name: ");
-				String hospital = Auxiliar.getString(reader);
+				String hospital = Auxiliar.getStringNoSpaces(reader);
 
 				System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
 				boolean confirmation = Auxiliar.askConfirmation(reader);
@@ -244,7 +244,7 @@ public class Menu {
 			String password = Auxiliar.getString(reader);
 			userManager.forgotPassword(email, password);
 			return;
-		case 2: // Case were the user wants tp change their password
+		case 2: // Case where the user wants to change their password
 			System.out.println("Please, introduce your email address:");
 			email = Auxiliar.getString(reader);
 			System.out.println("Now, please, introduce your password:");
@@ -262,6 +262,7 @@ public class Menu {
 	private static void deleteAccount() {
 		// when you delete the account, also delete the doctor/patient from the database
 		// maybe we can do it with the role
+		//TODO on restrict to set null in the patient
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
 		if (continueProccess()) {
