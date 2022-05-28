@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Role")
-@XmlType(propOrder = { "name", "users"})
+@XmlType(propOrder = { "id","name", "users"})
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 3815457760670380250L;
@@ -34,9 +34,12 @@ public class Role implements Serializable {
 	@TableGenerator(name = "roles", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
 	
+	@XmlAttribute
 	private Integer id;
+	
 	@XmlAttribute
 	private String name;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
 	@XmlElement(name = "User")
 	@XmlElementWrapper(name = "users")

@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Doctor")
-@XmlType(propOrder = { "name", "email","hospitalName","photo","patients"} )
+@XmlType(propOrder = { "id","name", "email","hospitalName","photo","patients","role_id"} )
 public class Doctor implements Serializable { 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8279974867568397173L;
-	//@XmlAttribute
+	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
 	private String name;
@@ -35,9 +35,11 @@ public class Doctor implements Serializable {
 	@XmlElement
 	private byte[] photo; 
 
-	@XmlElement(name = "Patient")
-	@XmlElementWrapper(name = "Patients")
+	@XmlElement(name = "patient")
+	@XmlElementWrapper(name = "patients")
 	private List<Patient> patients; //One to many relationship 
+	
+	@XmlElement
 	private Integer role_id;
 	
 	public Doctor() {
@@ -65,6 +67,16 @@ public class Doctor implements Serializable {
 		
 		this.patients = new ArrayList<Patient>();
 	}
+	
+	public Doctor (Integer id, String name, String email, String hospitalName) {
+		super();
+		this.id= id;
+		this.name = name;
+		this.email = email;
+		this.hospitalName = hospitalName;
+		this.patients = new ArrayList<Patient>();
+	}
+	
 	
 	public void addPatient(Patient p) {
 		if(!patients.contains(p)) {

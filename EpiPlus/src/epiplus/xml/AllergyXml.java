@@ -1,12 +1,11 @@
 package epiplus.xml;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.xml.bind.*;
+import java.io.File;
+
+
+
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -24,7 +23,7 @@ public class AllergyXml {
 	
 	
 		
-		
+		//Create .xml file from java file
 				
 		public static void allergy2Xml(Allergy allergy) throws JAXBException {
 			
@@ -39,12 +38,14 @@ public class AllergyXml {
 			
 		
 			// Use the Marshaller to marshal the Java object to a file
-			File file = new File("./xmls/Allergy.xml");
+			File file = new File("./xmls/External-Allergy.xml");
 			
 			marshaller.marshal(allergy, file);
 			
 			
 		}
+		
+		//Create .java file from xml file
 		
 		public static Allergy Xml2Allergy() throws JAXBException {
 
@@ -73,6 +74,7 @@ public class AllergyXml {
 		 * @param resultDir - Directory where you want to put resulting files.
 		 */
 		
+		//From .xslt file create .html file using .xml file
 		
 		public static void xslt2Html(String sourcePath, String xsltPath,String resultDir) {
 			

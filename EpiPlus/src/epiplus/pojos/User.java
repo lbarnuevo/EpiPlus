@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "User")
-@XmlType(propOrder = { "email","password","role"})
+@XmlType(propOrder = { "id","email","password","role"})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1798339578536720273L;
@@ -32,6 +32,8 @@ public class User implements Serializable {
 	@GeneratedValue(generator = "users")
 	@TableGenerator(name = "users", table = "sqlite_sequence",
 		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "users")
+	
+	@XmlAttribute
 	private Integer id;
 	
 	@XmlAttribute

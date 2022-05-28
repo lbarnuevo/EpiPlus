@@ -15,23 +15,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import sample.db.xml.utils.SQLDateAdapter;
+
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Episode")
-@XmlType(propOrder = { "doe", "length","activity","mood","place","previous_meal","injuries"} )
+@XmlType(propOrder = { "id","doe", "length","activity","mood","place","previous_meal","injuries","patient","symptoms"} )
 public class Episode implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5004715535383971325L;
-	//@XmlElement
+	@XmlElement
 	private Integer id;
 	
-	//so it is today's date? if yes -> adapter
 	
+	
+	
+	//CAPITAL LETTERS AND LIST WITH WRAPPERS
 	@XmlElement
-	// TODO import need to ask
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	
 	private Date doe; //doe = date of episode 
 	@XmlAttribute
@@ -48,12 +52,11 @@ public class Episode implements Serializable{
 	private Boolean injuries;
 	
 
-	@XmlElement(name = "Patient")
-	@XmlElementWrapper(name = "Patients")
+	@XmlElement
 	private Patient patient; // One to many relationship 
 
 	@XmlElement(name = "Symptom")
-	@XmlElementWrapper(name = " Symptoms")
+	@XmlElementWrapper(name = " symptoms")
 	private List<Symptom> symptoms; //Many to many relationship 
 	
 	public Episode() {

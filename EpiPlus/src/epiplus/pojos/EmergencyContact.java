@@ -13,10 +13,10 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "EmergencyContact")
-@XmlType(propOrder = { "name", "number","patient"} )
+@XmlType(propOrder = {"id", "name", "number","patient"} )
 public class EmergencyContact {
 
-	//@XmlAttribute
+	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
 	private String name;

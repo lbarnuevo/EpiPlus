@@ -14,11 +14,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import sample.db.xml.utils.SQLDateAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Patient")
-@XmlType(propOrder = { "name", "email","birthday","height","weight","lifestyle","diet","ex_per_week","doctor","photo","emergency_contacts","episodes","medication","allergy"} )
+@XmlType(propOrder = { "id","role_id","name", "email","birthday","height","weight","lifestyle","diet","ex_per_week","doctor","photo","emergency_contacts","episodes","medication","allergy"} )
 public class Patient implements Serializable {
 
 	/**
@@ -26,7 +29,10 @@ public class Patient implements Serializable {
 	 */
 	private static final long serialVersionUID = 2234593157068704294L;
 
+	@XmlAttribute
 	private Integer id;
+	
+	@XmlAttribute
 	private Integer role_id;
 	
 	@XmlAttribute
@@ -36,6 +42,7 @@ public class Patient implements Serializable {
 	private String email;
 	
 	@XmlElement
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date birthday;
 	
 	@XmlAttribute
@@ -53,8 +60,7 @@ public class Patient implements Serializable {
 	@XmlAttribute
 	private Integer ex_per_week;
 	
-	@XmlElement(name = "Doctor")
-	@XmlElementWrapper(name = "doctors")
+	@XmlElement
 	private Doctor doctor; // Many to one relationship
 	
 	@XmlElement
@@ -69,11 +75,11 @@ public class Patient implements Serializable {
 	private List<Episode> episodes; // Many to one relationship
 	
 	@XmlElement(name = "Medication")
-	@XmlElementWrapper(name = "medications")
+	@XmlElementWrapper(name = "medication")
 	private List<Medication> medication; // Many to many relationship
 	
 	@XmlElement(name = "Allergy")
-	@XmlElementWrapper(name = "allergies")
+	@XmlElementWrapper(name = "allergy")
 	private List<Allergy> allergy; // Many to many relationship
 
 	// MANDATORY CONSTRUCTOR

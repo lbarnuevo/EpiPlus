@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Medication")
-@XmlType(propOrder = { "name", "patient"} )
+@XmlType(propOrder = { "id","name", "patient"} )
 public class Medication implements Serializable{
 	
 	/**
@@ -24,13 +24,14 @@ public class Medication implements Serializable{
 	 */
 	private static final long serialVersionUID = -7574063760306956061L;
 	
+	@XmlAttribute
 	private Integer id;
 	
 	@XmlAttribute
 	private String name;
 	
 	@XmlElement(name = "Patient")
-	@XmlElementWrapper(name = "Patients")
+	@XmlElementWrapper(name = "patient")
 	private List<Patient> patient;//Many to many relationship 
 	
 	public Medication() {

@@ -1,4 +1,4 @@
-<! DOCTYPE Allergy [						<!-- is it okay?-->
+<!DOCTYPE Allergy[						
 	<!ELEMENT Allergy (id,name)>
 	<!ELEMENT id (#PCDATA)>
 	<!ELEMENT name (#PCDATA)>

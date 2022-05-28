@@ -92,14 +92,34 @@ public class Menu {
 						break;
 					case 4: 
 						//TODO generate xml
-						Allergy a = new Allergy(1,"cashews");
-						AllergyXml.allergy2Xml(a);
+						
+						System.out.println("For what object you want to generate xml? ");
+						System.out.println("1. Allergy");
+						System.out.println("2. Doctor");
+						System.out.println("Type number: ");
+						
+						Integer choicexml = Auxiliar.getPositiveInteger(reader);
+						
+						switch(choicexml) {
+						
+						case 1:
+							Allergy a = new Allergy(1,"cashews");
+							AllergyXml.allergy2Xml(a);
+							break;
+							
+						case 2:
+							Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
+							DoctorXml.doctor2Xml(doc);
+							break;
+						}
+							
 						
 						break;
 						
 					case 5:
 						//TODO generate html
 						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
+						break;
 						
 					case 6: 
 						changePassword(1);

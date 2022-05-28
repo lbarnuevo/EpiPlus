@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Symptom")
-@XmlType(propOrder = { "name", "episodes"})
+@XmlType(propOrder = { "id","name", "episodes"})
 public class Symptom implements Serializable{
 	
 	/**
@@ -23,6 +23,7 @@ public class Symptom implements Serializable{
 	 */
 	private static final long serialVersionUID = -5541692385945227457L;
 	
+	@XmlAttribute
 	private Integer id;
 	@XmlAttribute
 	private String name;
