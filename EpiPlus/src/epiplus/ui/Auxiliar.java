@@ -202,6 +202,12 @@ public class Auxiliar {
 		return allergy;
 	}
 
+	public String getStringNoSpaces(BufferedReader reader) {
+		
+		String s = getString(reader);
+		return s.replaceAll(" ", "");
+	}
+
 	public static Boolean askConfirmation(BufferedReader reader) {
 		boolean confir = false;
 		String confirmation = getString(reader);
@@ -221,76 +227,6 @@ public class Auxiliar {
 		return confir;
 	}
 
-	//TODO delete when we ask rodrigo 
-	public static Doctor createDoctor(BufferedReader reader) throws IOException {
-		System.out.println("Input doctor information");
-		System.out.println("");
-
-		System.out.println("Name: ");
-		String name = getString(reader);
-
-		System.out.println("Hospital name: ");
-		String hospital = getString(reader);
-
-		System.out.println("Email: ");
-		String email = getString(reader);
-
-		System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-		boolean confirmation = askConfirmation(reader);
-
-		byte[] photo = null;
-		if (confirmation == true) {
-			photo = getPhoto(reader);
-		}
-
-		int id = 1; 
-		
-		Doctor doc = new Doctor(name, email, hospital, photo, id);
-		return doc;
-	}
-
-	//TODO when we ask rodrigo about jpa 
-	public static Patient createPatient(BufferedReader reader) throws IOException {
-		System.out.println("Input patient information");
-		System.out.println("");
-
-		System.out.println("Name: ");
-		String name = getString(reader);
-
-		System.out.println("Email: ");
-		String email = getString(reader);
-
-		System.out.println("Date of birth (dd-MM-yyyy): ");
-		LocalDate birthday = LocalDate.parse(getString(reader), formatter);
-
-		System.out.println("Height (m): ");
-		Float height = getPositiveFloat(reader);
-
-		System.out.println("Weight (kg): ");
-		Float weight = getPositiveFloat(reader);
-
-		System.out.println("Lifestyle: ");
-		String lifestyle = getLifeStyle(reader);
-
-		System.out.println("Diet: ");
-		String diet = getDiet(reader);
-
-		System.out.println("Exercise per week (how many hours): ");
-		Integer exercise = getPositiveInteger(reader);
-
-		System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-		boolean confirmation = askConfirmation(reader);
-
-		byte[] photo = null;
-		if (confirmation == true) {
-			photo = getPhoto(reader);
-		}
-		
-		int id = 2; 
-		
-		Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
-		return p;
-	}
 
 	public static EmergencyContact createEmergencyContacts(BufferedReader reader, Patient patient) throws IOException {
 		System.out.println("Input emergency contact");

@@ -55,7 +55,7 @@ public class JDBCManager {
 	}
 
 //------CREATE TABLES-------------
-	public void createTables() { //TODO add user 
+	public void createTables() {  
 		// Create Tables
 		try {
 			Statement stmt = c.createStatement();

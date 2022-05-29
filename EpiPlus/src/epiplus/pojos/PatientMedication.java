@@ -48,6 +48,14 @@ public class PatientMedication implements Serializable{
 		this.patient = patient;
 		this.medication = medication;
 	}
+	
+	public PatientMedication(Integer freq, Float amount) {
+		super();
+		this.frequency = freq;
+		this.amount = amount; 
+		this.patient = null;
+		this.medication = null;
+	}
 
 	public Integer getFrequency() {
 		return frequency;
@@ -100,8 +108,7 @@ public class PatientMedication implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "PatientMedication [frequency = " + frequency + ", amount = " + amount + ", patient = " + patient
-				+ ", medication = " + medication + "]";
+		return "Frequency = " + frequency + ", amount = " + amount;
 	}
 	
 }
