@@ -74,10 +74,21 @@ public class Menu {
 						System.out.println("For what object you want to generate xml? ");
 						System.out.println("1. Allergy");
 						System.out.println("2. Doctor");
+						System.out.println("3. EmergencyContact");
+						System.out.println("4. EpisodeSymptom");
+						System.out.println("5. Episode");
+						System.out.println("6. Medication");
+						System.out.println("7. PatientAllergy");
+						System.out.println("8. PatientMedication");
+						System.out.println("9. Patient");
+						System.out.println("10. Role");
+						System.out.println("11. Symptom");
+						System.out.println("12. User");
 						System.out.println("Type number: ");
 						
 						Integer choicexml = Auxiliar.getPositiveInteger(reader);
 						
+						//TODO for every case we need to show (select from database) existed objects, so the user can choose one of for example allergies to generate xml.
 						switch(choicexml) {
 						
 						case 1:
@@ -88,6 +99,47 @@ public class Menu {
 						case 2:
 							Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
 							DoctorXml.doctor2Xml(doc);
+							break;
+							
+						case 3:
+							
+							break;
+							
+						case 4:
+							
+							break;
+							
+						case 5:
+							
+							break;
+							
+						case 6:
+							
+							break;
+							
+						case 7:
+							
+							
+							break;
+							
+						case 8:
+							
+							break;
+							
+						case 9:
+							
+							break;
+							
+						case 10:
+							
+							break;
+							
+						case 11:
+							
+							break;
+							
+						case 12:
+							
 							break;
 						}
 							
