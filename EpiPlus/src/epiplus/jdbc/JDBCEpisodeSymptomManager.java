@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.EpisodeSymptomManager;
+import epiplus.pojos.Episode;
 import epiplus.pojos.EpisodeSymptom;
+import epiplus.pojos.PatientMedication;
 import epiplus.pojos.Symptom;
 
 public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
@@ -69,5 +71,30 @@ public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
 			e.printStackTrace();
 		}
 		return symptomsList;
+	}
+
+	@Override
+	public EpisodeSymptom getEpisodeSymptom(Episode e, Symptom s) {
+		
+		EpisodeSymptom es = null;
+
+		try {
+			String sql = "SELECT * FROM episodesymptoms WHERE episodeId LIKE ? AND symptomId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, e.getId());
+			prep.setInt(2, s.getId());
+
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer severity = rs.getInt("frequency");
+				es = new EpisodeSymptom(severity);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return es;
 	}
 }

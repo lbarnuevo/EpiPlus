@@ -202,7 +202,7 @@ public class Auxiliar {
 		return allergy;
 	}
 
-	public String getStringNoSpaces(BufferedReader reader) {
+	public static String getStringNoSpaces(BufferedReader reader) {
 		
 		String s = getString(reader);
 		return s.replaceAll(" ", "");
