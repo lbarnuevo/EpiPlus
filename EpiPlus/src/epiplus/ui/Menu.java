@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.*;
 
+import javax.xml.bind.JAXBException;
+
 import epiplus.ifaces.*;
 import epiplus.jdbc.*;
 import epiplus.jpa.JPAUserManager;
@@ -69,93 +71,17 @@ public class Menu {
 						register();
 						break;
 					case 3: 
-						//TODO generate xml
-						
-						System.out.println("For what object you want to generate xml? ");
-						System.out.println("1. Allergy");
-						System.out.println("2. Doctor");
-						System.out.println("3. EmergencyContact");
-						System.out.println("4. EpisodeSymptom");
-						System.out.println("5. Episode");
-						System.out.println("6. Medication");
-						System.out.println("7. PatientAllergy");
-						System.out.println("8. PatientMedication");
-						System.out.println("9. Patient");
-						System.out.println("10. Role");
-						System.out.println("11. Symptom");
-						System.out.println("12. User");
-						System.out.println("Type number: ");
-						
-						Integer choicexml = Auxiliar.getPositiveInteger(reader);
-						
-						//TODO for every case we need to show (select from database) existed objects, so the user can choose one of for example allergies to generate xml.
-						switch(choicexml) {
-						
-						case 1:
-							Allergy a = new Allergy(1,"cashews");
-							AllergyXml.allergy2Xml(a);
-							break;
-							
-						case 2:
-							Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
-							DoctorXml.doctor2Xml(doc);
-							break;
-							
-						case 3:
-							
-							break;
-							
-						case 4:
-							
-							break;
-							
-						case 5:
-							
-							break;
-							
-						case 6:
-							
-							break;
-							
-						case 7:
-							
-							
-							break;
-							
-						case 8:
-							
-							break;
-							
-						case 9:
-							
-							break;
-							
-						case 10:
-							
-							break;
-							
-						case 11:
-							
-							break;
-							
-						case 12:
-							
-							break;
-						}
-							
-						
+						generateXML();
 						break;
-						
 					case 4:
-						//TODO generate html
-						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
-						break;
-						
+						generateHtml();
+						break;	
 					case 5: 
 						changePassword(1);
 						break; 
 					case 0:
 						System.out.println("See you soon! :)");
+						Auxiliar.closing(reader);
 						dbManager.disconnect();
 						System.exit(0);
 				}
@@ -169,13 +95,93 @@ public class Menu {
 	}
 
 	
-	//THESE ARE THE ACTUAL METHODS THAT WILL BE USED 
+	//Methods for xml and html //TODO finish both methods 
+	private static void generateXML() throws Exception {
+		System.out.println("For what object you want to generate xml? ");
+		System.out.println("1. Allergy");
+		System.out.println("2. Doctor");
+		System.out.println("3. EmergencyContact");
+		System.out.println("4. EpisodeSymptom");
+		System.out.println("5. Episode");
+		System.out.println("6. Medication");
+		System.out.println("7. PatientAllergy");
+		System.out.println("8. PatientMedication");
+		System.out.println("9. Patient");
+		System.out.println("10. Role");
+		System.out.println("11. Symptom");
+		System.out.println("12. User");
+		System.out.println("Type number: ");
+		
+		Integer choicexml = Auxiliar.getPositiveInteger(reader);
+		
+		//TODO for every case we need to show (select from database) existed objects, so the user can choose one of for example allergies to generate xml.
+		switch(choicexml) {
+		
+		case 1:
+			Allergy a = new Allergy(1,"cashews");
+			AllergyXml.allergy2Xml(a);
+			break;
+			
+		case 2:
+			Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
+			DoctorXml.doctor2Xml(doc);
+			break;
+			
+		case 3:
+			
+			break;
+			
+		case 4:
+			
+			break;
+			
+		case 5:
+			
+			break;
+			
+		case 6:
+			
+			break;
+			
+		case 7:
+			
+			
+			break;
+			
+		case 8:
+			
+			break;
+			
+		case 9:
+			
+			break;
+			
+		case 10:
+			
+			break;
+			
+		case 11:
+			
+			break;
+			
+		case 12:
+			
+			break;
+		}
+	}
+	
+	public static void generateHtml() {
+		AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
+	}
+
+
+	//Methods for login subsystem 
 	public static void login() {
 		System.out.println("Email address: ");
-		String email = Auxiliar.getString(reader);
+		String email = Auxiliar.getStringNoSpaces(reader);
 
 		System.out.println("Password: ");
-		String passwd = Auxiliar.getString(reader);
+		String passwd = Auxiliar.getStringNoSpaces(reader);
 
 		User u = userManager.checkPassword(email, passwd);
 
@@ -203,7 +209,7 @@ public class Menu {
 			System.out.println("");
 
 			System.out.println("Please, write your email address: ");
-			email = reader.readLine();
+			email = Auxiliar.getStringNoSpaces(reader);
 
 			if (userManager.checkEmail(email)) {
 				System.out.println("There is already a doctor account with that email, please try to log in");
@@ -246,7 +252,7 @@ public class Menu {
 					System.out.println("");
 					
 					System.out.println("Please, write your email address: ");
-					email = Auxiliar.getString(reader);
+					email = Auxiliar.getStringNoSpaces(reader);
 					
 					if(userManager.checkEmail(email)) {
 						System.out.println("There is already a patient account with that email, please try to log in");
@@ -311,14 +317,14 @@ public class Menu {
 		switch (choice) {
 		case 1: // Case when the user forgot their password
 			System.out.println("Please, write your email address");
-			email = Auxiliar.getString(reader);
+			email = Auxiliar.getStringNoSpaces(reader);
 			System.out.println("Please, write your NEW password:");
 			String password = Auxiliar.getString(reader);
 			userManager.forgotPassword(email, password);
 			return;
 		case 2: // Case where the user wants to change their password
 			System.out.println("Please, introduce your email address:");
-			email = Auxiliar.getString(reader);
+			email = Auxiliar.getStringNoSpaces(reader);
 			System.out.println("Now, please, introduce your password:");
 			String oldPassword = Auxiliar.getString(reader);
 			System.out.println("Now, please, introduce your new password:");
@@ -342,6 +348,8 @@ public class Menu {
 		}
 	}
 
+	
+	//Menus and general methods 
 	private static boolean continueProccess() {
 		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
 		return Auxiliar.askConfirmation(reader);
@@ -360,15 +368,17 @@ public class Menu {
 			System.out.println(" 0. Log out                                                  ");
 			System.out.println("---------------------------------------------------------------");
 
+			Patient p = null; 
 			int choice = Auxiliar.getPositiveInteger(reader);
 
 			switch (choice) {
 			case 1:
-				Patient p = selectPatient(d);
+				p = selectPatient(d);
 				System.out.println("\n" + p.toString());
 				break;
 			case 2:
-				// TODO see evolution
+				p = selectPatient(d);
+				showEvolution(p);
 				break;
 			case 3:
 				seeUserDoctor(d);
@@ -396,7 +406,9 @@ public class Menu {
 		do {
 			System.out.println("                      PATIENT MENU                           ");
 			System.out.println("--------------------------------------------------------------");
+			
 			setReminderForMedication(p);
+			
 			System.out.println("--------------------------------------------------------------");
 			System.out.println(" 1. Register a new episode                                    ");
 			System.out.println(" 2. My medications                                            ");
@@ -424,10 +436,10 @@ public class Menu {
 				break;
 			case 3:
 				listEpisodes(p);
-				// deleteEpisode(p);
+				deleteEpisode(p);
 				break;
 			case 4:
-				// TODO showEvolution(p);
+				showEvolution(p);
 				break;
 			case 5:
 				Recipes(p);
@@ -587,7 +599,7 @@ public class Menu {
 					doctorManager.updateDoctor(d);
 				} else if (toChange.equalsIgnoreCase("hospitalName")) {
 					System.out.println("Input new hospital name: ");
-					String toChangeHospitalName = Auxiliar.getString(reader);
+					String toChangeHospitalName = Auxiliar.getStringNoSpaces(reader);
 					d.setHospitalName(toChangeHospitalName);
 					doctorManager.updateDoctor(d);
 				} // TODO change photo
@@ -658,6 +670,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for working with patients from doctor
 	private static Patient selectPatient(Doctor d) {
 		listPatients(d);
@@ -680,6 +693,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for working with episodes
 	private static void registerEpisode(Patient p) {
 		if (continueProccess() == false) {
@@ -722,8 +736,10 @@ public class Menu {
 			boolean deleted = false;
 			do {
 				System.out.println("Introduce the episode's id: ");
-				Integer eId=Auxiliar.getPositiveInteger(reader);
-				episodeManager.deleteEpisode(episodeManager.getEpisode(eId));
+				Integer eId = Auxiliar.getPositiveInteger(reader);
+				Episode e = episodeManager.getEpisode(eId);
+				p.removeEpisodes(e);
+				episodeManager.deleteEpisode(e);
 			} while (deleted == false);
 		}
 	}
@@ -741,6 +757,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for working with medications
 	private static void addMedication(Patient p) {
 		if (continueProccess() == false) {
@@ -830,7 +847,7 @@ public class Menu {
 		
 		for (Medication m : meds) {
 			System.out.println(m.toString());
-			pm=pmManager.getPatientMedication(p, m);
+			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\nHEY! Don't forget to take " + pm.getAmount()+ " mg of " +m.getName() + " " + pm.getFrequency()+ " times today!\n");
 			System.out.println("-----------------------------\n");
 		}
@@ -842,20 +859,20 @@ public class Menu {
 		
 		for (Medication m : meds) {
 			System.out.println(m.toString());
-			pm=pmManager.getPatientMedication(p, m);
+			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\n" + pm.toString());
 			System.out.println("-----------------------------\n");
 		}
 	}
 
+	
 	// Methods for doing operations on doctors from a patients account
 	private static Doctor searchDoctor() {
 		do {
 			System.out.println("		SEARCHING MENU			   ");
 			System.out.println("1. Search by the doctor's name     ");
 			System.out.println("2. Search by the doctor's email    ");
-			System.out.println("3. Search by the hospital          "); // TODO way to read something from keyboard
-																		// ignoring the spaces
+			System.out.println("3. Search by the hospital          ");
 			System.out.println("0. Go back                         ");
 
 			System.out.println("\nPlease introduce the option: ");
@@ -894,7 +911,7 @@ public class Menu {
 
 			case 3:
 				System.out.println("Introduce the hospital's name: ");
-				docs = doctorManager.searchDoctorByHospital(Auxiliar.getString(reader));
+				docs = doctorManager.searchDoctorByHospital(Auxiliar.getStringNoSpaces(reader));
 
 				if (docs.isEmpty()) {
 					System.out.println("There is no doctor's in that hospital. Check for spelling mistakes");
@@ -952,6 +969,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for emergency contacts
 	private static EmergencyContact selectEC(Patient p) {
 		listEC(p);
@@ -1037,6 +1055,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for allergy
 	private static void addAllergy(Patient p) {
 		if (continueProccess() == false) {
@@ -1101,7 +1120,8 @@ public class Menu {
 		}
 	}
 
-	// TODO show evolution
+	
+	//Showing evolution of patient method
 	private static void showEvolution(Patient p) {
 		// We could show the data like this:
 		// PRECONDITION: at least 1 episode recorded
@@ -1132,6 +1152,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for showing recipes
 	private static void showHummusRecipe(String diet, List<Allergy> allergies) {
 		System.out.println("~~INGREDIENTS:");

@@ -10,6 +10,14 @@ public class Auxiliar {
 
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+	public static void closing(BufferedReader reader) {
+		try {
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static int getPositiveInteger(BufferedReader reader) {
 		boolean read = false;
 		int N = -1;
@@ -40,6 +48,12 @@ public class Auxiliar {
 			System.out.println(ex);
 		}
 		return leido;
+	}
+	
+	public static String getStringNoSpaces(BufferedReader reader) {
+		
+		String s = getString(reader);
+		return s.replaceAll(" ", "");
 	}
 
 	public static Float getPositiveFloat(BufferedReader reader) {
@@ -200,12 +214,6 @@ public class Auxiliar {
 		} while (read == false);
 		allergy = new Allergy(allergyName);
 		return allergy;
-	}
-
-	public static String getStringNoSpaces(BufferedReader reader) {
-		
-		String s = getString(reader);
-		return s.replaceAll(" ", "");
 	}
 
 	public static Boolean askConfirmation(BufferedReader reader) {
