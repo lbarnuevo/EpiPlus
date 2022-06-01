@@ -340,7 +340,6 @@ public class Menu {
 	private static void deleteAccount() {
 		// when you delete the account, also delete the doctor/patient from the database
 		// maybe we can do it with the role
-		//TODO on restrict to set null in the patient
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
 		if (continueProccess()) {
