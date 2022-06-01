@@ -1,4 +1,4 @@
-package sample.db.xml.utils;
+package epiplus.db.xml.utils;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
