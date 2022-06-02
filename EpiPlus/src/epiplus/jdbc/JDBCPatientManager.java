@@ -219,17 +219,19 @@ public class JDBCPatientManager implements PatientManager {
 			prep.setString(1, email);
 			ResultSet rs = prep.executeQuery();
 			
-			Integer id = rs.getInt("id");
-			String n = rs.getString("name");
-			String e = rs.getString("email");
-			Date bd = rs.getDate("birthday");
-			Float height = rs.getFloat("height");
-			Float weight = rs.getFloat("weight");
-			String lifestyle = rs.getString("lifestyle");
-			String diet = rs.getString("diet");
-			Integer exercise = rs.getInt("ex_per_week");
-			byte[] photo = rs.getBytes("photo");
-			p = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				String e = rs.getString("email");
+				Date bd = rs.getDate("birthday");
+				Float height = rs.getFloat("height");
+				Float weight = rs.getFloat("weight");
+				String lifestyle = rs.getString("lifestyle");
+				String diet = rs.getString("diet");
+				Integer exercise = rs.getInt("ex_per_week");
+				byte[] photo = rs.getBytes("photo");
+				p = new Patient(id, n, e, bd, height, weight, lifestyle, diet, exercise, photo);
+			}
 			
 			rs.close();
 			prep.close();

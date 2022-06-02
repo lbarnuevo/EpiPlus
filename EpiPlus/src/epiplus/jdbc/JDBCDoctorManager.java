@@ -46,13 +46,14 @@ public class JDBCDoctorManager implements DoctorManager {
 			prep.setString(1, email);
 			ResultSet rs = prep.executeQuery();
 
-			Integer id = rs.getInt("id");
-			String name = rs.getString("name");
-			String e = rs.getString("email");
-			String hospitalName = rs.getString("hospitalName");
-			byte[] photo = rs.getBytes("photo");
-			d = new Doctor(id, name, e, hospitalName, photo);
-
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String name = rs.getString("name");
+				String e = rs.getString("email");
+				String hospitalName = rs.getString("hospitalName");
+				byte[] photo = rs.getBytes("photo");
+				d = new Doctor(id, name, e, hospitalName, photo);
+			}
 			rs.close();
 			prep.close();
 		} catch (Exception e) {
