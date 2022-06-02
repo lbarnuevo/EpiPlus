@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!DOCTYPE Allergy [
+   <!ELEMENT Allergy (patients)>
+   <!ATTLIST Allergy id CDATA #IMPLIED
+					 name CDATA #REQUIRED>
+   <!ELEMENT patients (Patient*)>
+   <!ELEMENT Patient (birthday, lifestyle, diet, doctor, photo)>
+   <!ELEMENT birthday CDATA #REQUIRED>
+   <!ELEMENT lifestyle CDATA #IMPLIED>
+   <!ELEMENT  diet #REQUIRED>
+   <!ELEMENT doctor (Doctor*)>
+   <!ELEMENT photo #IMPLIED
+   <!ATTLIST Patient id CDATA #IMPLIED
+   								role_id CDATA	#IMPLIED
+   								name CDATA	#REQUIRED
+   								email #REQUIRED
+   								height #IMPLIED
+   								weight #IMPLIED
+   								ex_per_week CDATA #IMPLIED>
+   					
+   
+   <!ELEMENT Doctor (email, hospitalName, photo)
+   <!ELEMENT email #REQUIRED>
+   <!ELEMENT hospitalName #REQUIRED>
+   <!ELEMENT photo #IMPLIED>
+   						
+   <!ATTLIST Doctor 
+   						
+]>

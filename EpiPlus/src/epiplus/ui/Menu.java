@@ -92,6 +92,7 @@ public class Menu {
 						switch(choicexml) {
 						
 						case 1:
+							
 							Allergy a = new Allergy(1,"cashews");
 							AllergyXml.allergy2Xml(a);
 							break;
@@ -148,7 +149,77 @@ public class Menu {
 						
 					case 4:
 						//TODO generate html
-						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
+						System.out.println("For what object do you want to generate HTML?");
+						System.out.println("1. Allergy");
+						System.out.println("2. Doctor");
+						System.out.println("3. EmergencyContact");
+						System.out.println("4. EpisodeSymptom");
+						System.out.println("5. Episode");
+						System.out.println("6. Medication");
+						System.out.println("7. PatientAllergy");
+						System.out.println("8. PatientMedication");
+						System.out.println("9. Patient");
+						System.out.println("10. Role");
+						System.out.println("11. Symptom");
+						System.out.println("12. User");
+						System.out.println("Type number: ");
+						
+						Integer choicehtml = Auxiliar.getPositiveInteger(reader);
+						
+						switch(choicehtml) {
+						
+						case 1:
+							File fileAllergy = new File("./xmls/External-Allergy.xml");
+							boolean existsAllergy = fileAllergy.exists();
+							if(!existsAllergy) { System.out.println("First, create an xml file for your object ");
+							}
+							else{AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
+							System.out.println("HTML file has been generated.");
+							}
+							break;
+							
+						case 2:
+							File fileDoctor = new File("./xmls/External-Doctor.xml");
+							boolean existsDoctor = fileDoctor.exists();
+							if(!existsDoctor) { System.out.println("First, create an xml file for your object ");
+							}
+							else{DoctorXml.xslt2Html("./xmls/External-Doctor.xml", "./xmls/Doctor-Style.xslt", "./xmls/External-Doctor.html");
+							System.out.println("HTML file has been generated.");
+							}
+							break;
+							
+						case 3:
+							File fileEmergencyContact = new File("./xmls/External-EmergencyContact.xml");
+							boolean existsEmergencyContact = fileEmergencyContact.exists();
+							if(!existsEmergencyContact) { System.out.println("First, create an xml file for your object ");
+							}
+							else{EmergencyContactXml.xslt2Html("./xmls/External-EmergencyContact.xml", "./xmls/Style-EmergencyContact.xslt", "./xmls/External-EmergencyContact.html");
+							System.out.println("HTML file has been generated.");
+							}
+							break;
+							
+							
+						case 4:
+							File fileEpisodeSymptom = new File("./xmls/External-EpisodeSymptom.xml");
+							boolean existsEpisodeSymptom = fileEpisodeSymptom.exists();
+							if(!existsEpisodeSymptom) { System.out.println("First, create an xml file for your object ");
+							}
+							else{EpisodeSymptomXml.xslt2Html("./xmls/External-EpisodeSymptom.xml", "./xmls/Style-EpisodeSymptom.xslt", "./xmls/External-EpisodeStmptom.html");
+							System.out.println("HTML file has been generated.");
+							}
+							break;
+						
+						case 5:
+							File fileEpisode = new File("./xmls/External-Episode.xml");
+							boolean existsEpisode = fileEpisode.exists();
+							if(!existsEpisode) { System.out.println("First, create an xml file for your object ");
+							}
+							else{EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Style-Episode.xslt", "./xmls/External-Episode.html");
+							System.out.println("HTML file has been generated.");
+							}
+							break;
+						
+						}
 						break;
 						
 					case 5: 

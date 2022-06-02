@@ -7,9 +7,12 @@
 	<html>
 	<p><b><xsl:value-of select="//@id" /></b></p>
 	<p><b><xsl:value-of select="//@name" /></b></p>
-	<p><b> Content: </b> <xsl:value-of select= "//patients"/></p>
+	<p><b><xsl:value-of select="//email"/></b></p>
+	<p><b><xsl:value-of select="//hospitalName"/></b></p>
+	
+	<p><b> Patients: </b> <xsl:value-of select= "//patients"/></p>
+	
 	</html>
 </xsl:template>
 	
 </xsl:stylesheet>
-
