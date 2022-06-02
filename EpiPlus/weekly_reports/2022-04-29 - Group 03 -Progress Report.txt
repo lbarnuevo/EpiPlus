@@ -1,0 +1,17 @@
+This week we expected to finish point 10 and begin point 11.
+=========================================
+
+Because we have already seen everything we need for those points in class.
+-----------
+
+This week we were able to work a lot on point 10 but we didn't begin point 11.
+===================
+
+Because we need more time to understand JPA and point 10 is taking more than we thought.
+-----------
+
+Next week we will continue points 10 and 11.
+========================
+
+Because we are getting closer to the final exams and we will have less time to work on EpiPlus by then. 
+-----------

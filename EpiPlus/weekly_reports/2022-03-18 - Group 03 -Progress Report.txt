@@ -1,0 +1,17 @@
+This week we expected to be able to finish point 7 and point 8 of the schedule.
+=========================================
+
+Because we don't want to work on the midterm and the presentation at the same time. 
+-----------
+
+This week we weren't able to finish point 7 nor point 8. But we started point 9 (UML).
+===================
+
+Due to our very busy schedule.
+-----------
+
+Next week we will fully finish points 7 and 9, and we will continue with the DML of our project (point 8).
+========================
+
+Because the presentation needs to be done and we should start programming (point 10).
+-----------

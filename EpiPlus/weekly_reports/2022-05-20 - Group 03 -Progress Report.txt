@@ -1,0 +1,17 @@
+This week we expected to finish points 10, 11 and 12.
+=========================================
+
+Because we are following the project's schedule.
+-----------
+
+This week we were able to finish point 10 and test it but not points 11 and 12.
+===================
+
+Because we had some questions on the JPA so we couldn't finish them.
+-----------
+
+Next week we will finish points 11 and 12 and start with points 13 and 14.
+========================
+
+Because we should be working on the webpage of our project by now. 
+-----------
