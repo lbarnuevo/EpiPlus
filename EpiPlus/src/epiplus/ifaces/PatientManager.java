@@ -13,4 +13,5 @@ public interface PatientManager {
 	public void unassignDoctor(Patient p, Doctor d);
 	public void showEvolution(Patient p); //It is void or is other data type? /Yes it should be void, Ola
 	public List<Patient> listsAllPatients();
+	public Patient searchPatientByEmail(String email);
 }
