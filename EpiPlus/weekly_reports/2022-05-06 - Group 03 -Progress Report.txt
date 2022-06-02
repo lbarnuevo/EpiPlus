@@ -1,0 +1,17 @@
+This week we expected to continue points 10 and 11.
+=========================================
+
+Because we are following the project's schedule.
+-----------
+
+This week we were able to do so and start point 12.
+===================
+
+Because we thought we should do the UML of the JPA part while programming it.
+-----------
+
+Next week we will finish points 10 (the menu is still left), 11 and 12.
+========================
+
+Because we are getting closer to the end of the course. 
+-----------

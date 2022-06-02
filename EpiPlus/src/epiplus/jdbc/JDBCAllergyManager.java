@@ -102,4 +102,30 @@ public class JDBCAllergyManager implements AllergyManager {
 		return allergy;
 
 	}
+	
+	@Override
+	public Allergy getAllergyById(Integer intId) {
+
+		Allergy allergy = null;
+
+		try {
+			String sql = "SELECT * FROM allergies WHERE intId LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, intId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				allergy = new Allergy(id, n);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allergy;
+
+	}
+	
 }

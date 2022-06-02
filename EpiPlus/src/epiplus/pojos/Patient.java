@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import sample.db.xml.utils.SQLDateAdapter;
+import epiplus.db.xml.utils.SQLDateAdapter;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)

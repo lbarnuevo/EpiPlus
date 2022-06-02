@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 import epiplus.ifaces.DoctorManager;
+import epiplus.pojos.Allergy;
 import epiplus.pojos.Doctor;
 import epiplus.pojos.Patient;
 
@@ -46,13 +47,14 @@ public class JDBCDoctorManager implements DoctorManager {
 			prep.setString(1, email);
 			ResultSet rs = prep.executeQuery();
 
-			Integer id = rs.getInt("id");
-			String name = rs.getString("name");
-			String e = rs.getString("email");
-			String hospitalName = rs.getString("hospitalName");
-			byte[] photo = rs.getBytes("photo");
-			d = new Doctor(id, name, e, hospitalName, photo);
-
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String name = rs.getString("name");
+				String e = rs.getString("email");
+				String hospitalName = rs.getString("hospitalName");
+				byte[] photo = rs.getBytes("photo");
+				d = new Doctor(id, name, e, hospitalName, photo);
+			}
 			rs.close();
 			prep.close();
 		} catch (Exception e) {
@@ -143,7 +145,8 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 		return doctor;
 	}
-
+	
+	
 	@Override
 	public List<Patient> getPatientsOfDoctor(Integer DocId) {
 

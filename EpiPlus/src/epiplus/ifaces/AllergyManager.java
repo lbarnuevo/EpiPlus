@@ -3,6 +3,7 @@ package epiplus.ifaces;
 import java.util.List;
 
 import epiplus.pojos.Allergy;
+import epiplus.pojos.Doctor;
 
 public interface AllergyManager {
 
@@ -13,6 +14,8 @@ public interface AllergyManager {
 	List<Allergy> listAllAllergies();
 
 	Allergy getAllergyByName(String nameall);
+
+	Allergy getAllergyById(Integer choiceAllergy);
 
 	
 	

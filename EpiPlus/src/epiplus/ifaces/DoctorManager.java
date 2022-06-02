@@ -1,6 +1,8 @@
 package epiplus.ifaces;
 
 import java.util.*;
+
+import epiplus.pojos.Allergy;
 import epiplus.pojos.Doctor;
 import epiplus.pojos.Patient;
 
@@ -14,4 +16,5 @@ public interface DoctorManager {
 	public void updateDoctor(Doctor doctor);
 	public void deleteDoctor(Doctor d);
 	public List<Doctor> listsAllDoctors();
+	
 }
