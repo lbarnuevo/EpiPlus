@@ -444,8 +444,23 @@ public class Menu {
 		// maybe we can do it with the role
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
-		if (continueProccess()) {
-			userManager.deleteUser(email);
+		
+		Doctor d = doctorManager.searchDoctorByEmail(email);
+		Patient p = patientManager.searchPatientByEmail(email);
+		
+		if(userManager.checkEmail(email) && (d != null || p != null)) {
+			if (continueProccess()) {
+				if (d == null && p != null) {
+					patientManager.deletePatient(p);
+				} else if (d != null && p == null) {
+					doctorManager.deleteDoctor(d);
+				}
+				userManager.deleteUser(email);
+			}
+		
+		} else {
+			System.out.println("There is not a user with that email");
+			return; 
 		}
 	}
 
