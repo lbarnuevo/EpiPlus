@@ -8,4 +8,5 @@ public interface MedicationManager {
 	public void deleteMedication(Medication m);
 	public Medication getMedicationByName(String name);
 	public List<Medication> listsAllMedication();
+	Medication getMedicationById(Integer mId);
 }

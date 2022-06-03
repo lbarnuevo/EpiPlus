@@ -11,4 +11,5 @@ public interface EpisodeSymptomManager {
 	public void unassignEpisodeSymptom(EpisodeSymptom es);
 	public List<Symptom> getSymptomsOfEpisode(Integer epId);
 	public EpisodeSymptom getEpisodeSymptom (Episode e, Symptom s);
+	//List<EpisodeSymptom> listsAllESs(); 
 }

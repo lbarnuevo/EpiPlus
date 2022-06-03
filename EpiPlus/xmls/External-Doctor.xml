@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Doctor id="4" name="PEPE">
-    <email>drpepe@gmail.com</email>
-    <hospitalName>Quirón</hospitalName>
+<Doctor id="3" name="Silvano Perez">
+    <email>sperez@lapaz.es</email>
+    <hospitalName>LaPaz</hospitalName>
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
     <patients/>
 </Doctor>
