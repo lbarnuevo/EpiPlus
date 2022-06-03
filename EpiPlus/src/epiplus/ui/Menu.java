@@ -121,7 +121,7 @@ public class Menu {
 		switch(choicexml) {
 		
 		case 1:
-			System.out.println("For what allergy do you want to create the xml?");
+			System.out.println("For which allergy do you want to create the xml?");
 			listAllAllergies();
 			System.out.println("Type number: ");
 			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
@@ -142,7 +142,7 @@ public class Menu {
 			break;
 			
 		case 2:
-			System.out.println("For what doctor do you want to create the xml?");
+			System.out.println("For which doctor do you want to create the xml?");
 			listAllDoctors();
 			System.out.println("Type number: ");
 			Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
@@ -155,18 +155,54 @@ public class Menu {
 			else { System.out.println("The XML file could not been generated.");}
 			
 			//Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
-			
 			break;
 			
 		case 3:
+			System.out.println("For which emergency contact do you want to create the xml?");
+			listAllEmergencyContacts();
+			System.out.println("Type number: ");
+			Integer choiceEC = Auxiliar.getPositiveInteger(reader);
+			EmergencyContact newEC = ecManager.getECbyId(choiceEC);
+			EmergencyContactXml.emergencyContact2Xml(newEC);
+			
+			File fileEC = new File("./xmls/External-EmergencyContact.xml");
+			boolean existsEC = fileEC.exists();
+			if(existsEC) { System.out.println("The XML file has been generated."); } 
+			else { System.out.println("The XML file could not been generated.");}
 			
 			break;
 			
 		case 4:
+			/*System.out.println("For which episode symptom do you want to create the xml?");
+			listAllEpisodeSymptom();
+			System.out.println("Type number: ");
+			Integer choiceEC = Auxiliar.getPositiveInteger(reader);
+			EmergencyContact newEC = ecManager.getECbyId(choiceEC);
+			EmergencyContactXml.emergencyContact2Xml(newEC);
 			
+			File fileEC = new File("./xmls/External-EmergencyContact.xml");
+			boolean existsEC = fileEC.exists();
+			if(existsEC) { System.out.println("The XML file has been generated."); } 
+			else { System.out.println("The XML file could not been generated.");}
+			*/
 			break;
 			
 		case 5:
+			
+			System.out.println("For which episode do you want to create the xml?");
+			listAllEpisodes();
+			System.out.println("Type number: ");
+			Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
+			Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
+			EpisodeXml.episode2Xml(newEpisode);
+			
+			File fileEpisode = new File("./xmls/External-Episode.xml");
+			boolean existsEpisode = fileEpisode.exists();
+			if(existsEpisode) { System.out.println("The XML file has been generated."); } 
+			else { System.out.println("The XML file could not been generated.");}
+			
+			
+	
 			
 			break;
 			
@@ -864,6 +900,21 @@ public class Menu {
 			} while (deleted == false);
 		}
 	}
+	
+	private static void listAllEpisodes() {
+		
+		List<Episode> episodes = episodeManager.listsAllEpisodes();
+
+		for (Episode e : episodes) {
+			System.out.println(e.toString());
+
+			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+				System.out.println(s.toString());
+			}
+		} System.out.println("------------------------\n");
+			
+		
+	}
 
 	private static void listEpisodes(Patient p) {
 		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
@@ -1103,6 +1154,7 @@ public class Menu {
 	}
 
 	
+	
 	// Methods for emergency contacts
 	private static EmergencyContact selectEC(Patient p) {
 		listEC(p);
@@ -1125,6 +1177,18 @@ public class Menu {
 			System.out.println(e2.toString());
 			System.out.println("-----------------------------\n");
 		}
+	}
+	
+	private static void listAllEmergencyContacts() {
+		List<EmergencyContact> ecs = ecManager.listsAllEmergencyContacts();
+		if (ecs!= null) {
+		for (EmergencyContact ec : ecs) {
+			System.out.println(ec.toString());
+			}
+		}
+		else {System.out.println("There are 0 emergency contacts in the database!");}
+		
+		
 	}
 
 	private static void addEmergencyContact(Patient p) {

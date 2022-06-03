@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.EpisodeSymptomManager;
+import epiplus.pojos.Doctor;
 import epiplus.pojos.Episode;
 import epiplus.pojos.EpisodeSymptom;
 import epiplus.pojos.PatientMedication;
@@ -97,4 +98,31 @@ public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
 		}
 		return es;
 	}
+	
+	/*@Override
+	public List<EpisodeSymptom> listsAllESs() {
+
+		List<EpisodeSymptom> ESsList = new ArrayList<EpisodeSymptom>();
+
+		try {
+			String sql = "SELECT * FROM episodesymptom";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer episodeId = rs.getInt("episodeId");
+				Integer symptomId = rs.getInt("symptomId");
+				Integer severity = rs.getInt("severity");
+				
+				EpisodeSymptom es = new EpisodeSymptom(episodeId, symptomId, severity);
+				ESsList.add(es);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ESsList;
+	}*/
+	
 }
