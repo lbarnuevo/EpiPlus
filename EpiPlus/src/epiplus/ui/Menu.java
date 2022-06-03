@@ -176,7 +176,7 @@ public class Menu {
 
 
 	//Methods for login subsystem 
-	public static void login() {
+	public static void login() throws Exception {
 		System.out.println("Email address: ");
 		String email = Auxiliar.getStringNoSpaces(reader);
 
@@ -189,9 +189,11 @@ public class Menu {
 			System.out.println("Wrong email or password");
 			return;
 		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
-			// TODO go to doctor menu
+			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
+			doctorMenu(d);
 		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
-			// TODO go to patient menu
+			Patient p = patientManager.searchPatientByEmail(u.getEmail());
+			patientMenu(p);
 		}
 	}
 
@@ -202,9 +204,8 @@ public class Menu {
 		Role role = userManager.getRole(id);
 
 		String email;
-
-		switch (id) {
-		case 1:
+		
+		if(role.getName().equalsIgnoreCase("doctor")) {
 			System.out.println("\n----DOCTOR REGISTRATION----");
 			System.out.println("");
 
@@ -228,87 +229,85 @@ public class Menu {
 				byte[] photo = null;
 				if (confirmation == true) {
 					photo = Auxiliar.getPhoto(reader);
-					
-					System.out.println("Please, write your password: ");
-					String pass = Auxiliar.getString(reader);
-
-					Doctor doc = new Doctor(name, email, hospital, photo, id);
-					doctorManager.addDoctor(doc);
-					doc.setId(dbManager.getLastId());
-								
-					MessageDigest md1 = MessageDigest.getInstance("MD5");
-					md1.update(pass.getBytes());
-					byte[] digest = md1.digest();
-					User user = new User(email, digest, role);
-					userManager.newUser(user);
-					
-					doctorMenu(doc);
-					return; 
 				}
+				System.out.println("Please, write your password: ");
+				String pass = Auxiliar.getString(reader);
+
+				Doctor doc = new Doctor(name, email, hospital, photo, id);
+				doctorManager.addDoctor(doc);
+				doc.setId(dbManager.getLastId());
+							
+				MessageDigest md1 = MessageDigest.getInstance("MD5");
+				md1.update(pass.getBytes());
+				byte[] digest = md1.digest();
+				
+				User user = new User(email, digest, role);
+				userManager.newUser(user);
+				
+				doctorMenu(doc);
 			}
+			
+		} else if(role.getName().equalsIgnoreCase("patient")) {
+			System.out.println("\n-----PATIENT REGISTRATION-----");
+			System.out.println("");
+			
+			System.out.println("Please, write your email address: ");
+			email = Auxiliar.getStringNoSpaces(reader);
+			
+			if(userManager.checkEmail(email)) {
+				System.out.println("There is already a patient account with that email, please try to log in");
+				return; 
 				
-			case 2: 
-					System.out.println("\n-----PATIENT REGISTRATION-----");
-					System.out.println("");
-					
-					System.out.println("Please, write your email address: ");
-					email = Auxiliar.getStringNoSpaces(reader);
-					
-					if(userManager.checkEmail(email)) {
-						System.out.println("There is already a patient account with that email, please try to log in");
-						return; 
-						
-					} else {
-						System.out.println("Name: ");
-						String name = Auxiliar.getString(reader);
+			} else {
+				System.out.println("Name: ");
+				String name = Auxiliar.getString(reader);
+		
+				System.out.println("Date of birth (dd-MM-yyyy): ");
+				LocalDate birthday = LocalDate.parse(Auxiliar.getString(reader), Auxiliar.formatter);
+		
+				System.out.println("Height (m): ");
+				Float height = Auxiliar.getPositiveFloat(reader);
+		
+				System.out.println("Weight (kg): ");
+				Float weight = Auxiliar.getPositiveFloat(reader);
+		
+				System.out.println("Lifestyle: ");
+				String lifestyle = Auxiliar.getLifeStyle(reader);
+		
+				System.out.println("Diet: ");
+				String diet = Auxiliar.getDiet(reader);
+		
+				System.out.println("Exercise per week (hours per week): ");
+				Integer exercise = Auxiliar.getPositiveInteger(reader);
+		
+				System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
+				boolean confirmation = Auxiliar.askConfirmation(reader);
+		
+				byte[] photo = null;
+				if (confirmation == true) {
+					photo = Auxiliar.getPhoto(reader);
+				}
 				
-						System.out.println("Date of birth (dd-MM-yyyy): ");
-						LocalDate birthday = LocalDate.parse(Auxiliar.getString(reader), Auxiliar.formatter);
+				System.out.println("Please, write your password: ");
+				String pass = Auxiliar.getString(reader);
+
+				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
+				patientManager.addPatient(p);
+				p.setId(dbManager.getLastId());
 				
-						System.out.println("Height (m): ");
-						Float height = Auxiliar.getPositiveFloat(reader);
+				System.out.println("\nAdding allergies...");
+				addAllergy(p);
 				
-						System.out.println("Weight (kg): ");
-						Float weight = Auxiliar.getPositiveFloat(reader);
 				
-						System.out.println("Lifestyle: ");
-						String lifestyle = Auxiliar.getLifeStyle(reader);
+				MessageDigest md1 = MessageDigest.getInstance("MD5");
+				md1.update(pass.getBytes());
+				byte[] digest = md1.digest();
 				
-						System.out.println("Diet: ");
-						String diet = Auxiliar.getDiet(reader);
+				User user = new User(email, digest, role);
+				userManager.newUser(user);
 				
-						System.out.println("Exercise per week (hours per week): ");
-						Integer exercise = Auxiliar.getPositiveInteger(reader);
-				
-						System.out.println("Do you want to add a photo? (Yes --> Y / No --> N)");
-						boolean confirmation = Auxiliar.askConfirmation(reader);
-				
-						byte[] photo = null;
-						if (confirmation == true) {
-							photo = Auxiliar.getPhoto(reader);
-						}
-						
-						System.out.println("Please, write your password: ");
-						String pass = Auxiliar.getString(reader);
-	
-						Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
-						patientManager.addPatient(p);
-						p.setId(dbManager.getLastId());
-						
-						System.out.println("\nAdding allergies...");
-						addAllergy(p);
-						
-						
-						MessageDigest md1 = MessageDigest.getInstance("MD5");
-						md1.update(pass.getBytes());
-						byte[] digest = md1.digest();
-						
-						User user = new User(email, digest, role);
-						userManager.newUser(user);
-						
-						patientMenu(p);
-						return;
-					}	
+				patientMenu(p);
+			}
 		}
 	} 
 
