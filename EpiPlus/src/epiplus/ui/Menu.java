@@ -845,6 +845,7 @@ public class Menu {
 	}
 
 	private static void deleteEpisode(Patient p) {
+		System.out.println("Delete an episode (input N if you don't want to delete an episode)");
 		if (continueProccess() == false) {
 			return;
 		} else {
