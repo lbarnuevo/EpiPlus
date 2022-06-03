@@ -507,7 +507,7 @@ public class Menu {
 				return;
 			case 6:
 				deleteAccount();
-				break;
+				return;
 			case 0:
 				System.out.println("~~Byee! :)");
 				return;
@@ -580,7 +580,7 @@ public class Menu {
 				return;
 			case 12:
 				deleteAccount();
-				break;
+				return;
 			case 0:
 				System.out.println("\n~~Byee");
 				return;
@@ -659,7 +659,7 @@ public class Menu {
 		} while (true);
 	}
 
-	// TODO one unique seeUser method with roles
+	//operations on User 
 	private static void seeUserPatient(Patient p) {
 		System.out.println("\nShowing user's information...\n");
 		System.out.println(p.toString());
@@ -697,7 +697,6 @@ public class Menu {
 		}
 	}
 
-	// TODO one unique updateUser methods with roles
 	private static void updateUserDoctor(Doctor d) {
 		if (continueProccess() == false) {
 			return;
@@ -854,8 +853,13 @@ public class Menu {
 				System.out.println("Introduce the episode's id: ");
 				Integer eId = Auxiliar.getPositiveInteger(reader);
 				Episode e = episodeManager.getEpisode(eId);
-				p.removeEpisodes(e);
-				episodeManager.deleteEpisode(e);
+				
+				if (e != null) {
+					p.removeEpisodes(e);
+					episodeManager.deleteEpisode(e);
+					deleted = true;
+				}
+				
 			} while (deleted == false);
 		}
 	}
