@@ -98,7 +98,7 @@ public class JDBCManager {
 					+ "	place		TEXT," 
 					+ "	previous_meal TEXT,"
 					+ "	injuries 	BOOLEAN NOT NULL,"
-					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE SET NULL"
+					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE CASCADE"
 					+ ");";
 			stmt.executeUpdate(sql);
 			
@@ -114,8 +114,8 @@ public class JDBCManager {
 					+ "	episodeId 	INTEGER NOT NULL,"
 					+ "	symptomId	INTEGER NOT NULL," 
 					+ "	severity	INTEGER NOT NULL,"
-					+ " FOREIGN KEY (episodeId) REFERENCES episodes(id) ON DELETE SET NULL,"
-					+ " FOREIGN KEY (symptomId) REFERENCES symptoms(id) ON DELETE SET NULL,"
+					+ " FOREIGN KEY (episodeId) REFERENCES episodes(id) ON DELETE CASCADE,"
+					+ " FOREIGN KEY (symptomId) REFERENCES symptoms(id) ON DELETE CASCADE,"
 					+ " PRIMARY KEY (episodeId,symptomId)\r\n"
 					+ ");";
 			stmt.executeUpdate(sql);
@@ -133,8 +133,8 @@ public class JDBCManager {
 					+ " medicationId 	INTEGER NOT NULL,"
 					+ " frequency 		INTEGER NOT NULL," // times per day
 					+ " amount 			REAL NOT NULL,"
-					+ " FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE SET NULL,"
-					+ " FOREIGN KEY (medicationId) REFERENCES medications(id) ON DELETE SET NULL,"
+					+ " FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE CASCADE,"
+					+ " FOREIGN KEY (medicationId) REFERENCES medications(id) ON DELETE CASCADE,"
 					+ " PRIMARY KEY (patientId,medicationId)\r\n"
 					+ ");";
 			stmt.executeUpdate(sql);
@@ -144,7 +144,7 @@ public class JDBCManager {
 					+ " id	 	INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " name	TEXT NOT NULL," 
 					+ " number	INTEGER NOT NULL," 
-					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE SET NULL"
+					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE CASCADE"
 					+ ");";
 
 			stmt.executeUpdate(sql);
@@ -161,8 +161,8 @@ public class JDBCManager {
 			sql = "CREATE TABLE patientallergies ("
 					+ " patientId 		INTEGER NOT NULL,"
 					+ " allergyId		INTEGER NOT NULL,"
-					+ "	FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE SET NULL,"
-					+ "	FOREIGN KEY (allergyId) REFERENCES allergies(id) ON DELETE SET NULL,"
+					+ "	FOREIGN KEY (patientId) REFERENCES patients(id) ON DELETE CASCADE,"
+					+ "	FOREIGN KEY (allergyId) REFERENCES allergies(id) ON DELETE CASCADE,"
 					+ " PRIMARY KEY (patientId,allergyId)\r\n"
 					+ ");";
 	
