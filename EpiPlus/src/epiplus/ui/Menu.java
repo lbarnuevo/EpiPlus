@@ -392,7 +392,10 @@ public class Menu {
 				p.setId(dbManager.getLastId());
 				
 				System.out.println("\nAdding allergies...");
-				addAllergy(p);
+				do {
+					addAllergy(p);
+					System.out.println("If you don't want to add more allergies, input N");
+				} while (continueProccess());
 				
 				
 				MessageDigest md1 = MessageDigest.getInstance("MD5");
@@ -433,8 +436,6 @@ public class Menu {
 	}
 
 	private static void deleteAccount() {
-		// when you delete the account, also delete the doctor/patient from the database
-		// maybe we can do it with the role
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
 		
@@ -554,7 +555,9 @@ public class Menu {
 				Recipes(p);
 				break;
 			case 6:
-				addEmergencyContact(p);
+				do {
+					addEmergencyContact(p);
+				} while (continueProccess());
 				break;
 			case 7:
 				assignDoctor(p);
@@ -586,11 +589,13 @@ public class Menu {
 	private static void Medications(Patient p) throws Exception {
 		do {
 			System.out.println("\n               MY MEDICATIONS                    ");
+			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. See my current medications                      ");
 			System.out.println("2. Add a new medication        					   ");
 			System.out.println("3. Modify frequency or amount of a medication      ");
 			System.out.println("4. Delete one of my medications                    ");
 			System.out.println("0. Go back                                         ");
+			System.out.println("---------------------------------------------------------------");
 
 			System.out.println("\nPlease, introduce an option: ");
 			int choice = Auxiliar.getPositiveInteger(reader);
@@ -619,12 +624,14 @@ public class Menu {
 	private static void Recipes(Patient p) {
 		do {
 			System.out.println("\n~~~~What recipe do you want to see?~~~~");
+			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. Hummus");
 			System.out.println("2. Shakshuka");
 			System.out.println("3. Salad");
 			System.out.println("4. Chinese noodles");
 			System.out.println("5. Oatmeal");
 			System.out.println("0. Go back");
+			System.out.println("---------------------------------------------------------------");
 
 			System.out.println("\nPlease, introduce an option: ");
 			int choice = Auxiliar.getPositiveInteger(reader);
@@ -695,7 +702,6 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println("\nShowing user's information... \n");
 				System.out.println(d.toString());
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
 				String toChange = Auxiliar.getString(reader);
@@ -724,7 +730,6 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println("\nShowing user's information... ");
 				seeUserPatient(p);
 
 				System.out.println(
@@ -765,9 +770,13 @@ public class Menu {
 					System.out.println("Delete emergency contact...");
 					deleteEContact(p);
 				} else if (toChange.equalsIgnoreCase("allergy")) {
-					System.out
-							.println("Note: You won't be able to change any atributes from an allergy, only delete it");
+					System.out.println("Note: You won't be able to change any atributes from an allergy,"
+							+ " only delete or add an allergy");
+					System.out.println("Deleting allergies...");
 					deleteAllergy(p);
+					
+					System.out.println("Adding allergies...");
+					addAllergy(p);
 				}
 				// TODO change photo
 
@@ -812,25 +821,31 @@ public class Menu {
 				ep.setPatient(p);
 				episodeManager.addEpisode(ep);
 				ep.setId(dbManager.getLastId());
+				
+				System.out.println("If you don't have any specific symptom, press enter in the name and put severity 0");
+				do {
+					Symptom smp = Auxiliar.createSymptom(reader);
+					Symptom s2 = symptomManager.getSymptomByName(smp.getName());
 
-				Symptom smp = Auxiliar.createSymptom(reader);
-				Symptom s2 = symptomManager.getSymptomByName(smp.getName());
+					if (s2 == null) {
+						symptomManager.addSymptom(smp);
+						smp.setId(dbManager.getLastId());
+						smp.addEpisodes(ep);
+						ep.addSymptom(smp);
 
-				if (s2 == null) {
-					symptomManager.addSymptom(smp);
-					smp.setId(dbManager.getLastId());
-					smp.addEpisodes(ep);
-					ep.addSymptom(smp);
+						EpisodeSymptom epsp = Auxiliar.createSeverity(ep, smp);
+						esManager.assignEpisodeSymptom(epsp);
+					} else {
+						s2.addEpisodes(ep);
+						ep.addSymptom(s2);
 
-					EpisodeSymptom epsp = Auxiliar.createSeverity(ep, smp);
-					esManager.assignEpisodeSymptom(epsp);
-				} else {
-					s2.addEpisodes(ep);
-					ep.addSymptom(s2);
-
-					EpisodeSymptom epsp = Auxiliar.createSeverity(ep, s2);
-					esManager.assignEpisodeSymptom(epsp);
-				}
+						EpisodeSymptom epsp = Auxiliar.createSeverity(ep, s2);
+						esManager.assignEpisodeSymptom(epsp);
+					}
+					
+					System.out.println("Continue proccess if you want to add more than one symptom");
+				} while (continueProccess());
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -913,7 +928,7 @@ public class Menu {
 			med = medicationManager.getMedicationByName(namemed);
 		} while (med == null);
 
-		PatientMedication pm = new PatientMedication(p, med);
+		PatientMedication pm = pmManager.getPatientMedication(p, med);
 
 		return pm;
 	}
@@ -963,7 +978,6 @@ public class Menu {
 			System.out.println(m.toString());
 			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\nHEY! Don't forget to take " + pm.getAmount()+ " mg of " +m.getName() + " " + pm.getFrequency()+ " times today!\n");
-			System.out.println("-----------------------------\n");
 		}
 	}
 
@@ -975,7 +989,7 @@ public class Menu {
 			System.out.println(m.toString());
 			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\n" + pm.toString());
-			System.out.println("-----------------------------\n");
+			System.out.println("---------------------------------\n");
 		}
 	}
 
@@ -984,10 +998,13 @@ public class Menu {
 	private static Doctor searchDoctor() {
 		do {
 			System.out.println("		SEARCHING MENU			   ");
+			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. Search by the doctor's name     ");
 			System.out.println("2. Search by the doctor's email    ");
 			System.out.println("3. Search by the hospital          ");
+			System.out.println("4. Show all doctors registered     ");
 			System.out.println("0. Go back                         ");
+			System.out.println("---------------------------------------------------------------");
 
 			System.out.println("\nPlease introduce the option: ");
 
@@ -1006,7 +1023,7 @@ public class Menu {
 				} else {
 					listDoctors(docs);
 					do {
-						System.out.println("Introduce the doctor큦 id: ");
+						System.out.println("\nIntroduce the doctor큦 id: ");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
@@ -1033,11 +1050,25 @@ public class Menu {
 				} else {
 					listDoctors(docs);
 					do {
-						System.out.println("Introduce the doctor큦 id: ");
+						System.out.println("\nIntroduce the doctor큦 id: ");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
 				}
+			case 4:
+				docs = doctorManager.listsAllDoctors();
+				
+				if (docs.isEmpty()) {
+					System.out.println("There aren't any doctors registered in the database");
+					break;
+				} else {
+					listDoctors(docs);
+					do {
+						System.out.println("\nIntroduce the doctor큦 id: ");
+						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
+					} while (d == null);
+					return d;
+				} 
 			case 0:
 				return null;
 			default:
@@ -1080,6 +1111,7 @@ public class Menu {
 	private static void listDoctors(List<Doctor> docs) {
 		for (Doctor d : docs) {
 			System.out.println(d.toString());
+			System.out.println("-----------------------------\n");
 		}
 	}
 	
@@ -1088,11 +1120,10 @@ public class Menu {
 		if (doctors!= null) {
 		for (Doctor d : doctors) {
 			System.out.println(d.toString());
+			System.out.println("-----------------------------\n");
 			}
 		}
-		else {System.out.println("There are 0 doctors in the database!");}
-		
-		
+		else {System.out.println("There are 0 doctors in the database!");}	
 	}
 
 	
@@ -1228,8 +1259,8 @@ public class Menu {
 
 		do {
 			System.out.println("Input the allergy id: ");
-			String name = Auxiliar.getString(reader);
-			a = allergyManager.getAllergyByName(name);
+			Integer id = Auxiliar.getPositiveInteger(reader);
+			a = allergyManager.getAllergyById(id);
 		} while (a == null);
 
 		PatientAllergy pa = new PatientAllergy(a, p);
