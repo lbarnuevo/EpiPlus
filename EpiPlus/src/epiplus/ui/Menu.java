@@ -336,7 +336,7 @@ public class Menu {
 				System.out.println("Please, write your password: ");
 				String pass = Auxiliar.getString(reader);
 
-				Doctor doc = new Doctor(name, email, hospital, photo, id);
+				Doctor doc = new Doctor(name, email, hospital, photo, role.getId());
 				doctorManager.addDoctor(doc);
 				doc.setId(dbManager.getLastId());
 							
@@ -394,7 +394,7 @@ public class Menu {
 				System.out.println("Please, write your password: ");
 				String pass = Auxiliar.getString(reader);
 
-				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, id);
+				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, role.getId());
 				patientManager.addPatient(p);
 				p.setId(dbManager.getLastId());
 				
