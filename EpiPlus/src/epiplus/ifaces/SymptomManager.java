@@ -9,4 +9,5 @@ public interface SymptomManager {
 	public void deleteSymptom(Symptom s);
 	public List<Symptom> listsAllSymptoms();
 	public Symptom getSymptomByName(String name);
+	public Symptom getSymptomById(Integer sId);
 }
