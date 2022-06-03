@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 import epiplus.ifaces.DoctorManager;
+import epiplus.pojos.Allergy;
 import epiplus.pojos.Doctor;
 import epiplus.pojos.Patient;
 
@@ -144,7 +145,8 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 		return doctor;
 	}
-
+	
+	
 	@Override
 	public List<Patient> getPatientsOfDoctor(Integer DocId) {
 

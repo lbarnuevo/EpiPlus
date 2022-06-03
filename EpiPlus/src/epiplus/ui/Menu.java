@@ -72,10 +72,13 @@ public class Menu {
 						break;
 					case 3: 
 						generateXML();
+
 						break;
 					case 4:
-						generateHtml();
+
+						generateHTML();
 						break;	
+
 					case 5: 
 						changePassword(1);
 						break; 
@@ -118,13 +121,41 @@ public class Menu {
 		switch(choicexml) {
 		
 		case 1:
-			Allergy a = new Allergy(1,"cashews");
-			AllergyXml.allergy2Xml(a);
+			System.out.println("For what allergy do you want to create the xml?");
+			listAllAllergies();
+			System.out.println("Type number: ");
+			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
+			Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
+			AllergyXml.allergy2Xml(newAllergy);
+			
+			File fileAllergy = new File("./xmls/External-Allergy.xml");
+			boolean existsAllergy = fileAllergy.exists();
+			if(existsAllergy) { System.out.println("The XML file has be generated.");
+			}
+			else{System.out.println("The XML could not be generated.");}
+			
+			//Allergy a = new Allergy(1,"cashews");
+			
+			
+			
+			
 			break;
 			
 		case 2:
-			Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
-			DoctorXml.doctor2Xml(doc);
+			System.out.println("For what doctor do you want to create the xml?");
+			listAllDoctors();
+			System.out.println("Type number: ");
+			Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
+			Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
+			DoctorXml.doctor2Xml(newDoctor);
+			
+			File fileDoctor = new File("./xmls/External-Doctor.xml");
+			boolean existsDoctor = fileDoctor.exists();
+			if(existsDoctor) { System.out.println("The XML file has been generated."); } 
+			else { System.out.println("The XML file could not been generated.");}
+			
+			//Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
+			
 			break;
 			
 		case 3:
@@ -170,10 +201,6 @@ public class Menu {
 		}
 	}
 	
-	public static void generateHtml() {
-		AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
-	}
-
 
 	//Methods for login subsystem 
 	public static void login() throws Exception {
@@ -195,6 +222,82 @@ public class Menu {
 			Patient p = patientManager.searchPatientByEmail(u.getEmail());
 			patientMenu(p);
 		}
+	}
+	
+	public static void generateHTML() {
+		
+		System.out.println("For what object do you want to generate HTML?");
+		System.out.println("1. Allergy");
+		System.out.println("2. Doctor");
+		System.out.println("3. EmergencyContact");
+		System.out.println("4. EpisodeSymptom");
+		System.out.println("5. Episode");
+		System.out.println("6. Medication");
+		System.out.println("7. PatientAllergy");
+		System.out.println("8. PatientMedication");
+		System.out.println("9. Patient");
+		System.out.println("10. Role");
+		System.out.println("11. Symptom");
+		System.out.println("12. User");
+		System.out.println("Type number: ");
+		
+		Integer choicehtml = Auxiliar.getPositiveInteger(reader);
+		
+		switch(choicehtml) {
+		
+		case 1:
+			File fileAllergy = new File("./xmls/External-Allergy.xml");
+			boolean existsAllergy = fileAllergy.exists();
+			if(!existsAllergy) { System.out.println("First, create an xml file for your object ");
+			}
+			else{AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt", "./xmls/External-Allergy.html");
+			System.out.println("HTML file has been generated.");
+			}
+			break;
+			
+		case 2:
+			File fileDoctor = new File("./xmls/External-Doctor.xml");
+			boolean existsDoctor = fileDoctor.exists();
+			if(!existsDoctor) { System.out.println("First, create an xml file for your object ");
+			}
+			else{DoctorXml.xslt2Html("./xmls/External-Doctor.xml", "./xmls/Doctor-Style.xslt", "./xmls/External-Doctor.html");
+			System.out.println("HTML file has been generated.");
+			}
+			break;
+			
+		case 3:
+			File fileEmergencyContact = new File("./xmls/External-EmergencyContact.xml");
+			boolean existsEmergencyContact = fileEmergencyContact.exists();
+			if(!existsEmergencyContact) { System.out.println("First, create an xml file for your object ");
+			}
+			else{EmergencyContactXml.xslt2Html("./xmls/External-EmergencyContact.xml", "./xmls/Style-EmergencyContact.xslt", "./xmls/External-EmergencyContact.html");
+			System.out.println("HTML file has been generated.");
+			}
+			break;
+			
+			
+		case 4:
+			File fileEpisodeSymptom = new File("./xmls/External-EpisodeSymptom.xml");
+			boolean existsEpisodeSymptom = fileEpisodeSymptom.exists();
+			if(!existsEpisodeSymptom) { System.out.println("First, create an xml file for your object ");
+			}
+			else{EpisodeSymptomXml.xslt2Html("./xmls/External-EpisodeSymptom.xml", "./xmls/Style-EpisodeSymptom.xslt", "./xmls/External-EpisodeStmptom.html");
+			System.out.println("HTML file has been generated.");
+			}
+			break;
+		
+		case 5:
+			File fileEpisode = new File("./xmls/External-Episode.xml");
+			boolean existsEpisode = fileEpisode.exists();
+			if(!existsEpisode) { System.out.println("First, create an xml file for your object ");
+			}
+			else{EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Style-Episode.xslt", "./xmls/External-Episode.html");
+			System.out.println("HTML file has been generated.");
+			}
+			break;
+		
+		}
+		
 	}
 
 	public static void register() throws Exception {
@@ -966,6 +1069,18 @@ public class Menu {
 			System.out.println(d.toString());
 		}
 	}
+	
+	private static void listAllDoctors() {
+		List<Doctor> doctors = doctorManager.listsAllDoctors();
+		if (doctors!= null) {
+		for (Doctor d : doctors) {
+			System.out.println(d.toString());
+			}
+		}
+		else {System.out.println("There are 0 doctors in the database!");}
+		
+		
+	}
 
 	
 	// Methods for emergency contacts
@@ -1108,6 +1223,18 @@ public class Menu {
 		return pa;
 	}
 
+	public static void listAllAllergies() {
+		List<Allergy> allergies = allergyManager.listAllAllergies();
+		if (allergies!= null) {
+		for (Allergy a : allergies) {
+			System.out.println(a.toString());
+			}
+		}
+		else {System.out.println("There are 0 allergies in the database!");}
+		
+		
+	}
+	
 	private static void listAllergy(Patient p) {
 		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
 

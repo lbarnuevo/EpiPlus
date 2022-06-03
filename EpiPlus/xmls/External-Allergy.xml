@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-<!DOCTYPE Allergy [
-	<!ELEMENT Allergy (id,name,patients)>
-	<!ELEMENT id (#PCDATA)>
-	<!ELEMENT name (#PCDATA)>
-	<!ELEMENT patients (Patient)>
-	<!ATTLIST Patient id CDATA 
-						name CDATA>
-	<!ELEMENT diet (#PCDATA)>
-]>
-
 <Allergy id="1" name="cashews">
     <patients/>
 </Allergy>
