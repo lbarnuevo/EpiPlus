@@ -72,13 +72,10 @@ public class Menu {
 						break;
 					case 3: 
 						generateXML();
-
 						break;
 					case 4:
-
 						generateHTML();
 						break;	
-
 					case 5: 
 						changePassword(1);
 						break; 
@@ -135,10 +132,6 @@ public class Menu {
 			else{System.out.println("The XML could not be generated.");}
 			
 			//Allergy a = new Allergy(1,"cashews");
-			
-			
-			
-			
 			break;
 			
 		case 2:
@@ -198,29 +191,6 @@ public class Menu {
 		case 12:
 			
 			break;
-		}
-	}
-	
-
-	//Methods for login subsystem 
-	public static void login() throws Exception {
-		System.out.println("Email address: ");
-		String email = Auxiliar.getStringNoSpaces(reader);
-
-		System.out.println("Password: ");
-		String passwd = Auxiliar.getStringNoSpaces(reader);
-
-		User u = userManager.checkPassword(email, passwd);
-
-		if (u == null) {
-			System.out.println("Wrong email or password");
-			return;
-		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
-			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
-			doctorMenu(d);
-		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
-			Patient p = patientManager.searchPatientByEmail(u.getEmail());
-			patientMenu(p);
 		}
 	}
 	
@@ -298,6 +268,29 @@ public class Menu {
 		
 		}
 		
+	}
+	
+
+	//Methods for login subsystem 
+	public static void login() throws Exception {
+		System.out.println("Email address: ");
+		String email = Auxiliar.getStringNoSpaces(reader);
+
+		System.out.println("Password: ");
+		String passwd = Auxiliar.getStringNoSpaces(reader);
+
+		User u = userManager.checkPassword(email, passwd);
+
+		if (u == null) {
+			System.out.println("Wrong email or password");
+			return;
+		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
+			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
+			doctorMenu(d);
+		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
+			Patient p = patientManager.searchPatientByEmail(u.getEmail());
+			patientMenu(p);
+		}
 	}
 
 	public static void register() throws Exception {
