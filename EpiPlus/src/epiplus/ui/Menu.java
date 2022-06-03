@@ -1326,6 +1326,7 @@ public class Menu {
 				count = 0;
 			}
 
+			System.out.println("\nObserved patterns:");
 			if (episodes.size() > 1) {
 				Episode[] episodesArray = new Episode[episodes.size()];
 				episodes.toArray(episodesArray);
@@ -1347,7 +1348,7 @@ public class Menu {
 							while ((j + 1) < episodesArray.length) {
 								if (activity.equals(episodesArray[j + 1].getActivity())) {
 									System.out.println(
-											"\nThe activity '" + activity + "' may be a seizure trigger for you. "
+											"The activity '" + activity + "' may be a seizure trigger for you. "
 													+ "It appears several times in your episodes.");
 									break;
 								}
@@ -1359,7 +1360,7 @@ public class Menu {
 						while ((j + 1) < episodesArray.length) {
 							if (activity.equals(episodesArray[j + 1].getActivity())) {
 								System.out
-										.println("\nThe activity '" + activity + "' may be a seizure trigger for you. "
+										.println("The activity '" + activity + "' may be a seizure trigger for you. "
 												+ "It appears several times in your episodes.");
 								break;
 							}
@@ -1379,7 +1380,7 @@ public class Menu {
 							int j = i;
 							while ((j + 1) < episodesArray.length) {
 								if (mood.equals(episodesArray[j + 1].getMood())) {
-									System.out.println("\nBeing '" + mood + "' may be a seizure trigger for you. "
+									System.out.println("Being '" + mood + "' may be a seizure trigger for you. "
 											+ "It appears several times in your episodes.");
 									break;
 								}
@@ -1390,7 +1391,7 @@ public class Menu {
 						int j = i;
 						while ((j + 1) < episodesArray.length) {
 							if (mood.equals(episodesArray[j + 1].getMood())) {
-								System.out.println("\nBeing '" + mood + "' may be a seizure trigger for you. "
+								System.out.println("Being '" + mood + "' may be a seizure trigger for you. "
 										+ "It appears several times in your episodes.");
 								break;
 							}
@@ -1410,7 +1411,7 @@ public class Menu {
 							int j = i;
 							while ((j + 1) < episodesArray.length) {
 								if (meal.equals(episodesArray[j + 1].getPrevious_meal())) {
-									System.out.println("\nEating '" + meal + "' may be a seizure trigger for you. "
+									System.out.println("Eating '" + meal + "' may be a seizure trigger for you. "
 											+ "It appears several times in your episodes.");
 									break;
 								}
@@ -1421,7 +1422,7 @@ public class Menu {
 						int j = i;
 						while ((j + 1) < episodesArray.length) {
 							if (meal.equals(episodesArray[j + 1].getPrevious_meal())) {
-								System.out.println("\nEating '" + meal + "' may be a seizure trigger for you. "
+								System.out.println("Eating '" + meal + "' may be a seizure trigger for you. "
 										+ "It appears several times in your episodes.");
 								break;
 							}
@@ -1441,7 +1442,7 @@ public class Menu {
 							int j = i;
 							while ((j + 1) < episodesArray.length) {
 								if (place.equals(episodesArray[j + 1].getPlace())) {
-									System.out.println("\nThe place '" + place + "' may be a seizure trigger for you. "
+									System.out.println("The place '" + place + "' may be a seizure trigger for you. "
 											+ "It appears several times in your episodes.");
 									break;
 								}
@@ -1452,7 +1453,7 @@ public class Menu {
 						int j = i;
 						while ((j + 1) < episodesArray.length) {
 							if (place.equals(episodesArray[j + 1].getPlace())) {
-								System.out.println("\nThe place '" + place + "' may be a seizure trigger for you. "
+								System.out.println("The place '" + place + "' may be a seizure trigger for you. "
 										+ "It appears several times in your episodes.");
 								break;
 							}
