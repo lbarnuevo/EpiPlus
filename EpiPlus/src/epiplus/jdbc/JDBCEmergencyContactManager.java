@@ -88,7 +88,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	}
 
 	@Override
-	public EmergencyContact getECbyId(int id) {
+	public EmergencyContact getECbyId(Integer id) {
 		EmergencyContact ec = null; 
 
 		try {

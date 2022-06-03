@@ -94,9 +94,8 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 	public PatientMedication getPatientMedication(Patient p, Medication m) {
 
 		PatientMedication pm=null;
-		
 		try {
-			String sql = "SELECT * FROM patientmedication WHERE patientId LIKE ? AND medicationId LIKE ?";
+		    String sql = "SELECT * FROM patientmedication WHERE patientId LIKE ? AND medicationId LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, p.getId());
 			prep.setInt(2, m.getId());

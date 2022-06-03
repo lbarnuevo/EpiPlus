@@ -2,5 +2,6 @@
 <Doctor id="3" name="Silvano Perez">
     <email>sperez@lapaz.es</email>
     <hospitalName>LaPaz</hospitalName>
+>>>>>>> branch 'master' of https://github.com/lbarnuevo/EpiPlus
     <patients/>
 </Doctor>
