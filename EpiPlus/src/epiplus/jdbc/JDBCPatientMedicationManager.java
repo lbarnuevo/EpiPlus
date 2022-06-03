@@ -48,8 +48,6 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	@Override
 	public void updatePatientMedication(PatientMedication pm) {

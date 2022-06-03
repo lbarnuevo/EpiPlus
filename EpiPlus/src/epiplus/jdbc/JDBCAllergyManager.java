@@ -109,7 +109,7 @@ public class JDBCAllergyManager implements AllergyManager {
 		Allergy allergy = null;
 
 		try {
-			String sql = "SELECT * FROM allergies WHERE intId LIKE ?";
+			String sql = "SELECT * FROM allergies WHERE id LIKE ?";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setInt(1, intId);
 			ResultSet rs = prep.executeQuery();
