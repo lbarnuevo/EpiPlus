@@ -7,9 +7,16 @@ import epiplus.pojos.Doctor;
 
 public interface AllergyManager {
 
-	public void addAllergy(Allergy a);
-	public void deleteAllergy(Allergy a);
-	public List<Allergy> listAllAllergies();
-	public Allergy getAllergyByName(String nameall);
-	public Allergy getAllergyById(Integer choiceAllergy);
+	void addAllergy(Allergy a);
+
+	void deleteAllergy(Allergy a);
+
+	List<Allergy> listAllAllergies();
+
+	Allergy getAllergyByName(String nameall);
+
+	Allergy getAllergyById(Integer choiceAllergy);
+
+	
+	
 }

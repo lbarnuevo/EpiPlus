@@ -8,7 +8,8 @@ import epiplus.pojos.PatientAllergy;
 
 public interface PatientAllergyManager {
 
-	public void assignPatientAllergy(PatientAllergy pa);
-	public void unassignPatientAllergy(PatientAllergy pa);
+	void assignPatientAllergy(PatientAllergy pa);
+	void unassignPatientAllergy(PatientAllergy pa);
 	public List<Allergy> getAllergiesOfPatient(Integer pId);
+
 }

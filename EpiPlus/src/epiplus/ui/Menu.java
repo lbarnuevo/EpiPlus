@@ -72,13 +72,10 @@ public class Menu {
 					break;
 				case 3:
 					generateXML();
-
 					break;
 				case 4:
-
 					generateHTML();
 					break;
-
 				case 5:
 					changePassword(1);
 					break;
@@ -121,7 +118,7 @@ public class Menu {
 		switch (choicexml) {
 
 		case 1:
-			System.out.println("For which allergy do you want to create the xml?");
+			System.out.println("For what allergy do you want to create the xml?");
 			listAllAllergies();
 			System.out.println("Type number: ");
 			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
@@ -137,11 +134,10 @@ public class Menu {
 			}
 
 			// Allergy a = new Allergy(1,"cashews");
-
 			break;
 
 		case 2:
-			System.out.println("For which doctor do you want to create the xml?");
+			System.out.println("For what doctor do you want to create the xml?");
 			listAllDoctors();
 			System.out.println("Type number: ");
 			Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
@@ -157,76 +153,22 @@ public class Menu {
 			}
 
 			// Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
+
 			break;
 
 		case 3:
-			System.out.println("For which emergency contact do you want to create the xml?");
-			listAllEmergencyContacts();
-			System.out.println("Type number: ");
-			Integer choiceEC = Auxiliar.getPositiveInteger(reader);
-			EmergencyContact newEC = ecManager.getECbyId(choiceEC);
-			EmergencyContactXml.emergencyContact2Xml(newEC);
-
-			File fileEC = new File("./xmls/External-EmergencyContact.xml");
-			boolean existsEC = fileEC.exists();
-			if (existsEC) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
 
 			break;
 
 		case 4:
-			/*
-			 * System.out.println("For which episode symptom do you want to create the xml?"
-			 * ); listAllEpisodeSymptom(); System.out.println("Type number: "); Integer
-			 * choiceEC = Auxiliar.getPositiveInteger(reader); EmergencyContact newEC =
-			 * ecManager.getECbyId(choiceEC);
-			 * EmergencyContactXml.emergencyContact2Xml(newEC);
-			 * 
-			 * File fileEC = new File("./xmls/External-EmergencyContact.xml"); boolean
-			 * existsEC = fileEC.exists(); if(existsEC) {
-			 * System.out.println("The XML file has been generated."); } else {
-			 * System.out.println("The XML file could not been generated.");}
-			 */
+
 			break;
 
 		case 5:
 
-			System.out.println("For which episode do you want to create the xml?");
-			listAllEpisodes();
-			System.out.println("Type number: ");
-			Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
-			Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
-			EpisodeXml.episode2Xml(newEpisode);
-
-			File fileEpisode = new File("./xmls/External-Episode.xml");
-			boolean existsEpisode = fileEpisode.exists();
-			if (existsEpisode) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
-
 			break;
 
 		case 6:
-
-			System.out.println("For which medication do you want to create the xml?");
-			listAllMedications();
-			System.out.println("Type number: ");
-			Integer choiceMedication1 = Auxiliar.getPositiveInteger(reader);
-			Medication newMedication = medicationManager.getMedicationById(choiceMedication1);
-			MedicationXml.medication2Xml(newMedication);
-
-			File fileMedication = new File("./xmls/External-Medication.xml");
-			boolean existsMedication = fileMedication.exists();
-			if (existsMedication) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
 
 			break;
 
@@ -240,21 +182,6 @@ public class Menu {
 
 		case 9:
 
-			System.out.println("For which patient do you want to create the xml?");
-			listAllPatients();
-			System.out.println("Type number: ");
-			Integer choicePatient = Auxiliar.getPositiveInteger(reader);
-			Patient newPatient = patientManager.getPatientById(choicePatient);
-			PatientXml.patient2Xml(newPatient);
-
-			File filePatient = new File("./xmls/External-Patient.xml");
-			boolean existsPatient = filePatient.exists();
-			if (existsPatient) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
-
 			break;
 
 		case 10:
@@ -263,48 +190,11 @@ public class Menu {
 
 		case 11:
 
-			System.out.println("For which symptom do you want to create the xml?");
-			listAllSymptoms();
-			System.out.println("Type number: ");
-			Integer choiceSymptom = Auxiliar.getPositiveInteger(reader);
-			Symptom newSymptom = symptomManager.getSymptomById(choiceSymptom);
-			SymptomXml.symptom2Xml(newSymptom);
-
-			File fileSymptom = new File("./xmls/External-Symptom.xml");
-			boolean existsSymptom = fileSymptom.exists();
-			if (existsSymptom) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
-
 			break;
 
 		case 12:
 
 			break;
-		}
-	}
-
-	// Methods for login subsystem
-	public static void login() throws Exception {
-		System.out.println("Email address: ");
-		String email = Auxiliar.getStringNoSpaces(reader);
-
-		System.out.println("Password: ");
-		String passwd = Auxiliar.getStringNoSpaces(reader);
-
-		User u = userManager.checkPassword(email, passwd);
-
-		if (u == null) {
-			System.out.println("\nWrong email or password.");
-			return;
-		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
-			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
-			doctorMenu(d);
-		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
-			Patient p = patientManager.searchPatientByEmail(u.getEmail());
-			patientMenu(p);
 		}
 	}
 
@@ -391,6 +281,28 @@ public class Menu {
 
 		}
 
+	}
+
+	// Methods for login subsystem
+	public static void login() throws Exception {
+		System.out.println("Email address: ");
+		String email = Auxiliar.getStringNoSpaces(reader);
+
+		System.out.println("Password: ");
+		String passwd = Auxiliar.getStringNoSpaces(reader);
+
+		User u = userManager.checkPassword(email, passwd);
+
+		if (u == null) {
+			System.out.println("\nWrong email or password.");
+			return;
+		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
+			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
+			doctorMenu(d);
+		} else if (u.getRole().getName().equalsIgnoreCase("patient")) {
+			Patient p = patientManager.searchPatientByEmail(u.getEmail());
+			patientMenu(p);
+		}
 	}
 
 	public static void register() throws Exception {
@@ -493,7 +405,10 @@ public class Menu {
 				p.setId(dbManager.getLastId());
 
 				System.out.println("\nAdding allergies...");
-				addAllergy(p);
+				do {
+					addAllergy(p);
+					System.out.println("If you don't want to add more allergies, input N");
+				} while (continueProccess());
 
 				MessageDigest md1 = MessageDigest.getInstance("MD5");
 				md1.update(pass.getBytes());
@@ -533,15 +448,13 @@ public class Menu {
 	}
 
 	private static void deleteAccount() {
-		// when you delete the account, also delete the doctor/patient from the database
-		// maybe we can do it with the role
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
-
+		
 		Doctor d = doctorManager.searchDoctorByEmail(email);
 		Patient p = patientManager.searchPatientByEmail(email);
-
-		if (userManager.checkEmail(email) && (d != null || p != null)) {
+		
+		if(userManager.checkEmail(email) && (d != null || p != null)) {
 			if (continueProccess()) {
 				if (d == null && p != null) {
 					patientManager.deletePatient(p);
@@ -550,7 +463,7 @@ public class Menu {
 				}
 				userManager.deleteUser(email);
 			}
-
+		
 		} else {
 			System.out.println("There is not any user with that email");
 			return;
@@ -653,7 +566,9 @@ public class Menu {
 				Recipes(p);
 				break;
 			case 6:
-				addEmergencyContact(p);
+				do {
+					addEmergencyContact(p);
+				} while (continueProccess());
 				break;
 			case 7:
 				assignDoctor(p);
@@ -685,11 +600,13 @@ public class Menu {
 	private static void Medications(Patient p) throws Exception {
 		do {
 			System.out.println("\n               MY MEDICATIONS                    ");
+			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. See my current medications                      ");
 			System.out.println("2. Add a new medication        					   ");
 			System.out.println("3. Modify frequency or amount of a medication      ");
 			System.out.println("4. Delete one of my medications                    ");
 			System.out.println("0. Go back                                         ");
+			System.out.println("---------------------------------------------------------------");
 
 			System.out.println("\nPlease, introduce an option: ");
 			int choice = Auxiliar.getPositiveInteger(reader);
@@ -718,12 +635,14 @@ public class Menu {
 	private static void Recipes(Patient p) {
 		do {
 			System.out.println("\n~~~~What recipe do you want to see?~~~~");
+			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. Hummus");
 			System.out.println("2. Shakshuka");
 			System.out.println("3. Salad");
 			System.out.println("4. Chinese noodles");
 			System.out.println("5. Oatmeal");
 			System.out.println("0. Go back");
+			System.out.println("---------------------------------------------------------------");
 
 			System.out.println("\nPlease, introduce an option: ");
 			int choice = Auxiliar.getPositiveInteger(reader);
@@ -794,7 +713,6 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println("\nShowing user's information... \n");
 				System.out.println(d.toString());
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
 				String toChange = Auxiliar.getString(reader);
@@ -823,7 +741,6 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println("\nShowing user's information... ");
 				seeUserPatient(p);
 
 				System.out.println(
@@ -864,9 +781,13 @@ public class Menu {
 					System.out.println("Delete emergency contact...");
 					deleteEContact(p);
 				} else if (toChange.equalsIgnoreCase("allergy")) {
-					System.out
-							.println("Note: You won't be able to change any atributes from an allergy, only delete it");
+					System.out.println("Note: You won't be able to change any atributes from an allergy,"
+							+ " only delete or add an allergy");
+					System.out.println("Deleting allergies...");
 					deleteAllergy(p);
+
+					System.out.println("Adding allergies...");
+					addAllergy(p);
 				}
 				// TODO change photo
 
@@ -910,24 +831,31 @@ public class Menu {
 				episodeManager.addEpisode(ep);
 				ep.setId(dbManager.getLastId());
 
-				Symptom smp = Auxiliar.createSymptom(reader);
-				Symptom s2 = symptomManager.getSymptomByName(smp.getName());
+				System.out
+						.println("If you don't have any specific symptom, press enter in the name and put severity 0");
+				do {
+					Symptom smp = Auxiliar.createSymptom(reader);
+					Symptom s2 = symptomManager.getSymptomByName(smp.getName());
 
-				if (s2 == null) {
-					symptomManager.addSymptom(smp);
-					smp.setId(dbManager.getLastId());
-					smp.addEpisodes(ep);
-					ep.addSymptom(smp);
+					if (s2 == null) {
+						symptomManager.addSymptom(smp);
+						smp.setId(dbManager.getLastId());
+						smp.addEpisodes(ep);
+						ep.addSymptom(smp);
 
-					EpisodeSymptom epsp = Auxiliar.createSeverity(ep, smp);
-					esManager.assignEpisodeSymptom(epsp);
-				} else {
-					s2.addEpisodes(ep);
-					ep.addSymptom(s2);
+						EpisodeSymptom epsp = Auxiliar.createSeverity(ep, smp);
+						esManager.assignEpisodeSymptom(epsp);
+					} else {
+						s2.addEpisodes(ep);
+						ep.addSymptom(s2);
 
-					EpisodeSymptom epsp = Auxiliar.createSeverity(ep, s2);
-					esManager.assignEpisodeSymptom(epsp);
-				}
+						EpisodeSymptom epsp = Auxiliar.createSeverity(ep, s2);
+						esManager.assignEpisodeSymptom(epsp);
+					}
+
+					System.out.println("Continue proccess if you want to add more than one symptom");
+				} while (continueProccess());
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -953,21 +881,6 @@ public class Menu {
 
 			} while (deleted == false);
 		}
-	}
-
-	private static void listAllEpisodes() {
-
-		List<Episode> episodes = episodeManager.listsAllEpisodes();
-
-		for (Episode e : episodes) {
-			System.out.println(e.toString());
-
-			for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
-				System.out.println(s.toString());
-			}
-		}
-		System.out.println("------------------------\n");
-
 	}
 
 	private static void listEpisodes(Patient p) {
@@ -1024,7 +937,7 @@ public class Menu {
 			med = medicationManager.getMedicationByName(namemed);
 		} while (med == null);
 
-		PatientMedication pm = new PatientMedication(p, med);
+		PatientMedication pm = pmManager.getPatientMedication(p, med);
 
 		return pm;
 	}
@@ -1075,7 +988,6 @@ public class Menu {
 			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\nHEY! Don't forget to take " + pm.getAmount() + " mg of " + m.getName() + " "
 					+ pm.getFrequency() + " times today!\n");
-			System.out.println("-----------------------------\n");
 		}
 	}
 
@@ -1087,45 +999,21 @@ public class Menu {
 			System.out.println(m.toString());
 			pm = pmManager.getPatientMedication(p, m);
 			System.out.println("\n" + pm.toString());
-			System.out.println("-----------------------------\n");
+			System.out.println("---------------------------------\n");
 		}
-	}
-
-	private static void listAllMedications() {
-		List<Medication> meds = medicationManager.listsAllMedication();
-
-		if (meds != null) {
-			for (Medication m : meds) {
-				System.out.println(m.toString());
-			}
-		} else {
-			System.out.println("There are 0 medications in teh database!");
-		}
-
-	}
-
-	// method showing all patients
-	private static void listAllPatients() {
-		List<Patient> patients = patientManager.listsAllPatients();
-
-		if (patients != null) {
-			for (Patient p : patients) {
-				System.out.println(p.toString());
-			}
-		} else {
-			System.out.println("There are 0 patients in teh database!");
-		}
-
 	}
 
 	// Methods for doing operations on doctors from a patients account
 	private static Doctor searchDoctor() {
 		do {
 			System.out.println("\n		SEARCHING MENU			   ");
+			System.out.println("-----------------------------------");
 			System.out.println("1. Search by the doctor's name     ");
 			System.out.println("2. Search by the doctor's email    ");
 			System.out.println("3. Search by the hospital          ");
+			System.out.println("4. Show all doctors registered     ");
 			System.out.println("0. Go back                         ");
+			System.out.println("-----------------------------------");
 
 			System.out.println("\nPlease introduce the option: ");
 
@@ -1144,7 +1032,7 @@ public class Menu {
 				} else {
 					listDoctors(docs);
 					do {
-						System.out.println("Introduce the doctor큦 id: ");
+						System.out.println("\nIntroduce the doctor큦 id: ");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
@@ -1171,11 +1059,25 @@ public class Menu {
 				} else {
 					listDoctors(docs);
 					do {
-						System.out.println("Introduce the doctor큦 id: ");
+						System.out.println("\nIntroduce the doctor큦 id: ");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
 				}
+			case 4:
+				docs = doctorManager.listsAllDoctors();
+				
+				if (docs.isEmpty()) {
+					System.out.println("There aren't any doctors registered in the database");
+					break;
+				} else {
+					listDoctors(docs);
+					do {
+						System.out.println("\nIntroduce the doctor큦 id: ");
+						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
+					} while (d == null);
+					return d;
+				} 
 			case 0:
 				return null;
 			default:
@@ -1218,6 +1120,7 @@ public class Menu {
 	private static void listDoctors(List<Doctor> docs) {
 		for (Doctor d : docs) {
 			System.out.println(d.toString());
+			System.out.println("-----------------------------\n");
 		}
 	}
 
@@ -1226,11 +1129,11 @@ public class Menu {
 		if (doctors != null) {
 			for (Doctor d : doctors) {
 				System.out.println(d.toString());
+				System.out.println("-----------------------------\n");
 			}
 		} else {
 			System.out.println("There are 0 doctors in the database!");
 		}
-
 	}
 
 	// Methods for emergency contacts
@@ -1255,18 +1158,6 @@ public class Menu {
 			System.out.println(e2.toString());
 			System.out.println("-----------------------------\n");
 		}
-	}
-
-	private static void listAllEmergencyContacts() {
-		List<EmergencyContact> ecs = ecManager.listsAllEmergencyContacts();
-		if (ecs != null) {
-			for (EmergencyContact ec : ecs) {
-				System.out.println(ec.toString());
-			}
-		} else {
-			System.out.println("There are 0 emergency contacts in the database!");
-		}
-
 	}
 
 	private static void addEmergencyContact(Patient p) {
@@ -1376,8 +1267,8 @@ public class Menu {
 
 		do {
 			System.out.println("Input the allergy id: ");
-			String name = Auxiliar.getString(reader);
-			a = allergyManager.getAllergyByName(name);
+			Integer id = Auxiliar.getPositiveInteger(reader);
+			a = allergyManager.getAllergyById(id);
 		} while (a == null);
 
 		PatientAllergy pa = new PatientAllergy(a, p);
@@ -1406,21 +1297,9 @@ public class Menu {
 		}
 	}
 
-	// Lists all symptoms
-	public static void listAllSymptoms() {
-		List<Symptom> symptoms = symptomManager.listsAllSymptoms();
-		if (symptoms != null) {
-			for (Symptom s : symptoms) {
-				System.out.println(s.toString());
-			}
-		} else {
-			System.out.println("There are 0 symptoms in the database!");
-		}
-
-	}
-
+	// Showing evolution of patient method
 	private static void showEvolution(Patient p) {
-
+		// We could show the data like this:
 		// PRECONDITION: at least 1 episode recorded
 		// 1. Shows all episodes in a month
 		// 2. Shows the number of episodes per month using a counter
@@ -1428,23 +1307,23 @@ public class Menu {
 
 		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
 		int month = 1;
-		int count1 = 0;
+		int count = 0;
 
 		if (episodes != null) {
 
 			while (month < 13) {
 				for (Episode ep1 : episodes) {
 					if (ep1.getDoe().toLocalDate().getMonthValue() == month) {
-						count1++;
+						count++;
 						System.out.println(ep1.toString());
 						for (Symptom s : esManager.getSymptomsOfEpisode(ep1.getId())) {
 							System.out.println(s.toString());
 						}
 					}
 				}
-				System.out.println("\nNumber of episodes in month " + month + ": " + count1);
+				System.out.println("\nNumber of episodes in month " + month + ": " + count);
 				month++;
-				count1 = 0;
+				count = 0;
 			}
 
 			if (episodes.size() > 1) {
@@ -1582,9 +1461,7 @@ public class Menu {
 					}
 				}
 			}
-		} else
-
-		{
+		} else {
 			System.out.println("There are no episodes in the database. "
 					+ "Please, register at least one episode to see a patient's evolution");
 		}

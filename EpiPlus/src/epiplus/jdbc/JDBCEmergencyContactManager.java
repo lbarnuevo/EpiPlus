@@ -86,30 +86,6 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public EmergencyContact getECbyId(Integer id) {
-		EmergencyContact ec = null; 
-
-		try {
-			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, id);
-			ResultSet rs = prep.executeQuery();
-
-			while (rs.next()) {
-				Integer eid = rs.getInt("id");
-				String n = rs.getString("name");
-				Float number = rs.getFloat("number");
-				ec = new EmergencyContact(eid, n, number);
-			}
-			rs.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ec;
-	}
 	
 	@Override
 	public List<EmergencyContact> listsAllEmergencyContacts() {
@@ -134,5 +110,29 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public EmergencyContact getECbyId(Integer id) {
+		EmergencyContact ec = null; 
+
+		try {
+			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, id);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer eid = rs.getInt("id");
+				String n = rs.getString("name");
+				Float number = rs.getFloat("number");
+				ec = new EmergencyContact(eid, n, number);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ec;
 	}
 }
