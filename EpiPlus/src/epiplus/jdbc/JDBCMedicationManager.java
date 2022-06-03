@@ -90,4 +90,28 @@ public class JDBCMedicationManager implements MedicationManager {
 		}
 		return medication;
 	}
+	
+	@Override
+	public Medication getMedicationById(Integer mId) {
+
+		Medication medication = null;
+
+		try {
+			String sql = "SELECT * FROM medications WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, mId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				medication = new Medication(id, n);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return medication;
+	}
 }

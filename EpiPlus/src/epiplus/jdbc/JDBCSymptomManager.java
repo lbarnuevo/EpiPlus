@@ -67,6 +67,32 @@ public class JDBCSymptomManager implements SymptomManager{
 		return symptom;
 	}
 	
+
+	@Override
+	public Symptom getSymptomById(Integer sId ) {
+
+		Symptom symptom = null;
+
+		try {
+			String sql = "SELECT * FROM symptoms WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, sId);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer id = rs.getInt("id");
+				String n = rs.getString("name");
+				symptom = new Symptom(id, n);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return symptom;
+	}
+	
+	
 	@Override
 	public List<Symptom> listsAllSymptoms() {
 		

@@ -9,6 +9,7 @@ import epiplus.pojos.Symptom;
 public interface EpisodeSymptomManager {
 	public void assignEpisodeSymptom(EpisodeSymptom es);
 	public void unassignEpisodeSymptom(EpisodeSymptom es);
+	public EpisodeSymptom getEpisodeSymptom (Episode e, Symptom s);
 	public List<Symptom> getSymptomsOfEpisode(Integer epId);
-	public EpisodeSymptom getEpisodeSymptom (Episode e, Symptom s);//TODO add to UML
+	//List<EpisodeSymptom> listsAllESs(); 
 }
