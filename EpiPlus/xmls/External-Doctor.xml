@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Doctor id="1" name="Arturo">
-    <email>ar@mail.com</email>
-    <hospitalName>12deOctubre</hospitalName>
+<Doctor id="4" name="PEPE">
+    <email>drpepe@gmail.com</email>
+    <hospitalName>Quirón</hospitalName>
     <patients/>
 </Doctor>
