@@ -328,12 +328,12 @@ public class Patient implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday + "\nHeight = "
+		return "\nPATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday + "\nHeight = "
 				+ this.height + "\nWeight = " + this.weight + "\nLifestyle = " + this.lifestyle + "\nDiet = " + this.diet
 				+ "\nExercise per week (hours) = " + this.ex_per_week;
 	}
 
 	public String toStringForDoctors() {
-		return "PATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday;
+		return "\nPATIENT [ID = " + this.id + ", NAME = " + this.name + "]" + "\nEmail = " + this.email + "\nDate of birth = " + this.birthday;
 	}
 }

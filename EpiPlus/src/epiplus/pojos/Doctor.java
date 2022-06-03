@@ -165,6 +165,6 @@ public class Doctor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DOCTOR [ID = " + id + ", NAME = " + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
+		return "\nDOCTOR [ID = " + id + ", NAME = " + name + "]" + "\nEmail = " + email + "\nHospitalName = " + hospitalName;
 	}
 }

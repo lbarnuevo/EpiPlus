@@ -297,7 +297,7 @@ public class Menu {
 		User u = userManager.checkPassword(email, passwd);
 
 		if (u == null) {
-			System.out.println("Wrong email or password");
+			System.out.println("\nWrong email or password.");
 			return;
 		} else if (u.getRole().getName().equalsIgnoreCase("doctor")) {
 			Doctor d = doctorManager.searchDoctorByEmail(u.getEmail());
@@ -552,7 +552,7 @@ public class Menu {
 			}
 
 		} else {
-			System.out.println("There is not a user with that email");
+			System.out.println("There is not any user with that email");
 			return;
 		}
 	}
@@ -612,7 +612,7 @@ public class Menu {
 	private static void patientMenu(Patient p) throws Exception {
 
 		do {
-			System.out.println("                      PATIENT MENU                           ");
+			System.out.println("\n                      PATIENT MENU                           ");
 			System.out.println("--------------------------------------------------------------");
 
 			setReminderForMedication(p);
@@ -621,7 +621,7 @@ public class Menu {
 			System.out.println(" 1. Register a new episode                                    ");
 			System.out.println(" 2. My medications                                            ");
 			System.out.println(" 3. My episodes                                               ");
-			System.out.println(" 4. See my evolution            NOT DONE                      ");
+			System.out.println(" 4. See my evolution                                          ");
 			System.out.println(" 5. Show recipes                  	                          ");
 			System.out.println(" 6. Add emergency contacts          	                      ");
 			System.out.println(" 7. Add a doctor                  	                          ");
@@ -1121,7 +1121,7 @@ public class Menu {
 	// Methods for doing operations on doctors from a patients account
 	private static Doctor searchDoctor() {
 		do {
-			System.out.println("		SEARCHING MENU			   ");
+			System.out.println("\n		SEARCHING MENU			   ");
 			System.out.println("1. Search by the doctor's name     ");
 			System.out.println("2. Search by the doctor's email    ");
 			System.out.println("3. Search by the hospital          ");
@@ -1424,8 +1424,7 @@ public class Menu {
 		// PRECONDITION: at least 1 episode recorded
 		// 1. Shows all episodes in a month
 		// 2. Shows the number of episodes per month using a counter
-		// 3. Shows if there are any patterns-->TODO Maybe there is a better way to do
-		// this
+		// 3. Shows if there are any patterns-->TODO better
 
 		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
 		int month = 1;
@@ -1433,89 +1432,159 @@ public class Menu {
 
 		if (episodes != null) {
 
-			for (Episode ep1 : episodes) {
-				if (ep1.getDoe().toLocalDate().getMonthValue() == month) {
-					count1++;
-					System.out.println(ep1.toString());
-					for (Symptom s : esManager.getSymptomsOfEpisode(ep1.getId())) {
-						System.out.println(s.toString());
-					}
-				} else {
-					System.out.println("\nNumber of episodes in month " + month + ": " + count1);
-					month++;
-				}
-			}
-
-			Episode[] episodesArray = new Episode[episodes.size()];
-			episodes.toArray(episodesArray);
-
-			int count2 = 1;
-			String activity;
-			String mood;
-			String meal;
-			String place;
-
-			// To check activity patterns
-			for (int i = 0; i < episodesArray.length; i++) {
-
-				activity = episodesArray[i].getActivity();
-
-				while (i < episodesArray.length) {
-					if (activity == episodesArray[i + 1].getActivity()) {
-						count2++;
-						System.out.println("The activity '" + activity + "' may be a seizure trigger for you. "
-								+ "It appears " + count2 + "times in your episodes.");
+			while (month < 13) {
+				for (Episode ep1 : episodes) {
+					if (ep1.getDoe().toLocalDate().getMonthValue() == month) {
+						count1++;
+						System.out.println(ep1.toString());
+						for (Symptom s : esManager.getSymptomsOfEpisode(ep1.getId())) {
+							System.out.println(s.toString());
+						}
 					}
 				}
-				count2 = 1;
+				System.out.println("\nNumber of episodes in month " + month + ": " + count1);
+				month++;
+				count1 = 0;
 			}
 
-			// To check mood patterns
-			for (int i = 0; i < episodesArray.length; i++) {
+			if (episodes.size() > 1) {
+				Episode[] episodesArray = new Episode[episodes.size()];
+				episodes.toArray(episodesArray);
 
-				mood = episodesArray[i].getMood();
+				String activity;
+				String mood;
+				String meal;
+				String place;
 
-				while (i < episodesArray.length) {
-					if (mood == episodesArray[i + 1].getMood()) {
-						count2++;
-						System.out.println("Being '" + mood + "' may be a seizure trigger for you. " + "It appears "
-								+ count2 + "times in your episodes.");
+				// To check activity patterns
+				for (int i = 0; i < episodesArray.length; i++) {
+
+					activity = episodesArray[i].getActivity();
+					if (i != 0) {
+						if (activity.equals(episodesArray[i - 1].getActivity())) {
+							i++;
+						} else {
+							int j = i;
+							while ((j + 1) < episodesArray.length) {
+								if (activity.equals(episodesArray[j + 1].getActivity())) {
+									System.out.println(
+											"\nThe activity '" + activity + "' may be a seizure trigger for you. "
+													+ "It appears several times in your episodes.");
+									break;
+								}
+								j++;
+							}
+						}
+					} else {
+						int j = i;
+						while ((j + 1) < episodesArray.length) {
+							if (activity.equals(episodesArray[j + 1].getActivity())) {
+								System.out
+										.println("\nThe activity '" + activity + "' may be a seizure trigger for you. "
+												+ "It appears several times in your episodes.");
+								break;
+							}
+							j++;
+						}
 					}
 				}
-				count2 = 1;
-			}
 
-			// To check meal patterns
-			for (int i = 0; i < episodesArray.length; i++) {
+				// To check mood patterns
+				for (int i = 0; i < episodesArray.length; i++) {
 
-				meal = episodesArray[i].getPrevious_meal();
-
-				while (i < episodesArray.length) {
-					if (meal == episodesArray[i + 1].getPrevious_meal()) {
-						count2++;
-						System.out.println("'" + meal + "' may be a seizure trigger for you. " + "It appears " + count2
-								+ "times in your episodes.");
+					mood = episodesArray[i].getMood();
+					if (i != 0) {
+						if (mood.equals(episodesArray[i - 1].getMood())) {
+							i++;
+						} else {
+							int j = i;
+							while ((j + 1) < episodesArray.length) {
+								if (mood.equals(episodesArray[j + 1].getMood())) {
+									System.out.println("\nBeing '" + mood + "' may be a seizure trigger for you. "
+											+ "It appears several times in your episodes.");
+									break;
+								}
+								j++;
+							}
+						}
+					} else {
+						int j = i;
+						while ((j + 1) < episodesArray.length) {
+							if (mood.equals(episodesArray[j + 1].getMood())) {
+								System.out.println("\nBeing '" + mood + "' may be a seizure trigger for you. "
+										+ "It appears several times in your episodes.");
+								break;
+							}
+							j++;
+						}
 					}
 				}
-				count2 = 1;
-			}
 
-			// To check place patterns
-			for (int i = 0; i < episodesArray.length; i++) {
+				// To check meal patterns
+				for (int i = 0; i < episodesArray.length; i++) {
 
-				place = episodesArray[i].getPlace();
-
-				while (i < episodesArray.length) {
-					if (place == episodesArray[i + 1].getPlace()) {
-						count2++;
-						System.out.println("The place '" + place + "' may be a seizure trigger for you. " + "It appears " + count2
-								+ "times in your episodes.");
+					meal = episodesArray[i].getPrevious_meal();
+					if (i != 0) {
+						if (meal.equals(episodesArray[i - 1].getPrevious_meal())) {
+							i++;
+						} else {
+							int j = i;
+							while ((j + 1) < episodesArray.length) {
+								if (meal.equals(episodesArray[j + 1].getPrevious_meal())) {
+									System.out.println("\nEating '" + meal + "' may be a seizure trigger for you. "
+											+ "It appears several times in your episodes.");
+									break;
+								}
+								j++;
+							}
+						}
+					} else {
+						int j = i;
+						while ((j + 1) < episodesArray.length) {
+							if (meal.equals(episodesArray[j + 1].getPrevious_meal())) {
+								System.out.println("\nEating '" + meal + "' may be a seizure trigger for you. "
+										+ "It appears several times in your episodes.");
+								break;
+							}
+							j++;
+						}
 					}
 				}
-				count2 = 1;
-			}
 
-		} else {
+				// To check place patterns
+				for (int i = 0; i < episodesArray.length; i++) {
+
+					place = episodesArray[i].getPlace();
+					if (i != 0) {
+						if (place.equals(episodesArray[i - 1].getPlace())) {
+							i++;
+						} else {
+							int j = i;
+							while ((j + 1) < episodesArray.length) {
+								if (place.equals(episodesArray[j + 1].getPlace())) {
+									System.out.println("\nThe place '" + place + "' may be a seizure trigger for you. "
+											+ "It appears several times in your episodes.");
+									break;
+								}
+								j++;
+							}
+						}
+					} else {
+						int j = i;
+						while ((j + 1) < episodesArray.length) {
+							if (place.equals(episodesArray[j + 1].getPlace())) {
+								System.out.println("\nThe place '" + place + "' may be a seizure trigger for you. "
+										+ "It appears several times in your episodes.");
+								break;
+							}
+							j++;
+						}
+					}
+				}
+			}
+		} else
+
+		{
 			System.out.println("There are no episodes in the database. "
 					+ "Please, register at least one episode to see a patient's evolution");
 		}

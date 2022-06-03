@@ -281,7 +281,7 @@ public class Auxiliar {
 		String doe = getString(reader);
 		LocalDate depisode = LocalDate.parse(doe, formatter);
 
-		System.out.println("Episode length: ");
+		System.out.println("Episode length (seconds): ");
 		Float length = getPositiveFloat(reader);
 
 		System.out.println("Add previous activity: ");
