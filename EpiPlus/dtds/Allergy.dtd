@@ -25,6 +25,8 @@
    <!ELEMENT hospitalName #REQUIRED>
    <!ELEMENT photo #IMPLIED>
    						
-   <!ATTLIST Doctor 
+   <!ATTLIST Doctor id CDATA #IMPLIED
+   					name CDATA #REQUIRED>
+   					
    						
 ]>
