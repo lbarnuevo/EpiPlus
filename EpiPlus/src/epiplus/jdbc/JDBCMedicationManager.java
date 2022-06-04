@@ -44,30 +44,6 @@ public class JDBCMedicationManager implements MedicationManager {
 	}
 
 	@Override
-	public List<Medication> listsAllMedication() {
-
-		List<Medication> medicationsList = new ArrayList<Medication>();
-
-		try {
-			String sql = "SELECT * FROM medications";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			ResultSet r = prep.executeQuery();
-
-			while (r.next()) {
-				Integer id = r.getInt("id");
-				String name = r.getString("name");
-				Medication medication = new Medication(id, name);
-				medicationsList.add(medication);
-			}
-			r.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return medicationsList;
-	}
-
-	@Override
 	public Medication getMedicationByName(String name) {
 
 		Medication medication = null;
@@ -113,5 +89,29 @@ public class JDBCMedicationManager implements MedicationManager {
 			e.printStackTrace();
 		}
 		return medication;
+	}
+	
+	@Override
+	public List<Medication> listsAllMedication() {
+
+		List<Medication> medicationsList = new ArrayList<Medication>();
+
+		try {
+			String sql = "SELECT * FROM medications";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			ResultSet r = prep.executeQuery();
+
+			while (r.next()) {
+				Integer id = r.getInt("id");
+				String name = r.getString("name");
+				Medication medication = new Medication(id, name);
+				medicationsList.add(medication);
+			}
+			r.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return medicationsList;
 	}
 }

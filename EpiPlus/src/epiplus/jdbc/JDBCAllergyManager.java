@@ -52,33 +52,6 @@ public class JDBCAllergyManager implements AllergyManager {
 	}
 
 	@Override
-	public List<Allergy> listAllAllergies() {
-
-		List<Allergy> allergiesList = new ArrayList<Allergy>();
-
-		try {
-			String sql = "SELECT * FROM allergies";
-
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			ResultSet r = prep.executeQuery();
-
-			while (r.next()) {
-				Integer id = r.getInt("id");
-				String name = r.getString("name");
-				Allergy allergy = new Allergy(id, name);
-				allergiesList.add(allergy);
-
-			}
-			r.close();
-			prep.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	@Override
 	public Allergy getAllergyByName(String name) {
 
 		Allergy allergy = null;
@@ -128,4 +101,30 @@ public class JDBCAllergyManager implements AllergyManager {
 
 	}
 	
+	@Override
+	public List<Allergy> listAllAllergies() {
+
+		List<Allergy> allergiesList = new ArrayList<Allergy>();
+
+		try {
+			String sql = "SELECT * FROM allergies";
+
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			ResultSet r = prep.executeQuery();
+
+			while (r.next()) {
+				Integer id = r.getInt("id");
+				String name = r.getString("name");
+				Allergy allergy = new Allergy(id, name);
+				allergiesList.add(allergy);
+
+			}
+			r.close();
+			prep.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return allergiesList;
+	}
 }

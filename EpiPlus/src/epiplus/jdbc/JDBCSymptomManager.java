@@ -114,7 +114,7 @@ public class JDBCSymptomManager implements SymptomManager{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return symptomsList;
 	}
 
 }

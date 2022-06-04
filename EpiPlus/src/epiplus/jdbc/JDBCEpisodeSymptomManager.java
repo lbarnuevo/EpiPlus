@@ -49,7 +49,7 @@ public class JDBCEpisodeSymptomManager implements EpisodeSymptomManager {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public List<Symptom> getSymptomsOfEpisode(Integer epId) {
 
 		List<Symptom> symptomsList = new ArrayList<Symptom>();

@@ -139,6 +139,6 @@ public class JDBCEpisodeManager implements EpisodeManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return episodesList;
 	}
 }
