@@ -109,7 +109,8 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		//return null;
+		return emergencyContactsList;
 	}
 	
 	@Override

@@ -119,8 +119,12 @@ public class Menu {
 
 		case 1:
 			System.out.println("For what allergy do you want to create the xml?");
+			
+			if ( !allergyManager.listAllAllergies().isEmpty()) {
 			listAllAllergies();
+				
 			System.out.println("Type number: ");
+			
 			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
 			Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
 			AllergyXml.allergy2Xml(newAllergy);
@@ -131,34 +135,66 @@ public class Menu {
 				System.out.println("The XML file has be generated.");
 			} else {
 				System.out.println("The XML could not be generated.");
+				}
 			}
+			else {System.out.println("There is no allergies added to the database!");}
+			
 
 			// Allergy a = new Allergy(1,"cashews");
 			break;
 
 		case 2:
 			System.out.println("For what doctor do you want to create the xml?");
-			listAllDoctors();
-			System.out.println("Type number: ");
-			Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
-			Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
-			DoctorXml.doctor2Xml(newDoctor);
+			
+			if ( !doctorManager.listsAllDoctors().isEmpty() ) {
+				//System.out.println("before listalldocs");
+				listAllDoctors();
+				
+				System.out.println("Type number: ");
+				Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
+				Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
+				DoctorXml.doctor2Xml(newDoctor);
 
-			File fileDoctor = new File("./xmls/External-Doctor.xml");
-			boolean existsDoctor = fileDoctor.exists();
-			if (existsDoctor) {
-				System.out.println("The XML file has been generated.");
-			} else {
-				System.out.println("The XML file could not been generated.");
-			}
-
-			// Doctor doc = new Doctor(1, "Arturo","ar@mail.com","12deOctubre");
+				File fileDoctor = new File("./xmls/External-Doctor.xml");
+				boolean existsDoctor = fileDoctor.exists();
+				if (existsDoctor) {
+					System.out.println("The XML file has been generated.");
+				} else {
+					System.out.println("The XML file could not been generated.");
+						}
+				}
+			else {System.out.println("There is no doctors added to the database!");}
+			
 
 			break;
 
 		case 3:
+			
+System.out.println("For what emergency contact do you want to create the xml?");
+			
+			if (!ecManager.listsAllEmergencyContacts().isEmpty()) {
+				
+				listAllEC();
+				
+				System.out.println("Type number: ");
+			
+				Integer choiceEC = Auxiliar.getPositiveInteger(reader);
+				EmergencyContact newEC = ecManager.getECbyId(choiceEC);
+				EmergencyContactXml.emergencyContact2Xml(newEC);
+	
+				File fileEC = new File("./xmls/External-EmergencyContact.xml");
+				boolean existsEC = fileEC.exists();
+				if (existsEC) {
+					System.out.println("The XML file has be generated.");
+				} else {
+					System.out.println("The XML could not be generated.");
+					}
+				}
+				else {System.out.println("There is no emergency contacts added to the database!");}
+				
 
 			break;
+			
 
 		case 4:
 
@@ -1124,14 +1160,15 @@ public class Menu {
 		}
 	}
 
-	private static void listAllDoctors() {
+	public static void listAllDoctors() {
 		List<Doctor> doctors = doctorManager.listsAllDoctors();
-		if (doctors != null) {
+		if (!doctors.isEmpty()) {
 			for (Doctor d : doctors) {
 				System.out.println(d.toString());
 				System.out.println("-----------------------------\n");
 			}
-		} else {
+		} 
+		else {
 			System.out.println("There are 0 doctors in the database!");
 		}
 	}
@@ -1160,6 +1197,17 @@ public class Menu {
 		}
 	}
 
+	private static void listAllEC() {
+		List<EmergencyContact> ecs = ecManager.listsAllEmergencyContacts();
+
+		if (!ecs.isEmpty()) {
+		for (EmergencyContact e2 : ecs) {
+			System.out.println(e2.toString());
+			System.out.println("-----------------------------\n");
+			}
+		}
+	}
+	
 	private static void addEmergencyContact(Patient p) {
 		if (continueProccess() == false) {
 			return;
@@ -1275,17 +1323,21 @@ public class Menu {
 		return pa;
 	}
 
-	public static void listAllAllergies() {
+	private static void listAllAllergies() {
 		List<Allergy> allergies = allergyManager.listAllAllergies();
-		if (allergies != null) {
+		if (!allergies.isEmpty()) {
 			for (Allergy a : allergies) {
 				System.out.println(a.toString());
-			}
-		} else {
-			System.out.println("There are 0 allergies in the database!");
+					}
 		}
+		else {
+			System.out.println("There are 0 allergies in the database!");
+				}
 
-	}
+		}
+	
+	
+	
 
 	private static void listAllergy(Patient p) {
 		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
