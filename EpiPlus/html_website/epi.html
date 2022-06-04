@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<xsl:stylesheet version ="2.0" xmlns:xsl = "http://www.w3.org/1999/XSL/Transform">
-<xsl:output method ="html" indent="yes"/>
-
-<xsl:template match ="/">
-	
-	
+<!DOCTYPE html>
 <html lang ="en">
 	<head>
 		<title>EpiPlus</title>
@@ -13,12 +6,12 @@
 		<meta name="description" content="Epilepsy website"/>
 		<meta name="author" content="Lucia Isabel Marta Aleksandra" />
 		<meta name="keywords" content="epilepsy" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		</meta>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
 	
 		<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
-		<link rel="shortcut icon" href="../html_website/favicon.ico" type="image/x-icon"/>
-		<link rel="icon" href="../html_website/favicon.ico" type="image/x-icon"/>
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 	
 		<style type="text/css">
 	
@@ -32,7 +25,7 @@
 			
 			.header h1{ font-size: 45px;}
 	
-			.body { width: auto; }
+			.body {  }
 			
 			
 			
@@ -40,15 +33,18 @@
 			.navbar { text-align : center;
 					font-size: 30px;
 					background-color: #08A16E;
-					height : 5%;					}
+					height : 5%;	
+					margin: auto;}
 			
-			
+				
 			.aside{	float: left;
 					background-color: #35D4B4;
 					width: 35%;
 					height: 75%;
 					font-size: 20px;
 					color: white;
+					margin: auto;
+					
 			
 			
 						}
@@ -59,16 +55,20 @@
 					height: 75%;
 					margin: auto;
 					text-align: center;
-					font-size: 30px;
+					font-size: 25px;
 					color: white;
+					margin: auto;
+					
 					}
 			
 			.footer { text-align: : right ; 
-						background-color : #1abc9c ;
+						background-color : #08A16E ;
 						color: white ;
 						width: 100%;
 						float: left;
-						height: 10%;}
+						height: 10%;
+						padding: 10px;
+						margin: auto;}
 						
 			a {text-decoration: none;
 				margin: 10px;}
@@ -83,16 +83,17 @@
 	
 		<div class = "header">
 			<h1><b><i>Welcome to EpiPlus website! </i></b>
-			<img src= "../html_website/healthicon.png" alt = "health symbol" width = "100" height = "100"/>
+			<img src= "healthicon.png" alt = "health symbol" width = "100" height = "100"/>
 			</h1>
 		
 		</div>
 		
 		<div class = "navbar">
-		<a href = "../html_website/epi.html">Home</a>
-		<a href = "../html_website/epiumldiagram.html">UML diagram</a>
-		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
-		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
+		<a href="epi.html">Home</a>
+		<a href = "epiumldiagram.html">UML diagram</a>
+		<a href = "epierdiagram.html">E-R diagram</a>
+		<a href = "epiusecasediagram.html">Use case diagram</a>
+		
 		
 		</div>
 		
@@ -101,30 +102,33 @@
 		<p>
 		The EpiPlus application is created to help people struggling with epilepsy, in their everyday life.It has many functionalities. For example, EpiPlus can store medication's, patient's, doctor's data. It even provides recipes.
 		It can create xml files in order to show data in more human-readable way. It also produces websites!
-		</p>
 		<p></p>
-		<p><b><a href="">System design of the EpiPlus </a></b></p>
-		<p><b><a href="">Manual of the EpiPlus</a></b></p>
+		<b><a href="">Description of the project </a><br>
+		<a href="">Manual of the EpiPlus</a></br></b>
 		
+		</p>
 		
-		
-		<p><b>Authors of the EpiPlus app:</b></p>
-		<p>Barnuevo Rotaeche Lucia,</p>
-		<p>Isabel Martínez Torres,</p>
-		<p>Lucena Vicente Marta,</p>
-		<p>Aleksandra Krzemień</p>
-		
+		<p><b>Authors of the EpiPlus app:</b><br>
+		Barnuevo Rotaeche Lucia,<br>
+		Isabel Martínez Torres,<br>
+		Lucena Vicente Marta,<br>
+		Aleksandra Krzemień<br>
+		</p>
 
+
+
+		
 		</div>
 		
 		<div class= "main">
-			<p><h3>The content of the given object doctor.</h3></p>
-			<p><b>Doctor's id: <xsl:value-of select="//@id" /></b></p>
-			<p><b>Doctor's name: <xsl:value-of select="//@name" /></b></p>
-			<p><b>Doctor's email:<xsl:value-of select="//email"/></b></p>
-			<p><b>A hospital where the doctor works: <xsl:value-of select="//hospitalName"/></b></p>
-	
-	<p><b> Patients: </b> <xsl:value-of select= "//patients"/></p>
+		
+			<p>Here is a place where object content will appear.</p>
+			<p>If you are interested you can see documentation for our project:</p>
+			<p>- User manual</p>
+			<p>- System design</p>
+			<p>- UML diagram</p>
+			<p>- E-R diagram</p>
+			<p>- Use case diagram</p>
 		
 		</div>
 		
@@ -139,7 +143,3 @@
 	
 	</body>
 </html>
-
-</xsl:template>
-	
-</xsl:stylesheet>

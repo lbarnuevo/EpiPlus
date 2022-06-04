@@ -3,8 +3,8 @@ package epiplus.jdbc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import epiplus.ifaces.EpisodeManager;
@@ -84,7 +84,8 @@ public class JDBCEpisodeManager implements EpisodeManager {
 	@Override
 	public List<Episode> getEpisodesOfPatient(Integer pacId) {
 
-		List<Episode> episodesList= new ArrayList<Episode>();
+		List<Episode> episodesList = new ArrayList<Episode>();
+	
 
 		try {
 			String sql = "SELECT * FROM episodes WHERE patientId LIKE ?";
@@ -116,6 +117,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 	public List<Episode> listsAllEpisodes() {
 		
 		List<Episode> episodesList = new ArrayList<Episode>();
+		
 
 		try {
 			String sql = "SELECT * FROM episodes";
@@ -124,7 +126,7 @@ public class JDBCEpisodeManager implements EpisodeManager {
 
 			while (r.next()) {
 				Integer id = r.getInt("id");
-				Date doe = r.getDate("date");
+				Date doe = r.getDate("doe");
 				Float length = r.getFloat("length");
 				String  activity= r.getString("activity");
 				String mood = r.getString("mood");

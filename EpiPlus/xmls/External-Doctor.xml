@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Doctor id="3" name="Silvano Perez">
-    <email>sperez@lapaz.es</email>
-    <hospitalName>LaPaz</hospitalName>
+<Doctor id="1" name="Mona la Paz">
+    <email>mpaz@gtg.com</email>
+    <hospitalName>12 de OCtubre</hospitalName>
     <patients/>
 </Doctor>

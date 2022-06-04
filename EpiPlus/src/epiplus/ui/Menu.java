@@ -99,16 +99,8 @@ public class Menu {
 		System.out.println("For what object you want to generate xml? ");
 		System.out.println("1. Allergy");
 		System.out.println("2. Doctor");
-		System.out.println("3. EmergencyContact");
-		System.out.println("4. EpisodeSymptom");
-		System.out.println("5. Episode");
-		System.out.println("6. Medication");
-		System.out.println("7. PatientAllergy");
-		System.out.println("8. PatientMedication");
-		System.out.println("9. Patient");
-		System.out.println("10. Role");
-		System.out.println("11. Symptom");
-		System.out.println("12. User");
+		System.out.println("3. Episode");
+		
 		System.out.println("Type number: ");
 
 		Integer choicexml = Auxiliar.getPositiveInteger(reader);
@@ -168,69 +160,34 @@ public class Menu {
 
 			break;
 
+		
 		case 3:
 			
-System.out.println("For what emergency contact do you want to create the xml?");
+			System.out.println("For what episode do you want to create the xml?");
 			
-			if (!ecManager.listsAllEmergencyContacts().isEmpty()) {
+			if ( !episodeManager.listsAllEpisodes().isEmpty() ) {
 				
-				listAllEC();
+				listAllEpisodes();
 				
 				System.out.println("Type number: ");
-			
-				Integer choiceEC = Auxiliar.getPositiveInteger(reader);
-				EmergencyContact newEC = ecManager.getECbyId(choiceEC);
-				EmergencyContactXml.emergencyContact2Xml(newEC);
-	
-				File fileEC = new File("./xmls/External-EmergencyContact.xml");
-				boolean existsEC = fileEC.exists();
-				if (existsEC) {
-					System.out.println("The XML file has be generated.");
+				Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
+				Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
+				EpisodeXml.episode2Xml(newEpisode);
+
+				File fileEpisode = new File("./xmls/External-Episode.xml");
+				boolean existsEpisode = fileEpisode.exists();
+				if (existsEpisode) {
+					System.out.println("The XML file has been generated.");
 				} else {
-					System.out.println("The XML could not be generated.");
-					}
+					System.out.println("The XML file could not been generated.");
+						}
 				}
-				else {System.out.println("There is no emergency contacts added to the database!");}
-				
-
-			break;
+			else {System.out.println("There is no doctors added to the database!");}
 			
 
-		case 4:
-
 			break;
 
-		case 5:
-
-			break;
-
-		case 6:
-
-			break;
-
-		case 7:
-
-			break;
-
-		case 8:
-
-			break;
-
-		case 9:
-
-			break;
-
-		case 10:
-
-			break;
-
-		case 11:
-
-			break;
-
-		case 12:
-
-			break;
+		
 		}
 	}
 
@@ -239,16 +196,10 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		System.out.println("For what object do you want to generate HTML?");
 		System.out.println("1. Allergy");
 		System.out.println("2. Doctor");
-		System.out.println("3. EmergencyContact");
-		System.out.println("4. EpisodeSymptom");
-		System.out.println("5. Episode");
-		System.out.println("6. Medication");
-		System.out.println("7. PatientAllergy");
-		System.out.println("8. PatientMedication");
-		System.out.println("9. Patient");
-		System.out.println("10. Role");
-		System.out.println("11. Symptom");
-		System.out.println("12. User");
+		
+		
+		System.out.println("3. Episode");
+		
 		System.out.println("Type number: ");
 
 		Integer choicehtml = Auxiliar.getPositiveInteger(reader);
@@ -279,37 +230,15 @@ System.out.println("For what emergency contact do you want to create the xml?");
 			}
 			break;
 
+		
+
 		case 3:
-			File fileEmergencyContact = new File("./xmls/External-EmergencyContact.xml");
-			boolean existsEmergencyContact = fileEmergencyContact.exists();
-			if (!existsEmergencyContact) {
-				System.out.println("First, create an xml file for your object ");
-			} else {
-				EmergencyContactXml.xslt2Html("./xmls/External-EmergencyContact.xml",
-						"./xmls/Style-EmergencyContact.xslt", "./xmls/External-EmergencyContact.html");
-				System.out.println("HTML file has been generated.");
-			}
-			break;
-
-		case 4:
-			File fileEpisodeSymptom = new File("./xmls/External-EpisodeSymptom.xml");
-			boolean existsEpisodeSymptom = fileEpisodeSymptom.exists();
-			if (!existsEpisodeSymptom) {
-				System.out.println("First, create an xml file for your object ");
-			} else {
-				EpisodeSymptomXml.xslt2Html("./xmls/External-EpisodeSymptom.xml", "./xmls/Style-EpisodeSymptom.xslt",
-						"./xmls/External-EpisodeStmptom.html");
-				System.out.println("HTML file has been generated.");
-			}
-			break;
-
-		case 5:
 			File fileEpisode = new File("./xmls/External-Episode.xml");
 			boolean existsEpisode = fileEpisode.exists();
 			if (!existsEpisode) {
 				System.out.println("First, create an xml file for your object ");
 			} else {
-				EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Style-Episode.xslt",
+				EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Episode-Style.xslt",
 						"./xmls/External-Episode.html");
 				System.out.println("HTML file has been generated.");
 			}
@@ -931,6 +860,21 @@ System.out.println("For what emergency contact do you want to create the xml?");
 			System.out.println("------------------------\n");
 		}
 	}
+	
+	private static void listAllEpisodes() {
+		List<Episode> episodes = episodeManager.listsAllEpisodes();
+
+		if(!episodes.isEmpty()) {
+			for (Episode e : episodes) {
+				System.out.println(e.toString());
+	
+				for (Symptom s : esManager.getSymptomsOfEpisode(e.getId())) {
+					System.out.println(s.toString());
+				}
+				System.out.println("------------------------\n");
+				}
+		} else {System.out.println("There is no episodes in the database!");}
+	}
 
 	// Methods for working with medications
 	private static void addMedication(Patient p) {
@@ -1207,6 +1151,8 @@ System.out.println("For what emergency contact do you want to create the xml?");
 			}
 		}
 	}
+	
+
 	
 	private static void addEmergencyContact(Patient p) {
 		if (continueProccess() == false) {

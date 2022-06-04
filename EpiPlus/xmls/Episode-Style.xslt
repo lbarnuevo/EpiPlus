@@ -89,7 +89,7 @@
 		</div>
 		
 		<div class = "navbar">
-		<a href = "../html_website/epi.html">Home</a>
+		<a href="../html_website/epi.html">Home</a>
 		<a href = "../html_website/epiumldiagram.html">UML diagram</a>
 		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
 		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
@@ -118,13 +118,17 @@
 		</div>
 		
 		<div class= "main">
-			<p><h3>The content of the given object doctor.</h3></p>
-			<p><b>Doctor's id: <xsl:value-of select="//@id" /></b></p>
-			<p><b>Doctor's name: <xsl:value-of select="//@name" /></b></p>
-			<p><b>Doctor's email:<xsl:value-of select="//email"/></b></p>
-			<p><b>A hospital where the doctor works: <xsl:value-of select="//hospitalName"/></b></p>
+			<p><h3>The content of the given object episode.</h3></p>
+			<p><b>Length of the episode: <xsl:value-of select="//@length" /></b></p>
+			<p><b>Id: <xsl:value-of select="//id" /></b></p>
+			<p><b>Date of the episode: <xsl:value-of select="//doe"/></b></p>
+			<p><b>Activity which has been done before the episode: <xsl:value-of select="//activity"/></b></p>
+			<p><b>Mood before the episode: <xsl:value-of select="//mood"/></b></p>
+			<p><b>Place where the epiosde has taken place: <xsl:value-of select="//place"/></b></p>
+			<p><b>The meal patient has eaten before episode: <xsl:value-of select="//previous_meal"/></b></p>
+			<p><b>Information on whether any injury has taken place: <xsl:value-of select="//injuries"/></b></p>
 	
-	<p><b> Patients: </b> <xsl:value-of select= "//patients"/></p>
+	<p><b> Symptomps: </b> <xsl:value-of select= "//symptoms"/></p>
 		
 		</div>
 		
