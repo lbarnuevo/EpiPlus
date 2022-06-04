@@ -96,19 +96,19 @@ public class Menu {
 
 	// Methods for xml and html 
 	private static void generateXML() throws Exception {
-		System.out.println("For what object you want to generate xml? ");
-		System.out.println("1. Allergy");
-		System.out.println("2. Doctor");
-		System.out.println("3. Episode");
-		System.out.println("0. Go back");
-		
-		System.out.println("Type number: ");
-
-		Integer choicexml = Auxiliar.getPositiveInteger(reader);
-
-		
-		// so the user can choose one of for example allergies to generate xml.
 		do {
+			System.out.println("       For what object you want to generate xml? ");
+			System.out.println("---------------------------------------------------------------");
+			System.out.println("1. Allergy");
+			System.out.println("2. Doctor");
+			System.out.println("3. Episode");
+			System.out.println("0. Go back");
+			System.out.println("---------------------------------------------------------------");
+			
+			System.out.println("Please, introduce one of the previous options: ");
+	
+			Integer choicexml = Auxiliar.getPositiveInteger(reader);
+
 			switch (choicexml) {
 				case 1:{
 					System.out.println("For what allergy do you want to create the xml?");
@@ -190,29 +190,29 @@ public class Menu {
 					break;
 				}
 				case 0:{
-					System.out.println("~~Byee! :)");
 					return;
 				}
 				default:{
 					System.out.println("Please introduce a valid option. ");
 				}
 			}
-		}while(true);
+		} while (true);
 	}
 
 	public static void generateHTML() {
-
-		System.out.println("For what object do you want to generate HTML?");
-		System.out.println("1. Allergy");
-		System.out.println("2. Doctor");
-		System.out.println("3. Episode");
-		System.out.println("0. Go back");
-
-		System.out.println("Type number: ");
-
-		Integer choicehtml = Auxiliar.getPositiveInteger(reader);
-
 		do {
+			System.out.println("         For what object do you want to generate HTML?");
+			System.out.println("---------------------------------------------------------------");
+			System.out.println("1. Allergy");
+			System.out.println("2. Doctor");
+			System.out.println("3. Episode");
+			System.out.println("0. Go back");
+			System.out.println("---------------------------------------------------------------");
+			
+			System.out.println("Please, introduce one of the previous options: ");
+	
+			Integer choicehtml = Auxiliar.getPositiveInteger(reader);
+			
 			switch (choicehtml) {
 				case 1:{
 					File fileAllergy = new File("./xmls/External-Allergy.xml");
@@ -251,7 +251,6 @@ public class Menu {
 					break;
 				}
 				case 0:{
-					System.out.println("~~Byee! :)");
 					return;
 				}
 				default:{
