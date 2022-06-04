@@ -30,7 +30,6 @@ public class Xml2JavaAllergy {
 		File file = new File("./xmls/External-Allergy.xml");
 		Allergy allergy = (Allergy) unmarshaller.unmarshal(file);
 
-		
 	}
-	
+
 }
