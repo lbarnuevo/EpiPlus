@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet version ="2.0" xmlns:xsl = "http://www.w3.org/1999/XSL/Transform">
+<xsl:output method ="html" indent="yes"/>
+
+<xsl:template match ="/">
+	
 	
 <html lang ="en">
 	<head>
@@ -10,9 +16,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		</meta>
 	
+		
 		<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-		<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+		<link rel="shortcut icon" href="../html_website/favicon.ico" type="image/x-icon"/>
+		<link rel="icon" href="../html_website/favicon.ico" type="image/x-icon"/>
 	
 		<style type="text/css">
 	
@@ -77,18 +84,19 @@
 	
 		<div class = "header">
 			<h1><b><i>Welcome to EpiPlus website! </i></b>
-			<img src= "healthicon.png" alt = "health symbol" width = "100" height = "100"/>
+			<img src= "../html_website/healthicon.png" alt = "health symbol" width = "100" height = "100"/>
 			</h1>
 		
 		</div>
 		
 		<div class = "navbar">
-		<a href = "epi.html">Home</a>
-		<a href = "epiumldiagram.html">UML diagram</a>
-		<a href = "epierdiagram.html">E-R diagram</a>
-		<a href = "epiusecasediagram.html">Use case diagram</a>
-		<a href = "epimockup.html">Mockup</a>
 		
+		<a href="../html_website/epi.html">Home</a>
+		
+		<a href = "../html_website/epiumldiagram.html">UML diagram</a>
+		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
+		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
+		<a href = "../html_website/epimockup.html">Mockup</a>
 		</div>
 		
 		<div class = "aside">
@@ -98,7 +106,7 @@
 		It can create xml files in order to show data in more human-readable way. It also produces websites!
 		</p>
 		<p></p>
-		<p><b><a href="">Description of the project </a></b></p>
+		<p><b><a href="">System design of the EpiPlus </a></b></p>
 		<p><b><a href="">Manual of the EpiPlus</a></b></p>
 		
 		
@@ -113,17 +121,12 @@
 		</div>
 		
 		<div class= "main">
+			<p><h3>The content of the given object medication.</h3></p>
+			<p><b>Id: <xsl:value-of select="//@id" /></b></p>
+			<p><b>Name of the medication: <xsl:value-of select="//@name" /></b></p>
+			
+			<p><b> Symptomps: </b> <xsl:value-of select= "//patientss"/></p>
 		
-			<p><a href="uml_diagram.png" download>
-			 Click here to download the UML diagram as jpg file!
-			</a></p>
-			
-			<p><a href="uml_diagram.dia" download>
-			 Click here to download the UML diagram as dia file!
-			</a></p>
-			
-			<img src ="uml_diagram.png" width="700" height="336">
-				
 		</div>
 		
 		
@@ -138,6 +141,6 @@
 	</body>
 </html>
 
-
-
-
+</xsl:template>
+	
+</xsl:stylesheet>

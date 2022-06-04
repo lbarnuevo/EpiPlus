@@ -101,7 +101,7 @@ public class Menu {
 			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. Allergy");
 			System.out.println("2. Doctor");
-			System.out.println("3. Episode");
+			System.out.println("3. Medication");
 			System.out.println("0. Go back");
 			System.out.println("---------------------------------------------------------------");
 			
@@ -162,33 +162,33 @@ public class Menu {
 					}
 					break;
 				}
+				
 				case 3:{
+					System.out.println("For what medication do you want to create the xml?");
 					
-					System.out.println("For what episode do you want to create the xml?");
-					
-					if ( !episodeManager.listsAllEpisodes().isEmpty() ) {
+					if ( !medicationManager.listsAllMedication().isEmpty() ) {
 						
-						listAllEpisodes();
+						listAllMedications();
 						
 						System.out.println("Type number: ");
-						Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
-						Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
-						EpisodeXml.episode2Xml(newEpisode);
+						Integer choiceMedication = Auxiliar.getPositiveInteger(reader);
+						Medication newMedication = medicationManager.getMedicationById(choiceMedication);
+						MedicationXml.medication2Xml(newMedication);
 		
-						File fileEpisode = new File("./xmls/External-Episode.xml");
-						boolean existsEpisode = fileEpisode.exists();
-						if (existsEpisode) {
+						File fileMedication = new File("./xmls/External-Medication.xml");
+						boolean existsMedication = fileMedication.exists();
+						if (existsMedication) {
 							System.out.println("The XML file has been generated.");
 						} else {
 							System.out.println("The XML file could not been generated.");
 						}
 					}
 					else {
-						System.out.println("There is no doctors added to the database!");
+						System.out.println("There is no medications added to the database!");
 					}
-					
 					break;
 				}
+				
 				case 0:{
 					return;
 				}
@@ -205,7 +205,7 @@ public class Menu {
 			System.out.println("---------------------------------------------------------------");
 			System.out.println("1. Allergy");
 			System.out.println("2. Doctor");
-			System.out.println("3. Episode");
+			System.out.println("3. Medication");
 			System.out.println("0. Go back");
 			System.out.println("---------------------------------------------------------------");
 			
@@ -238,18 +238,20 @@ public class Menu {
 					}
 					break;
 				}
+			
 				case 3:{
-					File fileEpisode = new File("./xmls/External-Episode.xml");
-					boolean existsEpisode = fileEpisode.exists();
-					if (!existsEpisode) {
+					File fileMedication = new File("./xmls/External-Medication.xml");
+					boolean existsMedication = fileMedication.exists();
+					if (!existsMedication) {
 						System.out.println("First, create an xml file for your object ");
 					} else {
-						EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Episode-Style.xslt",
-								"./xmls/External-Episode.html");
+						EpisodeXml.xslt2Html("./xmls/External-Medication.xml", "./xmls/Medication-Style.xslt",
+								"./xmls/External-Medication.html");
 						System.out.println("HTML file has been generated.");
 					}
 					break;
 				}
+				
 				case 0:{
 					return;
 				}
@@ -1151,6 +1153,20 @@ public class Menu {
 		} 
 		else {
 			System.out.println("There are 0 doctors in the database!");
+		}
+	}
+	
+	
+	public static void listAllMedications() {
+		List<Medication> medications = medicationManager.listsAllMedication();
+		if (!medications.isEmpty()) {
+			for (Medication m : medications) {
+				System.out.println(m.toString());
+				System.out.println("-----------------------------\n");
+			}
+		} 
+		else {
+			System.out.println("There are 0 medications in the database!");
 		}
 	}
 

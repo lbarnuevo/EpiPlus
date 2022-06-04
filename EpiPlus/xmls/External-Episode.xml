@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Episode length="56.0">
-    <id>2</id>
-    <doe>2022-05-05</doe>
-    <activity>dancing</activity>
-    <mood>sad</mood>
+<Episode length="67.0">
+    <id>3</id>
+    <doe>2022-06-05</doe>
+    <activity>eating</activity>
+    <mood>happy</mood>
     <place>home</place>
     <previous_meal>chocolate</previous_meal>
-    <injuries>true</injuries>
+    <injuries>false</injuries>
     <symptoms/>
 </Episode>
