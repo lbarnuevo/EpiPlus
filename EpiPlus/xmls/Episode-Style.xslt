@@ -16,6 +16,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		</meta>
 	
+		
 		<link rel="stylesheet" href="./stylesheet.css" type="text/css" />
 		<link rel="shortcut icon" href="../html_website/favicon.ico" type="image/x-icon"/>
 		<link rel="icon" href="../html_website/favicon.ico" type="image/x-icon"/>
@@ -89,11 +90,13 @@
 		</div>
 		
 		<div class = "navbar">
+		
 		<a href="../html_website/epi.html">Home</a>
+		
 		<a href = "../html_website/epiumldiagram.html">UML diagram</a>
 		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
 		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
-		
+		<a href = "../html_website/epimockup.html">Mockup</a>
 		</div>
 		
 		<div class = "aside">
