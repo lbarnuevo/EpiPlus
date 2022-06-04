@@ -119,37 +119,37 @@ public class Menu {
 
 		case 1:
 			System.out.println("For what allergy do you want to create the xml?");
-			
-			if ( !allergyManager.listAllAllergies().isEmpty()) {
-			listAllAllergies();
-				
-			System.out.println("Type number: ");
-			
-			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
-			Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
-			AllergyXml.allergy2Xml(newAllergy);
 
-			File fileAllergy = new File("./xmls/External-Allergy.xml");
-			boolean existsAllergy = fileAllergy.exists();
-			if (existsAllergy) {
-				System.out.println("The XML file has be generated.");
-			} else {
-				System.out.println("The XML could not be generated.");
+			if (!allergyManager.listAllAllergies().isEmpty()) {
+				listAllAllergies();
+
+				System.out.println("Type number: ");
+
+				Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
+				Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
+				AllergyXml.allergy2Xml(newAllergy);
+
+				File fileAllergy = new File("./xmls/External-Allergy.xml");
+				boolean existsAllergy = fileAllergy.exists();
+				if (existsAllergy) {
+					System.out.println("The XML file has be generated.");
+				} else {
+					System.out.println("The XML could not be generated.");
 				}
+			} else {
+				System.out.println("There is no allergies added to the database!");
 			}
-			else {System.out.println("There is no allergies added to the database!");}
-			
 
 			// Allergy a = new Allergy(1,"cashews");
 			break;
 
 		case 2:
 			System.out.println("For what doctor do you want to create the xml?");
-			
-			if ( !doctorManager.listsAllDoctors().isEmpty() ) {
-				//System.out.println("before listalldocs");
+
+			if (!doctorManager.listsAllDoctors().isEmpty()) {
+				// System.out.println("before listalldocs");
 				listAllDoctors();
-				
+
 				System.out.println("Type number: ");
 				Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
 				Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
@@ -161,40 +161,39 @@ public class Menu {
 					System.out.println("The XML file has been generated.");
 				} else {
 					System.out.println("The XML file could not been generated.");
-						}
 				}
-			else {System.out.println("There is no doctors added to the database!");}
-			
+			} else {
+				System.out.println("There is no doctors added to the database!");
+			}
 
 			break;
 
 		case 3:
-			
-System.out.println("For what emergency contact do you want to create the xml?");
-			
+
+			System.out.println("For what emergency contact do you want to create the xml?");
+
 			if (!ecManager.listsAllEmergencyContacts().isEmpty()) {
-				
+
 				listAllEC();
-				
+
 				System.out.println("Type number: ");
-			
+
 				Integer choiceEC = Auxiliar.getPositiveInteger(reader);
 				EmergencyContact newEC = ecManager.getECbyId(choiceEC);
 				EmergencyContactXml.emergencyContact2Xml(newEC);
-	
+
 				File fileEC = new File("./xmls/External-EmergencyContact.xml");
 				boolean existsEC = fileEC.exists();
 				if (existsEC) {
 					System.out.println("The XML file has be generated.");
 				} else {
 					System.out.println("The XML could not be generated.");
-					}
 				}
-				else {System.out.println("There is no emergency contacts added to the database!");}
-				
+			} else {
+				System.out.println("There is no emergency contacts added to the database!");
+			}
 
 			break;
-			
 
 		case 4:
 
@@ -486,11 +485,11 @@ System.out.println("For what emergency contact do you want to create the xml?");
 	private static void deleteAccount() {
 		System.out.println("Please, introduce again your email address:");
 		String email = Auxiliar.getString(reader);
-		
+
 		Doctor d = doctorManager.searchDoctorByEmail(email);
 		Patient p = patientManager.searchPatientByEmail(email);
-		
-		if(userManager.checkEmail(email) && (d != null || p != null)) {
+
+		if (userManager.checkEmail(email) && (d != null || p != null)) {
 			if (continueProccess()) {
 				if (d == null && p != null) {
 					patientManager.deletePatient(p);
@@ -499,7 +498,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 				}
 				userManager.deleteUser(email);
 			}
-		
+
 		} else {
 			System.out.println("There is not any user with that email");
 			return;
@@ -721,6 +720,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		}
 
 		if (p.getPhoto() != null) {
+			System.out.println("Photo (shown in another window) =");
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -732,6 +732,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		System.out.println(d.toString());
 
 		if (d.getPhoto() != null) {
+			System.out.println("Photo (shown in another window) =");
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -750,6 +751,12 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		} else {
 			while (true) {
 				System.out.println(d.toString());
+				if (d.getPhoto() != null) {
+					System.out.println("Photo (shown in another window) =");
+					ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
+					ImageWindow window = new ImageWindow();
+					window.showBlob(blobIn);
+				}
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
 				String toChange = Auxiliar.getString(reader);
 
@@ -763,8 +770,12 @@ System.out.println("For what emergency contact do you want to create the xml?");
 					String toChangeHospitalName = Auxiliar.getStringNoSpaces(reader);
 					d.setHospitalName(toChangeHospitalName);
 					doctorManager.updateDoctor(d);
-				} // TODO change photo
-
+				} else if (toChange.equalsIgnoreCase("photo")) {
+					System.out.println("Input new photo. ");
+					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
+					d.setPhoto(toChangePhoto);
+					doctorManager.updateDoctor(d);
+				}
 				if (continueProccess() == false) {
 					return;
 				}
@@ -825,8 +836,12 @@ System.out.println("For what emergency contact do you want to create the xml?");
 					System.out.println("Adding allergies...");
 					addAllergy(p);
 				}
-				// TODO change photo
-
+				else if (toChange.equalsIgnoreCase("photo")) {
+					System.out.println("Input new photo. ");
+					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
+					p.setPhoto(toChangePhoto);
+					patientManager.updatePatient(p);
+				}
 				if (continueProccess() == false) {
 					return;
 				}
@@ -1102,7 +1117,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 				}
 			case 4:
 				docs = doctorManager.listsAllDoctors();
-				
+
 				if (docs.isEmpty()) {
 					System.out.println("There aren't any doctors registered in the database");
 					break;
@@ -1113,7 +1128,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
-				} 
+				}
 			case 0:
 				return null;
 			default:
@@ -1167,8 +1182,7 @@ System.out.println("For what emergency contact do you want to create the xml?");
 				System.out.println(d.toString());
 				System.out.println("-----------------------------\n");
 			}
-		} 
-		else {
+		} else {
 			System.out.println("There are 0 doctors in the database!");
 		}
 	}
@@ -1201,13 +1215,13 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		List<EmergencyContact> ecs = ecManager.listsAllEmergencyContacts();
 
 		if (!ecs.isEmpty()) {
-		for (EmergencyContact e2 : ecs) {
-			System.out.println(e2.toString());
-			System.out.println("-----------------------------\n");
+			for (EmergencyContact e2 : ecs) {
+				System.out.println(e2.toString());
+				System.out.println("-----------------------------\n");
 			}
 		}
 	}
-	
+
 	private static void addEmergencyContact(Patient p) {
 		if (continueProccess() == false) {
 			return;
@@ -1328,16 +1342,12 @@ System.out.println("For what emergency contact do you want to create the xml?");
 		if (!allergies.isEmpty()) {
 			for (Allergy a : allergies) {
 				System.out.println(a.toString());
-					}
-		}
-		else {
+			}
+		} else {
 			System.out.println("There are 0 allergies in the database!");
-				}
-
 		}
-	
-	
-	
+
+	}
 
 	private static void listAllergy(Patient p) {
 		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
@@ -1411,9 +1421,8 @@ System.out.println("For what emergency contact do you want to create the xml?");
 						int j = i;
 						while ((j + 1) < episodesArray.length) {
 							if (activity.equals(episodesArray[j + 1].getActivity())) {
-								System.out
-										.println("The activity '" + activity + "' may be a seizure trigger for you. "
-												+ "It appears several times in your episodes.");
+								System.out.println("The activity '" + activity + "' may be a seizure trigger for you. "
+										+ "It appears several times in your episodes.");
 								break;
 							}
 							j++;
