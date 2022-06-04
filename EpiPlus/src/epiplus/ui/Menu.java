@@ -205,56 +205,60 @@ public class Menu {
 		System.out.println("For what object do you want to generate HTML?");
 		System.out.println("1. Allergy");
 		System.out.println("2. Doctor");
-		
-		
 		System.out.println("3. Episode");
-		
+		System.out.println("0. Go back");
+
 		System.out.println("Type number: ");
 
 		Integer choicehtml = Auxiliar.getPositiveInteger(reader);
 
-		switch (choicehtml) {
-
-		case 1:
-			File fileAllergy = new File("./xmls/External-Allergy.xml");
-			boolean existsAllergy = fileAllergy.exists();
-			if (!existsAllergy) {
-				System.out.println("First, create an xml file for your object ");
-			} else {
-				AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt",
-						"./xmls/External-Allergy.html");
-				System.out.println("HTML file has been generated.");
+		do {
+			switch (choicehtml) {
+				case 1:{
+					File fileAllergy = new File("./xmls/External-Allergy.xml");
+					boolean existsAllergy = fileAllergy.exists();
+					if (!existsAllergy) {
+						System.out.println("First, create an xml file for your object ");
+					} else {
+						AllergyXml.xslt2Html("./xmls/External-Allergy.xml", "./xmls/Allergy-Style.xslt",
+								"./xmls/External-Allergy.html");
+						System.out.println("HTML file has been generated.");
+					}
+					break;
+				}
+				case 2:{
+					File fileDoctor = new File("./xmls/External-Doctor.xml");
+					boolean existsDoctor = fileDoctor.exists();
+					if (!existsDoctor) {
+						System.out.println("First, create an xml file for your object ");
+					} else {
+						DoctorXml.xslt2Html("./xmls/External-Doctor.xml", "./xmls/Doctor-Style.xslt",
+								"./xmls/External-Doctor.html");
+						System.out.println("HTML file has been generated.");
+					}
+					break;
+				}
+				case 3:{
+					File fileEpisode = new File("./xmls/External-Episode.xml");
+					boolean existsEpisode = fileEpisode.exists();
+					if (!existsEpisode) {
+						System.out.println("First, create an xml file for your object ");
+					} else {
+						EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Episode-Style.xslt",
+								"./xmls/External-Episode.html");
+						System.out.println("HTML file has been generated.");
+					}
+					break;
+				}
+				case 0:{
+					System.out.println("~~Byee! :)");
+					return;
+				}
+				default:{
+					System.out.println("Please introduce a valid option. ");
+				}	
 			}
-			break;
-
-		case 2:
-			File fileDoctor = new File("./xmls/External-Doctor.xml");
-			boolean existsDoctor = fileDoctor.exists();
-			if (!existsDoctor) {
-				System.out.println("First, create an xml file for your object ");
-			} else {
-				DoctorXml.xslt2Html("./xmls/External-Doctor.xml", "./xmls/Doctor-Style.xslt",
-						"./xmls/External-Doctor.html");
-				System.out.println("HTML file has been generated.");
-			}
-			break;
-
-		
-
-		case 3:
-			File fileEpisode = new File("./xmls/External-Episode.xml");
-			boolean existsEpisode = fileEpisode.exists();
-			if (!existsEpisode) {
-				System.out.println("First, create an xml file for your object ");
-			} else {
-				EpisodeXml.xslt2Html("./xmls/External-Episode.xml", "./xmls/Episode-Style.xslt",
-						"./xmls/External-Episode.html");
-				System.out.println("HTML file has been generated.");
-			}
-			break;
-
-		}
-
+		}while(true);
 	}
 
 	// Methods for login subsystem
