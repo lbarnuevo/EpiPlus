@@ -94,7 +94,7 @@ public class Menu {
 
 	}
 
-	// Methods for xml and html //TODO finish both methods
+	// Methods for xml and html 
 	private static void generateXML() throws Exception {
 		System.out.println("For what object you want to generate xml? ");
 		System.out.println("1. Allergy");
@@ -105,7 +105,7 @@ public class Menu {
 
 		Integer choicexml = Auxiliar.getPositiveInteger(reader);
 
-		// TODO for every case we need to show (select from database) existed objects,
+		
 		// so the user can choose one of for example allergies to generate xml.
 		switch (choicexml) {
 
