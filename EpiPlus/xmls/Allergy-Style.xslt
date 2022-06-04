@@ -117,6 +117,7 @@
 		</div>
 		
 		<div class= "main">
+		<p><h3>The content of the given object allergy</h3></p>
 		<p><b><xsl:value-of select="//@id" /></b></p>
 		<p><b><xsl:value-of select="//@name" /></b></p>
 		
