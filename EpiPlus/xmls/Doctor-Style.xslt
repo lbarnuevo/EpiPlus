@@ -93,6 +93,7 @@
 		<a href = "../html_website/epiumldiagram.html">UML diagram</a>
 		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
 		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
+		<a href = "../html_website/epimockup.html">Mockup</a>
 		
 		</div>
 		

@@ -1335,7 +1335,7 @@ public class Menu {
 		// PRECONDITION: at least 1 episode recorded
 		// 1. Shows all episodes in a month
 		// 2. Shows the number of episodes per month using a counter
-		// 3. Shows if there are any patterns-->TODO better
+		// 3. Shows if there are any patterns
 
 		List<Episode> episodes = episodeManager.getEpisodesOfPatient(p.getId());
 		int month = 1;
