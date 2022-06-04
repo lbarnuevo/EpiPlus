@@ -260,6 +260,7 @@ public class Menu {
 		}while(true);
 	}
 
+	
 	// Methods for login subsystem
 	public static void login() throws Exception {
 		System.out.println("Email address: ");
@@ -376,8 +377,7 @@ public class Menu {
 				System.out.println("Please, write your password: ");
 				String pass = Auxiliar.getString(reader);
 
-				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise,
-						photo, role.getId());
+				Patient p = new Patient(name, email, Date.valueOf(birthday), height, weight, lifestyle, diet, exercise, photo, role.getId());
 				patientManager.addPatient(p);
 				p.setId(dbManager.getLastId());
 
@@ -447,6 +447,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Menus and general methods
 	private static boolean continueProccess() {
 		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
@@ -647,7 +648,8 @@ public class Menu {
 		} while (true);
 	}
 
-	// operations on User
+	
+	// Operations on User
 	private static void seeUserPatient(Patient p) {
 		System.out.println("\nShowing user's information...\n");
 		System.out.println(p.toString());
@@ -662,6 +664,7 @@ public class Menu {
 		}
 
 		if (p.getPhoto() != null) {
+			System.out.println("Photo (shown in another window) =");
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(p.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -673,6 +676,7 @@ public class Menu {
 		System.out.println(d.toString());
 
 		if (d.getPhoto() != null) {
+			System.out.println("Photo (shown in another window) =");
 			ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
 			ImageWindow window = new ImageWindow();
 			window.showBlob(blobIn);
@@ -691,6 +695,14 @@ public class Menu {
 		} else {
 			while (true) {
 				System.out.println(d.toString());
+				
+				if (d.getPhoto() != null) {
+					System.out.println("Photo (shown in another window) =");
+					ByteArrayInputStream blobIn = new ByteArrayInputStream(d.getPhoto());
+					ImageWindow window = new ImageWindow();
+					window.showBlob(blobIn);
+				}
+				
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
 				String toChange = Auxiliar.getString(reader);
 
@@ -704,7 +716,12 @@ public class Menu {
 					String toChangeHospitalName = Auxiliar.getStringNoSpaces(reader);
 					d.setHospitalName(toChangeHospitalName);
 					doctorManager.updateDoctor(d);
-				} // TODO change photo
+				} else if (toChange.equalsIgnoreCase("photo")) {
+					System.out.println("Input new photo. ");
+					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
+					d.setPhoto(toChangePhoto);
+					doctorManager.updateDoctor(d);
+				} 
 
 				if (continueProccess() == false) {
 					return;
@@ -765,8 +782,12 @@ public class Menu {
 
 					System.out.println("Adding allergies...");
 					addAllergy(p);
+				} else if (toChange.equalsIgnoreCase("photo")) {
+					System.out.println("Input new photo. ");
+					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
+					p.setPhoto(toChangePhoto);
+					patientManager.updatePatient(p);
 				}
-				// TODO change photo
 
 				if (continueProccess() == false) {
 					return;
@@ -775,6 +796,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for working with patients from doctor
 	private static Patient selectPatient(Doctor d) {
 		listPatients(d);
@@ -797,6 +819,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for working with episodes
 	private static void registerEpisode(Patient p) {
 		if (continueProccess() == false) {
@@ -888,6 +911,7 @@ public class Menu {
 		} else {System.out.println("There is no episodes in the database!");}
 	}
 
+	
 	// Methods for working with medications
 	private static void addMedication(Patient p) {
 		if (continueProccess() == false) {
@@ -995,6 +1019,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for doing operations on doctors from a patients account
 	private static Doctor searchDoctor() {
 		do {
@@ -1129,6 +1154,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for emergency contacts
 	private static EmergencyContact selectEC(Patient p) {
 		listEC(p);
@@ -1163,8 +1189,6 @@ public class Menu {
 			}
 		}
 	}
-	
-
 	
 	private static void addEmergencyContact(Patient p) {
 		if (continueProccess() == false) {
@@ -1227,6 +1251,7 @@ public class Menu {
 		}
 	}
 
+	
 	// Methods for allergy
 	private static void addAllergy(Patient p) {
 		if (continueProccess() == false) {
@@ -1294,9 +1319,6 @@ public class Menu {
 
 		}
 	
-	
-	
-
 	private static void listAllergy(Patient p) {
 		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
 
