@@ -100,6 +100,7 @@ public class Menu {
 		System.out.println("1. Allergy");
 		System.out.println("2. Doctor");
 		System.out.println("3. Episode");
+		System.out.println("0. Go back");
 		
 		System.out.println("Type number: ");
 
@@ -107,88 +108,96 @@ public class Menu {
 
 		
 		// so the user can choose one of for example allergies to generate xml.
-		switch (choicexml) {
-
-		case 1:
-			System.out.println("For what allergy do you want to create the xml?");
+		do {
+			switch (choicexml) {
+				case 1:{
+					System.out.println("For what allergy do you want to create the xml?");
+					
+					if ( !allergyManager.listAllAllergies().isEmpty()) {
+						listAllAllergies();
+							
+						System.out.println("Type number: ");
+						
+						Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
+						Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
+						AllergyXml.allergy2Xml(newAllergy);
 			
-			if ( !allergyManager.listAllAllergies().isEmpty()) {
-			listAllAllergies();
-				
-			System.out.println("Type number: ");
-			
-			Integer choiceAllergy = Auxiliar.getPositiveInteger(reader);
-			Allergy newAllergy = allergyManager.getAllergyById(choiceAllergy);
-			AllergyXml.allergy2Xml(newAllergy);
-
-			File fileAllergy = new File("./xmls/External-Allergy.xml");
-			boolean existsAllergy = fileAllergy.exists();
-			if (existsAllergy) {
-				System.out.println("The XML file has be generated.");
-			} else {
-				System.out.println("The XML could not be generated.");
+						File fileAllergy = new File("./xmls/External-Allergy.xml");
+						boolean existsAllergy = fileAllergy.exists();
+						if (existsAllergy) {
+							System.out.println("The XML file has be generated.");
+						} else {
+							System.out.println("The XML could not be generated.");
+						}
+					}
+					else {
+						System.out.println("There is no allergies added to the database!");
+					}
+	
+					// Allergy a = new Allergy(1,"cashews");
+					break;
+				}
+				case 2:{
+					System.out.println("For what doctor do you want to create the xml?");
+					
+					if ( !doctorManager.listsAllDoctors().isEmpty() ) {
+						//System.out.println("before listalldocs");
+						listAllDoctors();
+						
+						System.out.println("Type number: ");
+						Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
+						Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
+						DoctorXml.doctor2Xml(newDoctor);
+		
+						File fileDoctor = new File("./xmls/External-Doctor.xml");
+						boolean existsDoctor = fileDoctor.exists();
+						if (existsDoctor) {
+							System.out.println("The XML file has been generated.");
+						} else {
+							System.out.println("The XML file could not been generated.");
+						}
+					}
+					else {
+						System.out.println("There is no doctors added to the database!");
+					}
+					break;
+				}
+				case 3:{
+					
+					System.out.println("For what episode do you want to create the xml?");
+					
+					if ( !episodeManager.listsAllEpisodes().isEmpty() ) {
+						
+						listAllEpisodes();
+						
+						System.out.println("Type number: ");
+						Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
+						Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
+						EpisodeXml.episode2Xml(newEpisode);
+		
+						File fileEpisode = new File("./xmls/External-Episode.xml");
+						boolean existsEpisode = fileEpisode.exists();
+						if (existsEpisode) {
+							System.out.println("The XML file has been generated.");
+						} else {
+							System.out.println("The XML file could not been generated.");
+						}
+					}
+					else {
+						System.out.println("There is no doctors added to the database!");
+					}
+					
+					break;
+				}
+				case 0:{
+					System.out.println("~~Byee! :)");
+					return;
+				}
+				default:{
+					System.out.println("Please introduce a valid option. ");
 				}
 			}
-			else {System.out.println("There is no allergies added to the database!");}
-			
-
-			// Allergy a = new Allergy(1,"cashews");
-			break;
-
-		case 2:
-			System.out.println("For what doctor do you want to create the xml?");
-			
-			if ( !doctorManager.listsAllDoctors().isEmpty() ) {
-				//System.out.println("before listalldocs");
-				listAllDoctors();
-				
-				System.out.println("Type number: ");
-				Integer choiceDoctor = Auxiliar.getPositiveInteger(reader);
-				Doctor newDoctor = doctorManager.getDoctorById(choiceDoctor);
-				DoctorXml.doctor2Xml(newDoctor);
-
-				File fileDoctor = new File("./xmls/External-Doctor.xml");
-				boolean existsDoctor = fileDoctor.exists();
-				if (existsDoctor) {
-					System.out.println("The XML file has been generated.");
-				} else {
-					System.out.println("The XML file could not been generated.");
-						}
-				}
-			else {System.out.println("There is no doctors added to the database!");}
-			
-
-			break;
-
-		
-		case 3:
-			
-			System.out.println("For what episode do you want to create the xml?");
-			
-			if ( !episodeManager.listsAllEpisodes().isEmpty() ) {
-				
-				listAllEpisodes();
-				
-				System.out.println("Type number: ");
-				Integer choiceEpisode = Auxiliar.getPositiveInteger(reader);
-				Episode newEpisode = episodeManager.getEpisode(choiceEpisode);
-				EpisodeXml.episode2Xml(newEpisode);
-
-				File fileEpisode = new File("./xmls/External-Episode.xml");
-				boolean existsEpisode = fileEpisode.exists();
-				if (existsEpisode) {
-					System.out.println("The XML file has been generated.");
-				} else {
-					System.out.println("The XML file could not been generated.");
-						}
-				}
-			else {System.out.println("There is no doctors added to the database!");}
-			
-
-			break;
-
-		
-		}
+		}while(true);
 	}
 
 	public static void generateHTML() {
