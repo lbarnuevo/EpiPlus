@@ -359,7 +359,7 @@ public class Auxiliar {
 		System.out.println("               DEFINITION OF ALLERGIES AND INTOLERANCES               ");
 		System.out.println("----------------------------------------------------------------------");
 		
-		System.out.println("LEGUMS/SEEDS/SPICES:");
+		System.out.println("\nLEGUMS/SEEDS/SPICES:");
 		System.out.println("Chickpea");
 		System.out.println("Tahini");
 		System.out.println("Cumin");
@@ -367,15 +367,15 @@ public class Auxiliar {
 		System.out.println("Tofu");
 		System.out.println("Cinnamon");
 		
-		System.out.println("CEREALS:");
+		System.out.println("\nCEREALS:");
 		System.out.println("Oat");
 		
-		System.out.println("FRUITS:");
+		System.out.println("\nFRUITS:");
 		System.out.println("Lemon");
 		System.out.println("Olive");
 		System.out.println("Tomato");
 		
-		System.out.println("VEGETABLES:");
+		System.out.println("\nVEGETABLES:");
 		System.out.println("Onion");
 		System.out.println("Red bell pepper");
 		System.out.println("Pepper");
@@ -385,12 +385,12 @@ public class Auxiliar {
 		System.out.println("Cucumber");
 		System.out.println("Chili");
 		
-		System.out.println("ANIMAL PRODUCTS:");
+		System.out.println("\nANIMAL PRODUCTS:");
 		System.out.println("Egg");
 		System.out.println("Feta cheese");		
 		System.out.println("Cow milk");
 
-		System.out.println("OTHERS:");
+		System.out.println("\nOTHERS:");
 		System.out.println("Baking soda");
 	}
 

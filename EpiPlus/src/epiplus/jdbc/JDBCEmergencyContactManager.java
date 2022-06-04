@@ -35,6 +35,20 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	}
 
 	@Override
+	public void updateEmergencyContact(EmergencyContact c) {
+		try {
+			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=?";
+			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+			ps.setString(1, c.getName());
+			ps.setFloat(2, c.getNumber());
+			ps.executeUpdate();
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
 	public void deleteEmergencyContact(EmergencyContact c) {
 		try {
 			String sql = "DELETE FROM emergencycontacts WHERE id=?";
@@ -47,6 +61,30 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		}
 	}
 
+	@Override
+	public EmergencyContact getECbyId(Integer id) {
+		EmergencyContact ec = null; 
+
+		try {
+			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
+			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
+			prep.setInt(1, id);
+			ResultSet rs = prep.executeQuery();
+
+			while (rs.next()) {
+				Integer eid = rs.getInt("id");
+				String n = rs.getString("name");
+				Float number = rs.getFloat("number");
+				ec = new EmergencyContact(eid, n, number);
+			}
+			rs.close();
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ec;
+	}
+	
 	@Override
 	public List<EmergencyContact> getEmergencyContactsOfPatient(Integer pacId) {
 
@@ -72,20 +110,6 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		}
 		return contactsList;
 	}
-
-	@Override
-	public void updateEmergencyContact(EmergencyContact c) {
-		try {
-			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=?";
-			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
-			ps.setString(1, c.getName());
-			ps.setFloat(2, c.getNumber());
-			ps.executeUpdate();
-			ps.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@Override
 	public List<EmergencyContact> listsAllEmergencyContacts() {
@@ -109,31 +133,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//return null;
 		return emergencyContactsList;
 	}
 	
-	@Override
-	public EmergencyContact getECbyId(Integer id) {
-		EmergencyContact ec = null; 
-
-		try {
-			String sql = "SELECT * FROM emergencycontacts WHERE id LIKE ?";
-			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
-			prep.setInt(1, id);
-			ResultSet rs = prep.executeQuery();
-
-			while (rs.next()) {
-				Integer eid = rs.getInt("id");
-				String n = rs.getString("name");
-				Float number = rs.getFloat("number");
-				ec = new EmergencyContact(eid, n, number);
-			}
-			rs.close();
-			prep.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ec;
-	}
 }

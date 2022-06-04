@@ -145,8 +145,36 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 		return doctor;
 	}
-	
-	
+
+	@Override
+	public void updateDoctor(Doctor d) {
+		try {
+			String sql = "UPDATE doctors" + " SET name=?," + " email=?," + " hospitalName=?," + " photo=?";
+			PreparedStatement p = manager.getConnection().prepareStatement(sql);
+			p.setString(1, d.getName());
+			p.setString(2, d.getEmail());
+			p.setString(3, d.getHospitalName());
+			p.setBytes(4, d.getPhoto());
+			p.executeUpdate();
+			p.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteDoctor(Doctor d) {
+		try {
+			String sql = "DELETE FROM doctors WHERE id=?";
+			PreparedStatement p = manager.getConnection().prepareStatement(sql);
+			p.setInt(1, d.getId());
+			p.executeUpdate();
+			p.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public List<Patient> getPatientsOfDoctor(Integer DocId) {
 
@@ -179,36 +207,7 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 		return patientsList;
 	}
-
-	@Override
-	public void updateDoctor(Doctor d) {
-		try {
-			String sql = "UPDATE doctors" + " SET name=?," + " email=?," + " hospitalName=?," + " photo=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setString(1, d.getName());
-			p.setString(2, d.getEmail());
-			p.setString(3, d.getHospitalName());
-			p.setBytes(4, d.getPhoto());
-			p.executeUpdate();
-			p.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void deleteDoctor(Doctor d) {
-		try {
-			String sql = "DELETE FROM doctors WHERE id=?";
-			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setInt(1, d.getId());
-			p.executeUpdate();
-			p.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	@Override
 	public List<Doctor> listsAllDoctors() {
 
