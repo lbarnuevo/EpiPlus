@@ -143,7 +143,7 @@ public class JDBCManager {
 			sql = "CREATE TABLE emergencycontacts (" 
 					+ " id	 	INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " name	TEXT NOT NULL," 
-					+ " number	INTEGER NOT NULL," 
+					+ " number	TEXT NOT NULL," 
 					+ " patientId INTEGER NOT NULL REFERENCES patients(id) ON DELETE CASCADE"
 					+ ");";
 

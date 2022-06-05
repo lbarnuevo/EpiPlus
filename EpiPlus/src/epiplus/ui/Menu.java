@@ -1256,7 +1256,7 @@ public class Menu {
 				ecManager.updateEmergencyContact(ec);
 			} else if (toChange.equalsIgnoreCase("number")) {
 				System.out.println("Input new number: ");
-				ec.setNumber(Auxiliar.getPositiveFloat(reader));
+				ec.setNumber(Auxiliar.getStringNoSpaces(reader));
 				ecManager.updateEmergencyContact(ec);
 			}
 		}

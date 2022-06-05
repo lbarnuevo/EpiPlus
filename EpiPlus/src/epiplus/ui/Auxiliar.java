@@ -244,7 +244,7 @@ public class Auxiliar {
 		String name = getString(reader);
 
 		System.out.println("Telephone number: ");
-		Float number = getPositiveFloat(reader);
+		String number = getStringNoSpaces(reader);
 
 		EmergencyContact ec = new EmergencyContact(name, number, patient);
 		return ec;

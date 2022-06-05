@@ -21,7 +21,7 @@ public class EmergencyContact {
 	@XmlAttribute
 	private String name;
 	@XmlElement
-	private Float number;
+	private String number;
 	@XmlElement
 	private Patient patient;
 	
@@ -29,14 +29,14 @@ public class EmergencyContact {
 		super();
 	}
 
-	public EmergencyContact(Integer id, String name, Float number) {
+	public EmergencyContact(Integer id, String name, String number) {
 		super();
 		this.id= id;
 		this.name=name;
 		this.number=number;
 	}
 	
-	public EmergencyContact(String name, Float number, Patient patient) {
+	public EmergencyContact(String name, String number, Patient patient) {
 		super();
 		this.name=name;
 		this.number=number;
@@ -67,11 +67,11 @@ public class EmergencyContact {
 		this.name = name;
 	}
 
-	public Float getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Float number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
