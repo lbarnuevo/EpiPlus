@@ -1074,7 +1074,7 @@ public class Menu {
 				} else {
 					listDoctors(docs);
 					do {
-						System.out.println("\nIntroduce the doctor´s id: ");
+						System.out.println("\nIntroduce the doctor's id: ");
 						d = doctorManager.getDoctorById(Auxiliar.getPositiveInteger(reader));
 					} while (d == null);
 					return d;
