@@ -703,11 +703,12 @@ public class Menu {
 				}
 
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
+				
 				if (d.getPhoto() == null) {
 					System.out.println("You don't have a photo. If you want to add one, type 'photo': ");
 				}
+				
 				String toChange = Auxiliar.getStringNoSpaces(reader);
-
 				if (toChange.equalsIgnoreCase("name")) {
 					System.out.println("Input new name: ");
 					String toChangeName = Auxiliar.getString(reader);
@@ -741,8 +742,12 @@ public class Menu {
 
 				System.out.println(
 						"\nWhich information would you like to change? \n(you won't be able to change yor date of birth or email) ");
-				String toChange = Auxiliar.getString(reader);
 
+				if (p.getPhoto() == null) {
+					System.out.println("You don't have a photo. If you want to add one, type 'photo': ");
+				}
+				
+				String toChange = Auxiliar.getStringNoSpaces(reader);
 				if (toChange.equalsIgnoreCase("name")) {
 					System.out.println("Input new NAME: ");
 					String toChangeName = Auxiliar.getString(reader);
@@ -766,7 +771,7 @@ public class Menu {
 					String new_diet = Auxiliar.getDiet(reader);
 					p.setDiet(new_diet);
 					patientManager.updatePatient(p);
-				} else if (toChange.equalsIgnoreCase("exercise")) {
+				} else if (toChange.equalsIgnoreCase("exercise")|| toChange.equalsIgnoreCase("exerciseperweek")) {
 					System.out.println("Input new amount of exercise per week (hours): ");
 					p.setEx_per_week(Auxiliar.getPositiveInteger(reader));
 					patientManager.updatePatient(p);
