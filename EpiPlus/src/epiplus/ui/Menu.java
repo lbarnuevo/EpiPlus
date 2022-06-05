@@ -703,6 +703,9 @@ public class Menu {
 				}
 
 				System.out.println("\nWhich information would you like to change? (you cannot change your email): ");
+				if (d.getPhoto() == null) {
+					System.out.println("You currently don't have a photo. If you want to add one, type 'photo': ");
+				}
 				String toChange = Auxiliar.getString(reader);
 
 				if (toChange.equalsIgnoreCase("name")) {
