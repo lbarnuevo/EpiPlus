@@ -107,7 +107,7 @@ public class Medication implements Serializable{
 
 	@Override
 	public String toString() {
-		return "MEDICATION [ID = " + id + ", NAME = " + name + "]";
+		return "\nMEDICATION [ID = " + id + ", NAME = " + name + "]";
 	}
 	
 }

@@ -237,7 +237,7 @@ public class Auxiliar {
 
 
 	public static EmergencyContact createEmergencyContacts(BufferedReader reader, Patient patient) throws IOException {
-		System.out.println("Input emergency contact");
+		System.out.println("\nInput your emergency contact:");
 		System.out.println("");
 
 		System.out.println("Name: ");
@@ -264,9 +264,9 @@ public class Auxiliar {
 	public static PatientMedication createPMed(Patient patient, Medication med) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-		System.out.println("Input frequency: ");
+		System.out.println("Input frequency (times per day): ");
 		Integer freq = getPositiveInteger(reader);
-		System.out.println("Input amount: ");
+		System.out.println("Input amount (mg): ");
 		Float amount = getPositiveFloat(reader);
 
 		PatientMedication pmed = new PatientMedication(freq, amount, patient, med);
