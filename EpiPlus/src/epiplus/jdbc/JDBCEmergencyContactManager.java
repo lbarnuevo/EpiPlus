@@ -25,7 +25,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			String sql = "INSERT INTO emergencycontacts (name,number,patientId) VALUES (?,?,?)";
 			PreparedStatement prep = manager.getConnection().prepareStatement(sql);
 			prep.setString(1, c.getName());
-			prep.setFloat(2, c.getNumber());
+			prep.setString(2, c.getNumber());
 			prep.setInt(3, c.getPatient().getId());
 			prep.executeUpdate();
 			prep.close();
@@ -40,7 +40,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, c.getName());
-			ps.setFloat(2, c.getNumber());
+			ps.setString(2, c.getNumber());
 			ps.executeUpdate();
 			ps.close();
 		} catch (Exception e) {
@@ -74,7 +74,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			while (rs.next()) {
 				Integer eid = rs.getInt("id");
 				String n = rs.getString("name");
-				Float number = rs.getFloat("number");
+				String number = rs.getString("number");
 				ec = new EmergencyContact(eid, n, number);
 			}
 			rs.close();
@@ -99,7 +99,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			while (rs.next()) {
 				Integer id = rs.getInt("id");
 				String name = rs.getString("name");
-				Float number = rs.getFloat("number");
+				String number = rs.getString("number");
 				EmergencyContact emergencyContact = new EmergencyContact(id, name, number);
 				contactsList.add(emergencyContact);
 			}
@@ -124,7 +124,7 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 			while (r.next()) {
 				Integer id = r.getInt("id");
 				String name = r.getString("name");
-				Float number = r.getFloat("number");
+				String number = r.getString("number");
 				EmergencyContact contact = new EmergencyContact(id, name, number);
 				emergencyContactsList.add(contact);
 			}
