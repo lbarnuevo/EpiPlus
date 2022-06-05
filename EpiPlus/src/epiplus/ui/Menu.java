@@ -1008,16 +1008,33 @@ public class Menu {
 	private static void listMedications(Patient p) {
 		List<Medication> meds = pmManager.getMedicationsOfPatient(p.getId());
 		PatientMedication pm = null;
-
-		for (Medication m : meds) {
-			System.out.println(m.toString());
-			pm = pmManager.getPatientMedication(p, m);
-			System.out.println("\n" + pm.toString());
-			System.out.println("---------------------------------\n");
-		}
-		// TODO ADD A IF ...isEmpty()--> You have no medications registered?
+		
+		if (meds.isEmpty()) {
+			System.out.println("You have not registered any medications yet.");
+			return; 
+		} else {
+			for (Medication m : meds) {
+				System.out.println(m.toString());
+				pm = pmManager.getPatientMedication(p, m);
+				System.out.println("\n" + pm.toString());
+				System.out.println("---------------------------------\n");
+			}
+		}		
 	}
 
+	public static void listAllMedications() {
+		List<Medication> medications = medicationManager.listsAllMedication();
+		if (!medications.isEmpty()) {
+			for (Medication m : medications) {
+				System.out.println(m.toString());
+				System.out.println("-----------------------------\n");
+			}
+		} else {
+			System.out.println("There are 0 medications in the database!");
+		}
+	}
+	
+	
 	// Methods for doing operations on doctors from a patients account
 	private static Doctor searchDoctor() {
 		do {
@@ -1116,8 +1133,8 @@ public class Menu {
 				d.addPatient(p);
 
 				patientManager.assignDoctor(p, d);
+				System.out.println("Doctor assigned succesfully! You can check 'See my profile' to see it");
 				return;
-				//TODO syso("Doctor assigned successfully");
 			}
 		}
 	}
@@ -1130,6 +1147,8 @@ public class Menu {
 			patientManager.unassignDoctor(p, p.getDoctor());
 			p.getDoctor().removePatient(p);
 			p.setDoctor(null);
+			System.out.println("Doctor unassigned succesfully! You can check 'See my profile' to see it");
+
 		}
 	}
 
@@ -1152,17 +1171,6 @@ public class Menu {
 		}
 	}
 
-	public static void listAllMedications() {
-		List<Medication> medications = medicationManager.listsAllMedication();
-		if (!medications.isEmpty()) {
-			for (Medication m : medications) {
-				System.out.println(m.toString());
-				System.out.println("-----------------------------\n");
-			}
-		} else {
-			System.out.println("There are 0 medications in the database!");
-		}
-	}
 
 	// Methods for emergency contacts
 	private static EmergencyContact selectEC(Patient p) {
@@ -1181,10 +1189,15 @@ public class Menu {
 	private static void listEC(Patient p) {
 		List<EmergencyContact> ecs = ecManager.getEmergencyContactsOfPatient(p.getId());
 
-		System.out.println("\n--- MY EMERGENCY CONTACTS ---");
-		for (EmergencyContact e2 : ecs) {
-			System.out.println(e2.toString());
-			System.out.println("-----------------------------\n");
+		if (ecs.isEmpty()) {
+			System.out.println("You have not registered any emergency contacts yet.");
+			return;
+		} else {
+			System.out.println("\n--- MY EMERGENCY CONTACTS ---");
+			for (EmergencyContact e2 : ecs) {
+				System.out.println(e2.toString());
+				System.out.println("-----------------------------\n");
+			}
 		}
 	}
 
@@ -1217,7 +1230,7 @@ public class Menu {
 				ecManager.addEmergencyContact(ec);
 				ec.setId(dbManager.getLastId());
 				p.addEC(ec);
-				// TODO syso("You successfully added your emergency contacts")
+				System.out.println("You have succesfully added an emergency contact!\n");
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -1257,6 +1270,7 @@ public class Menu {
 
 			p.removeEC(ec);
 			ecManager.deleteEmergencyContact(ec);
+			System.out.println("You have succesfully added an emergency contact!\\n");
 		}
 	}
 
@@ -1283,6 +1297,8 @@ public class Menu {
 
 				PatientAllergy pa = new PatientAllergy(a2, p);
 				paManager.assignPatientAllergy(pa);
+				System.out.println("Allergy added succesfully!\n");
+
 			}
 		}
 	}
@@ -1297,6 +1313,7 @@ public class Menu {
 			a.removePatient(p);
 
 			paManager.unassignPatientAllergy(pa);
+			System.out.println("Allergy removed succesfully!\n");
 		}
 	}
 
@@ -1329,12 +1346,15 @@ public class Menu {
 	private static void listAllergy(Patient p) {
 		List<Allergy> allergies = paManager.getAllergiesOfPatient(p.getId());
 
-		System.out.println("\n--- MY ALLERGIES ---");
-		for (Allergy a : allergies) {
-			System.out.println(a.toString());
-			System.out.println("-----------------------------\n");
+		if (allergies.isEmpty()) {
+			System.out.println("You have not registered any allergies yet.\n ");
+		} else {
+			System.out.println("\n--- MY ALLERGIES ---");
+			for (Allergy a : allergies) {
+				System.out.println(a.toString());
+				System.out.println("-----------------------------\n");
+			}
 		}
-		// TODO ADD A IF ...isEmpty()--> You have no allergies registered?
 	}
 
 	// Showing evolution of patient method
