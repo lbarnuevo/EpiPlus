@@ -1124,7 +1124,7 @@ public class Menu {
 
 	private static void unassignDoctor(Patient p) {
 		if (p.getDoctor() == null) {
-			System.out.println("You have not registered any doctor");
+			System.out.println("\nYou have not registered any doctor");
 			return;
 		} else {
 			patientManager.unassignDoctor(p, p.getDoctor());
