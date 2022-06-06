@@ -60,7 +60,7 @@ public class Menu {
 				System.out.println(" 5. I forgot my password                                       ");
 				System.out.println(" 0. Exit the program                                           ");
 				System.out.println("---------------------------------------------------------------");
-				System.out.println("\n\nPlease chose one of the previous options: ");
+				System.out.println("\n\nPlease choose one of the previous options: ");
 
 				int choice = Auxiliar.getPositiveInteger(reader);
 				switch (choice) {
