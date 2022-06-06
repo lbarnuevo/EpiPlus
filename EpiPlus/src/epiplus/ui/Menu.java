@@ -448,7 +448,7 @@ public class Menu {
 
 	// Menus and general methods
 	private static boolean continueProccess() {
-		System.out.println("Do you want to continue the process? (Yes -> Y || No -> N): ");
+		System.out.println("Do you want to continue with the process? (Yes -> Y || No -> N): ");
 		return Auxiliar.askConfirmation(reader);
 	}
 
@@ -971,7 +971,7 @@ public class Menu {
 			PatientMedication pm = getMedFromPatient(p);
 			Medication med = pm.getMedication();
 			p.removeMedication(med);
-			med.removePatient(p);
+			med.removePatient(p); // TODO "Cannot invoke "epiplus.pojos.Medication.removePatient(epiplus.pojos.Patient)" because "med" is null". Jódete Manuel.
 
 			pmManager.unassignPatientMedication(pm);
 		}
@@ -1238,7 +1238,7 @@ public class Menu {
 				ecManager.addEmergencyContact(ec);
 				ec.setId(dbManager.getLastId());
 				p.addEC(ec);
-				System.out.println("You have succesfully added an emergency contact!\n");
+				System.out.println("You have succesfully added an emergency contact! Continue with the process to add more contacts. \n");
 				return;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -1545,7 +1545,7 @@ public class Menu {
 
 		for (Allergy a : allergies) {
 			for (int i = 0; i < ingredientsHummus.length; i++) {
-				if (a.getName() == ingredientsHummus[i]) {
+				if (a.getName().equals(ingredientsHummus[i])) {
 					System.out.println("CAREFUL: This recipe contains " + ingredientsHummus[i] + ". "
 							+ "Replace the ingredient or choose another recipe.");
 				}
@@ -1569,7 +1569,7 @@ public class Menu {
 
 		for (Allergy a : allergies) {
 			for (int i = 0; i < ingredientsShakshuka.length; i++) {
-				if (a.getName() == ingredientsShakshuka[i]) {
+				if (a.getName().equals(ingredientsShakshuka[i])) {
 					System.out.println("CAREFUL: This recipe contains " + ingredientsShakshuka[i] + ". "
 							+ "Replace the ingredient or choose another recipe.");
 				}
@@ -1609,7 +1609,7 @@ public class Menu {
 
 		for (Allergy a : allergies) {
 			for (int i = 0; i < ingredientsSalad.length; i++) {
-				if (a.getName() == ingredientsSalad[i]) {
+				if (a.getName().equals(ingredientsSalad[i])) {
 					System.out.println("CAREFUL: This recipe contains " + ingredientsSalad[i] + ". "
 							+ "Replace the ingredient or choose another recipe.");
 				}
@@ -1654,7 +1654,7 @@ public class Menu {
 
 		for (Allergy a : allergies) {
 			for (int i = 0; i < ingredientsNoodles.length; i++) {
-				if (a.getName() == ingredientsNoodles[i]) {
+				if (a.getName().equals(ingredientsNoodles[i])) {
 					System.out.println("CAREFUL: This recipe contains " + ingredientsNoodles[i] + ". "
 							+ "Replace the ingredient or choose another recipe.");
 				}
@@ -1682,7 +1682,7 @@ public class Menu {
 
 		for (Allergy a : allergies) {
 			for (int i = 0; i < ingredientsOatmeal.length; i++) {
-				if (a.getName() == ingredientsOatmeal[i]) {
+				if (a.getName().equals(ingredientsOatmeal[i])) {
 					System.out.println("CAREFUL: This recipe contains " + ingredientsOatmeal[i] + ". "
 							+ "Replace the ingredient or choose another recipe.");
 				}
