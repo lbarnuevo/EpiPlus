@@ -470,7 +470,7 @@ public class Menu {
 
 			switch (choice) {
 			case 1:
-				p = selectPatient(d);
+				p = selectPatient(d); //TODO Lucía
 				System.out.println("\n" + p.toString());
 				break;
 			case 2:
