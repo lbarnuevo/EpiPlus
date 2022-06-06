@@ -471,7 +471,7 @@ public class Menu {
 			switch (choice) {
 			case 1:
 				p = selectPatient(d); //TODO Lucía
-				System.out.println("\n" + p.toString());
+				seeUserPatient(p);
 				break;
 			case 2:
 				p = selectPatient(d);
