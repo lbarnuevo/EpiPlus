@@ -137,18 +137,17 @@ public class JDBCPatientManager implements PatientManager {
 	@Override
 	public void updatePatient(Patient p) {
 		try {
-			String sql = "UPDATE patients" + " SET name=?," + " email=?," + " photo=?," + " birthday=?," + " height=?,"
+			String sql = "UPDATE patients" + " SET name=?," + " photo=?," + " birthday=?," + " height=?,"
 					+ " weight=?," + " lifestyle=?," + " ex_per_week=?," + " diet=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getName());
-			ps.setString(2, p.getEmail());
-			ps.setBytes(3, p.getPhoto());
-			ps.setDate(4, p.getBirthday());
-			ps.setFloat(5, p.getHeight());
-			ps.setFloat(6, p.getWeight());
-			ps.setString(7, p.getLifestyle());
-			ps.setInt(8, p.getEx_per_week());
-			ps.setString(9, p.getDiet());
+			ps.setBytes(2, p.getPhoto());
+			ps.setDate(3, p.getBirthday());
+			ps.setFloat(4, p.getHeight());
+			ps.setFloat(5, p.getWeight());
+			ps.setString(6, p.getLifestyle());
+			ps.setInt(7, p.getEx_per_week());
+			ps.setString(8, p.getDiet());
 			ps.executeUpdate();
 			ps.close();
 		} catch (Exception e) {

@@ -147,21 +147,21 @@ public class JDBCDoctorManager implements DoctorManager {
 	}
 
 	@Override
-	public void updateDoctor(Doctor d) {
+	public void updateDoctor(Doctor doctor) {
 		try {
-			String sql = "UPDATE doctors" + " SET name=?," + " email=?," + " hospitalName=?," + " photo=?";
+			String sql = "UPDATE doctors" + " SET name=?," + " hospitalName=?," + " photo=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
-			p.setString(1, d.getName());
-			p.setString(2, d.getEmail());
-			p.setString(3, d.getHospitalName());
-			p.setBytes(4, d.getPhoto());
+			p.setString(1, doctor.getName());
+			p.setString(2, doctor.getHospitalName());
+			p.setBytes(3, doctor.getPhoto());
 			p.executeUpdate();
 			p.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	@Override
 	public void deleteDoctor(Doctor d) {
 		try {
@@ -234,4 +234,5 @@ public class JDBCDoctorManager implements DoctorManager {
 		}
 		return doctorsList;
 	}
+
 }
