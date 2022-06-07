@@ -97,6 +97,7 @@
 		<a href = "../html_website/epierdiagram.html">E-R diagram</a>
 		<a href = "../html_website/epiusecasediagram.html">Use case diagram</a>
 		<a href = "../html_website/epimockup.html">Mockup</a>
+		
 		</div>
 		
 		<div class = "aside">
@@ -106,7 +107,7 @@
 		It can create xml files in order to show data in more human-readable way. It also produces websites!
 		</p>
 		<p></p>
-		<p><b><a href="">System design of the EpiPlus </a></b></p>
+		
 		<p><b><a href="">Manual of the EpiPlus</a></b></p>
 		
 		
@@ -116,7 +117,7 @@
 		<p>Isabel Martínez Torres,</p>
 		<p>Lucena Vicente Marta,</p>
 		<p>Aleksandra Krzemień</p>
-		
+		<p><b>Enjoy our project!</b></p>
 
 		</div>
 		
@@ -125,7 +126,7 @@
 			<p><b>Id: <xsl:value-of select="//@id" /></b></p>
 			<p><b>Name of the medication: <xsl:value-of select="//@name" /></b></p>
 			
-			<p><b> Symptomps: </b> <xsl:value-of select= "//patientss"/></p>
+			<p><b> Patients: </b> <xsl:value-of select= "//patients"/></p>
 		
 		</div>
 		

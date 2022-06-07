@@ -104,7 +104,7 @@
 		It can create xml files in order to show data in more human-readable way. It also produces websites!
 		</p>
 		<p></p>
-		<p><b><a href="">System design of the EpiPlus </a></b></p>
+		
 		<p><b><a href="">Manual of the EpiPlus</a></b></p>
 		
 		
@@ -114,7 +114,7 @@
 		<p>Isabel Martínez Torres,</p>
 		<p>Lucena Vicente Marta,</p>
 		<p>Aleksandra Krzemień</p>
-		
+		<p><b>Enjoy our project!</b></p>
 
 		</div>
 		
