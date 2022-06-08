@@ -830,7 +830,7 @@ public class Menu {
 			listPatients(pts);
 			
 			do {
-				System.out.println("Introduce the patient's id: ");
+				System.out.println("\nIntroduce the patient's id: ");
 				int id = Auxiliar.getPositiveInteger(reader);
 				p = patientManager.getPatientById(id);
 			} while (p == null);
