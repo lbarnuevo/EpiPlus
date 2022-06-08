@@ -477,7 +477,9 @@ public class Menu {
 				break;
 			case 2:
 				p = selectPatient(d);
-				showEvolution(p);
+				if (p != null) {
+					showEvolution(p);
+				}
 				break;
 			case 3:
 				seeUserDoctor(d);
@@ -685,8 +687,13 @@ public class Menu {
 
 		System.out.println("\n--- MY PATIENTS ---");
 		List<Patient> pList = doctorManager.getPatientsOfDoctor(d.getId());
-		for (Patient patient : pList) {
-			patient.toStringForDoctors();
+		
+		if (pList.isEmpty()) {
+			System.out.println("You do not have any patients");
+		} else {
+			for (Patient patient : pList) {
+				patient.toStringForDoctors();
+			}
 		}
 	}
 
