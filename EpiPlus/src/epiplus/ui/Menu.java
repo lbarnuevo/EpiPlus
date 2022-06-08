@@ -702,7 +702,7 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
-				System.out.println(d.toString());
+				System.out.println("\n" + d.toString());
 
 				if (d.getPhoto() != null) {
 					System.out.println("Photo (shown in another window) =");
@@ -733,8 +733,11 @@ public class Menu {
 					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
 					d.setPhoto(toChangePhoto);
 					doctorManager.updateDoctor(d);
+				} else if (toChange.equalsIgnoreCase("email")) {
+					System.out.println("In order to change your email, you must creaate a new account.");
 				}
 
+				System.out.println("If you want to change another atribute, choose continue proccess");
 				if (continueProccess() == false) {
 					return;
 				}
@@ -747,6 +750,7 @@ public class Menu {
 			return;
 		} else {
 			while (true) {
+				System.out.println("");
 				seeUserPatient(p);
 
 				System.out.println(
@@ -803,8 +807,11 @@ public class Menu {
 					byte[] toChangePhoto = Auxiliar.getPhoto(reader);
 					p.setPhoto(toChangePhoto);
 					patientManager.updatePatient(p);
+				} else if (toChange.equalsIgnoreCase("email")) {
+					System.out.println("In order to change your email, you must creaate a new account.");
 				}
 
+				System.out.println("If you want to change another atribute, choose continue proccess");
 				if (continueProccess() == false) {
 					return;
 				}
@@ -955,6 +962,7 @@ public class Menu {
 					PatientMedication pm = Auxiliar.createPMed(p, med2);
 					pmManager.assignPatientMedication(pm);
 				}
+				System.out.println("Medication added succesfully!\n");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -984,8 +992,9 @@ public class Menu {
 			Medication med = pm.getMedication();
 			p.removeMedication(med);
 			med.removePatient(p); // TODO "Cannot invoke "epiplus.pojos.Medication.removePatient(epiplus.pojos.Patient)" because "med" is null". Jódete Manuel.
-
+									//TODO CHECK JDBC 
 			pmManager.unassignPatientMedication(pm);
+			System.out.println("Medication removed succesfully!\n");
 		}
 	}
 
