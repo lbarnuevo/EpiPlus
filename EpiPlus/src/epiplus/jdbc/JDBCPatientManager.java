@@ -138,7 +138,7 @@ public class JDBCPatientManager implements PatientManager {
 	public void updatePatient(Patient p) {
 		try {
 			String sql = "UPDATE patients" + " SET name=?," + " photo=?," + " birthday=?," + " height=?,"
-					+ " weight=?," + " lifestyle=?," + " ex_per_week=?," + " diet=?";
+					+ " weight=?," + " lifestyle=?," + " ex_per_week=?," + " diet=? WHERE id=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, p.getName());
 			ps.setBytes(2, p.getPhoto());
@@ -148,6 +148,7 @@ public class JDBCPatientManager implements PatientManager {
 			ps.setString(6, p.getLifestyle());
 			ps.setInt(7, p.getEx_per_week());
 			ps.setString(8, p.getDiet());
+			ps.setInt(9, p.getId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (Exception e) {

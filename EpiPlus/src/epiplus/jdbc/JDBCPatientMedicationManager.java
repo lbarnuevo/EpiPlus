@@ -52,10 +52,12 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 	@Override
 	public void updatePatientMedication(PatientMedication pm) {
 		try {
-			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=?";
+			String sql = "UPDATE patientmedication " + " SET frequency=?," + " amount=? WHERE patientId=? AND medicationId=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setInt(1, pm.getFrequency());
 			p.setFloat(2, pm.getAmount());
+			p.setInt(3, pm.getPatient().getId());
+			p.setInt(4, pm.getMedication().getId());
 			p.executeUpdate();
 			p.close();
 		} catch (Exception e) {

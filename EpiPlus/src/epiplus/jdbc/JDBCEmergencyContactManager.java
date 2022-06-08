@@ -37,10 +37,11 @@ public class JDBCEmergencyContactManager implements EmergencyContactManager {
 	@Override
 	public void updateEmergencyContact(EmergencyContact c) {
 		try {
-			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=?";
+			String sql = "UPDATE emergencycontacts" + " SET name=?," + " number=? WHERE id=?";
 			PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 			ps.setString(1, c.getName());
 			ps.setString(2, c.getNumber());
+			ps.setInt(3, c.getId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (Exception e) {

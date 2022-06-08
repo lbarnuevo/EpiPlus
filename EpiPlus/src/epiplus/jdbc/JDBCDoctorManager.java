@@ -149,11 +149,12 @@ public class JDBCDoctorManager implements DoctorManager {
 	@Override
 	public void updateDoctor(Doctor doctor) {
 		try {
-			String sql = "UPDATE doctors" + " SET name=?," + " hospitalName=?," + " photo=?";
+			String sql = "UPDATE doctors" + " SET name=?," + " hospitalName=?," + " photo=? WHERE id=?";
 			PreparedStatement p = manager.getConnection().prepareStatement(sql);
 			p.setString(1, doctor.getName());
 			p.setString(2, doctor.getHospitalName());
 			p.setBytes(3, doctor.getPhoto());
+			p.setInt(4, doctor.getId());
 			p.executeUpdate();
 			p.close();
 		} catch (Exception e) {
