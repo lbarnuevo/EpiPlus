@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="EpiPlus/src"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/istack-commons-runtime-3.0.7.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/javax.activation-api-1.2.0.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/javax.persistence_2.1.1.v201509150925.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/jaxb-impl-2.3.1.jar"/>
+	<classpathentry kind="lib" path="EpiPlus/lib/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="output" path="EpiPlus/bin"/>
+</classpath>
