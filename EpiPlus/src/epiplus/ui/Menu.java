@@ -649,9 +649,7 @@ public class Menu {
 				System.out.println("That is not an option. ");
 			}
 		} while (true);
-	}
-
-	//TODO trying something out 
+	} 
 	
 	// Operations on User
 	private static void seeUserPatient(Patient p) {
@@ -993,8 +991,8 @@ public class Menu {
 			PatientMedication pm = getMedFromPatient(p);
 			Medication med = pm.getMedication();
 			p.removeMedication(med);
-			med.removePatient(p); // TODO "Cannot invoke "epiplus.pojos.Medication.removePatient(epiplus.pojos.Patient)" because "med" is null". Jódete Manuel.
-									//TODO CHECK JDBC 
+			med.removePatient(p); 
+			
 			pmManager.unassignPatientMedication(pm);
 			System.out.println("Medication removed succesfully!\n");
 		}

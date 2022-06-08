@@ -104,7 +104,7 @@ public class JDBCPatientMedicationManager implements PatientMedicationManager{
 			while (rs.next()) {
 				Integer freq = rs.getInt("frequency");
 				Float  amount= rs.getFloat("amount");
-				pm = new PatientMedication (freq,amount);
+				pm = new PatientMedication (freq, amount, p, m);
 			}
 			rs.close();
 			prep.close();
