@@ -651,6 +651,8 @@ public class Menu {
 		} while (true);
 	}
 
+	//TODO trying something out 
+	
 	// Operations on User
 	private static void seeUserPatient(Patient p) {
 		System.out.println("\nShowing user's information...\n");
