@@ -470,8 +470,10 @@ public class Menu {
 
 			switch (choice) {
 			case 1:
-				p = selectPatient(d); //TODO Lucía
-				seeUserPatient(p);
+				p = selectPatient(d);
+				if (p != null) {
+					seeUserPatient(p);
+				}
 				break;
 			case 2:
 				p = selectPatient(d);
@@ -805,21 +807,24 @@ public class Menu {
 
 	// Methods for working with patients from doctor
 	private static Patient selectPatient(Doctor d) {
-		listPatients(d);
+		List<Patient> pts = doctorManager.getPatientsOfDoctor(d.getId());
 		Patient p = null;
-
-		do {
-			System.out.println("Introduce the patient's id: ");
-			int id = Auxiliar.getPositiveInteger(reader);
-			p = patientManager.getPatientById(id);
-		} while (p == null);
-
+		
+		if (pts.isEmpty()) {
+			System.out.println("You do not have any patients");
+		} else {
+			listPatients(pts);
+			
+			do {
+				System.out.println("Introduce the patient's id: ");
+				int id = Auxiliar.getPositiveInteger(reader);
+				p = patientManager.getPatientById(id);
+			} while (p == null);
+		}
 		return p;
 	}
 
-	private static void listPatients(Doctor d) {
-		List<Patient> pts = doctorManager.getPatientsOfDoctor(d.getId());
-
+	private static void listPatients(List<Patient> pts) {
 		for (Patient p : pts) {
 			System.out.println(p.toStringForDoctors());
 		}
