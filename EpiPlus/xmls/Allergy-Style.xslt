@@ -105,7 +105,7 @@
 		</p>
 		<p></p>
 		
-		<p><b><a href="">Manual of the EpiPlus</a></b></p>
+		<p><b><a href="../projects_documentation/EpiplusManual.pdf">Manual of the EpiPlus</a></b></p>
 		
 		
 		
